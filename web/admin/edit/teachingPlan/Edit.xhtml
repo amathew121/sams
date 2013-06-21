@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTeachingPlanTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_idTeachingPlan}" for="idTeachingPlan" />
+                    <h:inputText id="idTeachingPlan" value="#{teachingPlanController.selected.idTeachingPlan}" title="#{bundle.EditTeachingPlanTitle_idTeachingPlan}" required="true" requiredMessage="#{bundle.EditTeachingPlanRequiredMessage_idTeachingPlan}"/>
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_topicsPlanned}" for="topicsPlanned" />
+                    <h:inputTextarea rows="4" cols="30" id="topicsPlanned" value="#{teachingPlanController.selected.topicsPlanned}" title="#{bundle.EditTeachingPlanTitle_topicsPlanned}" required="true" requiredMessage="#{bundle.EditTeachingPlanRequiredMessage_topicsPlanned}"/>
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_plannedDate}" for="plannedDate" />
+                    <h:inputText id="plannedDate" value="#{teachingPlanController.selected.plannedDate}" title="#{bundle.EditTeachingPlanTitle_plannedDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_actualDate}" for="actualDate" />
+                    <h:inputText id="actualDate" value="#{teachingPlanController.selected.actualDate}" title="#{bundle.EditTeachingPlanTitle_actualDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_lectureNo}" for="lectureNo" />
+                    <h:inputText id="lectureNo" value="#{teachingPlanController.selected.lectureNo}" title="#{bundle.EditTeachingPlanTitle_lectureNo}" required="true" requiredMessage="#{bundle.EditTeachingPlanRequiredMessage_lectureNo}"/>
+                    <h:outputLabel value="#{bundle.EditTeachingPlanLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:selectOneMenu id="idFacultySubject" value="#{teachingPlanController.selected.idFacultySubject}" title="#{bundle.EditTeachingPlanTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.EditTeachingPlanRequiredMessage_idFacultySubject}">
+                        <f:selectItems value="#{facultySubjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{teachingPlanController.update}" value="#{bundle.EditTeachingPlanSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTeachingPlanViewLink}"/>
+                <br />
+                <h:commandLink action="#{teachingPlanController.prepareList}" value="#{bundle.EditTeachingPlanShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTeachingPlanIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

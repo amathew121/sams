@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAttendanceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAttendanceEmpty}" rendered="#{attendanceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{attendanceController.items.rowCount > 0}">
+                    <h:outputText value="#{attendanceController.pagination.pageFirstItem + 1}..#{attendanceController.pagination.pageLastItem + 1}/#{attendanceController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{attendanceController.previous}" value="#{bundle.Previous} #{attendanceController.pagination.pageSize}" rendered="#{attendanceController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{attendanceController.next}" value="#{bundle.Next} #{attendanceController.pagination.pageSize}" rendered="#{attendanceController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{attendanceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAttendanceTitle_idAttendance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAttendance}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAttendanceTitle_idLecture}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idLecture}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAttendanceTitle_idCurrentStudent}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCurrentStudent}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{attendanceController.prepareView}" value="#{bundle.ListAttendanceViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{attendanceController.prepareEdit}" value="#{bundle.ListAttendanceEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{attendanceController.destroy}" value="#{bundle.ListAttendanceDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{attendanceController.prepareCreate}" value="#{bundle.ListAttendanceCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAttendanceIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

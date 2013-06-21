@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFacultySubjectTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFacultySubjectLabel_idFacultySubject}"/>
+                    <h:outputText value="#{facultySubjectController.selected.idFacultySubject}" title="#{bundle.ViewFacultySubjectTitle_idFacultySubject}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectLabel_division}"/>
+                    <h:outputText value="#{facultySubjectController.selected.division}" title="#{bundle.ViewFacultySubjectTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectLabel_batch}"/>
+                    <h:outputText value="#{facultySubjectController.selected.batch}" title="#{bundle.ViewFacultySubjectTitle_batch}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectLabel_idSubject}"/>
+                    <h:outputText value="#{facultySubjectController.selected.idSubject}" title="#{bundle.ViewFacultySubjectTitle_idSubject}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectLabel_idFaculty}"/>
+                    <h:outputText value="#{facultySubjectController.selected.idFaculty}" title="#{bundle.ViewFacultySubjectTitle_idFaculty}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facultySubjectController.destroyAndView}" value="#{bundle.ViewFacultySubjectDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFacultySubjectEditLink}"/>
+                <br />
+                <h:commandLink action="#{facultySubjectController.prepareCreate}" value="#{bundle.ViewFacultySubjectCreateLink}" />
+                <br />
+                <h:commandLink action="#{facultySubjectController.prepareList}" value="#{bundle.ViewFacultySubjectShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFacultySubjectIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

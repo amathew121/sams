@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTeachingPlanTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_idTeachingPlan}"/>
+                    <h:outputText value="#{teachingPlanController.selected.idTeachingPlan}" title="#{bundle.ViewTeachingPlanTitle_idTeachingPlan}"/>
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_topicsPlanned}"/>
+                    <h:outputText value="#{teachingPlanController.selected.topicsPlanned}" title="#{bundle.ViewTeachingPlanTitle_topicsPlanned}"/>
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_plannedDate}"/>
+                    <h:outputText value="#{teachingPlanController.selected.plannedDate}" title="#{bundle.ViewTeachingPlanTitle_plannedDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_actualDate}"/>
+                    <h:outputText value="#{teachingPlanController.selected.actualDate}" title="#{bundle.ViewTeachingPlanTitle_actualDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_lectureNo}"/>
+                    <h:outputText value="#{teachingPlanController.selected.lectureNo}" title="#{bundle.ViewTeachingPlanTitle_lectureNo}"/>
+                    <h:outputText value="#{bundle.ViewTeachingPlanLabel_idFacultySubject}"/>
+                    <h:outputText value="#{teachingPlanController.selected.idFacultySubject}" title="#{bundle.ViewTeachingPlanTitle_idFacultySubject}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{teachingPlanController.destroyAndView}" value="#{bundle.ViewTeachingPlanDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTeachingPlanEditLink}"/>
+                <br />
+                <h:commandLink action="#{teachingPlanController.prepareCreate}" value="#{bundle.ViewTeachingPlanCreateLink}" />
+                <br />
+                <h:commandLink action="#{teachingPlanController.prepareList}" value="#{bundle.ViewTeachingPlanShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTeachingPlanIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateStudentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_admnNo}" for="admnNo" />
+                    <h:inputText id="admnNo" value="#{studentController.selected.admnNo}" title="#{bundle.CreateStudentTitle_admnNo}" required="true" requiredMessage="#{bundle.CreateStudentRequiredMessage_admnNo}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_studentName}" for="studentName" />
+                    <h:inputText id="studentName" value="#{studentController.selected.studentName}" title="#{bundle.CreateStudentTitle_studentName}" required="true" requiredMessage="#{bundle.CreateStudentRequiredMessage_studentName}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_gender}" for="gender" />
+                    <h:inputText id="gender" value="#{studentController.selected.gender}" title="#{bundle.CreateStudentTitle_gender}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_dob}" for="dob" />
+                    <h:inputText id="dob" value="#{studentController.selected.dob}" title="#{bundle.CreateStudentTitle_dob}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_phone}" for="phone" />
+                    <h:inputText id="phone" value="#{studentController.selected.phone}" title="#{bundle.CreateStudentTitle_phone}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_fatherName}" for="fatherName" />
+                    <h:inputText id="fatherName" value="#{studentController.selected.fatherName}" title="#{bundle.CreateStudentTitle_fatherName}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_motherName}" for="motherName" />
+                    <h:inputText id="motherName" value="#{studentController.selected.motherName}" title="#{bundle.CreateStudentTitle_motherName}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_address}" for="address" />
+                    <h:inputTextarea rows="4" cols="30" id="address" value="#{studentController.selected.address}" title="#{bundle.CreateStudentTitle_address}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{studentController.selected.email}" title="#{bundle.CreateStudentTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_cancelled}" for="cancelled" />
+                    <h:inputText id="cancelled" value="#{studentController.selected.cancelled}" title="#{bundle.CreateStudentTitle_cancelled}" />
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_idProgram}" for="idProgram" />
+                    <h:selectOneMenu id="idProgram" value="#{studentController.selected.idProgram}" title="#{bundle.CreateStudentTitle_idProgram}" required="true" requiredMessage="#{bundle.CreateStudentRequiredMessage_idProgram}">
+                        <f:selectItems value="#{programController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateStudentLabel_currentStudent}" for="currentStudent" />
+                    <h:selectOneMenu id="currentStudent" value="#{studentController.selected.currentStudent}" title="#{bundle.CreateStudentTitle_currentStudent}" >
+                        <f:selectItems value="#{currentStudentController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{studentController.create}" value="#{bundle.CreateStudentSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{studentController.prepareList}" value="#{bundle.CreateStudentShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateStudentIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

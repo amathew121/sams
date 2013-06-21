@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLectureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLectureLabel_idLecture}"/>
+                    <h:outputText value="#{lectureController.selected.idLecture}" title="#{bundle.ViewLectureTitle_idLecture}"/>
+                    <h:outputText value="#{bundle.ViewLectureLabel_lectureDate}"/>
+                    <h:outputText value="#{lectureController.selected.lectureDate}" title="#{bundle.ViewLectureTitle_lectureDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLectureLabel_lectureStartTime}"/>
+                    <h:outputText value="#{lectureController.selected.lectureStartTime}" title="#{bundle.ViewLectureTitle_lectureStartTime}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLectureLabel_lectureEndTime}"/>
+                    <h:outputText value="#{lectureController.selected.lectureEndTime}" title="#{bundle.ViewLectureTitle_lectureEndTime}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLectureLabel_idFacultySubject}"/>
+                    <h:outputText value="#{lectureController.selected.idFacultySubject}" title="#{bundle.ViewLectureTitle_idFacultySubject}"/>
+                    <h:outputText value="#{bundle.ViewLectureLabel_attendance}"/>
+                    <h:outputText value="#{lectureController.selected.attendance}" title="#{bundle.ViewLectureTitle_attendance}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lectureController.destroyAndView}" value="#{bundle.ViewLectureDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLectureEditLink}"/>
+                <br />
+                <h:commandLink action="#{lectureController.prepareCreate}" value="#{bundle.ViewLectureCreateLink}" />
+                <br />
+                <h:commandLink action="#{lectureController.prepareList}" value="#{bundle.ViewLectureShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLectureIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

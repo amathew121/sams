@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLectureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLectureEmpty}" rendered="#{lectureController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{lectureController.items.rowCount > 0}">
+                    <h:outputText value="#{lectureController.pagination.pageFirstItem + 1}..#{lectureController.pagination.pageLastItem + 1}/#{lectureController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{lectureController.previous}" value="#{bundle.Previous} #{lectureController.pagination.pageSize}" rendered="#{lectureController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{lectureController.next}" value="#{bundle.Next} #{lectureController.pagination.pageSize}" rendered="#{lectureController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{lectureController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_idLecture}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idLecture}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_lectureDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lectureDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_lectureStartTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lectureStartTime}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_lectureEndTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lectureEndTime}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_idFacultySubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFacultySubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLectureTitle_attendance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.attendance}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{lectureController.prepareView}" value="#{bundle.ListLectureViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lectureController.prepareEdit}" value="#{bundle.ListLectureEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lectureController.destroy}" value="#{bundle.ListLectureDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{lectureController.prepareCreate}" value="#{bundle.ListLectureCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLectureIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

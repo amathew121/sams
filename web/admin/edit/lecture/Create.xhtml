@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_idLecture}" for="idLecture" />
+                    <h:inputText id="idLecture" value="#{lectureController.selected.idLecture}" title="#{bundle.CreateLectureTitle_idLecture}" required="true" requiredMessage="#{bundle.CreateLectureRequiredMessage_idLecture}"/>
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
+                    <h:inputText id="lectureDate" value="#{lectureController.selected.lectureDate}" title="#{bundle.CreateLectureTitle_lectureDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureStartTime}" for="lectureStartTime" />
+                    <h:inputText id="lectureStartTime" value="#{lectureController.selected.lectureStartTime}" title="#{bundle.CreateLectureTitle_lectureStartTime}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
+                    <h:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:selectOneMenu id="idFacultySubject" value="#{lectureController.selected.idFacultySubject}" title="#{bundle.CreateLectureTitle_idFacultySubject}" >
+                        <f:selectItems value="#{facultySubjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLectureLabel_attendance}" for="attendance" />
+                    <h:selectOneMenu id="attendance" value="#{lectureController.selected.attendance}" title="#{bundle.CreateLectureTitle_attendance}" >
+                        <f:selectItems value="#{attendanceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lectureController.create}" value="#{bundle.CreateLectureSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{lectureController.prepareList}" value="#{bundle.CreateLectureShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLectureIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

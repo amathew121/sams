@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewStudentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStudentLabel_admnNo}"/>
+                    <h:outputText value="#{studentController.selected.admnNo}" title="#{bundle.ViewStudentTitle_admnNo}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_studentName}"/>
+                    <h:outputText value="#{studentController.selected.studentName}" title="#{bundle.ViewStudentTitle_studentName}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_gender}"/>
+                    <h:outputText value="#{studentController.selected.gender}" title="#{bundle.ViewStudentTitle_gender}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_dob}"/>
+                    <h:outputText value="#{studentController.selected.dob}" title="#{bundle.ViewStudentTitle_dob}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudentLabel_phone}"/>
+                    <h:outputText value="#{studentController.selected.phone}" title="#{bundle.ViewStudentTitle_phone}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_fatherName}"/>
+                    <h:outputText value="#{studentController.selected.fatherName}" title="#{bundle.ViewStudentTitle_fatherName}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_motherName}"/>
+                    <h:outputText value="#{studentController.selected.motherName}" title="#{bundle.ViewStudentTitle_motherName}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_address}"/>
+                    <h:outputText value="#{studentController.selected.address}" title="#{bundle.ViewStudentTitle_address}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_email}"/>
+                    <h:outputText value="#{studentController.selected.email}" title="#{bundle.ViewStudentTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_cancelled}"/>
+                    <h:outputText value="#{studentController.selected.cancelled}" title="#{bundle.ViewStudentTitle_cancelled}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_idProgram}"/>
+                    <h:outputText value="#{studentController.selected.idProgram}" title="#{bundle.ViewStudentTitle_idProgram}"/>
+                    <h:outputText value="#{bundle.ViewStudentLabel_currentStudent}"/>
+                    <h:outputText value="#{studentController.selected.currentStudent}" title="#{bundle.ViewStudentTitle_currentStudent}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{studentController.destroyAndView}" value="#{bundle.ViewStudentDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewStudentEditLink}"/>
+                <br />
+                <h:commandLink action="#{studentController.prepareCreate}" value="#{bundle.ViewStudentCreateLink}" />
+                <br />
+                <h:commandLink action="#{studentController.prepareList}" value="#{bundle.ViewStudentShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewStudentIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

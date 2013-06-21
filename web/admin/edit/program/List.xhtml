@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProgramTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListProgramEmpty}" rendered="#{programController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{programController.items.rowCount > 0}">
+                    <h:outputText value="#{programController.pagination.pageFirstItem + 1}..#{programController.pagination.pageLastItem + 1}/#{programController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{programController.previous}" value="#{bundle.Previous} #{programController.pagination.pageSize}" rendered="#{programController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{programController.next}" value="#{bundle.Next} #{programController.pagination.pageSize}" rendered="#{programController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{programController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProgramTitle_idProgram}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProgram}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProgramTitle_programName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.programName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProgramTitle_noOfSemesters}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noOfSemesters}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{programController.prepareView}" value="#{bundle.ListProgramViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{programController.prepareEdit}" value="#{bundle.ListProgramEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{programController.destroy}" value="#{bundle.ListProgramDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{programController.prepareCreate}" value="#{bundle.ListProgramCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListProgramIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCurrentStudentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_idCurrentStudent}"/>
+                    <h:outputText value="#{currentStudentController.selected.idCurrentStudent}" title="#{bundle.ViewCurrentStudentTitle_idCurrentStudent}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_semester}"/>
+                    <h:outputText value="#{currentStudentController.selected.semester}" title="#{bundle.ViewCurrentStudentTitle_semester}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_division}"/>
+                    <h:outputText value="#{currentStudentController.selected.division}" title="#{bundle.ViewCurrentStudentTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_batch}"/>
+                    <h:outputText value="#{currentStudentController.selected.batch}" title="#{bundle.ViewCurrentStudentTitle_batch}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_rollNo}"/>
+                    <h:outputText value="#{currentStudentController.selected.rollNo}" title="#{bundle.ViewCurrentStudentTitle_rollNo}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_provisional}"/>
+                    <h:outputText value="#{currentStudentController.selected.provisional}" title="#{bundle.ViewCurrentStudentTitle_provisional}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_academicYear}"/>
+                    <h:outputText value="#{currentStudentController.selected.academicYear}" title="#{bundle.ViewCurrentStudentTitle_academicYear}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_idCourse}"/>
+                    <h:outputText value="#{currentStudentController.selected.idCourse}" title="#{bundle.ViewCurrentStudentTitle_idCourse}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_admnNo}"/>
+                    <h:outputText value="#{currentStudentController.selected.admnNo}" title="#{bundle.ViewCurrentStudentTitle_admnNo}"/>
+                    <h:outputText value="#{bundle.ViewCurrentStudentLabel_attendance}"/>
+                    <h:outputText value="#{currentStudentController.selected.attendance}" title="#{bundle.ViewCurrentStudentTitle_attendance}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{currentStudentController.destroyAndView}" value="#{bundle.ViewCurrentStudentDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCurrentStudentEditLink}"/>
+                <br />
+                <h:commandLink action="#{currentStudentController.prepareCreate}" value="#{bundle.ViewCurrentStudentCreateLink}" />
+                <br />
+                <h:commandLink action="#{currentStudentController.prepareList}" value="#{bundle.ViewCurrentStudentShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCurrentStudentIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

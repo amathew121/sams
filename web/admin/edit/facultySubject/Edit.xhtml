@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFacultySubjectTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFacultySubjectLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:inputText id="idFacultySubject" value="#{facultySubjectController.selected.idFacultySubject}" title="#{bundle.EditFacultySubjectTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.EditFacultySubjectRequiredMessage_idFacultySubject}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{facultySubjectController.selected.division}" title="#{bundle.EditFacultySubjectTitle_division}" required="true" requiredMessage="#{bundle.EditFacultySubjectRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{facultySubjectController.selected.batch}" title="#{bundle.EditFacultySubjectTitle_batch}" required="true" requiredMessage="#{bundle.EditFacultySubjectRequiredMessage_batch}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{facultySubjectController.selected.idSubject}" title="#{bundle.EditFacultySubjectTitle_idSubject}" required="true" requiredMessage="#{bundle.EditFacultySubjectRequiredMessage_idSubject}">
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectLabel_idFaculty}" for="idFaculty" />
+                    <h:selectOneMenu id="idFaculty" value="#{facultySubjectController.selected.idFaculty}" title="#{bundle.EditFacultySubjectTitle_idFaculty}" required="true" requiredMessage="#{bundle.EditFacultySubjectRequiredMessage_idFaculty}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{facultySubjectController.update}" value="#{bundle.EditFacultySubjectSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFacultySubjectViewLink}"/>
+                <br />
+                <h:commandLink action="#{facultySubjectController.prepareList}" value="#{bundle.EditFacultySubjectShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFacultySubjectIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

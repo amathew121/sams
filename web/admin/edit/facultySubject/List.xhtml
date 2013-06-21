@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFacultySubjectTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListFacultySubjectEmpty}" rendered="#{facultySubjectController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{facultySubjectController.items.rowCount > 0}">
+                    <h:outputText value="#{facultySubjectController.pagination.pageFirstItem + 1}..#{facultySubjectController.pagination.pageLastItem + 1}/#{facultySubjectController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{facultySubjectController.previous}" value="#{bundle.Previous} #{facultySubjectController.pagination.pageSize}" rendered="#{facultySubjectController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{facultySubjectController.next}" value="#{bundle.Next} #{facultySubjectController.pagination.pageSize}" rendered="#{facultySubjectController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{facultySubjectController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacultySubjectTitle_idFacultySubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFacultySubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacultySubjectTitle_division}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.division}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacultySubjectTitle_batch}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.batch}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacultySubjectTitle_idSubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacultySubjectTitle_idFaculty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFaculty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{facultySubjectController.prepareView}" value="#{bundle.ListFacultySubjectViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{facultySubjectController.prepareEdit}" value="#{bundle.ListFacultySubjectEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{facultySubjectController.destroy}" value="#{bundle.ListFacultySubjectDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{facultySubjectController.prepareCreate}" value="#{bundle.ListFacultySubjectCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListFacultySubjectIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

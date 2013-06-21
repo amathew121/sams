@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProgramCourseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProgramCourseLabel_program}" for="program" />
+                    <h:selectOneMenu id="program" value="#{programCourseController.selected.program}" title="#{bundle.EditProgramCourseTitle_program}" required="true" requiredMessage="#{bundle.EditProgramCourseRequiredMessage_program}">
+                        <f:selectItems value="#{programController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditProgramCourseLabel_course}" for="course" />
+                    <h:selectOneMenu id="course" value="#{programCourseController.selected.course}" title="#{bundle.EditProgramCourseTitle_course}" required="true" requiredMessage="#{bundle.EditProgramCourseRequiredMessage_course}">
+                        <f:selectItems value="#{courseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{programCourseController.update}" value="#{bundle.EditProgramCourseSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditProgramCourseViewLink}"/>
+                <br />
+                <h:commandLink action="#{programCourseController.prepareList}" value="#{bundle.EditProgramCourseShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditProgramCourseIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

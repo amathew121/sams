@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAttendanceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAttendanceLabel_idAttendance}" for="idAttendance" />
+                    <h:inputText id="idAttendance" value="#{attendanceController.selected.idAttendance}" title="#{bundle.EditAttendanceTitle_idAttendance}" required="true" requiredMessage="#{bundle.EditAttendanceRequiredMessage_idAttendance}"/>
+                    <h:outputLabel value="#{bundle.EditAttendanceLabel_idLecture}" for="idLecture" />
+                    <h:selectOneMenu id="idLecture" value="#{attendanceController.selected.idLecture}" title="#{bundle.EditAttendanceTitle_idLecture}" >
+                        <f:selectItems value="#{lectureController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAttendanceLabel_idCurrentStudent}" for="idCurrentStudent" />
+                    <h:selectOneMenu id="idCurrentStudent" value="#{attendanceController.selected.idCurrentStudent}" title="#{bundle.EditAttendanceTitle_idCurrentStudent}" >
+                        <f:selectItems value="#{currentStudentController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{attendanceController.update}" value="#{bundle.EditAttendanceSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAttendanceViewLink}"/>
+                <br />
+                <h:commandLink action="#{attendanceController.prepareList}" value="#{bundle.EditAttendanceShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAttendanceIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

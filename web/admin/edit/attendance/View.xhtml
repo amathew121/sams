@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAttendanceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAttendanceLabel_idAttendance}"/>
+                    <h:outputText value="#{attendanceController.selected.idAttendance}" title="#{bundle.ViewAttendanceTitle_idAttendance}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceLabel_idLecture}"/>
+                    <h:outputText value="#{attendanceController.selected.idLecture}" title="#{bundle.ViewAttendanceTitle_idLecture}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceLabel_idCurrentStudent}"/>
+                    <h:outputText value="#{attendanceController.selected.idCurrentStudent}" title="#{bundle.ViewAttendanceTitle_idCurrentStudent}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{attendanceController.destroyAndView}" value="#{bundle.ViewAttendanceDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAttendanceEditLink}"/>
+                <br />
+                <h:commandLink action="#{attendanceController.prepareCreate}" value="#{bundle.ViewAttendanceCreateLink}" />
+                <br />
+                <h:commandLink action="#{attendanceController.prepareList}" value="#{bundle.ViewAttendanceShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAttendanceIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

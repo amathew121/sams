@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFacultyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_idFaculty}" for="idFaculty" />
+                    <h:inputText id="idFaculty" value="#{facultyController.selected.idFaculty}" title="#{bundle.CreateFacultyTitle_idFaculty}" required="true" requiredMessage="#{bundle.CreateFacultyRequiredMessage_idFaculty}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyFname}" for="facultyFname" />
+                    <h:inputText id="facultyFname" value="#{facultyController.selected.facultyFname}" title="#{bundle.CreateFacultyTitle_facultyFname}" required="true" requiredMessage="#{bundle.CreateFacultyRequiredMessage_facultyFname}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyLname}" for="facultyLname" />
+                    <h:inputText id="facultyLname" value="#{facultyController.selected.facultyLname}" title="#{bundle.CreateFacultyTitle_facultyLname}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyMobile}" for="facultyMobile" />
+                    <h:inputText id="facultyMobile" value="#{facultyController.selected.facultyMobile}" title="#{bundle.CreateFacultyTitle_facultyMobile}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyEmail}" for="facultyEmail" />
+                    <h:inputText id="facultyEmail" value="#{facultyController.selected.facultyEmail}" title="#{bundle.CreateFacultyTitle_facultyEmail}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyPassword}" for="facultyPassword" />
+                    <h:inputText id="facultyPassword" value="#{facultyController.selected.facultyPassword}" title="#{bundle.CreateFacultyTitle_facultyPassword}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyDepartment}" for="facultyDepartment" />
+                    <h:inputText id="facultyDepartment" value="#{facultyController.selected.facultyDepartment}" title="#{bundle.CreateFacultyTitle_facultyDepartment}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyLastLogin}" for="facultyLastLogin" />
+                    <h:inputText id="facultyLastLogin" value="#{facultyController.selected.facultyLastLogin}" title="#{bundle.CreateFacultyTitle_facultyLastLogin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyTitle}" for="facultyTitle" />
+                    <h:inputText id="facultyTitle" value="#{facultyController.selected.facultyTitle}" title="#{bundle.CreateFacultyTitle_facultyTitle}" />
+                    <h:outputLabel value="#{bundle.CreateFacultyLabel_facultyShowFeedback}" for="facultyShowFeedback" />
+                    <h:inputText id="facultyShowFeedback" value="#{facultyController.selected.facultyShowFeedback}" title="#{bundle.CreateFacultyTitle_facultyShowFeedback}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facultyController.create}" value="#{bundle.CreateFacultySaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{facultyController.prepareList}" value="#{bundle.CreateFacultyShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFacultyIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
