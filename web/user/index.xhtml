@@ -1,11 +1,56 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
                 template="./../templateUser.xhtml">
 
 
     <ui:define name="content">
         Hello User #{facesContext.externalContext.getSessionId(true)}
+        
+        
+      
+    	<h1>Faculty Subject View</h1>
+ 
+        <h:dataTable value="#{customer.getCustomerList()}" var="c"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+ 
+    		<h:column>
+    			<f:facet name="header">
+    				ID
+    			</f:facet>
+    				#{c.id_faculty_subject}
+    		</h:column>
+ 
+    		<h:column>
+    			<f:facet name="header">
+    				Name
+				</f:facet>
+    				#{c.facutly_fname}
+    		</h:column>
+ 
+ 			<h:column>
+    			<f:facet name="header">
+    				Subject
+				</f:facet>
+    				#{c.subject_name}
+    		</h:column>
+ 
+    		<h:column>
+    			<f:facet name="header">
+    				Division
+				</f:facet>
+    				#{c.division}
+    		</h:column>
+ 
+    	</h:dataTable>
+ 
+    
     </ui:define>
 
 </ui:composition>
