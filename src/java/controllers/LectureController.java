@@ -6,6 +6,8 @@ import controllers.util.PaginationHelper;
 import beans.LectureFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +25,7 @@ import javax.faces.model.SelectItem;
 public class LectureController implements Serializable {
 
     private Lecture current;
+    private List<Lecture> l;
     private DataModel items = null;
     @EJB
     private beans.LectureFacade ejbFacade;
@@ -30,6 +33,16 @@ public class LectureController implements Serializable {
     private int selectedItemIndex;
 
     public LectureController() {
+    }
+
+    public DataModel getL() {
+        //l = getFacade().getLectureByIdFaculty();
+        DataModel d = new ListDataModel(getFacade().getLectureByIdFaculty());
+        return d;
+    }
+
+    public void setL(List<Lecture> l) {
+        this.l = l;
     }
 
     public Lecture getSelected() {
@@ -88,6 +101,7 @@ public class LectureController implements Serializable {
             return null;
         }
     }
+
 
     public String prepareEdit() {
         current = (Lecture) getItems().getRowData();
@@ -186,6 +200,8 @@ public class LectureController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+    
+    
 
     @FacesConverter(forClass = Lecture.class)
     public static class LectureControllerConverter implements Converter {

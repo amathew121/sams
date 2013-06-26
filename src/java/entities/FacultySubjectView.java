@@ -10,18 +10,18 @@ package entities;
  */
 public class FacultySubjectView {
     
-    public int id_faculty_subject;
-    public String faculty_title;
-    public String facutly_lname;
-    public String facutly_fname;
-    public String subject_code;
-    public short subject_sr_no;
-    public String subject_name;
-    public String id_program;
-    public String id_course;
-    public short semester;
-    public String division;
-    public String batch;
+    private int id_faculty_subject;
+    private String faculty_title;
+    private String facutly_lname;
+    private String facutly_fname;
+    private String subject_code;
+    private short subject_sr_no;
+    private String subject_name;
+    private String id_program;
+    private String id_course;
+    private short semester;
+    private String division;
+    private String batch;
 
     public int getId_faculty_subject() {
         return id_faculty_subject;

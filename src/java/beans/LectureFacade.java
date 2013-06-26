@@ -5,9 +5,12 @@
 package beans;
 
 import entities.Lecture;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +29,15 @@ public class LectureFacade extends AbstractFacade<Lecture> {
     public LectureFacade() {
         super(Lecture.class);
     }
+    
+    public List<Lecture> getLectureByIdFaculty() {
+        
+        
+        Query q = em.createNamedQuery("Lecture.findByIdLecture");
+        q.setParameter("idLecture", 2);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
+    
     
 }

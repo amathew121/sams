@@ -20,12 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
     @ManagedBean(name="customer")
@@ -64,7 +60,7 @@ public class FacultySubjectViewBean implements Serializable{
             }
                 String URL = "jdbc:mysql://localhost:3306/piit";
                 String USER = "root";
-                String PASS = "";
+                String PASS = "MES_90";
 		Connection con = DriverManager.getConnection(URL,USER,PASS);
  
 		if(con==null)
