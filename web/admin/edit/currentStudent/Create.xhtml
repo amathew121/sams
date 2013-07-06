@@ -27,10 +27,7 @@
                     <h:inputText id="rollNo" value="#{currentStudentController.selected.rollNo}" title="#{bundle.CreateCurrentStudentTitle_rollNo}" />
                     <h:outputLabel value="#{bundle.CreateCurrentStudentLabel_provisional}" for="provisional" />
                     <h:inputText id="provisional" value="#{currentStudentController.selected.provisional}" title="#{bundle.CreateCurrentStudentTitle_provisional}" required="true" requiredMessage="#{bundle.CreateCurrentStudentRequiredMessage_provisional}"/>
-                    <h:outputLabel value="#{bundle.CreateCurrentStudentLabel_academicYear}" for="academicYear" />
-                    <h:inputText id="academicYear" value="#{currentStudentController.selected.academicYear}" title="#{bundle.CreateCurrentStudentTitle_academicYear}" required="true" requiredMessage="#{bundle.CreateCurrentStudentRequiredMessage_academicYear}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
+            
                     <h:outputLabel value="#{bundle.CreateCurrentStudentLabel_idCourse}" for="idCourse" />
                     <h:selectOneMenu id="idCourse" value="#{currentStudentController.selected.idCourse}" title="#{bundle.CreateCurrentStudentTitle_idCourse}" required="true" requiredMessage="#{bundle.CreateCurrentStudentRequiredMessage_idCourse}">
                         <f:selectItems value="#{courseController.itemsAvailableSelectOne}"/>

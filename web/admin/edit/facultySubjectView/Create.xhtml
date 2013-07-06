@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFacultySubjectViewTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:inputText id="idFacultySubject" value="#{facultySubjectViewController.selected.idFacultySubject}" title="#{bundle.CreateFacultySubjectViewTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_idFacultySubject}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_idFaculty}" for="idFaculty" />
+                    <h:inputText id="idFaculty" value="#{facultySubjectViewController.selected.idFaculty}" title="#{bundle.CreateFacultySubjectViewTitle_idFaculty}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_idFaculty}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_facultyTitle}" for="facultyTitle" />
+                    <h:inputText id="facultyTitle" value="#{facultySubjectViewController.selected.facultyTitle}" title="#{bundle.CreateFacultySubjectViewTitle_facultyTitle}" />
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_facultyLname}" for="facultyLname" />
+                    <h:inputText id="facultyLname" value="#{facultySubjectViewController.selected.facultyLname}" title="#{bundle.CreateFacultySubjectViewTitle_facultyLname}" />
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_facultyFname}" for="facultyFname" />
+                    <h:inputText id="facultyFname" value="#{facultySubjectViewController.selected.facultyFname}" title="#{bundle.CreateFacultySubjectViewTitle_facultyFname}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_facultyFname}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_subjectCode}" for="subjectCode" />
+                    <h:inputText id="subjectCode" value="#{facultySubjectViewController.selected.subjectCode}" title="#{bundle.CreateFacultySubjectViewTitle_subjectCode}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_subjectCode}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_subjectSrNo}" for="subjectSrNo" />
+                    <h:inputText id="subjectSrNo" value="#{facultySubjectViewController.selected.subjectSrNo}" title="#{bundle.CreateFacultySubjectViewTitle_subjectSrNo}" />
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_subjectName}" for="subjectName" />
+                    <h:inputText id="subjectName" value="#{facultySubjectViewController.selected.subjectName}" title="#{bundle.CreateFacultySubjectViewTitle_subjectName}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_subjectName}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_idProgram}" for="idProgram" />
+                    <h:inputText id="idProgram" value="#{facultySubjectViewController.selected.idProgram}" title="#{bundle.CreateFacultySubjectViewTitle_idProgram}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_idProgram}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_idCourse}" for="idCourse" />
+                    <h:inputText id="idCourse" value="#{facultySubjectViewController.selected.idCourse}" title="#{bundle.CreateFacultySubjectViewTitle_idCourse}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_idCourse}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_semester}" for="semester" />
+                    <h:inputText id="semester" value="#{facultySubjectViewController.selected.semester}" title="#{bundle.CreateFacultySubjectViewTitle_semester}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_semester}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{facultySubjectViewController.selected.division}" title="#{bundle.CreateFacultySubjectViewTitle_division}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.CreateFacultySubjectViewLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{facultySubjectViewController.selected.batch}" title="#{bundle.CreateFacultySubjectViewTitle_batch}" required="true" requiredMessage="#{bundle.CreateFacultySubjectViewRequiredMessage_batch}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.create}" value="#{bundle.CreateFacultySubjectViewSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.prepareList}" value="#{bundle.CreateFacultySubjectViewShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFacultySubjectViewIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

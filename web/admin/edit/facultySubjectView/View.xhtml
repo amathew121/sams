@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFacultySubjectViewTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_idFacultySubject}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.idFacultySubject}" title="#{bundle.ViewFacultySubjectViewTitle_idFacultySubject}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_idFaculty}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.idFaculty}" title="#{bundle.ViewFacultySubjectViewTitle_idFaculty}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_facultyTitle}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.facultyTitle}" title="#{bundle.ViewFacultySubjectViewTitle_facultyTitle}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_facultyLname}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.facultyLname}" title="#{bundle.ViewFacultySubjectViewTitle_facultyLname}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_facultyFname}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.facultyFname}" title="#{bundle.ViewFacultySubjectViewTitle_facultyFname}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_subjectCode}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.subjectCode}" title="#{bundle.ViewFacultySubjectViewTitle_subjectCode}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_subjectSrNo}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.subjectSrNo}" title="#{bundle.ViewFacultySubjectViewTitle_subjectSrNo}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_subjectName}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.subjectName}" title="#{bundle.ViewFacultySubjectViewTitle_subjectName}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_idProgram}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.idProgram}" title="#{bundle.ViewFacultySubjectViewTitle_idProgram}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_idCourse}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.idCourse}" title="#{bundle.ViewFacultySubjectViewTitle_idCourse}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_semester}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.semester}" title="#{bundle.ViewFacultySubjectViewTitle_semester}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_division}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.division}" title="#{bundle.ViewFacultySubjectViewTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewFacultySubjectViewLabel_batch}"/>
+                    <h:outputText value="#{facultySubjectViewController.selected.batch}" title="#{bundle.ViewFacultySubjectViewTitle_batch}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.destroyAndView}" value="#{bundle.ViewFacultySubjectViewDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFacultySubjectViewEditLink}"/>
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.prepareCreate}" value="#{bundle.ViewFacultySubjectViewCreateLink}" />
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.prepareList}" value="#{bundle.ViewFacultySubjectViewShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFacultySubjectViewIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

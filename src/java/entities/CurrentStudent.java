@@ -147,6 +147,7 @@ public class CurrentStudent implements Serializable {
     }
 
     public void setAcademicYear(Date academicYear) {
+        
         this.academicYear = academicYear;
     }
 

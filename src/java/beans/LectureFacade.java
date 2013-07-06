@@ -4,6 +4,7 @@
  */
 package beans;
 
+import entities.FacultySubject;
 import entities.Lecture;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,18 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         q.setParameter("idLecture", 2);
         List<Lecture> l = q.getResultList();
         return l;
+    }
+    
+        
+    public FacultySubject getFSById(int s){
+            Query q = em.createNamedQuery("FacultySubject.findByIdFacultySubject");
+            q.setParameter("idFacultySubject", s);
+            //List <FacultySubjectView> l = q.getResultList();
+            List <FacultySubject> fl=  q.getResultList();
+            //count = l.size();
+            System.out.println(fl.toString());
+            FacultySubject l = (FacultySubject) fl.get(0);
+            return l;
     }
     
     

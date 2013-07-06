@@ -31,6 +31,7 @@ public class LectureController implements Serializable {
     private beans.LectureFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int idFacSub;
 
     public LectureController() {
     }
@@ -57,6 +58,7 @@ public class LectureController implements Serializable {
         return ejbFacade;
     }
 
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -85,6 +87,17 @@ public class LectureController implements Serializable {
         return "View";
     }
 
+    public String prepareCreateWithId(int i)
+    {
+       prepareCreate();
+       idFacSub = i;
+     //  FacultySubject facSub = new 
+      // FacultySubjectController fsc = new FacultySubjectController();
+      // fsc.getIdFacSub(idFacSub);
+       current.setIdFacultySubject(getFacade().getFSById(idFacSub));
+       return "Create";
+       
+    }
     public String prepareCreate() {
         current = new Lecture();
         selectedItemIndex = -1;

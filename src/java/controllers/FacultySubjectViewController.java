@@ -1,12 +1,11 @@
 package controllers;
 
-import entities.Faculty;
+import entities.FacultySubjectView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.FacultyFacade;
+import beans.FacultySubjectViewFacade;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,29 +18,32 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "facultyController")
+@ManagedBean(name = "facultySubjectViewController")
 @SessionScoped
-public class FacultyController implements Serializable {
+public class FacultySubjectViewController implements Serializable {
 
-    private Faculty current;
+    private FacultySubjectView current;
     private DataModel items = null;
     @EJB
-    private beans.FacultyFacade ejbFacade;
+    private beans.FacultySubjectViewFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public FacultyController() {
+    FacesContext facesContext = FacesContext.getCurrentInstance() ;
+    String userName = facesContext.getExternalContext().getRemoteUser();
+    
+    public FacultySubjectViewController() {
     }
 
-    public Faculty getSelected() {
+    public FacultySubjectView getSelected() {
         if (current == null) {
-            current = new Faculty();
+            current = new FacultySubjectView();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private FacultyFacade getFacade() {
+    private FacultySubjectViewFacade getFacade() {
         return ejbFacade;
     }
 
@@ -50,12 +52,13 @@ public class FacultyController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().getCount();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    
+                    return new ListDataModel(getFacade().getFSViewById(userName));
                 }
             };
         }
@@ -68,28 +71,13 @@ public class FacultyController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Faculty) getItems().getRowData();
+        current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-    
-    public String convertToHash()
-    {
-        List <Faculty> fl = getFacade().findAll();
-        int i =0;
-        while(i <fl.size()) {
-                Faculty f = fl.get(i);
-                String pass = f.getFacultyPassword();
-                f.setFacultyPassword(pass);
-                fl.set(i, f);
-                current = f;
-                update();
-                }
-        return "List";
-    }
 
     public String prepareCreate() {
-        current = new Faculty();
+        current = new FacultySubjectView();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -97,16 +85,20 @@ public class FacultyController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectViewCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
+    public int getIdFacSub() {
+        current = (FacultySubjectView) getItems().getRowData();
+        return current.getIdFacultySubject();
+    }
 
     public String prepareEdit() {
-        current = (Faculty) getItems().getRowData();
+        current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -114,7 +106,7 @@ public class FacultyController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectViewUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -123,7 +115,7 @@ public class FacultyController implements Serializable {
     }
 
     public String destroy() {
-        current = (Faculty) getItems().getRowData();
+        current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -147,7 +139,7 @@ public class FacultyController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectViewDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -203,25 +195,25 @@ public class FacultyController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Faculty.class)
-    public static class FacultyControllerConverter implements Converter {
+    @FacesConverter(forClass = FacultySubjectView.class)
+    public static class FacultySubjectViewControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FacultyController controller = (FacultyController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "facultyController");
+            FacultySubjectViewController controller = (FacultySubjectViewController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "facultySubjectViewController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        int getKey(String value) {
+            int key;
+            key = Integer.parseInt(value);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(int value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();
@@ -231,11 +223,11 @@ public class FacultyController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Faculty) {
-                Faculty o = (Faculty) object;
-                return getStringKey(o.getIdFaculty());
+            if (object instanceof FacultySubjectView) {
+                FacultySubjectView o = (FacultySubjectView) object;
+                return getStringKey(o.getIdFacultySubject());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Faculty.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + FacultySubjectView.class.getName());
             }
         }
     }

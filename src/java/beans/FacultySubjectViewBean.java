@@ -9,7 +9,7 @@ package beans;
  * @author Ashish
  */
 
-import entities.FacultySubjectView;
+import entities.FacultySubjectViewModel;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,7 +44,7 @@ public class FacultySubjectViewBean implements Serializable{
 	}*/
  
 	//connect to DB and get customer list
-	public List<FacultySubjectView> getCustomerList() throws SQLException{
+	public List<FacultySubjectViewModel> getCustomerList() throws SQLException{
  
 	/*	if(ds==null)
 			throw new SQLException("Can't get data source");*/
@@ -60,7 +60,7 @@ public class FacultySubjectViewBean implements Serializable{
             }
                 String URL = "jdbc:mysql://localhost:3306/piit";
                 String USER = "root";
-                String PASS = "MES_90";
+                String PASS = "";
 		Connection con = DriverManager.getConnection(URL,USER,PASS);
  
 		if(con==null)
@@ -73,10 +73,10 @@ public class FacultySubjectViewBean implements Serializable{
 		//get customer data from database
 		ResultSet result =  ps.executeQuery();
  
-		List<FacultySubjectView> list = new ArrayList<FacultySubjectView>();
+		List<FacultySubjectViewModel> list = new ArrayList<FacultySubjectViewModel>();
  
 		while(result.next()){
-			FacultySubjectView cust = new FacultySubjectView();
+			FacultySubjectViewModel cust = new FacultySubjectViewModel();
 
 			cust.setBatch(result.getString("batch"));
 			cust.setDivision(result.getString("division"));

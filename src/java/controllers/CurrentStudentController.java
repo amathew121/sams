@@ -6,6 +6,7 @@ import controllers.util.PaginationHelper;
 import beans.CurrentStudentFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -74,6 +75,11 @@ public class CurrentStudentController implements Serializable {
 
     public String prepareCreate() {
         current = new CurrentStudent();
+        Date d = new Date();
+        d.setMonth(6);
+        d.setDate(1);
+        d.setYear(113);
+        current.setAcademicYear(d);
         selectedItemIndex = -1;
         return "Create";
     }
@@ -97,6 +103,10 @@ public class CurrentStudentController implements Serializable {
 
     public String update() {
         try {
+            Date d = new Date();
+            d = current.getAcademicYear();
+            d.setMonth(6);
+            current.setAcademicYear(d);
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CurrentStudentUpdated"));
             return "View";

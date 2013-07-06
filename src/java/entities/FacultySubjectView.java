@@ -4,95 +4,180 @@
  */
 package entities;
 
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Ashish
  */
-public class FacultySubjectView {
-    
-    private int id_faculty_subject;
-    private String faculty_title;
-    private String facutly_lname;
-    private String facutly_fname;
-    private String subject_code;
-    private short subject_sr_no;
-    private String subject_name;
-    private String id_program;
-    private String id_course;
+@Entity
+@Table(name = "faculty_subject_view")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "FacultySubjectView.findAll", query = "SELECT f FROM FacultySubjectView f"),
+    @NamedQuery(name = "FacultySubjectView.findByIdFacultySubject", query = "SELECT f FROM FacultySubjectView f WHERE f.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "FacultySubjectView.findByIdFaculty", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty"),
+    @NamedQuery(name = "FacultySubjectView.findByFacultyTitle", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyTitle = :facultyTitle"),
+    @NamedQuery(name = "FacultySubjectView.findByFacultyLname", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyLname = :facultyLname"),
+    @NamedQuery(name = "FacultySubjectView.findByFacultyFname", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyFname = :facultyFname"),
+    @NamedQuery(name = "FacultySubjectView.findBySubjectCode", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectCode = :subjectCode"),
+    @NamedQuery(name = "FacultySubjectView.findBySubjectSrNo", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectSrNo = :subjectSrNo"),
+    @NamedQuery(name = "FacultySubjectView.findBySubjectName", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectName = :subjectName"),
+    @NamedQuery(name = "FacultySubjectView.findByIdProgram", query = "SELECT f FROM FacultySubjectView f WHERE f.idProgram = :idProgram"),
+    @NamedQuery(name = "FacultySubjectView.findByIdCourse", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse"),
+    @NamedQuery(name = "FacultySubjectView.findBySemester", query = "SELECT f FROM FacultySubjectView f WHERE f.semester = :semester"),
+    @NamedQuery(name = "FacultySubjectView.findByDivision", query = "SELECT f FROM FacultySubjectView f WHERE f.division = :division"),
+    @NamedQuery(name = "FacultySubjectView.findByBatch", query = "SELECT f FROM FacultySubjectView f WHERE f.batch = :batch")})
+public class FacultySubjectView implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_faculty_subject")
+    @Id
+    private int idFacultySubject;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "id_faculty")
+    private String idFaculty;
+    @Size(max = 45)
+    @Column(name = "faculty_title")
+    private String facultyTitle;
+    @Size(max = 45)
+    @Column(name = "faculty_lname")
+    private String facultyLname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "faculty_fname")
+    private String facultyFname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "subject_code")
+    private String subjectCode;
+    @Column(name = "subject_sr_no")
+    private Short subjectSrNo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "subject_name")
+    private String subjectName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "id_program")
+    private String idProgram;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "id_course")
+    private String idCourse;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "semester")
     private short semester;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "division")
     private String division;
-    private String batch;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "batch")
+    private short batch;
 
-    public int getId_faculty_subject() {
-        return id_faculty_subject;
+    public FacultySubjectView() {
     }
 
-    public void setId_faculty_subject(int id_faculty_subject) {
-        this.id_faculty_subject = id_faculty_subject;
+    public int getIdFacultySubject() {
+        return idFacultySubject;
     }
 
-    public String getFaculty_title() {
-        return faculty_title;
+    public void setIdFacultySubject(int idFacultySubject) {
+        this.idFacultySubject = idFacultySubject;
     }
 
-    public void setFaculty_title(String faculty_title) {
-        this.faculty_title = faculty_title;
+    public String getIdFaculty() {
+        return idFaculty;
     }
 
-    public String getFacutly_lname() {
-        return facutly_lname;
+    public void setIdFaculty(String idFaculty) {
+        this.idFaculty = idFaculty;
     }
 
-    public void setFacutly_lname(String facutly_lname) {
-        this.facutly_lname = facutly_lname;
+    public String getFacultyTitle() {
+        return facultyTitle;
     }
 
-    public String getFacutly_fname() {
-        return facutly_fname;
+    public void setFacultyTitle(String facultyTitle) {
+        this.facultyTitle = facultyTitle;
     }
 
-    public void setFacutly_fname(String facutly_fname) {
-        this.facutly_fname = facutly_fname;
+    public String getFacultyLname() {
+        return facultyLname;
     }
 
-    public String getSubject_code() {
-        return subject_code;
+    public void setFacultyLname(String facultyLname) {
+        this.facultyLname = facultyLname;
     }
 
-    public void setSubject_code(String subject_code) {
-        this.subject_code = subject_code;
+    public String getFacultyFname() {
+        return facultyFname;
     }
 
-    public short getSubject_sr_no() {
-        return subject_sr_no;
+    public void setFacultyFname(String facultyFname) {
+        this.facultyFname = facultyFname;
     }
 
-    public void setSubject_sr_no(short subject_sr_no) {
-        this.subject_sr_no = subject_sr_no;
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
-    public String getSubject_name() {
-        return subject_name;
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
-    public void setSubject_name(String subject_name) {
-        this.subject_name = subject_name;
+    public Short getSubjectSrNo() {
+        return subjectSrNo;
     }
 
-    public String getId_program() {
-        return id_program;
+    public void setSubjectSrNo(Short subjectSrNo) {
+        this.subjectSrNo = subjectSrNo;
     }
 
-    public void setId_program(String id_program) {
-        this.id_program = id_program;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public String getId_course() {
-        return id_course;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    public void setId_course(String id_course) {
-        this.id_course = id_course;
+    public String getIdProgram() {
+        return idProgram;
+    }
+
+    public void setIdProgram(String idProgram) {
+        this.idProgram = idProgram;
+    }
+
+    public String getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(String idCourse) {
+        this.idCourse = idCourse;
     }
 
     public short getSemester() {
@@ -112,14 +197,17 @@ public class FacultySubjectView {
     }
 
     public String getBatch() {
-        return batch;
+        String b ;
+        if(batch==0)
+            return "Theory";
+        else
+            
+            b="Batch" + batch; 
+            return b;
     }
 
-    public void setBatch(String batch) {
+    public void setBatch(short batch) {
         this.batch = batch;
     }
     
-    
-            
-            
 }

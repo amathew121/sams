@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFacultySubjectViewTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:inputText id="idFacultySubject" value="#{facultySubjectViewController.selected.idFacultySubject}" title="#{bundle.EditFacultySubjectViewTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_idFacultySubject}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_idFaculty}" for="idFaculty" />
+                    <h:inputText id="idFaculty" value="#{facultySubjectViewController.selected.idFaculty}" title="#{bundle.EditFacultySubjectViewTitle_idFaculty}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_idFaculty}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_facultyTitle}" for="facultyTitle" />
+                    <h:inputText id="facultyTitle" value="#{facultySubjectViewController.selected.facultyTitle}" title="#{bundle.EditFacultySubjectViewTitle_facultyTitle}" />
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_facultyLname}" for="facultyLname" />
+                    <h:inputText id="facultyLname" value="#{facultySubjectViewController.selected.facultyLname}" title="#{bundle.EditFacultySubjectViewTitle_facultyLname}" />
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_facultyFname}" for="facultyFname" />
+                    <h:inputText id="facultyFname" value="#{facultySubjectViewController.selected.facultyFname}" title="#{bundle.EditFacultySubjectViewTitle_facultyFname}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_facultyFname}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_subjectCode}" for="subjectCode" />
+                    <h:inputText id="subjectCode" value="#{facultySubjectViewController.selected.subjectCode}" title="#{bundle.EditFacultySubjectViewTitle_subjectCode}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_subjectCode}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_subjectSrNo}" for="subjectSrNo" />
+                    <h:inputText id="subjectSrNo" value="#{facultySubjectViewController.selected.subjectSrNo}" title="#{bundle.EditFacultySubjectViewTitle_subjectSrNo}" />
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_subjectName}" for="subjectName" />
+                    <h:inputText id="subjectName" value="#{facultySubjectViewController.selected.subjectName}" title="#{bundle.EditFacultySubjectViewTitle_subjectName}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_subjectName}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_idProgram}" for="idProgram" />
+                    <h:inputText id="idProgram" value="#{facultySubjectViewController.selected.idProgram}" title="#{bundle.EditFacultySubjectViewTitle_idProgram}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_idProgram}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_idCourse}" for="idCourse" />
+                    <h:inputText id="idCourse" value="#{facultySubjectViewController.selected.idCourse}" title="#{bundle.EditFacultySubjectViewTitle_idCourse}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_idCourse}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_semester}" for="semester" />
+                    <h:inputText id="semester" value="#{facultySubjectViewController.selected.semester}" title="#{bundle.EditFacultySubjectViewTitle_semester}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_semester}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{facultySubjectViewController.selected.division}" title="#{bundle.EditFacultySubjectViewTitle_division}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.EditFacultySubjectViewLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{facultySubjectViewController.selected.batch}" title="#{bundle.EditFacultySubjectViewTitle_batch}" required="true" requiredMessage="#{bundle.EditFacultySubjectViewRequiredMessage_batch}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{facultySubjectViewController.update}" value="#{bundle.EditFacultySubjectViewSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFacultySubjectViewViewLink}"/>
+                <br />
+                <h:commandLink action="#{facultySubjectViewController.prepareList}" value="#{bundle.EditFacultySubjectViewShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFacultySubjectViewIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

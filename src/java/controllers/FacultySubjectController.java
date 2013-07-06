@@ -28,6 +28,7 @@ public class FacultySubjectController implements Serializable {
     private beans.FacultySubjectFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private FacultySubject idFacultySubject;
 
     public FacultySubjectController() {
     }
@@ -186,6 +187,13 @@ public class FacultySubjectController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+
+    public FacultySubject getIdFacSub(int idFacSub) {
+        current = new FacultySubject();
+        current.setDivision("A");
+        return current;
+    }
+    
 
     @FacesConverter(forClass = FacultySubject.class)
     public static class FacultySubjectControllerConverter implements Converter {
