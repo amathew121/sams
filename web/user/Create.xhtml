@@ -26,15 +26,41 @@
                     <h:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
                     <h:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
                         <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
+                    </h:inputText>#{lectureController.selected}
 
                     <h:outputLabel value="#{bundle.CreateLectureLabel_attendance}" for="attendance" />
                     <h:selectOneMenu id="attendance" value="#{lectureController.selected.attendance}" title="#{bundle.CreateLectureTitle_attendance}" >
                         <f:selectItems value="#{attendanceController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+                
+                
                 <br />
-                <h:commandLink action="#{lectureController.create}" value="#{bundle.CreateLectureSaveLink}" />
+                <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.selected.idFacultySubject)}" var="c" >
+                    <h:column>
+                        <f:facet name="header">
+                            Check
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{c.selected}"></h:selectBooleanCheckbox>
+                    </h:column>
+                    <h:column>
+    			<f:facet name="header">
+    				ID
+    			</f:facet>
+    				#{c.rollNo}
+                    </h:column>
+                    <h:column>
+    			<f:facet name="header">
+    				ID
+    			</f:facet>
+    				#{c.admnNo.studentName}
+                    </h:column>
+                                        
+                </h:dataTable>
+                <br />
+                <h:commandLink action="#{currentStudentController.prepareListA}" value="#{bundle.CreateLectureSaveLink}" >
+                    
+                </h:commandLink>
                 <br />
                 <br />
                 <h:commandLink action="#{lectureController.prepareList}" value="#{bundle.CreateLectureShowAllLink}" immediate="true"/>

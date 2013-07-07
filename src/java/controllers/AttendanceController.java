@@ -4,6 +4,7 @@ import entities.Attendance;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.AttendanceFacade;
+import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -23,7 +24,7 @@ import javax.faces.model.SelectItem;
 public class AttendanceController implements Serializable {
 
     private Attendance current;
-    private DataModel items = null;
+    private DataModel items = null; 
     @EJB
     private beans.AttendanceFacade ejbFacade;
     private PaginationHelper pagination;
@@ -31,6 +32,8 @@ public class AttendanceController implements Serializable {
 
     public AttendanceController() {
     }
+    
+
 
     public Attendance getSelected() {
         if (current == null) {

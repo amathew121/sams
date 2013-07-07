@@ -4,6 +4,7 @@ import entities.CurrentStudent;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.CurrentStudentFacade;
+import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,12 +26,22 @@ public class CurrentStudentController implements Serializable {
 
     private CurrentStudent current;
     private DataModel items = null;
+    private DataModel attendanceByDiv = null;
     @EJB
     private beans.CurrentStudentFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public CurrentStudentController() {
+    }
+    
+    public DataModel getAttendanceByDiv (FacultySubject f) {
+        
+        String div = f.getDivision();
+        short batch = f.getBatch();
+        short semester = f.getIdSubject().getSemester();
+        attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(semester, div, batch));
+        return attendanceByDiv;
     }
 
     public CurrentStudent getSelected() {
@@ -65,6 +76,11 @@ public class CurrentStudentController implements Serializable {
     public String prepareList() {
         recreateModel();
         return "List";
+    }
+    
+    public String prepareListA() {
+        recreateModel();
+        return "ListA";
     }
 
     public String prepareView() {
@@ -171,6 +187,7 @@ public class CurrentStudentController implements Serializable {
 
     private void recreateModel() {
         items = null;
+        attendanceByDiv =null;
     }
 
     private void recreatePagination() {

@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CurrentStudent.findAll", query = "SELECT c FROM CurrentStudent c"),
     @NamedQuery(name = "CurrentStudent.findByIdCurrentStudent", query = "SELECT c FROM CurrentStudent c WHERE c.idCurrentStudent = :idCurrentStudent"),
     @NamedQuery(name = "CurrentStudent.findBySemester", query = "SELECT c FROM CurrentStudent c WHERE c.semester = :semester"),
+    @NamedQuery(name = "CurrentStudent.findUltimate", query = "SELECT c FROM CurrentStudent c WHERE c.semester = :semester AND c.division = :division AND c.batch = :batch"),
     @NamedQuery(name = "CurrentStudent.findByDivision", query = "SELECT c FROM CurrentStudent c WHERE c.division = :division"),
     @NamedQuery(name = "CurrentStudent.findByBatch", query = "SELECT c FROM CurrentStudent c WHERE c.batch = :batch"),
     @NamedQuery(name = "CurrentStudent.findByRollNo", query = "SELECT c FROM CurrentStudent c WHERE c.rollNo = :rollNo"),
@@ -78,6 +80,18 @@ public class CurrentStudent implements Serializable {
     private Student admnNo;
     @OneToOne(mappedBy = "idCurrentStudent")
     private Attendance attendance;
+    @Transient
+    private boolean selected;
+    @Transient 
+    public boolean isSelected () {
+        return selected;
+    }
+    @Transient
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    
 
     public CurrentStudent() {
     }

@@ -5,9 +5,13 @@
 package beans;
 
 import entities.CurrentStudent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.DataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +29,17 @@ public class CurrentStudentFacade extends AbstractFacade<CurrentStudent> {
 
     public CurrentStudentFacade() {
         super(CurrentStudent.class);
+    }
+
+    public List<CurrentStudent> getCurrentStudentByDiv(short semester, String div, short batch) {
+        List <CurrentStudent> l = new ArrayList();
+        
+        Query q = em.createNamedQuery("CurrentStudent.findUltimate");
+        q.setParameter("batch", batch);
+        q.setParameter("division", div);
+        q.setParameter("semester", semester);
+        l = q.getResultList();
+        return l;
     }
     
 }

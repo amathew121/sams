@@ -49,9 +49,9 @@
     		</h:column>
  
     	</h:dataTable>
- 
-        <h:link value="next.xhtml" outcome="/user/List"></h:link>
-    
+        <h:form>
+            <h:commandLink value="next.xhtml" action="#{facultySubjectViewController.prepareList()}"></h:commandLink>
+        </h:form>
     </ui:define>
 
 </ui:composition>

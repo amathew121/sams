@@ -24,13 +24,13 @@ public class FacultySubjectViewController implements Serializable {
 
     private FacultySubjectView current;
     private DataModel items = null;
+    private DataModel modelByUserName =null;
     @EJB
     private beans.FacultySubjectViewFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    FacesContext facesContext = FacesContext.getCurrentInstance() ;
-    String userName = facesContext.getExternalContext().getRemoteUser();
+    
     
     public FacultySubjectViewController() {
     }
@@ -46,6 +46,13 @@ public class FacultySubjectViewController implements Serializable {
     private FacultySubjectViewFacade getFacade() {
         return ejbFacade;
     }
+    
+    public DataModel getModelByUserName() {
+        FacesContext facesContext = FacesContext.getCurrentInstance() ;
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
+        return modelByUserName;
+    }
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
@@ -58,7 +65,7 @@ public class FacultySubjectViewController implements Serializable {
                 @Override
                 public DataModel createPageDataModel() {
                     
-                    return new ListDataModel(getFacade().getFSViewById(userName));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -169,6 +176,7 @@ public class FacultySubjectViewController implements Serializable {
 
     private void recreateModel() {
         items = null;
+        modelByUserName = null;
     }
 
     private void recreatePagination() {
