@@ -41,5 +41,14 @@ public class CurrentStudentFacade extends AbstractFacade<CurrentStudent> {
         l = q.getResultList();
         return l;
     }
+        public List<CurrentStudent> getCurrentStudentByDivTheory(short semester, String div) {
+        List <CurrentStudent> l = new ArrayList();
+        
+        Query q = em.createNamedQuery("CurrentStudent.findUltimateTheory");
+        q.setParameter("division", div);
+        q.setParameter("semester", semester);
+        l = q.getResultList();
+        return l;
+    }
     
 }

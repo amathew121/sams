@@ -38,12 +38,18 @@ public class CurrentStudentController implements Serializable {
     }
     
     public DataModel getAttendanceByDiv (FacultySubject f) {
-        
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
-        attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(semester, div, batch));
-        return attendanceByDiv;
+        if(batch==0){
+            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDivTheory(semester, div));
+            return attendanceByDiv;
+        }
+        else {
+        
+            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(semester, div, batch));
+            return attendanceByDiv;
+        }
     }
     
     public List<CurrentStudent> getCurrentStudentList ()
