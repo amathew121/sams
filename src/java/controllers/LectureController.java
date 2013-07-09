@@ -4,13 +4,18 @@ import entities.Lecture;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.LectureFacade;
+import entities.Attendance;
+import entities.CurrentStudent;
+import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,15 +32,59 @@ public class LectureController implements Serializable {
 
     private Lecture current;
     private List<Lecture> l;
+    private List <CurrentStudent> selectedList = new ArrayList <CurrentStudent> ();
+    private CurrentStudent[] selectList;
     private DataModel items = null;
+
+    public CurrentStudent[] getSelectList() {
+        return selectList;
+    }
+
+    public void setSelectList(CurrentStudent[] selectList) {
+        this.selectList = selectList;
+    }
+    
+    @ManagedProperty(value="#{attendanceController}")
+    private AttendanceController attendanceController;
+
+    public AttendanceController getAttendanceController() {
+        return attendanceController;
+    }
+
+    public void setAttendanceController(AttendanceController attendanceController) {
+        this.attendanceController = attendanceController;
+    }
+    
+    @ManagedProperty(value="#{currentStudentController}")
+    private CurrentStudentController currentStudentController;
+
+    public CurrentStudentController getCurrentStudentController() {
+        return currentStudentController;
+    }
+
+    public void setCurrentStudentController(CurrentStudentController currentStudentController) {
+        this.currentStudentController = currentStudentController;
+    }
+    
+
     @EJB
     private beans.LectureFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int idFacSub;
+    private FacultySubject facSub;
+
+    public FacultySubject getFacSub() {
+        return facSub;
+    }
+
+    public void setFacSub(FacultySubject facSub) {
+        this.facSub = facSub;
+    }
 
     public LectureController() {
     }
+
 
     public DataModel getL() {
         //l = getFacade().getLectureByIdFaculty();
@@ -95,10 +144,16 @@ public class LectureController implements Serializable {
      //  FacultySubject facSub = new 
       // FacultySubjectController fsc = new FacultySubjectController();
       // fsc.getIdFacSub(idFacSub);
-       current.setIdFacultySubject(getFacade().getFSById(idFacSub));
+       getFacSubject(idFacSub);
+       current.setIdFacultySubject(getFacSub());
        return "Create";
        
     }
+    public FacultySubject getFacSubject(int i) {
+        facSub = getFacade().getFSById(i);
+        return facSub;
+    }
+    
     public String prepareCreate() {
         current = new Lecture();
         selectedItemIndex = -1;
@@ -115,19 +170,53 @@ public class LectureController implements Serializable {
             return null;
         }
     }
-    public String createA(ActionEvent event) {
-        try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureCreated"));
-            CurrentStudentController csc = new CurrentStudentController();
-            return csc.prepareList();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }
+
+
+    public List<CurrentStudent> getSelectedList() {
+        return selectedList;
     }
 
+    public void setSelectedList(List<CurrentStudent> selectedList) {
+        this.selectedList = selectedList;
+    }
+        
+    
 
+    public String createA() throws Exception{
+        Lecture temp = current;
+        create();
+        List<CurrentStudent> csl = new ArrayList();
+        csl = currentStudentController.getCurrentStudentList();
+        for(int i=0; i< csl.size(); i++)
+        {
+            if(csl.get(i).isSelected())
+                selectedList.add(csl.get(i));
+            CurrentStudent t = csl.get(i);
+            t.setSelected(false);
+            csl.set(i, t);
+            
+        }
+        currentStudentController.setCurrentStudentList(csl);
+        
+        List <Attendance> att = new ArrayList <Attendance>();
+        for(int i = 0; i<selectedList.size();i++) {
+           
+            Attendance ae = new Attendance();
+            
+            
+            ae.setIdAttendance(Long.MIN_VALUE);
+            ae.setIdCurrentStudent(selectedList.get(i));
+            ae.setIdLecture(temp);
+            att.add(ae);
+            
+            attendanceController.createEntry(ae);
+            attendanceController.create();
+        }
+        
+        return prepareList();
+    }
+
+    
     public String prepareEdit() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -225,7 +314,8 @@ public class LectureController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
+
+ 
     
 
     @FacesConverter(forClass = Lecture.class)

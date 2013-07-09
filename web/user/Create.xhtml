@@ -3,62 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
-                    <h:inputText id="lectureDate" value="#{lectureController.selected.lectureDate}" title="#{bundle.CreateLectureTitle_lectureDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureStartTime}" for="lectureStartTime" />
-                    <h:inputText id="lectureStartTime" value="#{lectureController.selected.lectureStartTime}" title="#{bundle.CreateLectureTitle_lectureStartTime}" >
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
-                    <h:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>#{lectureController.selected}
-
-                    <h:outputLabel value="#{bundle.CreateLectureLabel_attendance}" for="attendance" />
-                    <h:selectOneMenu id="attendance" value="#{lectureController.selected.attendance}" title="#{bundle.CreateLectureTitle_attendance}" >
-                        <f:selectItems value="#{attendanceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
+            
+           
                 
                 
                 <br />
-                <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.selected.idFacultySubject)}" var="c" >
-                    <h:column>
-                        <f:facet name="header">
-                            Check
-                        </f:facet>
-                        <h:selectBooleanCheckbox value="#{c.selected}"></h:selectBooleanCheckbox>
-                    </h:column>
-                    <h:column>
-    			<f:facet name="header">
-    				ID
-    			</f:facet>
-    				#{c.rollNo}
-                    </h:column>
-                    <h:column>
-    			<f:facet name="header">
-    				ID
-    			</f:facet>
-    				#{c.admnNo.studentName}
-                    </h:column>
-                                        
-                </h:dataTable>
+                
                 <br />
-                <h:commandLink action="#{currentStudentController.prepareListA}" value="#{bundle.CreateLectureSaveLink}" >
+                <h:commandLink action="#{lectureController.createA()}" value="#{bundle.CreateLectureSaveLink}" >
                     
                 </h:commandLink>
                 <br />
@@ -67,7 +27,63 @@
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateLectureIndexLink}"/>
-            </h:form>
+           <h:form>
+           <p:layout style="min-width:400px; min-height: 200px;" id="layaout" >
+               
+
+               <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
+                    
+                    
+
+                    
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
+                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" maxdate="#{now}"/>
+                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureStartTime}" for="lectureStartTime" />
+                            <p:inputText id="lectureStartTime" value="#{lectureController.selected.lectureStartTime}" title="#{bundle.CreateLectureTitle_lectureStartTime}" >
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </p:inputText>
+                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
+                            <p:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </p:inputText>
+                        </h:panelGrid>
+                        <p:commandButton action="#{lectureController.create()}" value="#{bundle.CreateLectureSaveLink}" />
+                        
+                   
+                </p:layoutUnit>
+                <p:layoutUnit position="center"  resizable="true">
+                    center
+                </p:layoutUnit>
+                <p:layoutUnit position="east"  minSize="200" resizable="true">
+                    <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+                        <h:column>
+                            
+                            <h:selectBooleanCheckbox id="selected" value="#{c.selected}"></h:selectBooleanCheckbox>
+                        </h:column>    
+                        <h:column>
+                            <f:facet name="header">
+                                ID
+                            </f:facet>
+    				#{c.rollNo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                ID
+                            </f:facet>
+    				#{c.admnNo.studentName}
+                        </h:column>
+
+                    </h:dataTable>
+                    
+                    <p:commandButton value="Submit"  action="#{lectureController.createA()}"></p:commandButton>
+                    
+                </p:layoutUnit>
+                
+
+
+            </p:layout>
+           </h:form>
         </ui:define>
     </ui:composition>
 

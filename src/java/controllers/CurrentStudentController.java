@@ -4,10 +4,12 @@ import entities.CurrentStudent;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.CurrentStudentFacade;
+import entities.Attendance;
 import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -42,6 +44,15 @@ public class CurrentStudentController implements Serializable {
         short semester = f.getIdSubject().getSemester();
         attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(semester, div, batch));
         return attendanceByDiv;
+    }
+    
+    public List<CurrentStudent> getCurrentStudentList ()
+    {
+        return (List<CurrentStudent>) attendanceByDiv.getWrappedData();
+    }
+    public void setCurrentStudentList(List<CurrentStudent> s) {
+        
+        attendanceByDiv.setWrappedData(s);
     }
 
     public CurrentStudent getSelected() {

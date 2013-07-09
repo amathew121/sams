@@ -3,6 +3,8 @@
   <persistence-unit name="SamJPAPU" transaction-type="JTA">
     <jta-data-source>jdbc/piit</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+    </properties>
   </persistence-unit>
 </persistence>

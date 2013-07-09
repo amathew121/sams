@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Attendance implements Serializable {
     @Column(name = "id_attendance")
     private Long idAttendance;
     @JoinColumn(name = "id_lecture", referencedColumnName = "id_lecture")
-    @OneToOne
+    @OneToOne()
     private Lecture idLecture;
     @JoinColumn(name = "id_current_student", referencedColumnName = "id_current_student")
     @OneToOne

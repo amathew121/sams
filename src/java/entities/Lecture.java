@@ -136,5 +136,6 @@ public class Lecture implements Serializable {
     public String toString() {
         return "entities.Lecture[ idLecture=" + idLecture + " ]";
     }
-    
+
+
 }

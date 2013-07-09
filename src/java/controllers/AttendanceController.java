@@ -43,6 +43,12 @@ public class AttendanceController implements Serializable {
         return current;
     }
 
+    public void createEntry(Attendance c) throws Exception
+    {
+        current = new Attendance();
+        current = c;
+    }
+    
     private AttendanceFacade getFacade() {
         return ejbFacade;
     }
@@ -189,6 +195,7 @@ public class AttendanceController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+
 
     @FacesConverter(forClass = Attendance.class)
     public static class AttendanceControllerConverter implements Converter {

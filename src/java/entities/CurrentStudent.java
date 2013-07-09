@@ -6,6 +6,8 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CurrentStudent.findByAcademicYear", query = "SELECT c FROM CurrentStudent c WHERE c.academicYear = :academicYear")})
 public class CurrentStudent implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
+    @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_current_student")
@@ -82,11 +84,11 @@ public class CurrentStudent implements Serializable {
     private Attendance attendance;
     @Transient
     private boolean selected;
-    @Transient 
+    
     public boolean isSelected () {
         return selected;
     }
-    @Transient
+    
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
@@ -108,7 +110,7 @@ public class CurrentStudent implements Serializable {
         this.academicYear = academicYear;
     }
 
-    public Integer getIdCurrentStudent() {
+            public Integer getIdCurrentStudent() {
         return idCurrentStudent;
     }
 
