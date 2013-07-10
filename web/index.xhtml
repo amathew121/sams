@@ -11,8 +11,10 @@
 
         <h:link value="Admin Area" outcome="/admin/index.xhtml" />
         <br />
-        <h:link value="User Area" outcome="/user/index.xhtml" />
-
+        <h:form>
+            <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
+        </h:form>
+        
         <br />
         <h:link outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
         <br />

@@ -76,6 +76,11 @@ public class FacultySubjectViewController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    public String prepareListUser() {
+        recreateModel();
+        return "/user/List";
+    }
 
     public String prepareView() {
         current = (FacultySubjectView) getItems().getRowData();

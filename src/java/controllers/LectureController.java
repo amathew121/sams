@@ -72,7 +72,7 @@ public class LectureController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int idFacSub;
-    private FacultySubject facSub;
+    private FacultySubject facSub = null;
 
     public FacultySubject getFacSub() {
         return facSub;

@@ -4,10 +4,13 @@
  */
 package beans;
 
+import entities.FacultySubject;
 import entities.TeachingPlan;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +28,17 @@ public class TeachingPlanFacade extends AbstractFacade<TeachingPlan> {
 
     public TeachingPlanFacade() {
         super(TeachingPlan.class);
+    }
+    
+    public FacultySubject getFSById(int s) {
+        Query q = em.createNamedQuery("FacultySubject.findByIdFacultySubject");
+        q.setParameter("idFacultySubject", s);
+        //List <FacultySubjectView> l = q.getResultList();
+        List<FacultySubject> fl = q.getResultList();
+        //count = l.size();
+        System.out.println(fl.toString());
+        FacultySubject l = (FacultySubject) fl.get(0);
+        return l;
     }
     
 }

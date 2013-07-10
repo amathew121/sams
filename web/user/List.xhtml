@@ -20,48 +20,14 @@
                     <h:commandLink action="#{facultySubjectViewController.previous}" value="#{bundle.Previous} #{facultySubjectViewController.pagination.pageSize}" rendered="#{facultySubjectViewController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{facultySubjectViewController.next}" value="#{bundle.Next} #{facultySubjectViewController.pagination.pageSize}" rendered="#{facultySubjectViewController.pagination.hasNextPage}"/>&nbsp;
                     <h:dataTable value="#{facultySubjectViewController.modelByUserName}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                      <!--  <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idFacultySubject}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idFacultySubject}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idFaculty}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idFaculty}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_facultyTitle}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.facultyTitle}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_facultyLname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.facultyLname}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_facultyFname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.facultyFname}"/>
-                        </h:column> -->
+                      
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_subjectCode}"/>
                             </f:facet>
                             <h:outputText value="#{item.subjectCode}"/>
                         </h:column>
-                   <!--
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_subjectName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.subjectName}"/>
-                        </h:column> -->
+                   
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idProgram}"/>
@@ -96,7 +62,8 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{lectureController.prepareCreate()}" value="/user/Create" immediate="true"/>
+                            <h:commandLink action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateTeachingPlanTitle}" immediate="true"/>
+                            <br />
                             <h:commandLink action="#{lectureController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.ListFacultySubjectViewCreateLink}">
                                
                             </h:commandLink>

@@ -4,6 +4,7 @@ import entities.TeachingPlan;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.TeachingPlanFacade;
+import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -77,6 +78,13 @@ public class TeachingPlanController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    public String prepareCreateWithId(int f) {
+        current = new TeachingPlan();
+        selectedItemIndex = -1;
+        current.setIdFacultySubject(getFacade().getFSById(f));  
+        return "CreateTPlan";
+    }
 
     public String create() {
         try {
@@ -87,6 +95,11 @@ public class TeachingPlanController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }
+        public String createTP() {
+        create();
+        recreateModel();
+        return null;
     }
 
     public String prepareEdit() {
