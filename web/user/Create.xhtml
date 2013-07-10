@@ -13,7 +13,7 @@
         <ui:define name="body">
             
            <h:form>
-           <p:layout style="min-width:400px; min-height: 200px;" id="layaout" >
+           <p:layout style="min-width:400px; min-height: 600px;" id="layaout" >
                
 
                <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
@@ -40,18 +40,19 @@
                 <p:layoutUnit position="center"  resizable="true">
                     center
                 </p:layoutUnit>
-                <p:layoutUnit position="east"  minSize="200" resizable="true">
-                    <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
-                        <h:column>
-                            
-                            <h:selectBooleanCheckbox id="selected" value="#{c.selected}"></h:selectBooleanCheckbox>
-                        </h:column>    
+                <p:layoutUnit position="east"  minSize="400" resizable="true">
+                    <h:dataTable border="1"  value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+   
                         <h:column>
                             <f:facet name="header">
                                 ID
                             </f:facet>
     				#{c.rollNo}
                         </h:column>
+                        <h:column>
+
+                            <h:selectBooleanCheckbox id="selected" value="#{c.selected}"></h:selectBooleanCheckbox>
+                        </h:column> 
                         <h:column>
                             <f:facet name="header">
                                 ID

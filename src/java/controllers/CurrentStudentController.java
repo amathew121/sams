@@ -5,6 +5,7 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.CurrentStudentFacade;
 import entities.Attendance;
+import entities.Course;
 import entities.FacultySubject;
 
 import java.io.Serializable;
@@ -41,13 +42,14 @@ public class CurrentStudentController implements Serializable {
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
+        Course course = f.getIdSubject().getProgramCourse().getCourse();
         if(batch==0){
-            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDivTheory(semester, div));
+            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDivTheory(course, semester, div));
             return attendanceByDiv;
         }
         else {
         
-            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(semester, div, batch));
+            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(course, semester, div, batch));
             return attendanceByDiv;
         }
     }
