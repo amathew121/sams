@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Attendance.findAll", query = "SELECT a FROM Attendance a"),
     @NamedQuery(name = "Attendance.findByIdAttendance", query = "SELECT a FROM Attendance a WHERE a.idAttendance = :idAttendance")})
+
 public class Attendance implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,10 +39,10 @@ public class Attendance implements Serializable {
     @Column(name = "id_attendance")
     private Long idAttendance;
     @JoinColumn(name = "id_lecture", referencedColumnName = "id_lecture")
-    @OneToOne()
+    @ManyToOne
     private Lecture idLecture;
     @JoinColumn(name = "id_current_student", referencedColumnName = "id_current_student")
-    @OneToOne
+    @ManyToOne
     private CurrentStudent idCurrentStudent;
 
     public Attendance() {
