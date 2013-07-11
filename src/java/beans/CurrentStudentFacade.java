@@ -4,6 +4,7 @@
  */
 package beans;
 
+import entities.Course;
 import entities.CurrentStudent;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,20 +32,22 @@ public class CurrentStudentFacade extends AbstractFacade<CurrentStudent> {
         super(CurrentStudent.class);
     }
 
-    public List<CurrentStudent> getCurrentStudentByDiv(short semester, String div, short batch) {
+    public List<CurrentStudent> getCurrentStudentByDiv(Course course, short semester, String div, short batch) {
         List <CurrentStudent> l = new ArrayList();
         
         Query q = em.createNamedQuery("CurrentStudent.findUltimate");
+        q.setParameter("idCourse", course);
         q.setParameter("batch", batch);
         q.setParameter("division", div);
         q.setParameter("semester", semester);
         l = q.getResultList();
         return l;
     }
-        public List<CurrentStudent> getCurrentStudentByDivTheory(short semester, String div) {
+        public List<CurrentStudent> getCurrentStudentByDivTheory(Course course, short semester, String div) {
         List <CurrentStudent> l = new ArrayList();
         
         Query q = em.createNamedQuery("CurrentStudent.findUltimateTheory");
+        q.setParameter("idCourse", course);
         q.setParameter("division", div);
         q.setParameter("semester", semester);
         l = q.getResultList();
