@@ -25,10 +25,13 @@ public class TeachingPlanController implements Serializable {
 
     private TeachingPlan current;
     private DataModel items = null;
+    private DataModel itemsUser = null;
+    private TeachingPlan[] selectedList;
     @EJB
     private beans.TeachingPlanFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private FacultySubject facSub;
 
     public TeachingPlanController() {
     }
@@ -40,6 +43,16 @@ public class TeachingPlanController implements Serializable {
         }
         return current;
     }
+
+    public TeachingPlan[] getSelectedList() {
+        return selectedList;
+    }
+
+    public void setSelectedList(TeachingPlan[] selectedList) {
+        this.selectedList = selectedList;
+    }
+    
+    
 
     private TeachingPlanFacade getFacade() {
         return ejbFacade;
@@ -62,6 +75,10 @@ public class TeachingPlanController implements Serializable {
         return pagination;
     }
 
+    public void setCurrent(TeachingPlan current) {
+        this.current = current;
+    }
+
     public String prepareList() {
         recreateModel();
         return "List";
@@ -82,7 +99,7 @@ public class TeachingPlanController implements Serializable {
     public String prepareCreateWithId(int f) {
         current = new TeachingPlan();
         selectedItemIndex = -1;
-        current.setIdFacultySubject(getFacade().getFSById(f));  
+        facSub = getFacade().getFSById(f);
         return "CreateTPlan";
     }
 
@@ -97,9 +114,10 @@ public class TeachingPlanController implements Serializable {
         }
     }
         public String createTP() {
+        current.setIdFacultySubject(facSub);
         create();
         recreateModel();
-        return null;
+        return prepareCreateWithId(facSub.getIdFacultySubject());
     }
 
     public String prepareEdit() {
@@ -172,8 +190,21 @@ public class TeachingPlanController implements Serializable {
         return items;
     }
 
+    public DataModel getItemsUser() {
+
+        itemsUser = new ListDataModel(getFacade().getTeachingPlanByFS(facSub));
+
+        return itemsUser;
+    }
+
+    public void setFacSub(FacultySubject facSub) {
+        this.facSub = facSub;
+    }
+
+
     private void recreateModel() {
         items = null;
+        itemsUser = null;
     }
 
     private void recreatePagination() {

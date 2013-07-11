@@ -38,10 +38,42 @@
                    
                 </p:layoutUnit>
                 <p:layoutUnit position="center"  resizable="true">
-                    center
+                    <p:dataTable  id="teachPlan" rowKey="#{c.idTeachingPlan}" selection="#{teachingPlanController.selectedList}" 
+                                  selectionMode="multiple" value="#{teachingPlanController.itemsUser}" var="c" >                
+                        <p:column width="5%">
+                            <f:facet name="header">
+                                Lecture No
+                            </f:facet>
+    				#{c.lectureNo}
+                        </p:column>
+                        <p:column width="71%">
+                            <f:facet name="header">
+                                Topics Planned
+                            </f:facet>
+    				#{c.topicsPlanned}
+                        </p:column>
+
+                        <p:column width="12%">
+                            <f:facet name="header">
+                                Planned Date
+                            </f:facet>
+                            <h:outputText value="#{c.plannedDate}">
+                                <f:convertDateTime pattern="dd-MM-YYYY" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="12%">
+                            <f:facet name="header">
+                                Actual Date
+                            </f:facet>
+                            <h:outputText value="#{c.actualDate}">
+                                <f:convertDateTime pattern="dd-MM-YYYY" />
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
                 </p:layoutUnit>
                 <p:layoutUnit position="east"  minSize="200" resizable="true">
-                    <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+                    <h:dataTable  value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
                         <h:column>
                             
                             <h:selectBooleanCheckbox id="selected" value="#{c.selected}"></h:selectBooleanCheckbox>

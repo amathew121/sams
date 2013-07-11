@@ -11,13 +11,13 @@
             <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            
+
            <h:form>
                <h:panelGroup id="messagePanel" layout="block">
                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                </h:panelGroup>
                
-               <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_lectureNo}" for="topicsPlanned" />
+               <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_lectureNo}" for="lectureNo" />
                <p:inputText value="#{teachingPlanController.selected.lectureNo}" id="lectureNo" type="number" />
                <br />
                
@@ -29,22 +29,39 @@
                <p:calendar value="#{teachingPlanController.selected.plannedDate}" id="plannedDate" maxdate="#{now}"/>
                
                <br />
-               <p:commandButton value="#{bundle.CreateTeachingPlanSaveLink}" update="lectureNo,plannedDate,topicsPlanned" action="#{teachingPlanController.createTP()}" />
+               <p:commandButton value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,plannedDate,lectureNo, messagePanel,:teachPlan" action="#{teachingPlanController.createTP()}" />
            </h:form>
+
            
-            <p:dataTable id="teachPlan" value="#{teachingPlanController.items}" var="c" >
-   
-                <p:column>
+            <p:dataTable  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+                <p:column width="5%">
                     <f:facet name="header">
-                        Planned Date
+                        Lecture No
                     </f:facet>
-    				#{c.plannedDate}
+    				#{c.lectureNo}
                 </p:column>
-                <p:column>
+                <p:column width="71%">
                     <f:facet name="header">
                         Topics Planned
                     </f:facet>
     				#{c.topicsPlanned}
+                </p:column>
+
+                <p:column width="12%">
+                    <f:facet name="header">
+                        Planned Date
+                    </f:facet>
+                    <h:outputText value="#{c.plannedDate}">
+                        <f:convertDateTime pattern="dd-MM-YYYY" />
+                    </h:outputText>
+                </p:column>
+                <p:column width="12%">
+                    <f:facet name="header">
+                        Actual Date
+                    </f:facet>
+                    <h:outputText value="#{c.actualDate}">
+                        <f:convertDateTime pattern="dd-MM-YYYY" />
+                    </h:outputText>
                 </p:column>
 
             </p:dataTable>

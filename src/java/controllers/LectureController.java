@@ -7,6 +7,7 @@ import beans.LectureFacade;
 import entities.Attendance;
 import entities.CurrentStudent;
 import entities.FacultySubject;
+import entities.TeachingPlan;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,6 +66,18 @@ public class LectureController implements Serializable {
     public void setCurrentStudentController(CurrentStudentController currentStudentController) {
         this.currentStudentController = currentStudentController;
     }
+    
+    @ManagedProperty(value="#{teachingPlanController}")
+    private TeachingPlanController teachingPlanController;
+
+    public TeachingPlanController getTeachingPlanController() {
+        return teachingPlanController;
+    }
+
+    public void setTeachingPlanController(TeachingPlanController teachingPlanController) {
+        this.teachingPlanController = teachingPlanController;
+    }
+    
     
 
     @EJB
@@ -145,6 +158,7 @@ public class LectureController implements Serializable {
       // FacultySubjectController fsc = new FacultySubjectController();
       // fsc.getIdFacSub(idFacSub);
        getFacSubject(idFacSub);
+       teachingPlanController.setFacSub(getFacSub());
        current.setIdFacultySubject(getFacSub());
        return "Create";
        
@@ -185,6 +199,14 @@ public class LectureController implements Serializable {
     public String createA() throws Exception{
         Lecture temp = current;
         create();
+        TeachingPlan[] tpList = teachingPlanController.getSelectedList();
+        for(int i=0; i<tpList.length;i++)
+        {
+            tpList[i].setActualDate(temp.getLectureDate());
+            teachingPlanController.setCurrent(tpList[i]);
+            teachingPlanController.update();
+        }
+        
         List<CurrentStudent> csl = new ArrayList();
         csl = currentStudentController.getCurrentStudentList();
         for(int i=0; i< csl.size(); i++)
