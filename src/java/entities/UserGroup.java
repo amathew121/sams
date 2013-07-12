@@ -7,6 +7,8 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UserGroup.findByUserName", query = "SELECT u FROM UserGroup u WHERE u.userGroupPK.userName = :userName"),
     @NamedQuery(name = "UserGroup.findByRoleName", query = "SELECT u FROM UserGroup u WHERE u.userGroupPK.roleName = :roleName")})
 public class UserGroup implements Serializable {
+    @JoinColumn(name = "user_name", referencedColumnName = "id_faculty", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Faculty faculty;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserGroupPK userGroupPK;
@@ -70,6 +75,14 @@ public class UserGroup implements Serializable {
     @Override
     public String toString() {
         return "entities.UserGroup[ userGroupPK=" + userGroupPK + " ]";
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
     
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFacultyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListFacultyEmpty}" rendered="#{facultyController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{facultyController.items.rowCount > 0}">
+                <h:outputText value="#{facultyController.pagination.pageFirstItem + 1}..#{facultyController.pagination.pageLastItem + 1}/#{facultyController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{facultyController.previous}" value="#{bundle.Previous} #{facultyController.pagination.pageSize}" rendered="#{facultyController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{facultyController.next}" value="#{bundle.Next} #{facultyController.pagination.pageSize}" rendered="#{facultyController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{facultyController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_idFaculty}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idFaculty}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyFname}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyFname}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyLname}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyLname}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyMobile}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyMobile}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyEmail}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyEmail}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyPassword}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyPassword}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyDepartment}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyDepartment}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyLastLogin}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyLastLogin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyTitle}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyTitle}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListFacultyTitle_facultyShowFeedback}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.facultyShowFeedback}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{facultyController.prepareView}" value="#{bundle.ListFacultyViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{facultyController.prepareEdit}" value="#{bundle.ListFacultyEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{facultyController.destroy}" value="#{bundle.ListFacultyDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{facultyController.prepareCreate}" value="#{bundle.ListFacultyCreateLink}"/>
+            <br />
+            <br />
+            <h:link outcome="/index" value="#{bundle.ListFacultyIndexLink}"/>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

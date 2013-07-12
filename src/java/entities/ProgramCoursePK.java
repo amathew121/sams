@@ -78,7 +78,7 @@ public class ProgramCoursePK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.ProgramCoursePK[ idProgram=" + idProgram + ", idCourse=" + idCourse + " ]";
+        return idProgram+" "+idCourse;
     }
     
 }

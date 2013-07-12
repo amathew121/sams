@@ -6,11 +6,10 @@ import controllers.util.PaginationHelper;
 import beans.FacultyFacade;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -19,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "facultyController")
+
+@Named("facultyController")
 @SessionScoped
 public class FacultyController implements Serializable {
 
+
     private Faculty current;
     private DataModel items = null;
-    @EJB
-    private beans.FacultyFacade ejbFacade;
+    @EJB private beans.FacultyFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -44,10 +44,10 @@ public class FacultyController implements Serializable {
     private FacultyFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
+
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
@@ -55,7 +55,7 @@ public class FacultyController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -68,24 +68,9 @@ public class FacultyController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Faculty) getItems().getRowData();
+        current = (Faculty)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
-    
-    public String convertToHash()
-    {
-        List <Faculty> fl = getFacade().findAll();
-        int i =0;
-        while(i <fl.size()) {
-                Faculty f = fl.get(i);
-                String pass = f.getFacultyPassword();
-                f.setFacultyPassword(pass);
-                fl.set(i, f);
-                current = f;
-                update();
-                }
-        return "List";
     }
 
     public String prepareCreate() {
@@ -106,7 +91,7 @@ public class FacultyController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Faculty) getItems().getRowData();
+        current = (Faculty)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -123,7 +108,7 @@ public class FacultyController implements Serializable {
     }
 
     public String destroy() {
-        current = (Faculty) getItems().getRowData();
+        current = (Faculty)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -157,14 +142,14 @@ public class FacultyController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -203,16 +188,21 @@ public class FacultyController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Faculty.class)
+    public Faculty getFaculty(java.lang.String id) {
+        return ejbFacade.find(id);
+    }
+
+    @FacesConverter(forClass=Faculty.class)
     public static class FacultyControllerConverter implements Converter {
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FacultyController controller = (FacultyController) facesContext.getApplication().getELResolver().
+            FacultyController controller = (FacultyController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "facultyController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.getFaculty(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -222,11 +212,12 @@ public class FacultyController implements Serializable {
         }
 
         String getStringKey(java.lang.String value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
@@ -235,8 +226,10 @@ public class FacultyController implements Serializable {
                 Faculty o = (Faculty) object;
                 return getStringKey(o.getIdFaculty());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Faculty.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+Faculty.class.getName());
             }
         }
+
     }
+
 }

@@ -44,6 +44,8 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculty")
+    private Collection<UserGroup> userGroupCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -208,7 +210,16 @@ public class Faculty implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Faculty[ idFaculty=" + idFaculty + " ]";
+        return facultyFname + " " + facultyLname;
+    }
+
+    @XmlTransient
+    public Collection<UserGroup> getUserGroupCollection() {
+        return userGroupCollection;
+    }
+
+    public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
+        this.userGroupCollection = userGroupCollection;
     }
     
 }

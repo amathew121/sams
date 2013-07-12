@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditSubjectLabel_idSubject}" for="idSubject" />
-                    <h:inputText id="idSubject" value="#{subjectController.selected.idSubject}" title="#{bundle.EditSubjectTitle_idSubject}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_idSubject}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_subjectCode}" for="subjectCode" />
                     <h:inputText id="subjectCode" value="#{subjectController.selected.subjectCode}" title="#{bundle.EditSubjectTitle_subjectCode}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_subjectCode}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_subjectSrNo}" for="subjectSrNo" />
@@ -24,7 +22,17 @@
                     <h:outputLabel value="#{bundle.EditSubjectLabel_subjectName}" for="subjectName" />
                     <h:inputText id="subjectName" value="#{subjectController.selected.subjectName}" title="#{bundle.EditSubjectTitle_subjectName}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_subjectName}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_semester}" for="semester" />
-                    <h:inputText id="semester" value="#{subjectController.selected.semester}" title="#{bundle.EditSubjectTitle_semester}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_semester}"/>
+                    <h:selectOneMenu id="semester" value="#{subjectController.selected.semester}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_semester}">
+                        <f:selectItem itemValue="1" />
+                        <f:selectItem itemValue="2" />
+                        <f:selectItem itemValue="3" />
+                        <f:selectItem itemValue="4" />
+                        <f:selectItem itemValue="5" />
+                        <f:selectItem itemValue="6" />
+                        <f:selectItem itemValue="7" />
+                        <f:selectItem itemValue="8" />
+                        
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_theory}" for="theory" />
                     <h:inputText id="theory" value="#{subjectController.selected.theory}" title="#{bundle.EditSubjectTitle_theory}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_theory}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_practical}" for="practical" />
@@ -32,7 +40,10 @@
                     <h:outputLabel value="#{bundle.EditSubjectLabel_tutorial}" for="tutorial" />
                     <h:inputText id="tutorial" value="#{subjectController.selected.tutorial}" title="#{bundle.EditSubjectTitle_tutorial}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_tutorial}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_elective}" for="elective" />
-                    <h:inputText id="elective" value="#{subjectController.selected.elective}" title="#{bundle.EditSubjectTitle_elective}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_elective}"/>
+                    <h:selectOneMenu id="elective" value="#{subjectController.selected.elective}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_elective}"> 
+                        <f:selectItem itemValue="false" />
+                        <f:selectItem itemValue="true" />
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_creditTheory}" for="creditTheory" />
                     <h:inputText id="creditTheory" value="#{subjectController.selected.creditTheory}" title="#{bundle.EditSubjectTitle_creditTheory}" required="true" requiredMessage="#{bundle.EditSubjectRequiredMessage_creditTheory}"/>
                     <h:outputLabel value="#{bundle.EditSubjectLabel_creditPractical}" for="creditPractical" />

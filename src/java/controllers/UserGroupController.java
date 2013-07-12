@@ -8,8 +8,8 @@ import beans.UserGroupFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -18,7 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "userGroupController")
+@Named("userGroupController")
 @SessionScoped
 public class UserGroupController implements Serializable {
 
@@ -82,6 +82,7 @@ public class UserGroupController implements Serializable {
 
     public String create() {
         try {
+            current.getUserGroupPK().setUserName(current.getFaculty().getIdFaculty());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserGroupCreated"));
             return prepareCreate();
@@ -99,6 +100,7 @@ public class UserGroupController implements Serializable {
 
     public String update() {
         try {
+            current.getUserGroupPK().setUserName(current.getFaculty().getIdFaculty());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserGroupUpdated"));
             return "View";
@@ -189,19 +191,24 @@ public class UserGroupController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public UserGroup getUserGroup(entities.UserGroupPK id) {
+        return ejbFacade.find(id);
+    }
+
     @FacesConverter(forClass = UserGroup.class)
     public static class UserGroupControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
             UserGroupController controller = (UserGroupController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "userGroupController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.getUserGroup(getKey(value));
         }
 
         entities.UserGroupPK getKey(String value) {
@@ -214,13 +221,14 @@ public class UserGroupController implements Serializable {
         }
 
         String getStringKey(entities.UserGroupPK value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value.getUserName());
             sb.append(SEPARATOR);
             sb.append(value.getRoleName());
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

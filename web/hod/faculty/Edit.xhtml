@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFacultyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_idFaculty}" for="idFaculty" />
+                    <h:inputText id="idFaculty" value="#{facultyController.selected.idFaculty}" title="#{bundle.EditFacultyTitle_idFaculty}" required="true" requiredMessage="#{bundle.EditFacultyRequiredMessage_idFaculty}"/>
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyFname}" for="facultyFname" />
+                    <h:inputText id="facultyFname" value="#{facultyController.selected.facultyFname}" title="#{bundle.EditFacultyTitle_facultyFname}" required="true" requiredMessage="#{bundle.EditFacultyRequiredMessage_facultyFname}"/>
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyLname}" for="facultyLname" />
+                    <h:inputText id="facultyLname" value="#{facultyController.selected.facultyLname}" title="#{bundle.EditFacultyTitle_facultyLname}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyMobile}" for="facultyMobile" />
+                    <h:inputText id="facultyMobile" value="#{facultyController.selected.facultyMobile}" title="#{bundle.EditFacultyTitle_facultyMobile}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyEmail}" for="facultyEmail" />
+                    <h:inputText id="facultyEmail" value="#{facultyController.selected.facultyEmail}" title="#{bundle.EditFacultyTitle_facultyEmail}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyPassword}" for="facultyPassword" />
+                    <h:inputText id="facultyPassword" value="#{facultyController.selected.facultyPassword}" title="#{bundle.EditFacultyTitle_facultyPassword}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyDepartment}" for="facultyDepartment" />
+                    <h:inputText id="facultyDepartment" value="#{facultyController.selected.facultyDepartment}" title="#{bundle.EditFacultyTitle_facultyDepartment}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyLastLogin}" for="facultyLastLogin" />
+                    <h:inputText id="facultyLastLogin" value="#{facultyController.selected.facultyLastLogin}" title="#{bundle.EditFacultyTitle_facultyLastLogin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyTitle}" for="facultyTitle" />
+                    <h:inputText id="facultyTitle" value="#{facultyController.selected.facultyTitle}" title="#{bundle.EditFacultyTitle_facultyTitle}" />
+                    <h:outputLabel value="#{bundle.EditFacultyLabel_facultyShowFeedback}" for="facultyShowFeedback" />
+                    <h:inputText id="facultyShowFeedback" value="#{facultyController.selected.facultyShowFeedback}" title="#{bundle.EditFacultyTitle_facultyShowFeedback}" />
+                </h:panelGrid>
+                <h:commandLink action="#{facultyController.update}" value="#{bundle.EditFacultySaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFacultyViewLink}"/>
+                <br />
+                <h:commandLink action="#{facultyController.prepareList}" value="#{bundle.EditFacultyShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFacultyIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

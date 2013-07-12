@@ -261,7 +261,8 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Subject[ idSubject=" + idSubject + " ]";
+        return subjectCode +" "+ programCourse.toString() + " " + "Sem "+ semester+ " ";
+        
     }
     
 }

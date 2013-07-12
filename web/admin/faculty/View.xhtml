@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFacultyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFacultyLabel_idFaculty}"/>
+                    <h:outputText value="#{facultyController.selected.idFaculty}" title="#{bundle.ViewFacultyTitle_idFaculty}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyFname}"/>
+                    <h:outputText value="#{facultyController.selected.facultyFname}" title="#{bundle.ViewFacultyTitle_facultyFname}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyLname}"/>
+                    <h:outputText value="#{facultyController.selected.facultyLname}" title="#{bundle.ViewFacultyTitle_facultyLname}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyMobile}"/>
+                    <h:outputText value="#{facultyController.selected.facultyMobile}" title="#{bundle.ViewFacultyTitle_facultyMobile}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyEmail}"/>
+                    <h:outputText value="#{facultyController.selected.facultyEmail}" title="#{bundle.ViewFacultyTitle_facultyEmail}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyPassword}"/>
+                    <h:outputText value="#{facultyController.selected.facultyPassword}" title="#{bundle.ViewFacultyTitle_facultyPassword}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyDepartment}"/>
+                    <h:outputText value="#{facultyController.selected.facultyDepartment}" title="#{bundle.ViewFacultyTitle_facultyDepartment}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyLastLogin}"/>
+                    <h:outputText value="#{facultyController.selected.facultyLastLogin}" title="#{bundle.ViewFacultyTitle_facultyLastLogin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyTitle}"/>
+                    <h:outputText value="#{facultyController.selected.facultyTitle}" title="#{bundle.ViewFacultyTitle_facultyTitle}"/>
+                    <h:outputText value="#{bundle.ViewFacultyLabel_facultyShowFeedback}"/>
+                    <h:outputText value="#{facultyController.selected.facultyShowFeedback}" title="#{bundle.ViewFacultyTitle_facultyShowFeedback}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facultyController.destroyAndView}" value="#{bundle.ViewFacultyDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFacultyEditLink}"/>
+                <br />
+                <h:commandLink action="#{facultyController.prepareCreate}" value="#{bundle.ViewFacultyCreateLink}" />
+                <br />
+                <h:commandLink action="#{facultyController.prepareList}" value="#{bundle.ViewFacultyShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFacultyIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Ashish
+ * @author piit
  */
 @Stateless
 public class UserGroupFacade extends AbstractFacade<UserGroup> {

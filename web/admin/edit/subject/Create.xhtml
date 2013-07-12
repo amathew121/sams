@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,36 +15,47 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_idSubject}" for="idSubject" />
-                    <h:inputText id="idSubject" value="#{subjectController.selected.idSubject}" title="#{bundle.CreateSubjectTitle_idSubject}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_idSubject}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_subjectCode}" for="subjectCode" />
-                    <h:inputText id="subjectCode" value="#{subjectController.selected.subjectCode}" title="#{bundle.CreateSubjectTitle_subjectCode}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_subjectCode}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_subjectSrNo}" for="subjectSrNo" />
-                    <h:inputText id="subjectSrNo" value="#{subjectController.selected.subjectSrNo}" title="#{bundle.CreateSubjectTitle_subjectSrNo}" />
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_subjectName}" for="subjectName" />
-                    <h:inputText id="subjectName" value="#{subjectController.selected.subjectName}" title="#{bundle.CreateSubjectTitle_subjectName}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_subjectName}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_semester}" for="semester" />
-                    <h:inputText id="semester" value="#{subjectController.selected.semester}" title="#{bundle.CreateSubjectTitle_semester}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_semester}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_theory}" for="theory" />
-                    <h:inputText id="theory" value="#{subjectController.selected.theory}" title="#{bundle.CreateSubjectTitle_theory}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_theory}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_practical}" for="practical" />
-                    <h:inputText id="practical" value="#{subjectController.selected.practical}" title="#{bundle.CreateSubjectTitle_practical}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_practical}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_tutorial}" for="tutorial" />
-                    <h:inputText id="tutorial" value="#{subjectController.selected.tutorial}" title="#{bundle.CreateSubjectTitle_tutorial}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_tutorial}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_elective}" for="elective" />
-                    <h:inputText id="elective" value="#{subjectController.selected.elective}" title="#{bundle.CreateSubjectTitle_elective}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_elective}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_creditTheory}" for="creditTheory" />
-                    <h:inputText id="creditTheory" value="#{subjectController.selected.creditTheory}" title="#{bundle.CreateSubjectTitle_creditTheory}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditTheory}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_creditPractical}" for="creditPractical" />
-                    <h:inputText id="creditPractical" value="#{subjectController.selected.creditPractical}" title="#{bundle.CreateSubjectTitle_creditPractical}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditPractical}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_creditTutorial}" for="creditTutorial" />
-                    <h:inputText id="creditTutorial" value="#{subjectController.selected.creditTutorial}" title="#{bundle.CreateSubjectTitle_creditTutorial}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditTutorial}"/>
-                    <h:outputLabel value="#{bundle.CreateSubjectLabel_programCourse}" for="programCourse" />
-                    <h:selectOneMenu id="programCourse" value="#{subjectController.selected.programCourse}" title="#{bundle.CreateSubjectTitle_programCourse}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_programCourse}">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_subjectCode}" for="subjectCode" />
+                    <p:inputText id="subjectCode" value="#{subjectController.selected.subjectCode}" title="#{bundle.CreateSubjectTitle_subjectCode}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_subjectCode}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_subjectSrNo}" for="subjectSrNo" />
+                    <p:inputText id="subjectSrNo" value="#{subjectController.selected.subjectSrNo}" title="#{bundle.CreateSubjectTitle_subjectSrNo}" />
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_subjectName}" for="subjectName" />
+                    <p:inputText id="subjectName" value="#{subjectController.selected.subjectName}" title="#{bundle.CreateSubjectTitle_subjectName}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_subjectName}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_semester}" for="semester" />
+                    <h:selectOneMenu id="semester" value="#{subjectController.selected.semester}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_semester}">
+                        <f:selectItem itemValue="1" />
+                        <f:selectItem itemValue="2" />
+                        <f:selectItem itemValue="3" />
+                        <f:selectItem itemValue="4" />
+                        <f:selectItem itemValue="5" />
+                        <f:selectItem itemValue="6" />
+                        <f:selectItem itemValue="7" />
+                        <f:selectItem itemValue="8" />
+                        
+                    </h:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_theory}" for="theory" />
+                    <p:inputText id="theory" value="#{subjectController.selected.theory}" title="#{bundle.CreateSubjectTitle_theory}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_theory}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_practical}" for="practical" />
+                    <p:inputText id="practical" value="#{subjectController.selected.practical}" title="#{bundle.CreateSubjectTitle_practical}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_practical}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_tutorial}" for="tutorial" />
+                    <p:inputText id="tutorial" value="#{subjectController.selected.tutorial}" title="#{bundle.CreateSubjectTitle_tutorial}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_tutorial}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_elective}" for="elective" />
+                    <h:selectOneMenu id="elective" value="#{subjectController.selected.elective}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_elective}"> 
+                        <f:selectItem itemValue="false" />
+                        <f:selectItem itemValue="true" />
+                    </h:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_creditTheory}" for="creditTheory" />
+                    <p:inputText id="creditTheory" value="#{subjectController.selected.creditTheory}" title="#{bundle.CreateSubjectTitle_creditTheory}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditTheory}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_creditPractical}" for="creditPractical" />
+                    <p:inputText id="creditPractical" value="#{subjectController.selected.creditPractical}" title="#{bundle.CreateSubjectTitle_creditPractical}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditPractical}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_creditTutorial}" for="creditTutorial" />
+                    <p:inputText id="creditTutorial" value="#{subjectController.selected.creditTutorial}" title="#{bundle.CreateSubjectTitle_creditTutorial}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_creditTutorial}"/>
+                    <p:outputLabel value="#{bundle.CreateSubjectLabel_programCourse}" for="programCourse" />
+                    <h:selectOneMenu id="programCourse" value="#{subjectController.selected.programCourse}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_programCourse}">
                         <f:selectItems value="#{programCourseController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                </h:panelGrid>
+                </p:panelGrid>
                 <br />
                 <h:commandLink action="#{subjectController.create}" value="#{bundle.CreateSubjectSaveLink}" />
                 <br />

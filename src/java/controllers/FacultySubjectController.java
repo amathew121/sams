@@ -80,6 +80,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String create() {
+        current.setIdFacultySubject(0);
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectCreated"));

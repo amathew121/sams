@@ -79,6 +79,7 @@ public class SubjectController implements Serializable {
     }
 
     public String create() {
+        current.setIdSubject(0);
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SubjectCreated"));
