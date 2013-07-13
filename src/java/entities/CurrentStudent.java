@@ -84,14 +84,14 @@ public class CurrentStudent implements Serializable {
     @OneToOne(mappedBy = "idCurrentStudent")
     private Attendance attendance;
     @Transient
-    private boolean selected;
+    private boolean selectedBool;
     
-    public boolean isSelected () {
-        return selected;
+    public boolean isSelectedBool () {
+        return selectedBool;
     }
     
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setSelectedB(boolean selectedB) {
+        this.selectedBool = selectedB;
     }
     
     

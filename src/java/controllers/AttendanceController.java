@@ -8,6 +8,7 @@ import entities.FacultySubject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -34,6 +35,11 @@ public class AttendanceController implements Serializable {
     }
     
 
+    @PostConstruct
+    public void init()
+    {
+        current= new Attendance();
+    }
 
     public Attendance getSelected() {
         if (current == null) {

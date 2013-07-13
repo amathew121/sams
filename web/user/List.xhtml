@@ -8,6 +8,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
+
             <h:outputText value="#{bundle.ListFacultySubjectViewTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
@@ -62,7 +63,7 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
+                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="#{bundle.ViewLectureShowAllLink}" immediate="true"/>
                             <br />
                             <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateTeachingPlanTitle}" immediate="true"/>
                             <br />

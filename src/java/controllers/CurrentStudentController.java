@@ -9,9 +9,11 @@ import entities.Course;
 import entities.FacultySubject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -29,39 +31,44 @@ public class CurrentStudentController implements Serializable {
 
     private CurrentStudent current;
     private DataModel items = null;
-    private DataModel attendanceByDiv = null;
+    private List<CurrentStudent> attendanceByDiv ;
     @EJB
     private beans.CurrentStudentFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    @PostConstruct
+    public void Init()
+    {
+        attendanceByDiv = new ArrayList<CurrentStudent>();
+    }
     public CurrentStudentController() {
     }
     
-    public DataModel getAttendanceByDiv (FacultySubject f) {
+    public List<CurrentStudent> getAttendanceByDiv (FacultySubject f) {
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
         Course course = f.getIdSubject().getProgramCourse().getCourse();
         if(batch==0){
-            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDivTheory(course, semester, div));
+            attendanceByDiv = getFacade().getCurrentStudentByDivTheory(course, semester, div);
             return attendanceByDiv;
         }
         else {
         
-            attendanceByDiv = new ListDataModel(getFacade().getCurrentStudentByDiv(course, semester, div, batch));
+            attendanceByDiv = getFacade().getCurrentStudentByDiv(course, semester, div, batch);
             return attendanceByDiv;
         }
     }
+
+    public List<CurrentStudent> getAttendanceByDiv() {
+        return attendanceByDiv;
+    }
+
+    public void setAttendanceByDiv(List<CurrentStudent> attendanceByDiv) {
+        this.attendanceByDiv = attendanceByDiv;
+    }
     
-    public List<CurrentStudent> getCurrentStudentList ()
-    {
-        return (List<CurrentStudent>) attendanceByDiv.getWrappedData();
-    }
-    public void setCurrentStudentList(List<CurrentStudent> s) {
-        
-        attendanceByDiv.setWrappedData(s);
-    }
 
     public CurrentStudent getSelected() {
         if (current == null) {

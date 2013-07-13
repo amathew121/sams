@@ -157,25 +157,19 @@ public class LectureController implements Serializable {
         return "View";
     }
 
-    public String prepareCreateWithId(int i)
+    public String prepareCreateWithId()
     {
        prepareCreate();
-       idFacSub = i;
-     //  FacultySubject facSub = new 
-      // FacultySubjectController fsc = new FacultySubjectController();
-      // fsc.getIdFacSub(idFacSub);
-       getFacSubject(idFacSub);
-       teachingPlanController.setFacSub(getFacSub());
-       current.setIdFacultySubject(getFacSub());
-       return "Create";
-       
+       // facSub = getFacade().getFSById(idFacSub);
+        teachingPlanController.setFacSub(facSub);
+        return "Create?foo=" + idFacSub + "&faces-redirect=true";
     }
     public String prepareViewWithId(int i)
     {
         idFacSub=i;
         getFacSubject(idFacSub);
         recreateModel();
-        return "View";
+        return "View?foo=" + i + "&faces-redirect=true";
     }
     public FacultySubject getFacSubject(int i) {
         facSub = getFacade().getFSById(i);
@@ -211,6 +205,7 @@ public class LectureController implements Serializable {
     
 
     public String createA() throws Exception{
+        current.setIdFacultySubject(facSub);
         Lecture temp = current;
         create();
         TeachingPlan[] tpList = teachingPlanController.getSelectedList();
@@ -222,17 +217,17 @@ public class LectureController implements Serializable {
         }
         
         List<CurrentStudent> csl = new ArrayList();
-        csl = currentStudentController.getCurrentStudentList();
+        csl = currentStudentController.getAttendanceByDiv();
         for(int i=0; i< csl.size(); i++)
         {
-            if(csl.get(i).isSelected())
+            if(csl.get(i).isSelectedBool())
                 selectedList.add(csl.get(i));
             CurrentStudent t = csl.get(i);
-            t.setSelected(false);
+            t.setSelectedB(false);
             csl.set(i, t);
             
         }
-        currentStudentController.setCurrentStudentList(csl);
+        currentStudentController.setAttendanceByDiv(csl);
         
         List <Attendance> att = new ArrayList <Attendance>();
         for(int i = 0; i<selectedList.size();i++) {
@@ -248,8 +243,8 @@ public class LectureController implements Serializable {
             attendanceController.createEntry(ae);
             attendanceController.create();
         }
-        
-        return prepareList();
+        recreateModel();
+        return "View?faces-redirect=true";
     }
 
     

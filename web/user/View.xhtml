@@ -6,12 +6,21 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
         <ui:define name="title">
+
             <h:outputText value="#{bundle.ListCurrentStudentTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <p:layout style="min-width:400px; min-height: 600px;" id="layaout" >
+            <h:form>
+                <p:growl id="growl" autoUpdate="true" showDetail="true" />
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
+            </h:form>
+            <p:layout style="min-width:100%; min-height: 300px;" id="layout" >
                 <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
                     <p:dataTable value="#{lectureController.lectureByFS}" var="c">
                         <p:column>
@@ -19,11 +28,13 @@
                                 <h:outputText value="Lecture Date"/>
                             </f:facet>
                             <h:outputText value="#{c.lectureDate}">
-                                <f:convertDateTime pattern="dd-MM-YYYY" />
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
                             </h:outputText>
                         </p:column>
                     </p:dataTable>
-                        
+                    <h:form>
+                        <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
+                    </h:form>       
                 </p:layoutUnit>
                 <p:layoutUnit  header="Details" position="center" >
                 

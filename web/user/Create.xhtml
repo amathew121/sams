@@ -8,12 +8,14 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
+
             <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             
            <h:form>
-           <p:layout style="min-width:400px; min-height: 600px;" id="layaout" >
+               <p:growl id="growl" life="200" showDetail="true" autoUpdate="true" />
+           <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
                
 
                <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
@@ -73,6 +75,8 @@
                     </p:dataTable>
                 </p:layoutUnit>
                <p:layoutUnit position="east"  minSize="400" resizable="true" >
+                   <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
+
                    <p:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
    
                         <p:column>
@@ -82,7 +86,7 @@
     				#{c.rollNo}
                         </p:column>
                        <p:column>
-                           <p:selectBooleanCheckbox value="#{c.selected}" />
+                           <p:selectBooleanCheckbox  value="#{c.selectedBool}" />
                        </p:column>
 
                         <p:column>
@@ -94,7 +98,6 @@
 
                     </p:dataTable>
                     
-                    <p:commandButton value="Submit"  action="#{lectureController.createA()}"></p:commandButton>
                     
                 </p:layoutUnit>
                 
