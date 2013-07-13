@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -32,7 +33,7 @@ import javax.faces.model.SelectItem;
 public class LectureController implements Serializable {
 
     private Lecture current;
-    private List<Lecture> l;
+    private DataModel lectureByFS;
     private List <CurrentStudent> selectedList = new ArrayList <CurrentStudent> ();
     private CurrentStudent[] selectList;
     private DataModel items = null;
@@ -85,7 +86,7 @@ public class LectureController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int idFacSub;
-    private FacultySubject facSub = null;
+    private FacultySubject facSub;
 
     public FacultySubject getFacSub() {
         return facSub;
@@ -95,19 +96,25 @@ public class LectureController implements Serializable {
         this.facSub = facSub;
     }
 
+    @PostConstruct
+    public void init(){
+        current = new Lecture();
+        facSub= new FacultySubject();
+    }
     public LectureController() {
     }
 
-
-    public DataModel getL() {
-        //l = getFacade().getLectureByIdFaculty();
-        DataModel d = new ListDataModel(getFacade().getLectureByIdFaculty());
-        return d;
+    public DataModel getLectureByFS() {
+        lectureByFS = new ListDataModel(getFacade().getLectureByIdFaculty(facSub));
+        return lectureByFS;
     }
 
-    public void setL(List<Lecture> l) {
-        this.l = l;
+    public void setLectureByFS(DataModel lectureByFS) {
+        this.lectureByFS = lectureByFS;
     }
+
+
+
 
     public Lecture getSelected() {
         if (current == null) {
@@ -162,6 +169,13 @@ public class LectureController implements Serializable {
        current.setIdFacultySubject(getFacSub());
        return "Create";
        
+    }
+    public String prepareViewWithId(int i)
+    {
+        idFacSub=i;
+        getFacSubject(idFacSub);
+        recreateModel();
+        return "View";
     }
     public FacultySubject getFacSubject(int i) {
         facSub = getFacade().getFSById(i);
@@ -311,6 +325,7 @@ public class LectureController implements Serializable {
 
     private void recreateModel() {
         items = null;
+        lectureByFS = null;
     }
 
     private void recreatePagination() {

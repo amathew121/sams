@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAttendanceViewTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_idAttendance}" for="idAttendance" />
+                    <h:inputText id="idAttendance" value="#{attendanceViewController.selected.idAttendance}" title="#{bundle.CreateAttendanceViewTitle_idAttendance}" required="true" requiredMessage="#{bundle.CreateAttendanceViewRequiredMessage_idAttendance}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_idLecture}" for="idLecture" />
+                    <h:inputText id="idLecture" value="#{attendanceViewController.selected.idLecture}" title="#{bundle.CreateAttendanceViewTitle_idLecture}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_idCurrentStudent}" for="idCurrentStudent" />
+                    <h:inputText id="idCurrentStudent" value="#{attendanceViewController.selected.idCurrentStudent}" title="#{bundle.CreateAttendanceViewTitle_idCurrentStudent}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:inputText id="idFacultySubject" value="#{attendanceViewController.selected.idFacultySubject}" title="#{bundle.CreateAttendanceViewTitle_idFacultySubject}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_lectureDate}" for="lectureDate" />
+                    <h:inputText id="lectureDate" value="#{attendanceViewController.selected.lectureDate}" title="#{bundle.CreateAttendanceViewTitle_lectureDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_idCourse}" for="idCourse" />
+                    <h:inputText id="idCourse" value="#{attendanceViewController.selected.idCourse}" title="#{bundle.CreateAttendanceViewTitle_idCourse}" required="true" requiredMessage="#{bundle.CreateAttendanceViewRequiredMessage_idCourse}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_admnNo}" for="admnNo" />
+                    <h:inputText id="admnNo" value="#{attendanceViewController.selected.admnNo}" title="#{bundle.CreateAttendanceViewTitle_admnNo}" required="true" requiredMessage="#{bundle.CreateAttendanceViewRequiredMessage_admnNo}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_semester}" for="semester" />
+                    <h:inputText id="semester" value="#{attendanceViewController.selected.semester}" title="#{bundle.CreateAttendanceViewTitle_semester}" required="true" requiredMessage="#{bundle.CreateAttendanceViewRequiredMessage_semester}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{attendanceViewController.selected.division}" title="#{bundle.CreateAttendanceViewTitle_division}" required="true" requiredMessage="#{bundle.CreateAttendanceViewRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{attendanceViewController.selected.batch}" title="#{bundle.CreateAttendanceViewTitle_batch}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceViewLabel_rollNo}" for="rollNo" />
+                    <h:inputText id="rollNo" value="#{attendanceViewController.selected.rollNo}" title="#{bundle.CreateAttendanceViewTitle_rollNo}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{attendanceViewController.create}" value="#{bundle.CreateAttendanceViewSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{attendanceViewController.prepareList}" value="#{bundle.CreateAttendanceViewShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAttendanceViewIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -3,19 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListCurrentStudentTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateTeachingPlanTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
+
+                <h:form>
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_lectureNo}" for="lectureNo" />
+                        <p:inputText value="#{teachingPlanController.selected.lectureNo}" id="lectureNo" type="number" />
+
+
+                        <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_topicsPlanned}" for="topicsPlanned" />
+                        <p:inputTextarea rows="6" cols="33" id ="topicsPlanned" value="#{teachingPlanController.selected.topicsPlanned}" /> 
+
+
+                        <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_plannedDate}" for="plannedDate" />
+                        <p:calendar value="#{teachingPlanController.selected.plannedDate}" id="plannedDate" maxdate="#{now}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton   value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,plannedDate,lectureNo, messagePanel" action="#{teachingPlanController.createTP()}" />
+
+                </h:form>
               
                 <br />
+               <h:form>
                 <h:link outcome="/index" value="#{bundle.ListCurrentStudentIndexLink}"/>
             </h:form>
         </ui:define>

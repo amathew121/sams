@@ -62,28 +62,17 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <p:commandLink action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateTeachingPlanTitle}" immediate="true"/>
+                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
                             <br />
-                            <p:commandLink action="#{lectureController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateLectureTitle}">
+                            <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateTeachingPlanTitle}" immediate="true"/>
+                            <br />
+                            <p:commandButton action="#{lectureController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
                                
-                            </p:commandLink>
-
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
                 
-                <p:dataTable value="#{lectureController.items}" var="c">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Lecture Date;"/>
-                        </f:facet>
-                        <h:outputText value="#{c.lectureDate}">
-                            <f:convertDateTime pattern="dd-MM-YYYY" />
-                        </h:outputText>
-                    </p:column>
-                    
-
-                </p:dataTable>
+                
                 
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListFacultySubjectViewIndexLink}"/>

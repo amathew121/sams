@@ -46,11 +46,11 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         super(Lecture.class);
     }
     
-    public List<Lecture> getLectureByIdFaculty() {
+    public List<Lecture> getLectureByIdFaculty(FacultySubject f) {
         
         
-        Query q = em.createNamedQuery("Lecture.findByIdLecture");
-        q.setParameter("idLecture", 2);
+        Query q = em.createNamedQuery("Lecture.findByIdFacultySubject");
+        q.setParameter("idFacultySubject", f);
         List<Lecture> l = q.getResultList();
         return l;
     }

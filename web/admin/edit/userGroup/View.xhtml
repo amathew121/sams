@@ -17,8 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewUserGroupLabel_userGroupPK_roleName}"/>
                     <h:outputText value="#{userGroupController.selected.userGroupPK.roleName}" title="#{bundle.ViewUserGroupTitle_userGroupPK_roleName}"/>
-                    <h:outputText value="#{bundle.ViewUserGroupLabel_userGroupPK_userName}"/>
-                    <h:outputText value="#{userGroupController.selected.userGroupPK.userName}" title="#{bundle.ViewUserGroupTitle_userGroupPK_userName}"/>
+                    <h:outputText value="#{bundle.ViewUserGroupLabel_faculty}"/>
+                    <h:outputText value="#{userGroupController.selected.faculty}" title="#{bundle.ViewUserGroupTitle_faculty}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userGroupController.destroyAndView}" value="#{bundle.ViewUserGroupDestroyLink}"/>

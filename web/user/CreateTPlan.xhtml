@@ -16,31 +16,32 @@
                <h:panelGroup id="messagePanel" layout="block">
                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                </h:panelGroup>
-               
+               <p:panelGrid columns="2" >
                <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_lectureNo}" for="lectureNo" />
                <p:inputText value="#{teachingPlanController.selected.lectureNo}" id="lectureNo" type="number" />
-               <br />
+               
                
                <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_topicsPlanned}" for="topicsPlanned" />
                <p:inputTextarea rows="6" cols="33" id ="topicsPlanned" value="#{teachingPlanController.selected.topicsPlanned}" /> 
-               <br />
+               
                
                <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_plannedDate}" for="plannedDate" />
                <p:calendar value="#{teachingPlanController.selected.plannedDate}" id="plannedDate" maxdate="#{now}"/>
                
-               <br />
-               <p:commandButton value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,plannedDate,lectureNo, messagePanel,:teachPlan" action="#{teachingPlanController.createTP()}" />
+               </p:panelGrid>
+               <p:commandButton  value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,plannedDate,lectureNo, messagePanel,:teachPlan" action="#{teachingPlanController.createTP()}" />
+               
            </h:form>
 
            
             <p:dataTable  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
-                <p:column width="5%">
+                <p:column>
                     <f:facet name="header">
                         Lecture No
                     </f:facet>
     				#{c.lectureNo}
                 </p:column>
-                <p:column width="71%">
+                <p:column width="300" styleClass="white-space:normal;" >
                     <f:facet name="header">
                         Topics Planned
                     </f:facet>
@@ -48,7 +49,7 @@
                     
                 </p:column>
                 
-                    <p:column width="12%">
+                    <p:column >
                         <f:facet name="header">
                             Planned Date
                         </f:facet>
@@ -56,7 +57,7 @@
                             <f:convertDateTime pattern="dd-MM-YYYY" />
                         </h:outputText>
                     </p:column>
-                    <p:column width="12%">
+                    <p:column >
                         <f:facet name="header">
                             Actual Date
                         </f:facet>

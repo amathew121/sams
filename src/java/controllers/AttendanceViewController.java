@@ -1,14 +1,12 @@
 package controllers;
 
-import entities.TeachingPlan;
+import entities.AttendanceView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.TeachingPlanFacade;
-import entities.FacultySubject;
+import beans.AttendanceViewFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,50 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "teachingPlanController")
+@ManagedBean(name = "attendanceViewController")
 @SessionScoped
-public class TeachingPlanController implements Serializable {
+public class AttendanceViewController implements Serializable {
 
-    private TeachingPlan current;
+    private AttendanceView current;
     private DataModel items = null;
-    private DataModel itemsUser = null;
-    private TeachingPlan[] selectedList;
     @EJB
-    private beans.TeachingPlanFacade ejbFacade;
+    private beans.AttendanceViewFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private FacultySubject facSub;
 
-
-
-    @PostConstruct
-    public void init() {
-        current = new TeachingPlan();
-        facSub = new FacultySubject();
-    }
-    
-    public TeachingPlanController() {
+    public AttendanceViewController() {
     }
 
-    public TeachingPlan getSelected() {
+    public AttendanceView getSelected() {
         if (current == null) {
-            current = new TeachingPlan();
+            current = new AttendanceView();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    public TeachingPlan[] getSelectedList() {
-        return selectedList;
-    }
-
-    public void setSelectedList(TeachingPlan[] selectedList) {
-        this.selectedList = selectedList;
-    }
-    
-    
-
-    private TeachingPlanFacade getFacade() {
+    private AttendanceViewFacade getFacade() {
         return ejbFacade;
     }
 
@@ -84,53 +61,36 @@ public class TeachingPlanController implements Serializable {
         return pagination;
     }
 
-    public void setCurrent(TeachingPlan current) {
-        this.current = current;
-    }
-
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
     public String prepareView() {
-        current = (TeachingPlan) getItems().getRowData();
+        current = (AttendanceView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new TeachingPlan();
+        current = new AttendanceView();
         selectedItemIndex = -1;
         return "Create";
-    }
-    
-    public String prepareCreateWithId(int f) {
-        current = new TeachingPlan();
-        selectedItemIndex = -1;
-        facSub = getFacade().getFSById(f);
-        return "CreateTPlan?foo="+f+"&faces-redirect=true";
     }
 
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachingPlanCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceViewCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-        public String createTP() {
-        current.setIdFacultySubject(facSub);
-        create();
-        recreateModel();
-        return prepareCreateWithId(facSub.getIdFacultySubject());
-    }
 
     public String prepareEdit() {
-        current = (TeachingPlan) getItems().getRowData();
+        current = (AttendanceView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -138,7 +98,7 @@ public class TeachingPlanController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachingPlanUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceViewUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -147,7 +107,7 @@ public class TeachingPlanController implements Serializable {
     }
 
     public String destroy() {
-        current = (TeachingPlan) getItems().getRowData();
+        current = (AttendanceView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -171,7 +131,7 @@ public class TeachingPlanController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachingPlanDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceViewDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -199,21 +159,8 @@ public class TeachingPlanController implements Serializable {
         return items;
     }
 
-    public DataModel getItemsUser() {
-
-        itemsUser = new ListDataModel(getFacade().getTeachingPlanByFS(facSub));
-
-        return itemsUser;
-    }
-
-    public void setFacSub(FacultySubject facSub) {
-        this.facSub = facSub;
-    }
-
-
     private void recreateModel() {
         items = null;
-        itemsUser = null;
     }
 
     private void recreatePagination() {
@@ -240,25 +187,25 @@ public class TeachingPlanController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = TeachingPlan.class)
-    public static class TeachingPlanControllerConverter implements Converter {
+    @FacesConverter(forClass = AttendanceView.class)
+    public static class AttendanceViewControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TeachingPlanController controller = (TeachingPlanController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "teachingPlanController");
+            AttendanceViewController controller = (AttendanceViewController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "attendanceViewController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        long getKey(String value) {
+            long key;
+            key = Long.parseLong(value);
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(long value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();
@@ -268,11 +215,11 @@ public class TeachingPlanController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TeachingPlan) {
-                TeachingPlan o = (TeachingPlan) object;
-                return getStringKey(o.getIdTeachingPlan());
+            if (object instanceof AttendanceView) {
+                AttendanceView o = (AttendanceView) object;
+                return getStringKey(o.getIdAttendance());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TeachingPlan.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + AttendanceView.class.getName());
             }
         }
     }

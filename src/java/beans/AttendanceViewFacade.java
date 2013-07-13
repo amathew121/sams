@@ -4,7 +4,7 @@
  */
 package beans;
 
-import entities.UserGroup;
+import entities.AttendanceView;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Ashish
  */
 @Stateless
-public class UserGroupFacade extends AbstractFacade<UserGroup> {
+public class AttendanceViewFacade extends AbstractFacade<AttendanceView> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class UserGroupFacade extends AbstractFacade<UserGroup> {
         return em;
     }
 
-    public UserGroupFacade() {
-        super(UserGroup.class);
+    public AttendanceViewFacade() {
+        super(AttendanceView.class);
     }
     
 }

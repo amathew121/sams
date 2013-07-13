@@ -13,10 +13,10 @@
         <ui:define name="body">
             <p:layout style="min-width:400px; min-height: 600px;" id="layaout" >
                 <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
-                    <p:dataTable value="#{lectureController.items}" var="c">
+                    <p:dataTable value="#{lectureController.lectureByFS}" var="c">
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Lecture Date;"/>
+                                <h:outputText value="Lecture Date"/>
                             </f:facet>
                             <h:outputText value="#{c.lectureDate}">
                                 <f:convertDateTime pattern="dd-MM-YYYY" />
@@ -25,10 +25,10 @@
                     </p:dataTable>
                         
                 </p:layoutUnit>
-                <p:layoutUnit  header="Details" position="west" minSize="200" resizable="true" >
+                <p:layoutUnit  header="Details" position="center" >
                 
                 </p:layoutUnit>
-                <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
+                <p:layoutUnit  header="Lectures" position="east" minSize="200" resizable="true" >
                 
                 </p:layoutUnit>
             </p:layout>

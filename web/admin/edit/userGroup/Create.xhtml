@@ -17,8 +17,10 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateUserGroupLabel_userGroupPK_roleName}" for="userGroupPK_roleName" />
                     <h:inputText id="userGroupPK_roleName" value="#{userGroupController.selected.userGroupPK.roleName}" title="#{bundle.CreateUserGroupTitle_userGroupPK_roleName}" required="true" requiredMessage="#{bundle.CreateUserGroupRequiredMessage_userGroupPK_roleName}"/>
-                    <h:outputLabel value="#{bundle.CreateUserGroupLabel_userGroupPK_userName}" for="userGroupPK_userName" />
-                    <h:inputText id="userGroupPK_userName" value="#{userGroupController.selected.userGroupPK.userName}" title="#{bundle.CreateUserGroupTitle_userGroupPK_userName}" required="true" requiredMessage="#{bundle.CreateUserGroupRequiredMessage_userGroupPK_userName}"/>
+                    <h:outputLabel value="#{bundle.CreateUserGroupLabel_faculty}" for="faculty" />
+                    <h:selectOneMenu id="faculty" value="#{userGroupController.selected.faculty}" title="#{bundle.CreateUserGroupTitle_faculty}" required="true" requiredMessage="#{bundle.CreateUserGroupRequiredMessage_faculty}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userGroupController.create}" value="#{bundle.CreateUserGroupSaveLink}" />

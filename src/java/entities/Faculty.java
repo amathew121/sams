@@ -67,7 +67,7 @@ public class Faculty implements Serializable {
     @Size(max = 45)
     @Column(name = "faculty_email")
     private String facultyEmail;
-    @Size(max = 45)
+    @Size(max = 255)
     @Column(name = "faculty_password")
     private String facultyPassword;
     @Size(max = 45)
