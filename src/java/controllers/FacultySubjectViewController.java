@@ -4,9 +4,12 @@ import entities.FacultySubjectView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.FacultySubjectViewFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -77,9 +80,13 @@ public class FacultySubjectViewController implements Serializable {
         return "List";
     }
     
-    public String prepareListUser() {
+    public void prepareListUser() {
         recreateModel();
-        return "/user/List";
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/List.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String prepareView() {

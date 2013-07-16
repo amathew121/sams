@@ -1,58 +1,57 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
+
     </h:head>
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="/welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/admin/edit/attendance/List" value="Show All Attendance Items"/>
-        <br />
-        <h:link outcome="/admin/edit/course/List" value="Show All Course Items"/>
-        <br />
-        <h:link outcome="/admin/edit/currentStudent/List" value="Show All CurrentStudent Items"/>
-        <br />
-        <h:link outcome="/admin/edit/department/List" value="Show All Department Items"/>
-        <br />
-        <h:link outcome="/admin/edit/faculty/List" value="Show All Faculty Items"/>
-        <br />
-        <h:link outcome="/admin/edit/facultySubject/List" value="Show All FacultySubject Items"/>
-        <br />
-        <h:link outcome="/admin/edit/lecture/List" value="Show All Lecture Items"/>
-        <br />
-        <h:link outcome="/admin/edit/program/List" value="Show All Program Items"/>
-        <br />
-        <h:link outcome="/admin/edit/programCourse/List" value="Show All ProgramCourse Items"/>
-        <br />
-        <h:link outcome="/admin/edit/student/List" value="Show All Student Items"/>
-        <br />
-        <h:link outcome="/admin/edit/subject/List" value="Show All Subject Items"/>
-        <br />
-        <h:link outcome="/admin/edit/teachingPlan/List" value="Show All TeachingPlan Items"/>
-        <br />
-        <h:link outcome="/admin/edit/userGroup/List" value="Show All UserGroup Items"/>
-        <br />
-        <h:link outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
-        <br />
-        <h:link outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
-        <br />
-        <br />
-        <h:link outcome="/admin/edit/attendanceView/List" value="Show All AttendanceView Items"/>
-        <br />
-        <h:link outcome="/admin/edit/faculty/List" value="Show All Faculty Items"/>
-        <br />
-        <h:link outcome="/admin/edit/userGroup/List" value="Show All UserGroup Items"/>
-
-        <br />
-        
-        <h:link outcome="/logout.jsp" value="logoutlink" />
-        
         <h:form>
+            Hello from Facelets
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/welcomePrimefaces" value="Primefaces welcome page" />
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/attendance/List" value="Show All Attendance Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/course/List" value="Show All Course Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/currentStudent/List" value="Show All CurrentStudent Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/department/List" value="Show All Department Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/faculty/List" value="Show All Faculty Items"/>
+            <br />
+            <h:link outcome="/admin/edit/facultySubject/List" value="Show All FacultySubject Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/lecture/List" value="Show All Lecture Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/program/List" value="Show All Program Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/programCourse/List" value="Show All ProgramCourse Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/student/List" value="Show All Student Items"/>
+            <br />
+            <h:link outcome="/admin/edit/subject/List" value="Show All Subject Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/teachingPlan/List" value="Show All TeachingPlan Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/userGroup/List" value="Show All UserGroup Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
+            <br />
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/attendanceView/List" value="Show All AttendanceView Items"/>
+
+            <br />
+            <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
+            <br />
+
+
             <h:commandLink action="#{authBackingBean.logout()}" value="logout" />
         </h:form>
     </h:body>        

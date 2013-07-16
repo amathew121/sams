@@ -13,18 +13,20 @@
         
         <div style="text-align: center; width: 100%; font-size: x-large;" >
             <div style="text-align: right; width: 100%; font-size: small;" >
+                <h:outputText style="position: relative; float: right; padding-left: 2%;"
+                              value="#{facesContext.externalContext.remoteUser}" />
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                     <h:commandLink action="#{authBackingBean.logout()}" value="Logout" />
                 </h:form>
                 <div  style=" position: relative; float: right; padding-left: 2%" >
-                    <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser')}" value="Admin Area" outcome="/admin/index.xhtml" />
+                    <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod')}" value="Admin Area" outcome="/admin/index.xhtml" />
                 </div>
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                     <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
                 </h:form>
 
             </div>
-            <h2>SAMS</h2>
+            <h2>PIIT ONLINE</h2>
         </div>
         <h1>
             <ui:insert name="title">Default Title</ui:insert>

@@ -26,7 +26,6 @@
         <web-resource-collection>
             <web-resource-name>Admin Pages</web-resource-name>
             <description/>
-            <url-pattern>/index.xhtml</url-pattern>
             <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
@@ -51,6 +50,7 @@
             <description/>
             <role-name>staff</role-name>
             <role-name>superuser</role-name>
+            <role-name>hod</role-name>
         </auth-constraint>
         <user-data-constraint>
             <description/>
@@ -62,10 +62,7 @@
         <web-resource-collection>
             <web-resource-name>Manage Faculty</web-resource-name>
             <description/>
-            <url-pattern>/faces/hod/*</url-pattern>
-            <url-pattern>/index.xhtml</url-pattern>
-            <url-pattern>/faces/index.xhtml</url-pattern>
-            <url-pattern>/resources/</url-pattern>
+            <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
