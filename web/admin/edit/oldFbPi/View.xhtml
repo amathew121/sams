@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOldFbPiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_oldFbPiPK_subId}"/>
+                    <h:outputText value="#{oldFbPiController.selected.oldFbPiPK.subId}" title="#{bundle.ViewOldFbPiTitle_oldFbPiPK_subId}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_oldFbPiPK_division}"/>
+                    <h:outputText value="#{oldFbPiController.selected.oldFbPiPK.division}" title="#{bundle.ViewOldFbPiTitle_oldFbPiPK_division}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_oldFbPiPK_facId}"/>
+                    <h:outputText value="#{oldFbPiController.selected.oldFbPiPK.facId}" title="#{bundle.ViewOldFbPiTitle_oldFbPiPK_facId}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_oldFbPiPK_batch}"/>
+                    <h:outputText value="#{oldFbPiController.selected.oldFbPiPK.batch}" title="#{bundle.ViewOldFbPiTitle_oldFbPiPK_batch}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_fname}"/>
+                    <h:outputText value="#{oldFbPiController.selected.fname}" title="#{bundle.ViewOldFbPiTitle_fname}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_lname}"/>
+                    <h:outputText value="#{oldFbPiController.selected.lname}" title="#{bundle.ViewOldFbPiTitle_lname}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_ftype}"/>
+                    <h:outputText value="#{oldFbPiController.selected.ftype}" title="#{bundle.ViewOldFbPiTitle_ftype}"/>
+                    <h:outputText value="#{bundle.ViewOldFbPiLabel_pi}"/>
+                    <h:outputText value="#{oldFbPiController.selected.pi}" title="#{bundle.ViewOldFbPiTitle_pi}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{oldFbPiController.destroyAndView}" value="#{bundle.ViewOldFbPiDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOldFbPiEditLink}"/>
+                <br />
+                <h:commandLink action="#{oldFbPiController.prepareCreate}" value="#{bundle.ViewOldFbPiCreateLink}" />
+                <br />
+                <h:commandLink action="#{oldFbPiController.prepareList}" value="#{bundle.ViewOldFbPiShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOldFbPiIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

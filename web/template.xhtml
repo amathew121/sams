@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>SAMS - Student Attendance Management System <ui:insert name="title">Default Title</ui:insert></title>
@@ -10,11 +11,13 @@
     </h:head>
 
     <h:body>
-        
-        <div style="text-align: center; width: 100%; font-size: x-large;" >
+        <div style="width: 100%;">
             <div style="text-align: right; width: 100%; font-size: small;" >
-                <h:outputText style="position: relative; float: right; padding-left: 2%;"
-                              value="#{facesContext.externalContext.remoteUser}" />
+                <h:form style="position: relative; float: right; padding-left: 2%;">
+                <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
+                    <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                </p:menuButton>
+                </h:form>
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                     <h:commandLink action="#{authBackingBean.logout()}" value="Logout" />
                 </h:form>
@@ -26,6 +29,8 @@
                 </h:form>
 
             </div>
+        </div>
+        <div style="text-align: center; width: 100%; font-size: x-large;" >
             <h2>PIIT ONLINE</h2>
         </div>
         <h1>

@@ -7,6 +7,7 @@ import beans.TeachingPlanFacade;
 import entities.FacultySubject;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -60,6 +61,8 @@ public class TeachingPlanController implements Serializable {
     public void setSelectedList(TeachingPlan[] selectedList) {
         this.selectedList = selectedList;
     }
+
+    
     
     
 
@@ -124,6 +127,7 @@ public class TeachingPlanController implements Serializable {
     }
         public String createTP() {
         current.setIdFacultySubject(facSub);
+        current.getPlannedDate().setHours(6);
         create();
         recreateModel();
         return prepareCreateWithId(facSub.getIdFacultySubject());

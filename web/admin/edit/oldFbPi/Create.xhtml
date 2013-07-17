@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateOldFbPiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_oldFbPiPK_subId}" for="oldFbPiPK_subId" />
+                    <h:inputText id="oldFbPiPK_subId" value="#{oldFbPiController.selected.oldFbPiPK.subId}" title="#{bundle.CreateOldFbPiTitle_oldFbPiPK_subId}" required="true" requiredMessage="#{bundle.CreateOldFbPiRequiredMessage_oldFbPiPK_subId}"/>
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_oldFbPiPK_division}" for="oldFbPiPK_division" />
+                    <h:inputText id="oldFbPiPK_division" value="#{oldFbPiController.selected.oldFbPiPK.division}" title="#{bundle.CreateOldFbPiTitle_oldFbPiPK_division}" required="true" requiredMessage="#{bundle.CreateOldFbPiRequiredMessage_oldFbPiPK_division}"/>
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_oldFbPiPK_facId}" for="oldFbPiPK_facId" />
+                    <h:inputText id="oldFbPiPK_facId" value="#{oldFbPiController.selected.oldFbPiPK.facId}" title="#{bundle.CreateOldFbPiTitle_oldFbPiPK_facId}" required="true" requiredMessage="#{bundle.CreateOldFbPiRequiredMessage_oldFbPiPK_facId}"/>
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_oldFbPiPK_batch}" for="oldFbPiPK_batch" />
+                    <h:inputText id="oldFbPiPK_batch" value="#{oldFbPiController.selected.oldFbPiPK.batch}" title="#{bundle.CreateOldFbPiTitle_oldFbPiPK_batch}" required="true" requiredMessage="#{bundle.CreateOldFbPiRequiredMessage_oldFbPiPK_batch}"/>
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_fname}" for="fname" />
+                    <h:inputText id="fname" value="#{oldFbPiController.selected.fname}" title="#{bundle.CreateOldFbPiTitle_fname}" />
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_lname}" for="lname" />
+                    <h:inputText id="lname" value="#{oldFbPiController.selected.lname}" title="#{bundle.CreateOldFbPiTitle_lname}" />
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_ftype}" for="ftype" />
+                    <h:inputText id="ftype" value="#{oldFbPiController.selected.ftype}" title="#{bundle.CreateOldFbPiTitle_ftype}" />
+                    <h:outputLabel value="#{bundle.CreateOldFbPiLabel_pi}" for="pi" />
+                    <h:inputText id="pi" value="#{oldFbPiController.selected.pi}" title="#{bundle.CreateOldFbPiTitle_pi}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{oldFbPiController.create}" value="#{bundle.CreateOldFbPiSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{oldFbPiController.prepareList}" value="#{bundle.CreateOldFbPiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateOldFbPiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

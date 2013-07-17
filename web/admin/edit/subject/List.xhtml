@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,101 +16,83 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListSubjectEmpty}" rendered="#{subjectController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{subjectController.items.rowCount > 0}">
-                    <h:outputText value="#{subjectController.pagination.pageFirstItem + 1}..#{subjectController.pagination.pageLastItem + 1}/#{subjectController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{subjectController.previous}" value="#{bundle.Previous} #{subjectController.pagination.pageSize}" rendered="#{subjectController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{subjectController.next}" value="#{bundle.Next} #{subjectController.pagination.pageSize}" rendered="#{subjectController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{subjectController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_idSubject}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idSubject}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_subjectCode}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.subjectCode}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_subjectSrNo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.subjectSrNo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_subjectName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.subjectName}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_semester}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.semester}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_theory}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.theory}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_practical}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.practical}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_tutorial}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tutorial}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_elective}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.elective}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_creditTheory}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.creditTheory}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_creditPractical}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.creditPractical}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_creditTutorial}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.creditTutorial}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_programCourse}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.programCourse}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{subjectController.prepareView}" value="#{bundle.ListSubjectViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{subjectController.prepareEdit}" value="#{bundle.ListSubjectEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{subjectController.destroy}" value="#{bundle.ListSubjectDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                <p:dataTable value="#{subjectController.items}" id="subjectList" var="item" style="border:solid 1px"
+                             paginator="true" rows="10"  
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,10,15"
+                             sortMode="multiple" widgetVar="subjectList" filteredValue="#{subjectController.filteredList}">
+                    <f:facet name="header">  
+                        <p:outputPanel>  
+                            <h:outputText value="Search all fields:" />  
+                            <p:inputText id="globalFilter" onkeyup="PF('subjectList').filter()" style="width:150px" />  
+                        </p:outputPanel>  
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_subjectCode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.subjectCode}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_subjectName}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.subjectName}"/>
+                    </p:column>
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_programCourse}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.programCourse}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.semester}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_semester}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.semester}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.subjectSrNo}">
+                        <f:facet name="header">
+                            <h:outputText value="Sr. No"/>
+                        </f:facet>
+                        <h:outputText value="#{item.subjectSrNo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_theory}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.theory}"/> / <h:outputText value="#{item.creditTheory}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_practical}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.practical}"/> / <h:outputText value="#{item.creditPractical}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_tutorial}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tutorial}"/> / <h:outputText value="#{item.creditTutorial}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListSubjectTitle_elective}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.elective}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{subjectController.prepareView}" value="#{bundle.ListSubjectViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{subjectController.prepareEdit}" value="#{bundle.ListSubjectEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{subjectController.destroy}" value="#{bundle.ListSubjectDestroyLink}"/>
+                    </p:column>
+
+                </p:dataTable>
                 <br />
                 <h:commandLink action="#{subjectController.prepareCreate}" value="#{bundle.ListSubjectCreateLink}"/>
                 <br />

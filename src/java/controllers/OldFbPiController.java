@@ -1,15 +1,15 @@
 package controllers;
 
-import entities.FacultySubject;
+import entities.OldFbPi;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.FacultySubjectFacade;
+import beans.OldFbPiFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -18,30 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "facultySubjectController")
+@Named("oldFbPiController")
 @SessionScoped
-public class FacultySubjectController implements Serializable {
+public class OldFbPiController implements Serializable {
 
-    private FacultySubject current;
+    private OldFbPi current;
     private DataModel items = null;
     @EJB
-    private beans.FacultySubjectFacade ejbFacade;
+    private beans.OldFbPiFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private FacultySubject idFacultySubject;
 
-    public FacultySubjectController() {
+    public OldFbPiController() {
     }
 
-    public FacultySubject getSelected() {
+    public OldFbPi getSelected() {
         if (current == null) {
-            current = new FacultySubject();
+            current = new OldFbPi();
+            current.setOldFbPiPK(new entities.OldFbPiPK());
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private FacultySubjectFacade getFacade() {
+    private OldFbPiFacade getFacade() {
         return ejbFacade;
     }
 
@@ -61,6 +61,13 @@ public class FacultySubjectController implements Serializable {
         }
         return pagination;
     }
+    
+    public DataModel getItemsByUserName(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        return new ListDataModel(getFacade().findByUserName(userName));
+        
+    }
 
     public String prepareList() {
         recreateModel();
@@ -68,23 +75,22 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String prepareView() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFbPi) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        prepareList();
-        current = new FacultySubject();
+        current = new OldFbPi();
+        current.setOldFbPiPK(new entities.OldFbPiPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
-        current.setIdFacultySubject(0);
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFbPiCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -93,7 +99,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFbPi) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -101,7 +107,7 @@ public class FacultySubjectController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFbPiUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -110,7 +116,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String destroy() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFbPi) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -134,7 +140,7 @@ public class FacultySubjectController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFbPiDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -190,46 +196,59 @@ public class FacultySubjectController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public FacultySubject getIdFacSub(int idFacSub) {
-        current = new FacultySubject();
-        current.setDivision("A");
-        return current;
+    public OldFbPi getOldFbPi(entities.OldFbPiPK id) {
+        return ejbFacade.find(id);
     }
-    
 
-    @FacesConverter(forClass = FacultySubject.class)
-    public static class FacultySubjectControllerConverter implements Converter {
+    @FacesConverter(forClass = OldFbPi.class)
+    public static class OldFbPiControllerConverter implements Converter {
 
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
+
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FacultySubjectController controller = (FacultySubjectController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "facultySubjectController");
-            return controller.ejbFacade.find(getKey(value));
+            OldFbPiController controller = (OldFbPiController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "oldFbPiController");
+            return controller.getOldFbPi(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        entities.OldFbPiPK getKey(String value) {
+            entities.OldFbPiPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new entities.OldFbPiPK();
+            key.setFacId(values[0]);
+            key.setSubId(values[1]);
+            key.setDivision(values[2]);
+            key.setBatch(Short.parseShort(values[3]));
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
-            StringBuffer sb = new StringBuffer();
-            sb.append(value);
+        String getStringKey(entities.OldFbPiPK value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value.getFacId());
+            sb.append(SEPARATOR);
+            sb.append(value.getSubId());
+            sb.append(SEPARATOR);
+            sb.append(value.getDivision());
+            sb.append(SEPARATOR);
+            sb.append(value.getBatch());
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
-            if (object instanceof FacultySubject) {
-                FacultySubject o = (FacultySubject) object;
-                return getStringKey(o.getIdFacultySubject());
+            if (object instanceof OldFbPi) {
+                OldFbPi o = (OldFbPi) object;
+                return getStringKey(o.getOldFbPiPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + FacultySubject.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + OldFbPi.class.getName());
             }
         }
     }

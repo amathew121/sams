@@ -44,9 +44,15 @@
             <br />
             <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/facultySubjectView/List" value="Show All FacultySubjectView Items"/>
             <br />
-            <br />
+            
             <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/attendanceView/List" value="Show All AttendanceView Items"/>
-
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/oldFacultyComments/List" value="Show All OldFacultyComments Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/oldFbPi/List" value="Show All OldFbPi Items"/>
+            <br />
+            <h:link rendered="#{facesContext.externalContext.isUserInRole('superuser')}" outcome="/admin/edit/oldFbPiDetails/List" value="Show All OldFbPiDetails Items"/>
+            <br />
             <br />
             <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
             <br />

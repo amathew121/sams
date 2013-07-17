@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOldFbPiDetailsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOldFbPiDetailsEmpty}" rendered="#{oldFbPiDetailsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{oldFbPiDetailsController.items.rowCount > 0}">
+                    <h:outputText value="#{oldFbPiDetailsController.pagination.pageFirstItem + 1}..#{oldFbPiDetailsController.pagination.pageLastItem + 1}/#{oldFbPiDetailsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{oldFbPiDetailsController.previous}" value="#{bundle.Previous} #{oldFbPiDetailsController.pagination.pageSize}" rendered="#{oldFbPiDetailsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{oldFbPiDetailsController.next}" value="#{bundle.Next} #{oldFbPiDetailsController.pagination.pageSize}" rendered="#{oldFbPiDetailsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{oldFbPiDetailsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_qno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.qno}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_courseId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.courseId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_facId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.facId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_subId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.subId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_batch}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.batch}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_oldFbPiDetailsPK_division}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oldFbPiDetailsPK.division}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_fname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_lname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ftype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ftype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_qtext}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qtext}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ta5}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ta5}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ta4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ta4}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ta3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ta3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ta2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ta2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFbPiDetailsTitle_ta1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ta1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{oldFbPiDetailsController.prepareView}" value="#{bundle.ListOldFbPiDetailsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oldFbPiDetailsController.prepareEdit}" value="#{bundle.ListOldFbPiDetailsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oldFbPiDetailsController.destroy}" value="#{bundle.ListOldFbPiDetailsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{oldFbPiDetailsController.prepareCreate}" value="#{bundle.ListOldFbPiDetailsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOldFbPiDetailsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

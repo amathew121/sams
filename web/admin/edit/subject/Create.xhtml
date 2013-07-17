@@ -32,7 +32,7 @@
                         <f:selectItem itemValue="6" />
                         <f:selectItem itemValue="7" />
                         <f:selectItem itemValue="8" />
-                        
+
                     </h:selectOneMenu>
                     <p:outputLabel value="#{bundle.CreateSubjectLabel_theory}" for="theory" />
                     <p:inputText id="theory" value="#{subjectController.selected.theory}" title="#{bundle.CreateSubjectTitle_theory}" required="true" requiredMessage="#{bundle.CreateSubjectRequiredMessage_theory}"/>
@@ -59,12 +59,75 @@
                 <br />
                 <h:commandLink action="#{subjectController.create}" value="#{bundle.CreateSubjectSaveLink}" />
                 <br />
+
                 <br />
                 <h:commandLink action="#{subjectController.prepareList}" value="#{bundle.CreateSubjectShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateSubjectIndexLink}"/>
             </h:form>
+            <p:dataTable value="#{subjectController.items}" id="subjectList" var="item" style="border:solid 1px"
+                         paginator="true" rows="10"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="5,10,15"
+                         sortMode="multiple">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_subjectCode}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subjectCode}"/>
+                </p:column>
+                         <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_subjectName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subjectName}"/>
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_programCourse}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programCourse}"/>
+                </p:column>
+                <p:column sortBy="#{item.semester}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_semester}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.semester}"/>
+                </p:column>
+                <p:column sortBy="#{item.subjectSrNo}">
+                    <f:facet name="header">
+                        <h:outputText value="Sr. No"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subjectSrNo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_theory}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.theory}"/> / <h:outputText value="#{item.creditTheory}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_practical}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.practical}"/> / <h:outputText value="#{item.creditPractical}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_tutorial}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tutorial}"/> / <h:outputText value="#{item.creditTutorial}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSubjectTitle_elective}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.elective}"/>
+                </p:column>
+
+
+            </p:dataTable>
         </ui:define>
     </ui:composition>
 

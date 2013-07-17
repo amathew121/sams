@@ -1,15 +1,15 @@
 package controllers;
 
-import entities.FacultySubject;
+import entities.OldFacultyComments;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.FacultySubjectFacade;
+import beans.OldFacultyCommentsFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -18,30 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "facultySubjectController")
+@Named("oldFacultyCommentsController")
 @SessionScoped
-public class FacultySubjectController implements Serializable {
+public class OldFacultyCommentsController implements Serializable {
 
-    private FacultySubject current;
+    private OldFacultyComments current;
     private DataModel items = null;
     @EJB
-    private beans.FacultySubjectFacade ejbFacade;
+    private beans.OldFacultyCommentsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private FacultySubject idFacultySubject;
 
-    public FacultySubjectController() {
+    public OldFacultyCommentsController() {
     }
 
-    public FacultySubject getSelected() {
+    public OldFacultyComments getSelected() {
         if (current == null) {
-            current = new FacultySubject();
+            current = new OldFacultyComments();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private FacultySubjectFacade getFacade() {
+    private OldFacultyCommentsFacade getFacade() {
         return ejbFacade;
     }
 
@@ -55,7 +54,7 @@ public class FacultySubjectController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findAll());
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -68,23 +67,21 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String prepareView() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        prepareList();
-        current = new FacultySubject();
+        current = new OldFacultyComments();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
-        current.setIdFacultySubject(0);
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFacultyCommentsCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -93,7 +90,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -101,7 +98,7 @@ public class FacultySubjectController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFacultyCommentsUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -110,7 +107,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     public String destroy() {
-        current = (FacultySubject) getItems().getRowData();
+        current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -134,7 +131,7 @@ public class FacultySubjectController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultySubjectDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("OldFacultyCommentsDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -190,23 +187,21 @@ public class FacultySubjectController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public FacultySubject getIdFacSub(int idFacSub) {
-        current = new FacultySubject();
-        current.setDivision("A");
-        return current;
+    public OldFacultyComments getOldFacultyComments(java.lang.Integer id) {
+        return ejbFacade.find(id);
     }
-    
 
-    @FacesConverter(forClass = FacultySubject.class)
-    public static class FacultySubjectControllerConverter implements Converter {
+    @FacesConverter(forClass = OldFacultyComments.class)
+    public static class OldFacultyCommentsControllerConverter implements Converter {
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FacultySubjectController controller = (FacultySubjectController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "facultySubjectController");
-            return controller.ejbFacade.find(getKey(value));
+            OldFacultyCommentsController controller = (OldFacultyCommentsController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "oldFacultyCommentsController");
+            return controller.getOldFacultyComments(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -216,20 +211,21 @@ public class FacultySubjectController implements Serializable {
         }
 
         String getStringKey(java.lang.Integer value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
-            if (object instanceof FacultySubject) {
-                FacultySubject o = (FacultySubject) object;
-                return getStringKey(o.getIdFacultySubject());
+            if (object instanceof OldFacultyComments) {
+                OldFacultyComments o = (OldFacultyComments) object;
+                return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + FacultySubject.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + OldFacultyComments.class.getName());
             }
         }
     }

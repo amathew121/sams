@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOldFacultyCommentsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOldFacultyCommentsEmpty}" rendered="#{oldFacultyCommentsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{oldFacultyCommentsController.items.rowCount > 0}">
+                    <h:outputText value="#{oldFacultyCommentsController.pagination.pageFirstItem + 1}..#{oldFacultyCommentsController.pagination.pageLastItem + 1}/#{oldFacultyCommentsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{oldFacultyCommentsController.previous}" value="#{bundle.Previous} #{oldFacultyCommentsController.pagination.pageSize}" rendered="#{oldFacultyCommentsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{oldFacultyCommentsController.next}" value="#{bundle.Next} #{oldFacultyCommentsController.pagination.pageSize}" rendered="#{oldFacultyCommentsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{oldFacultyCommentsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_facId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.facId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_facName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.facName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_subId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_division}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.division}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_ftype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ftype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_batch}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.batch}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_comments}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.comments}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOldFacultyCommentsTitle_showStatus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.showStatus}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{oldFacultyCommentsController.prepareView}" value="#{bundle.ListOldFacultyCommentsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oldFacultyCommentsController.prepareEdit}" value="#{bundle.ListOldFacultyCommentsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oldFacultyCommentsController.destroy}" value="#{bundle.ListOldFacultyCommentsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{oldFacultyCommentsController.prepareCreate}" value="#{bundle.ListOldFacultyCommentsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOldFacultyCommentsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

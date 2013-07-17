@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOldFacultyCommentsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_id}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.id}" title="#{bundle.ViewOldFacultyCommentsTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_facId}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.facId}" title="#{bundle.ViewOldFacultyCommentsTitle_facId}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_facName}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.facName}" title="#{bundle.ViewOldFacultyCommentsTitle_facName}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_subId}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.subId}" title="#{bundle.ViewOldFacultyCommentsTitle_subId}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_division}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.division}" title="#{bundle.ViewOldFacultyCommentsTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_ftype}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.ftype}" title="#{bundle.ViewOldFacultyCommentsTitle_ftype}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_batch}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.batch}" title="#{bundle.ViewOldFacultyCommentsTitle_batch}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_comments}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.comments}" title="#{bundle.ViewOldFacultyCommentsTitle_comments}"/>
+                    <h:outputText value="#{bundle.ViewOldFacultyCommentsLabel_showStatus}"/>
+                    <h:outputText value="#{oldFacultyCommentsController.selected.showStatus}" title="#{bundle.ViewOldFacultyCommentsTitle_showStatus}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{oldFacultyCommentsController.destroyAndView}" value="#{bundle.ViewOldFacultyCommentsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOldFacultyCommentsEditLink}"/>
+                <br />
+                <h:commandLink action="#{oldFacultyCommentsController.prepareCreate}" value="#{bundle.ViewOldFacultyCommentsCreateLink}" />
+                <br />
+                <h:commandLink action="#{oldFacultyCommentsController.prepareList}" value="#{bundle.ViewOldFacultyCommentsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOldFacultyCommentsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

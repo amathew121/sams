@@ -6,6 +6,8 @@ import controllers.util.PaginationHelper;
 import beans.SubjectFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +26,7 @@ public class SubjectController implements Serializable {
 
     private Subject current;
     private DataModel items = null;
+    private List<Subject> filteredList ;
     @EJB
     private beans.SubjectFacade ejbFacade;
     private PaginationHelper pagination;
@@ -40,6 +43,15 @@ public class SubjectController implements Serializable {
         return current;
     }
 
+    public List<Subject> getFilteredList() {
+        return filteredList;
+    }
+
+    public void setFilteredList(List<Subject> filteredList) {
+        this.filteredList = filteredList;
+    }
+    
+
     private SubjectFacade getFacade() {
         return ejbFacade;
     }
@@ -54,7 +66,7 @@ public class SubjectController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findAll());
                 }
             };
         }
@@ -73,6 +85,7 @@ public class SubjectController implements Serializable {
     }
 
     public String prepareCreate() {
+        prepareList();
         current = new Subject();
         selectedItemIndex = -1;
         return "Create";

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOldFbPiDetailsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_courseId}" for="oldFbPiDetailsPK_courseId" />
+                    <h:inputText id="oldFbPiDetailsPK_courseId" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.courseId}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_courseId}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_courseId}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_division}" for="oldFbPiDetailsPK_division" />
+                    <h:inputText id="oldFbPiDetailsPK_division" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.division}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_division}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_division}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_subId}" for="oldFbPiDetailsPK_subId" />
+                    <h:inputText id="oldFbPiDetailsPK_subId" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.subId}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_subId}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_subId}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_qno}" for="oldFbPiDetailsPK_qno" />
+                    <h:inputText id="oldFbPiDetailsPK_qno" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.qno}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_qno}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_qno}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_facId}" for="oldFbPiDetailsPK_facId" />
+                    <h:inputText id="oldFbPiDetailsPK_facId" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.facId}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_facId}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_facId}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_oldFbPiDetailsPK_batch}" for="oldFbPiDetailsPK_batch" />
+                    <h:inputText id="oldFbPiDetailsPK_batch" value="#{oldFbPiDetailsController.selected.oldFbPiDetailsPK.batch}" title="#{bundle.EditOldFbPiDetailsTitle_oldFbPiDetailsPK_batch}" required="true" requiredMessage="#{bundle.EditOldFbPiDetailsRequiredMessage_oldFbPiDetailsPK_batch}"/>
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_fname}" for="fname" />
+                    <h:inputText id="fname" value="#{oldFbPiDetailsController.selected.fname}" title="#{bundle.EditOldFbPiDetailsTitle_fname}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_lname}" for="lname" />
+                    <h:inputText id="lname" value="#{oldFbPiDetailsController.selected.lname}" title="#{bundle.EditOldFbPiDetailsTitle_lname}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ftype}" for="ftype" />
+                    <h:inputText id="ftype" value="#{oldFbPiDetailsController.selected.ftype}" title="#{bundle.EditOldFbPiDetailsTitle_ftype}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_qtext}" for="qtext" />
+                    <h:inputText id="qtext" value="#{oldFbPiDetailsController.selected.qtext}" title="#{bundle.EditOldFbPiDetailsTitle_qtext}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ta5}" for="ta5" />
+                    <h:inputText id="ta5" value="#{oldFbPiDetailsController.selected.ta5}" title="#{bundle.EditOldFbPiDetailsTitle_ta5}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ta4}" for="ta4" />
+                    <h:inputText id="ta4" value="#{oldFbPiDetailsController.selected.ta4}" title="#{bundle.EditOldFbPiDetailsTitle_ta4}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ta3}" for="ta3" />
+                    <h:inputText id="ta3" value="#{oldFbPiDetailsController.selected.ta3}" title="#{bundle.EditOldFbPiDetailsTitle_ta3}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ta2}" for="ta2" />
+                    <h:inputText id="ta2" value="#{oldFbPiDetailsController.selected.ta2}" title="#{bundle.EditOldFbPiDetailsTitle_ta2}" />
+                    <h:outputLabel value="#{bundle.EditOldFbPiDetailsLabel_ta1}" for="ta1" />
+                    <h:inputText id="ta1" value="#{oldFbPiDetailsController.selected.ta1}" title="#{bundle.EditOldFbPiDetailsTitle_ta1}" />
+                </h:panelGrid>
+                <h:commandLink action="#{oldFbPiDetailsController.update}" value="#{bundle.EditOldFbPiDetailsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditOldFbPiDetailsViewLink}"/>
+                <br />
+                <h:commandLink action="#{oldFbPiDetailsController.prepareList}" value="#{bundle.EditOldFbPiDetailsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditOldFbPiDetailsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
