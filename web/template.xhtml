@@ -16,18 +16,17 @@
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
                     <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                    <p:separator ></p:separator>
+                    <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
                 </p:menuButton>
                 </h:form>
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <h:commandLink action="#{authBackingBean.logout()}" value="Logout" />
-                </h:form>
-                <div  style=" position: relative; float: right; padding-left: 2%" >
-                    <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod')}" value="Admin Area" outcome="/admin/index.xhtml" />
-                </div>
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
-                </h:form>
 
+                <h:form style="position: relative; float: right; padding-left: 2%;">
+                    <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
+                </h:form>
+                    <div  style=" position: relative; float: right; padding-left: 2%" >
+                        <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod')}" value="Admin Area" outcome="/admin/index.xhtml" />
+                    </div>
             </div>
         </div>
         <div style="text-align: center; width: 100%; font-size: x-large;" >

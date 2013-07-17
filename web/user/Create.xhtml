@@ -12,99 +12,99 @@
             <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            
-           <h:form>
-               <p:growl id="growl" life="200" showDetail="true" autoUpdate="true" />
-           <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
-               
 
-               <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
-                    
-                    
+            <h:form>
+                <p:growl id="growl" life="200" showDetail="true" autoUpdate="true" />
+                <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
 
-                    
+
+                    <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
+
+                        <p:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+
+                            <p:column>
+                                <f:facet name="header">
+                                    ID
+                                </f:facet>
+                                #{c.rollNo}
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox  value="#{c.selectedBool}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    ID
+                                </f:facet>
+                                #{c.admnNo.studentName}
+                            </p:column>
+
+                        </p:dataTable>
+
+
+
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center"  resizable="true">
+                        <p:dataTable  id="teachPlan" rowKey="#{c.idTeachingPlan}" selection="#{teachingPlanController.selectedList}" 
+                                      selectionMode="multiple" value="#{teachingPlanController.itemsUser}" var="c" >                
+                            <p:column >
+                                <f:facet name="header">
+                                    Lecture No
+                                </f:facet>
+                                #{c.lectureNo}
+                            </p:column>
+                            <p:column width="200">
+                                <f:facet name="header">
+                                    Topics Planned
+                                </f:facet>
+                                #{c.topicsPlanned}
+                            </p:column>
+
+                            <p:column >
+                                <f:facet name="header">
+                                    Planned Date
+                                </f:facet>
+                                <h:outputText value="#{c.plannedDate}">
+                                    <f:convertDateTime pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    Actual Date
+                                </f:facet>
+                                <h:outputText value="#{c.actualDate}">
+                                    <f:convertDateTime pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east"  minSize="400" resizable="true" >
+
+
+
                         <h:panelGrid columns="2">
                             <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
-                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" maxdate="#{now}"/>
-                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureStartTime}" for="lectureStartTime" />
-                            <p:inputText id="lectureStartTime" value="#{lectureController.selected.lectureStartTime}" title="#{bundle.CreateLectureTitle_lectureStartTime}" >
-                                <f:convertDateTime pattern="HH:mm:ss" />
-                            </p:inputText>
-                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
-                            <p:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
-                                <f:convertDateTime pattern="HH:mm:ss" />
-                            </p:inputText>
+                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar"/>
+                            <p:outputLabel value="Delivered topics" for="topicsDelivered" />
+                            <p:inputTextarea value="#{lectureController.topicsDelivered}" id ="topicsDelivered" />
                         </h:panelGrid>
+                        <script type="text/javascript">
+                            jQuery(document).ready(function() {                                
+                                myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
+                                myCalendar.jqEl.datepicker("option", "minDate", -3);
+                            });
+                        </script>
                         <p:commandButton action="#{lectureController.create()}" value="#{bundle.CreateLectureSaveLink}" />
-                        
-                   
-                </p:layoutUnit>
-                <p:layoutUnit position="center"  resizable="true">
-                    <p:dataTable  id="teachPlan" rowKey="#{c.idTeachingPlan}" selection="#{teachingPlanController.selectedList}" 
-                                  selectionMode="multiple" value="#{teachingPlanController.itemsUser}" var="c" >                
-                        <p:column >
-                            <f:facet name="header">
-                                Lecture No
-                            </f:facet>
-    				#{c.lectureNo}
-                        </p:column>
-                        <p:column width="200">
-                            <f:facet name="header">
-                                Topics Planned
-                            </f:facet>
-    				#{c.topicsPlanned}
-                        </p:column>
-
-                        <p:column >
-                            <f:facet name="header">
-                                Planned Date
-                            </f:facet>
-                            <h:outputText value="#{c.plannedDate}">
-                                <f:convertDateTime pattern="dd-MM-YYYY" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column >
-                            <f:facet name="header">
-                                Actual Date
-                            </f:facet>
-                            <h:outputText value="#{c.actualDate}">
-                                <f:convertDateTime pattern="dd-MM-YYYY" />
-                            </h:outputText>
-                        </p:column>
-
-                    </p:dataTable>
-                </p:layoutUnit>
-               <p:layoutUnit position="east"  minSize="400" resizable="true" >
-                   <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
-
-                   <p:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
-   
-                        <p:column>
-                            <f:facet name="header">
-                                ID
-                            </f:facet>
-    				#{c.rollNo}
-                        </p:column>
-                       <p:column>
-                           <p:selectBooleanCheckbox  value="#{c.selectedBool}" />
-                       </p:column>
-
-                        <p:column>
-                            <f:facet name="header">
-                                ID
-                            </f:facet>
-    				#{c.admnNo.studentName}
-                        </p:column>
-
-                    </p:dataTable>
-                    
-                    
-                </p:layoutUnit>
-                
+                        <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
 
 
-            </p:layout>
-           </h:form>
+                    </p:layoutUnit>
+
+
+
+                </p:layout>
+            </h:form>
         </ui:define>
     </ui:composition>
 

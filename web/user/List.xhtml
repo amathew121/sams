@@ -63,9 +63,9 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="#{bundle.ViewLectureShowAllLink}" immediate="true"/>
+                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="Lectures" immediate="true"/>
                             <br />
-                            <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="#{bundle.CreateTeachingPlanTitle}" immediate="true"/>
+                            <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="Teaching Plan" immediate="true"/>
                                
                         </p:column>
                     </p:dataTable>

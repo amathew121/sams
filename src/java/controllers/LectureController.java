@@ -11,7 +11,6 @@ import entities.TeachingPlan;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -23,7 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -34,8 +32,9 @@ public class LectureController implements Serializable {
 
     private Lecture current;
     private DataModel lectureByFS;
-    private List <CurrentStudent> selectedList = new ArrayList <CurrentStudent> ();
+    private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
     private CurrentStudent[] selectList;
+    private String topicsDelivered;
     private DataModel items = null;
 
     public CurrentStudent[] getSelectList() {
@@ -45,8 +44,7 @@ public class LectureController implements Serializable {
     public void setSelectList(CurrentStudent[] selectList) {
         this.selectList = selectList;
     }
-    
-    @ManagedProperty(value="#{attendanceController}")
+    @ManagedProperty(value = "#{attendanceController}")
     private AttendanceController attendanceController;
 
     public AttendanceController getAttendanceController() {
@@ -56,8 +54,7 @@ public class LectureController implements Serializable {
     public void setAttendanceController(AttendanceController attendanceController) {
         this.attendanceController = attendanceController;
     }
-    
-    @ManagedProperty(value="#{currentStudentController}")
+    @ManagedProperty(value = "#{currentStudentController}")
     private CurrentStudentController currentStudentController;
 
     public CurrentStudentController getCurrentStudentController() {
@@ -67,8 +64,7 @@ public class LectureController implements Serializable {
     public void setCurrentStudentController(CurrentStudentController currentStudentController) {
         this.currentStudentController = currentStudentController;
     }
-    
-    @ManagedProperty(value="#{teachingPlanController}")
+    @ManagedProperty(value = "#{teachingPlanController}")
     private TeachingPlanController teachingPlanController;
 
     public TeachingPlanController getTeachingPlanController() {
@@ -78,9 +74,6 @@ public class LectureController implements Serializable {
     public void setTeachingPlanController(TeachingPlanController teachingPlanController) {
         this.teachingPlanController = teachingPlanController;
     }
-    
-    
-
     @EJB
     private beans.LectureFacade ejbFacade;
     private PaginationHelper pagination;
@@ -97,10 +90,11 @@ public class LectureController implements Serializable {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         current = new Lecture();
-        facSub= new FacultySubject();
+        facSub = new FacultySubject();
     }
+
     public LectureController() {
     }
 
@@ -113,8 +107,13 @@ public class LectureController implements Serializable {
         this.lectureByFS = lectureByFS;
     }
 
+    public String getTopicsDelivered() {
+        return topicsDelivered;
+    }
 
-
+    public void setTopicsDelivered(String topicsDelivered) {
+        this.topicsDelivered = topicsDelivered;
+    }
 
     public Lecture getSelected() {
         if (current == null) {
@@ -128,7 +127,6 @@ public class LectureController implements Serializable {
         return ejbFacade;
     }
 
-    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -157,25 +155,25 @@ public class LectureController implements Serializable {
         return "View";
     }
 
-    public String prepareCreateWithId()
-    {
-       prepareCreate();
-       // facSub = getFacade().getFSById(idFacSub);
+    public String prepareCreateWithId() {
+        prepareCreate();
+        // facSub = getFacade().getFSById(idFacSub);
         teachingPlanController.setFacSub(facSub);
         return "Create?foo=" + idFacSub + "&faces-redirect=true";
     }
-    public String prepareViewWithId(int i)
-    {
-        idFacSub=i;
+
+    public String prepareViewWithId(int i) {
+        idFacSub = i;
         getFacSubject(idFacSub);
         recreateModel();
         return "View?foo=" + i + "&faces-redirect=true";
     }
+
     public FacultySubject getFacSubject(int i) {
         facSub = getFacade().getFSById(i);
         return facSub;
     }
-    
+
     public String prepareCreate() {
         current = new Lecture();
         selectedItemIndex = -1;
@@ -193,7 +191,6 @@ public class LectureController implements Serializable {
         }
     }
 
-
     public List<CurrentStudent> getSelectedList() {
         return selectedList;
     }
@@ -201,45 +198,46 @@ public class LectureController implements Serializable {
     public void setSelectedList(List<CurrentStudent> selectedList) {
         this.selectedList = selectedList;
     }
-        
-    
 
-    public String createA() throws Exception{
+    public String createA() throws Exception {
         current.setIdFacultySubject(facSub);
+        current.getLectureDate().setHours(6);
         Lecture temp = current;
+
         create();
         TeachingPlan[] tpList = teachingPlanController.getSelectedList();
-        for(int i=0; i<tpList.length;i++)
-        {
+        for (int i = 0; i < tpList.length; i++) {
             tpList[i].setActualDate(temp.getLectureDate());
+            if(topicsDelivered != null || !"".equals(topicsDelivered))
+                tpList[i].setTopicsDelivered(topicsDelivered);
             teachingPlanController.setCurrent(tpList[i]);
             teachingPlanController.update();
         }
-        
+
         List<CurrentStudent> csl = new ArrayList();
         csl = currentStudentController.getAttendanceByDiv();
-        for(int i=0; i< csl.size(); i++)
-        {
-            if(csl.get(i).isSelectedBool())
+        for (int i = 0; i < csl.size(); i++) {
+            if (csl.get(i).isSelectedBool()) {
                 selectedList.add(csl.get(i));
+            }
             CurrentStudent t = csl.get(i);
             t.setSelectedB(false);
             csl.set(i, t);
-            
+
         }
         currentStudentController.setAttendanceByDiv(csl);
-        
-        List <Attendance> att = new ArrayList <Attendance>();
-        for(int i = 0; i<selectedList.size();i++) {
-           
+
+        List<Attendance> att = new ArrayList<Attendance>();
+        for (int i = 0; i < selectedList.size(); i++) {
+
             Attendance ae = new Attendance();
-            
-            
+
+
             ae.setIdAttendance(Long.MIN_VALUE);
             ae.setIdCurrentStudent(selectedList.get(i));
             ae.setIdLecture(temp);
             att.add(ae);
-            
+
             attendanceController.createEntry(ae);
             attendanceController.create();
         }
@@ -247,7 +245,6 @@ public class LectureController implements Serializable {
         return "View?faces-redirect=true";
     }
 
-    
     public String prepareEdit() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -346,9 +343,6 @@ public class LectureController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
- 
-    
 
     @FacesConverter(forClass = Lecture.class)
     public static class LectureControllerConverter implements Converter {

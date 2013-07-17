@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TeachingPlan.findByActualDate", query = "SELECT t FROM TeachingPlan t WHERE t.actualDate = :actualDate"),
     @NamedQuery(name = "TeachingPlan.findByLectureNo", query = "SELECT t FROM TeachingPlan t WHERE t.lectureNo = :lectureNo")})
 public class TeachingPlan implements Serializable {
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "topics_delivered")
+    private String topicsDelivered;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -149,6 +153,14 @@ public class TeachingPlan implements Serializable {
     @Override
     public String toString() {
         return "entities.TeachingPlan[ idTeachingPlan=" + idTeachingPlan + " ]";
+    }
+
+    public String getTopicsDelivered() {
+        return topicsDelivered;
+    }
+
+    public void setTopicsDelivered(String topicsDelivered) {
+        this.topicsDelivered = topicsDelivered;
     }
     
 }

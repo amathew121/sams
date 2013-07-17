@@ -42,20 +42,17 @@
                 </p:layoutUnit>
                 <p:layoutUnit  header="Teaching Plan" position="center" resizable="true" >
                     <p:dataTable  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+
+                        <p:ajax event="rowToggle" />  
+                        <p:column style="width:2%">  
+                            <p:rowToggler />  
+                        </p:column>  
                         <p:column>
                             <f:facet name="header">
                                 Lecture No
                             </f:facet>
-    				#{c.lectureNo}
+                            #{c.lectureNo}
                         </p:column>
-                        <p:column width="300" styleClass="white-space:normal;" >
-                            <f:facet name="header">
-                                Topics Planned
-                            </f:facet>
-    				#{c.topicsPlanned}
-
-                        </p:column>
-
                         <p:column >
                             <f:facet name="header">
                                 Planned Date
@@ -64,19 +61,40 @@
                                 <f:convertDateTime pattern="dd-MM-YYYY" />
                             </h:outputText>
                         </p:column>
-                        <p:column >
+                        <p:column width="100" styleClass="white-space:normal; width: 100;" >
                             <f:facet name="header">
-                                Actual Date
+                                Topics Planned
                             </f:facet>
+                            #{c.topicsPlanned}
+
+                        </p:column>
+
+
+
+
+                        <p:rowExpansion>
+
+                            
+                            <b>Actual Date :</b>
+                            
                             <h:outputText value="#{c.actualDate}">
                                 <f:convertDateTime pattern="dd-MM-YYYY" />
                             </h:outputText>
-                        </p:column>
+                            <br />
+                            <b>Topics Planned :</b>
+                            #{c.topicsPlanned}
+                            <br />
+                            <b>Topics Delivered :</b>
+                            
+                            #{c.topicsDelivered}
+
+
+                        </p:rowExpansion>
 
 
                     </p:dataTable>
                 </p:layoutUnit>
-           
+
             </p:layout>
         </ui:define>
     </ui:composition>
