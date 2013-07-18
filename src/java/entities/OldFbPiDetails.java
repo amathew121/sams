@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OldFbPiDetails.findAll", query = "SELECT o FROM OldFbPiDetails o"),
     @NamedQuery(name = "OldFbPiDetails.findByFacId", query = "SELECT o FROM OldFbPiDetails o WHERE o.oldFbPiDetailsPK.facId = :facId"),
+    @NamedQuery(name = "OldFbPiDetails.findByFS", query = "SELECT o FROM OldFbPiDetails o WHERE o.oldFbPiDetailsPK.facId = :facId AND o.oldFbPiDetailsPK.subId = :subId AND o.oldFbPiDetailsPK.division = :division AND o.oldFbPiDetailsPK.batch = :batch AND o.ftype = :ftype"), 
     @NamedQuery(name = "OldFbPiDetails.findByFname", query = "SELECT o FROM OldFbPiDetails o WHERE o.fname = :fname"),
     @NamedQuery(name = "OldFbPiDetails.findByLname", query = "SELECT o FROM OldFbPiDetails o WHERE o.lname = :lname"),
     @NamedQuery(name = "OldFbPiDetails.findBySubId", query = "SELECT o FROM OldFbPiDetails o WHERE o.oldFbPiDetailsPK.subId = :subId"),

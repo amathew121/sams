@@ -5,9 +5,12 @@
 package beans;
 
 import entities.OldFbPiDetails;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +29,18 @@ public class OldFbPiDetailsFacade extends AbstractFacade<OldFbPiDetails> {
     public OldFbPiDetailsFacade() {
         super(OldFbPiDetails.class);
     }
+    
+    public List <OldFbPiDetails> getByFS(String userName, String div,short ftype, short batch, String subID) {
+        List <OldFbPiDetails> l = new ArrayList ();
+        Query q = em.createNamedQuery("OldFbPiDetails.findByFS");
+        q.setParameter("division", div);
+        q.setParameter("batch", batch);
+        q.setParameter("facId", userName);
+        q.setParameter("subId", subID);
+        q.setParameter("ftype", ftype);
+        l = q.getResultList();
+        return l;
+    }
+    
     
 }

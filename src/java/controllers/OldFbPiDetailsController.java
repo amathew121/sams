@@ -28,6 +28,11 @@ public class OldFbPiDetailsController implements Serializable {
     private beans.OldFbPiDetailsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private DataModel detailsByFS;
+    private String subID;
+    private short batch;
+    private short ftype;
+    private String div;
 
     public OldFbPiDetailsController() {
     }
@@ -161,12 +166,32 @@ public class OldFbPiDetailsController implements Serializable {
         return items;
     }
     
-    public DataModel getFeedbackDetails(String div,short ftype,short batch)
+    public String getFeedbackDetails(String subID, String div,short ftype,short batch)
     {
-        return new ListDataModel(getFacade().findAll());
+        this.subID = subID;
+        this.div = div;
+        this.ftype = ftype;
+        this.batch = batch;
+        recreateModel();
+        return "FeedbackDetails";
+    }
+    
+
+    public DataModel getDetailsByFS() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
+        return detailsByFS;
     }
 
+    public void setDetailsByFS(DataModel detailsByFS) {
+        this.detailsByFS = detailsByFS;
+    }
+    
+    
+
     private void recreateModel() {
+        detailsByFS = null;
         items = null;
     }
 
