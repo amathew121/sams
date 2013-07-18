@@ -16,49 +16,12 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <p:dataTable value="#{oldFbPiDetailsController.detailsByFS}" var="item" >                      
+                <p:dataTable value="#{oldFacultyCommentsController.detailsByFS}" var="item" >                      
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Subject"/>
                         </f:facet>
-                        <h:outputText value="#{item.oldFbPiDetailsPK.qno}"/>
-                    </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Type"/>
-                        </f:facet>
-                        <h:outputText value="#{item.qtext}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="*****"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ta5}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="****"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ta4}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="***"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ta3}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="**"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ta2}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="**"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ta1}"/>
+                        <h:outputText value="#{item.comments}"/>
                     </p:column>
                 </p:dataTable>
 

@@ -56,9 +56,12 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item.oldFbPiPK.subId, item.oldFbPiPK.division, item.ftype, item.oldFbPiPK.batch)}" value="Details" immediate="true"/>
+                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item.oldFbPiPK.subId, item.oldFbPiPK.division, item.ftype, item.oldFbPiPK.batch)}" 
+                                                  value="Details" immediate="true"/>
                                 <br />
-                                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" value="Comments" immediate="true"/>
+                                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" 
+                                                 action="#{oldFacultyCommentsController.getFeedbackComments(item.oldFbPiPK.subId, item.oldFbPiPK.division, item.ftype, item.oldFbPiPK.batch)}"
+                                                 value="Comments" immediate="true"/>
 
                             </p:column>
                         </p:dataTable>

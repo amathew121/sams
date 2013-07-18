@@ -24,10 +24,16 @@ public class OldFacultyCommentsController implements Serializable {
 
     private OldFacultyComments current;
     private DataModel items = null;
+    
     @EJB
     private beans.OldFacultyCommentsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private DataModel detailsByFS;
+    private String subID;
+    private String div;
+    private short ftype;
+    private short batch;
 
     public OldFacultyCommentsController() {
     }
@@ -157,6 +163,22 @@ public class OldFacultyCommentsController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+    
+    public String getFeedbackComments(String subID, String div,short ftype,short batch) {
+        this.subID = subID;
+        this.div = div;
+        this.ftype = ftype;
+        this.batch = batch;
+        recreateModel();
+        return "FeedbackComments";
+    }
+    
+    public DataModel getDetailsByFS() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
+        return detailsByFS;
     }
 
     private void recreateModel() {
