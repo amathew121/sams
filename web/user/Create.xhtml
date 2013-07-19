@@ -14,11 +14,11 @@
         <ui:define name="body">
 
             <h:form>
-                <p:growl id="growl" life="200" showDetail="true" autoUpdate="true" />
+                <p:growl id="growl" life="400" showDetail="true" autoUpdate="true" />
                 <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
 
 
-                    <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
+                    <p:layoutUnit  header="Lectures" position="west" minSize="400" resizable="true" >
 
                         <p:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
 
@@ -79,7 +79,7 @@
 
                         </p:dataTable>
                     </p:layoutUnit>
-                    <p:layoutUnit position="east"  minSize="400" resizable="true" >
+                    <p:layoutUnit position="east"  minSize="200" resizable="true" >
 
 
 

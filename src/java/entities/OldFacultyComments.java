@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OldFacultyComments.findById", query = "SELECT o FROM OldFacultyComments o WHERE o.id = :id"),
     @NamedQuery(name = "OldFacultyComments.findByFacId", query = "SELECT o FROM OldFacultyComments o WHERE o.facId = :facId"),
     @NamedQuery(name = "OldFacultyComments.findByFS", query = "SELECT o FROM OldFacultyComments o WHERE o.facId = :facId AND o.subId = :subId AND o.division = :division AND o.ftype = :ftype AND o.batch = :batch"),
+    @NamedQuery(name = "OldFacultyComments.findByFST", query = "SELECT o FROM OldFacultyComments o WHERE o.facId = :facId AND o.subId = :subId AND o.division = :division AND o.ftype = :ftype"),
     @NamedQuery(name = "OldFacultyComments.findByFacName", query = "SELECT o FROM OldFacultyComments o WHERE o.facName = :facName"),
     @NamedQuery(name = "OldFacultyComments.findBySubId", query = "SELECT o FROM OldFacultyComments o WHERE o.subId = :subId"),
     @NamedQuery(name = "OldFacultyComments.findByDivision", query = "SELECT o FROM OldFacultyComments o WHERE o.division = :division"),

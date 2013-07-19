@@ -19,7 +19,7 @@
                 <p:dataTable value="#{oldFbPiDetailsController.detailsByFS}" var="item" >                      
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Subject"/>
+                            <h:outputText value="Sr. No"/>
                         </f:facet>
                         <h:outputText value="#{item.oldFbPiDetailsPK.qno}"/>
                     </p:column>
@@ -32,34 +32,70 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="*****"/>
+                            <h:outputText value="A5"/>
                         </f:facet>
-                        <h:outputText value="#{item.ta5}"/>
+                        <h:outputText value="#{item.ta5}">
+                            <f:convertNumber type="number" minIntegerDigits="2"  />
+                        </h:outputText>
+                        <f:facet name="footer">
+                            <h:outputText value="#{oldFbPiDetailsController.getTotalT5(oldFbPiDetailsController.detailsByFS)}"/>
+                        </f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="****"/>
+                            <h:outputText value="A4"/>
                         </f:facet>
-                        <h:outputText value="#{item.ta4}"/>
+                        <h:outputText value="#{item.ta4}">
+                            <f:convertNumber type="number" minIntegerDigits="2"  />
+                        </h:outputText>
+                        <f:facet name="footer">
+                            <h:outputText value="#{oldFbPiDetailsController.getTotalT4(oldFbPiDetailsController.detailsByFS)}"/>
+                        </f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="***"/>
+                            <h:outputText value="A3"/>
                         </f:facet>
-                        <h:outputText value="#{item.ta3}"/>
+                        <h:outputText value="#{item.ta3}">
+                            <f:convertNumber type="number" minIntegerDigits="2"  />
+
+                        </h:outputText>
+                        <f:facet name="footer">
+                            <h:outputText value="#{oldFbPiDetailsController.getTotalT3(oldFbPiDetailsController.detailsByFS)}"/>
+                        </f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="**"/>
+                            <h:outputText value="A2"/>
                         </f:facet>
-                        <h:outputText value="#{item.ta2}"/>
+                        <h:outputText value="#{item.ta2}">
+                            <f:convertNumber type="number" minIntegerDigits="2"  />
+
+                        </h:outputText>
+                        <f:facet name="footer">
+                            <h:outputText value="#{oldFbPiDetailsController.getTotalT2(oldFbPiDetailsController.detailsByFS)}"/>
+                        </f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="**"/>
+                            <h:outputText value="A1"/>
                         </f:facet>
-                        <h:outputText value="#{item.ta1}"/>
+                        <h:outputText  value="#{item.ta1}"> 
+                            <f:convertNumber type="number" minIntegerDigits="2"  />
+                        </h:outputText>
+                        <f:facet name="footer">
+                            <h:outputText value="#{oldFbPiDetailsController.getTotalT1(oldFbPiDetailsController.detailsByFS)}"/>
+                        </f:facet>
+
                     </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Students"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ta1 + item.ta2 + item.ta3 +item.ta4 +item.ta5}"/>
+
+                    </p:column>
+
                 </p:dataTable>
 
 

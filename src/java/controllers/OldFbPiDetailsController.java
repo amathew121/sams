@@ -6,7 +6,9 @@ import controllers.util.PaginationHelper;
 import beans.OldFbPiDetailsFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -24,6 +26,7 @@ public class OldFbPiDetailsController implements Serializable {
 
     private OldFbPiDetails current;
     private DataModel items = null;
+    
     @EJB
     private beans.OldFbPiDetailsFacade ejbFacade;
     private PaginationHelper pagination;
@@ -173,10 +176,17 @@ public class OldFbPiDetailsController implements Serializable {
         this.ftype = ftype;
         this.batch = batch;
         recreateModel();
-        return "FeedbackDetails";
+        return "FeedbackDetails?faces-redirect=true";
+                
     }
     
-
+@PostConstruct
+public void init(){
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+    detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
+}
+        
     public DataModel getDetailsByFS() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
@@ -188,7 +198,59 @@ public class OldFbPiDetailsController implements Serializable {
         this.detailsByFS = detailsByFS;
     }
     
-    
+    public int getTotalT1 (DataModel d){
+        List<OldFbPiDetails> l =  (List<OldFbPiDetails>)d.getWrappedData();
+        int total = 0;
+        
+        for(OldFbPiDetails i : l) {
+            total+=i.getTa1();
+        }
+        
+        return total;
+    }
+    public int getTotalT2(DataModel d) {
+        List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
+        int total = 0;
+
+        for (OldFbPiDetails i : l) {
+            total += i.getTa2();
+        }
+
+        return total;
+    }
+
+    public int getTotalT3(DataModel d) {
+        List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
+        int total = 0;
+
+        for (OldFbPiDetails i : l) {
+            total += i.getTa3();
+        }
+
+        return total;
+    }
+
+    public int getTotalT4(DataModel d) {
+        List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
+        int total = 0;
+
+        for (OldFbPiDetails i : l) {
+            total += i.getTa4();
+        }
+
+        return total;
+    }
+
+    public int getTotalT5(DataModel d) {
+        List<OldFbPiDetails> l = (List<OldFbPiDetails>) detailsByFS.getWrappedData();
+        int total = 0;
+
+        for (OldFbPiDetails i : l) {
+            total += i.getTa5();
+        }
+
+        return total;
+    }
 
     private void recreateModel() {
         detailsByFS = null;

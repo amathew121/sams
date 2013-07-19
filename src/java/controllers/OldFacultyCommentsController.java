@@ -171,7 +171,7 @@ public class OldFacultyCommentsController implements Serializable {
         this.ftype = ftype;
         this.batch = batch;
         recreateModel();
-        return "FeedbackComments";
+        return "FeedbackComments?faces-redirect=true";
     }
     
     public DataModel getDetailsByFS() {
