@@ -9,11 +9,10 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="#{bundle.ListFacultySubjectViewTitle}"></h:outputText>
+            <h:outputText value="Feedback"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <p:accordionPanel multiple="true"  activeIndex="0">
-                <p:tab disabled="true" titleStyle="visible:false" ></p:tab>
+            <p:accordionPanel multiple="true"  activeIndex="4">
                 <p:tab title="Feedback Performance Index" >
                     <h:form styleClass="jsfcrud_list_form">
                         <h:panelGroup id="messagePanel" layout="block">
@@ -73,7 +72,6 @@
                 </p:tab>
             </p:accordionPanel>
             <br />
-            <h:link outcome="/index" value="#{bundle.ListFacultySubjectViewIndexLink}"/>
 
 
         </ui:define>

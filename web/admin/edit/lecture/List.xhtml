@@ -31,7 +31,7 @@
                                 <h:outputText value="#{bundle.ListLectureTitle_lectureDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.lectureDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime timeZone="IST" pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -39,7 +39,7 @@
                                 <h:outputText value="#{bundle.ListLectureTitle_lectureStartTime}"/>
                             </f:facet>
                             <h:outputText value="#{item.lectureStartTime}">
-                                <f:convertDateTime pattern="HH:mm:ss" />
+                                <f:convertDateTime timeZone="IST" pattern="HH:mm:ss" />
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -47,7 +47,7 @@
                                 <h:outputText value="#{bundle.ListLectureTitle_lectureEndTime}"/>
                             </f:facet>
                             <h:outputText value="#{item.lectureEndTime}">
-                                <f:convertDateTime pattern="HH:mm:ss" />
+                                <f:convertDateTime  timeZone="IST" pattern="HH:mm:ss" />
                             </h:outputText>
                         </h:column>
                         <h:column>

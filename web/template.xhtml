@@ -16,8 +16,10 @@
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
                     <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                    <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
                     <p:separator ></p:separator>
                     <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
+                    
                 </p:menuButton>
                 </h:form>
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="User Details"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>            
+            </h:panelGroup>
+            <h:form>
+                <p:panelGrid columns="2">
+                    <h:outputText value="Faculty ID"/>
+                    <h:outputText value="#{facultyController.selected.idFaculty}" title="#{bundle.ViewFacultyTitle_idFaculty}"/>
+                    <h:outputText value="Title"/>
+                    <h:outputText value="#{facultyController.selected.facultyTitle}" title="#{bundle.ViewFacultyTitle_facultyTitle}"/>
+                    <h:outputText value="First Name"/>
+                    <h:outputText value="#{facultyController.selected.facultyFname}" title="#{bundle.ViewFacultyTitle_facultyFname}"/>
+                    <h:outputText value="Last Name"/>
+                    <h:outputText value="#{facultyController.selected.facultyLname}" title="#{bundle.ViewFacultyTitle_facultyLname}"/>
+                    <h:outputText value="Mobile"/>
+                    <h:outputText value="#{facultyController.selected.facultyMobile}" title="#{bundle.ViewFacultyTitle_facultyMobile}"/>
+                    <h:outputText value="Email"/>
+                    <h:outputText value="#{facultyController.selected.facultyEmail}" title="#{bundle.ViewFacultyTitle_facultyEmail}"/>
+                    <h:outputText value="Department"/>
+                    <h:outputText value="#{facultyController.selected.facultyDepartment}" title="#{bundle.ViewFacultyTitle_facultyDepartment}"/>
+                </p:panelGrid>
+                <br />
+                <br />
+                <p:commandButton action="#{facultyController.prepareUserDetailsEdit()}" value="Edit Details" /> 
+                <br />
+                <p:commandButton action="#{facultyController.prepareUserPasswordChange()}"  value="Change Password" /> 
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findByCreditPractical", query = "SELECT s FROM Subject s WHERE s.creditPractical = :creditPractical"),
     @NamedQuery(name = "Subject.findByCreditTutorial", query = "SELECT s FROM Subject s WHERE s.creditTutorial = :creditTutorial")})
 public class Subject implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -261,8 +262,10 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return subjectCode +" "+ programCourse.toString() + " " + "Sem "+ semester+ " ";
-        
+        if (programCourse != null) {
+            return subjectCode + " " + programCourse.toString() + " " + "Sem " + semester + " ";
+        } else {
+            return subjectCode + " " + "Sem " + semester + " ";
+        }
     }
-    
 }

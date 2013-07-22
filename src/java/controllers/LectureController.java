@@ -44,16 +44,7 @@ public class LectureController implements Serializable {
     public void setSelectList(CurrentStudent[] selectList) {
         this.selectList = selectList;
     }
-    @ManagedProperty(value = "#{attendanceController}")
-    private AttendanceController attendanceController;
 
-    public AttendanceController getAttendanceController() {
-        return attendanceController;
-    }
-
-    public void setAttendanceController(AttendanceController attendanceController) {
-        this.attendanceController = attendanceController;
-    }
     @ManagedProperty(value = "#{currentStudentController}")
     private CurrentStudentController currentStudentController;
 
@@ -201,10 +192,9 @@ public class LectureController implements Serializable {
 
     public String createA() throws Exception {
         current.setIdFacultySubject(facSub);
-        current.getLectureDate().setHours(6);
         Lecture temp = current;
-
         create();
+        /*
         TeachingPlan[] tpList = teachingPlanController.getSelectedList();
         for (int i = 0; i < tpList.length; i++) {
             tpList[i].setActualDate(temp.getLectureDate());
@@ -213,7 +203,7 @@ public class LectureController implements Serializable {
             teachingPlanController.setCurrent(tpList[i]);
             teachingPlanController.update();
         }
-
+/*
         List<CurrentStudent> csl = new ArrayList();
         csl = currentStudentController.getAttendanceByDiv();
         for (int i = 0; i < csl.size(); i++) {
@@ -240,9 +230,9 @@ public class LectureController implements Serializable {
 
             attendanceController.createEntry(ae);
             attendanceController.create();
-        }
+        } */
         recreateModel();
-        return "View?faces-redirect=true";
+        return "CreateAttendance?faces-redirect=true";
     }
 
     public String prepareEdit() {

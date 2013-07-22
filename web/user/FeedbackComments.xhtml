@@ -9,7 +9,7 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="#{bundle.ListFacultySubjectViewTitle}"></h:outputText>
+            <h:outputText value="Feedback Comments"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
@@ -21,14 +21,14 @@
                         <f:facet name="header">
                             <h:outputText value="Subject"/>
                         </f:facet>
-                        <h:outputText value="#{item.comments}"/>
+                        <h:outputText rendered="#{item.showStatus == null}" value="#{item.comments}"/>
+                         <h:outputText rendered="#{item.showStatus != null}" value="#{item.showStatus}"/>
                     </p:column>
                 </p:dataTable>
 
 
 
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListFacultySubjectViewIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

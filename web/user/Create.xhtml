@@ -15,94 +15,102 @@
 
             <h:form>
                 <p:growl id="growl" life="400" showDetail="true" autoUpdate="true" />
-                <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
+                    <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
+                    <p:outputLabel value="Start Time" for="startTime" />
+                    <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
+                    <p:outputLabel value="End Time" for="endTime" />
+                    <p:calendar id="endTime" value="#{lectureController.selected.lectureEndTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
+                    <p:outputLabel value="Delivered topics" for="topicsDelivered" />
+                    <p:inputTextarea value="#{lectureController.topicsDelivered}" id ="topicsDelivered" />
+                </h:panelGrid>
+                <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                        myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
+                        myCalendar.jqEl.datepicker("option", "minDate", -3);
+                    });
+                </script>
+                <!--
+                                <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
+                
+                
+                                    <p:layoutUnit  header="Student List" position="center" minSize="400" resizable="true" >
+                
+                                        <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+                
+                                            <h:column>
+                                                <h:selectBooleanCheckbox value="#{currentStudentController.selected.selectedBool}" />
+                                            </h:column>
+                
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    Roll No
+                                                </f:facet>
+                #{c.rollNo}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Name
+                </f:facet>
+                #{c.admnNo.studentName}
+            </h:column>
+
+        </h:dataTable>
+
+    </p:layoutUnit>
+    <p:layoutUnit   position="east"  resizable="true">
+        
+    </p:layoutUnit>
+</p:layout> -->
+                <p:dataTable rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  selection="#{teachingPlanController.selectedList}" 
+                              selectionMode="multiple" id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+
+                    <p:ajax event="rowToggle" />  
+                    <p:column style="width:2%">  
+                        <p:rowToggler />  
+                    </p:column>  
+                    <p:column>
+                        <f:facet name="header">
+                            Lecture No
+                        </f:facet>
+                        #{c.lectureNo}
+                    </p:column>
+                    <p:column >
+                        <f:facet name="header">
+                            Planned Date
+                        </f:facet>
+                        <h:outputText value="#{c.plannedDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column width="100" styleClass="white-space:normal; width: 100;" >
+                        <f:facet name="header">
+                            Topics Planned
+                        </f:facet>
+                        #{c.topicsPlanned}
+
+                    </p:column>
+
+                    <p:rowExpansion>
+                        <b>Actual Date :</b>
+
+                        <h:outputText value="#{c.actualDate}">
+                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                        </h:outputText>
+                        <br />
+                        <b>Topics Planned :</b>
+                        #{c.topicsPlanned}
+                        <br />
+                        <b>Topics Delivered :</b>
+
+                        #{c.topicsDelivered}
+                    </p:rowExpansion>
 
 
-                    <p:layoutUnit  header="Lectures" position="west" minSize="400" resizable="true" >
+                </p:dataTable>
+                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
 
-                        <p:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
-
-                            <p:column>
-                                <f:facet name="header">
-                                    ID
-                                </f:facet>
-                                #{c.rollNo}
-                            </p:column>
-                            <p:column>
-                                <p:selectBooleanCheckbox  value="#{c.selectedBool}" />
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header">
-                                    ID
-                                </f:facet>
-                                #{c.admnNo.studentName}
-                            </p:column>
-
-                        </p:dataTable>
-
-
-
-                    </p:layoutUnit>
-                    <p:layoutUnit position="center"  resizable="true">
-                        <p:dataTable  id="teachPlan" rowKey="#{c.idTeachingPlan}" selection="#{teachingPlanController.selectedList}" 
-                                      selectionMode="multiple" value="#{teachingPlanController.itemsUser}" var="c" >                
-                            <p:column >
-                                <f:facet name="header">
-                                    Lecture No
-                                </f:facet>
-                                #{c.lectureNo}
-                            </p:column>
-                            <p:column width="200">
-                                <f:facet name="header">
-                                    Topics Planned
-                                </f:facet>
-                                #{c.topicsPlanned}
-                            </p:column>
-
-                            <p:column >
-                                <f:facet name="header">
-                                    Planned Date
-                                </f:facet>
-                                <h:outputText value="#{c.plannedDate}">
-                                    <f:convertDateTime pattern="dd-MM-YYYY" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header">
-                                    Actual Date
-                                </f:facet>
-                                <h:outputText value="#{c.actualDate}">
-                                    <f:convertDateTime pattern="dd-MM-YYYY" />
-                                </h:outputText>
-                            </p:column>
-
-                        </p:dataTable>
-                    </p:layoutUnit>
-                    <p:layoutUnit position="east"  minSize="200" resizable="true" >
-
-
-
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
-                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar"/>
-                            <p:outputLabel value="Delivered topics" for="topicsDelivered" />
-                            <p:inputTextarea value="#{lectureController.topicsDelivered}" id ="topicsDelivered" />
-                        </h:panelGrid>
-                        <script type="text/javascript">
-                            jQuery(document).ready(function() {                                
-                                myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
-                                myCalendar.jqEl.datepicker("option", "minDate", -3);
-                            });
-                        </script>
-                        <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
-
-
-                    </p:layoutUnit>
-
-
-
-                </p:layout>
             </h:form>
         </ui:define>
     </ui:composition>

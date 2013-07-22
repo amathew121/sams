@@ -9,18 +9,15 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="#{bundle.ListFacultySubjectViewTitle}"></h:outputText>
+            <h:outputText value="Welcome #{facesContext.externalContext.remoteUser}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="body"> 
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" rendered="#{facultySubjectViewController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{facultySubjectViewController.items.rowCount > 0}">
-                    <h:outputText value="#{facultySubjectViewController.pagination.pageFirstItem + 1}..#{facultySubjectViewController.pagination.pageLastItem + 1}/#{facultySubjectViewController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{facultySubjectViewController.previous}" value="#{bundle.Previous} #{facultySubjectViewController.pagination.pageSize}" rendered="#{facultySubjectViewController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{facultySubjectViewController.next}" value="#{bundle.Next} #{facultySubjectViewController.pagination.pageSize}" rendered="#{facultySubjectViewController.pagination.hasNextPage}"/>&nbsp;
+                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserName.rowCount > 0}" style="text-align: center">
                     <p:dataTable value="#{facultySubjectViewController.modelByUserName}" var="item" >                      
                         <p:column>
                             <f:facet name="header">
@@ -28,7 +25,7 @@
                             </f:facet>
                             <h:outputText value="#{item.subjectCode}"/>
                         </p:column>
-                   
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idProgram}"/>
@@ -63,18 +60,16 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <p:commandButton action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="Lectures" immediate="true"/>
+                            <p:commandButton rendered ="#{facesContext.externalContext.isUserInRole('superuser')}" action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="Lectures" immediate="true"/>
                             <br />
                             <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="Teaching Plan" immediate="true"/>
-                               
+
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
-                
-                
-                
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListFacultySubjectViewIndexLink}"/>
+
+
+
             </h:form>
         </ui:define>
     </ui:composition>

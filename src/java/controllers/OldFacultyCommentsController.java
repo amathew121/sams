@@ -183,6 +183,7 @@ public class OldFacultyCommentsController implements Serializable {
 
     private void recreateModel() {
         items = null;
+        detailsByFS=null;
     }
 
     private void recreatePagination() {

@@ -17,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @ManagedBean(name = "facultyController")
 @SessionScoped
@@ -24,6 +25,8 @@ public class FacultyController implements Serializable {
 
     private Faculty current;
     private DataModel items = null;
+    private String oldPassword;
+    private String newPassword;
     @EJB
     private beans.FacultyFacade ejbFacade;
     private PaginationHelper pagination;
@@ -61,6 +64,22 @@ public class FacultyController implements Serializable {
         return pagination;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     public String prepareList() {
         recreateModel();
         return "List";
@@ -95,11 +114,65 @@ public class FacultyController implements Serializable {
         return "Edit";
     }
 
+    public String prepareUserDetails() {
+        Faculty f = new Faculty();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        f.setIdFaculty(userName);
+        current = getFacade().find(userName);
+        return "UserDetails?faces-redirect=true";
+    }
+
+    public String prepareUserDetailsEdit() {
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+
+        current = getFacade().find(userName);
+        return "UserDetailsEdit?faces-redirect=true";
+    }
+        public String prepareUserPasswordChange() {
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+
+        current = getFacade().find(userName);
+        return "UserPasswordChange?faces-redirect=true";
+    }
+
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyUpdated"));
             return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    public String update1() {
+        try {
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyUpdated"));
+            return prepareUserDetails();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+        public String update2() {
+        try {
+            final String hash = DigestUtils.sha256Hex(oldPassword);
+            if(hash.equals(current.getFacultyPassword())){
+                current.setFacultyPassword(newPassword);
+            }
+            else{
+                JsfUtil.addErrorMessage("Old Password is wrong");
+                return null;
+            }
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyUpdated"));
+            return prepareUserDetails();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
