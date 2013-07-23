@@ -32,7 +32,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="A5"/>
+                            <h:outputText value="A1"/>
                         </f:facet>
                         <h:outputText value="#{item.ta5}">
                             <f:convertNumber type="number" minIntegerDigits="2"  />
@@ -43,7 +43,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="A4"/>
+                            <h:outputText value="A2"/>
                         </f:facet>
                         <h:outputText value="#{item.ta4}">
                             <f:convertNumber type="number" minIntegerDigits="2"  />
@@ -66,7 +66,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="A2"/>
+                            <h:outputText value="A4"/>
                         </f:facet>
                         <h:outputText value="#{item.ta2}">
                             <f:convertNumber type="number" minIntegerDigits="2"  />
@@ -78,7 +78,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="A1"/>
+                            <h:outputText value="A5"/>
                         </f:facet>
                         <h:outputText  value="#{item.ta1}"> 
                             <f:convertNumber type="number" minIntegerDigits="2"  />
@@ -98,7 +98,29 @@
 
                 </p:dataTable>
 
+                <br />
+                <h:outputText value="Performance Index = 5.0*A1 + 2.5*A2 + 0.0*A3 - 2.5*A4 - 5.0*A5" /> 
 
+                <br />
+
+                <br />
+                <h:outputText value="Legend" />
+                <br />
+
+                <h:panelGrid columns="2" title="Legend">
+
+                    <h:outputText value="A1"/>
+                    <h:outputText value="Strongly Agree"/>
+                    <h:outputText value="A2"/>
+                    <h:outputText value="Agree"/>
+                    <h:outputText value="A3"/>
+                    <h:outputText value="Neutral"/>
+                    <h:outputText value="A4"/>
+                    <h:outputText value="Disagree"/>
+                    <h:outputText value="A5"/>
+                    <h:outputText value="Strongly Disagree"/>
+
+                </h:panelGrid>
 
             </h:form>
         </ui:define>

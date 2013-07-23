@@ -16,37 +16,35 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <p:commandButton   value="Create Attendance"  />
+                <p:commandButton   value="Create Attendance" action="#{lectureController.currentStudentController.createAttendance()}"  />
                 <p:panelGrid columns="2" >
-                    <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
+                    <p:dataTable value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
-                        <h:column>
-                            <h:selectBooleanCheckbox value="#{currentStudentController.selected.selectedBool}" />
-                        </h:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
+                        </p:column>
 
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 Roll No
                             </f:facet>
                             #{c.rollNo}
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 Name
                             </f:facet>
                             #{c.admnNo.studentName}
-                        </h:column>
+                        </p:column>
 
-                    </h:dataTable>
+                    </p:dataTable>
                 </p:panelGrid>
 
 
             </h:form>
 
             <br />
-            <h:form>
-                <h:link outcome="/index" value="#{bundle.ListCurrentStudentIndexLink}"/>
-            </h:form>
+
         </ui:define>
     </ui:composition>
 

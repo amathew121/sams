@@ -7,15 +7,21 @@ import beans.CurrentStudentFacade;
 import entities.Attendance;
 import entities.Course;
 import entities.FacultySubject;
+import entities.Lecture;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,31 +37,113 @@ public class CurrentStudentController implements Serializable {
 
     private CurrentStudent current;
     private DataModel items = null;
-    private List<CurrentStudent> attendanceByDiv ;
+    private List<CurrentStudent> attendanceByDiv;
+    private Lecture lec;
+    private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
     @EJB
     private beans.CurrentStudentFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
 
     @PostConstruct
-    public void Init()
-    {
+    public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
     }
+
     public CurrentStudentController() {
     }
-    
-    public List<CurrentStudent> getAttendanceByDiv (FacultySubject f) {
+    @ManagedProperty(value = "#{attendanceController}")
+    private AttendanceController attendanceController;
+
+    public AttendanceController getAttendanceController() {
+        return attendanceController;
+    }
+
+    public void setAttendanceController(AttendanceController attendanceController) {
+        this.attendanceController = attendanceController;
+    }
+
+    public Lecture getLec() {
+        return lec;
+    }
+
+    public void setLec(Lecture lec) {
+        this.lec = lec;
+    }
+
+    public Map<Integer, Boolean> getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Map<Integer, Boolean> checked) {
+        this.checked = checked;
+    }
+
+    public String createAttendance() {
+
+        List<CurrentStudent> checkedItems = new ArrayList<CurrentStudent>();
+
+        for (CurrentStudent item : attendanceByDiv) {
+            if (checked.get(item.getIdCurrentStudent())) {
+                checkedItems.add(item);
+            }
+        }
+
+        checked.clear(); // If necessary.
+
+        // Now do your thing with checkedItems.
+/*
+         List<CurrentStudent> csl = new ArrayList();
+         csl = attendanceByDiv;
+         for (int i = 0; i < csl.size(); i++) {
+         if (csl.get(i).isSelectedBool()) {
+         selectedList.add(csl.get(i));
+         }
+         CurrentStudent t = csl.get(i);
+         t.setSelectedB(false);
+         csl.set(i, t);
+
+         }
+         setAttendanceByDiv(csl); */
+
+        List<Attendance> att = new ArrayList<Attendance>();
+        if (checkedItems.isEmpty()) {
+            JsfUtil.addErrorMessage("No Students Selected");
+            return null;
+        }
+        for (int i = 0; i < checkedItems.size(); i++) {
+
+            Attendance ae = new Attendance();
+
+
+            ae.setIdAttendance(Long.MIN_VALUE);
+            ae.setIdCurrentStudent(checkedItems.get(i));
+            ae.setIdLecture(lec);
+            att.add(ae);
+            try {
+                attendanceController.createEntry(ae);
+            } catch (Exception ex) {
+                Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            attendanceController.create();
+
+
+        }
+        JsfUtil.addSuccessMessage("Attendance Successfully Created");
+        return "View?faces-redirect=true";
+    }
+
+    public List<CurrentStudent> getAttendanceByDiv(FacultySubject f) {
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
         Course course = f.getIdSubject().getProgramCourse().getCourse();
-        if(batch==0){
+        if (batch == 0) {
             attendanceByDiv = getFacade().getCurrentStudentByDivTheory(course, semester, div);
             return attendanceByDiv;
-        }
-        else {
-        
+        } else {
+
             attendanceByDiv = getFacade().getCurrentStudentByDiv(course, semester, div, batch);
             return attendanceByDiv;
         }
@@ -68,7 +156,6 @@ public class CurrentStudentController implements Serializable {
     public void setAttendanceByDiv(List<CurrentStudent> attendanceByDiv) {
         this.attendanceByDiv = attendanceByDiv;
     }
-    
 
     public CurrentStudent getSelected() {
         if (current == null) {
@@ -103,7 +190,7 @@ public class CurrentStudentController implements Serializable {
         recreateModel();
         return "List";
     }
-    
+
     public String prepareListA() {
         recreateModel();
         return "ListA";
@@ -213,7 +300,7 @@ public class CurrentStudentController implements Serializable {
 
     private void recreateModel() {
         items = null;
-        attendanceByDiv =null;
+        attendanceByDiv = null;
     }
 
     private void recreatePagination() {

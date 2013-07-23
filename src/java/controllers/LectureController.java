@@ -32,7 +32,6 @@ public class LectureController implements Serializable {
 
     private Lecture current;
     private DataModel lectureByFS;
-    private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
     private CurrentStudent[] selectList;
     private String topicsDelivered;
     private DataModel items = null;
@@ -182,18 +181,12 @@ public class LectureController implements Serializable {
         }
     }
 
-    public List<CurrentStudent> getSelectedList() {
-        return selectedList;
-    }
-
-    public void setSelectedList(List<CurrentStudent> selectedList) {
-        this.selectedList = selectedList;
-    }
 
     public String createA() throws Exception {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
         create();
+        currentStudentController.setLec(temp);
         /*
         TeachingPlan[] tpList = teachingPlanController.getSelectedList();
         for (int i = 0; i < tpList.length; i++) {

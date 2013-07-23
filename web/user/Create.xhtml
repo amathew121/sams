@@ -22,7 +22,7 @@
                     <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
                     <p:outputLabel value="End Time" for="endTime" />
                     <p:calendar id="endTime" value="#{lectureController.selected.lectureEndTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
-                    <p:outputLabel value="Delivered topics" for="topicsDelivered" />
+                    <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
                     <p:inputTextarea value="#{lectureController.topicsDelivered}" id ="topicsDelivered" />
                 </h:panelGrid>
                 <script type="text/javascript">
@@ -96,13 +96,13 @@
                         <b>Actual Date :</b>
 
                         <h:outputText value="#{c.actualDate}">
-                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                         </h:outputText>
                         <br />
                         <b>Topics Planned :</b>
                         #{c.topicsPlanned}
                         <br />
-                        <b>Topics Delivered :</b>
+                        <b>Contents Delivered :</b>
 
                         #{c.topicsDelivered}
                     </p:rowExpansion>
