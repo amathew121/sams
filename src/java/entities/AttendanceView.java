@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceView.findByIdAttendance", query = "SELECT a FROM AttendanceView a WHERE a.idAttendance = :idAttendance"),
     @NamedQuery(name = "AttendanceView.findByIdLecture", query = "SELECT a FROM AttendanceView a WHERE a.idLecture = :idLecture"),
     @NamedQuery(name = "AttendanceView.findByIdCurrentStudent", query = "SELECT a FROM AttendanceView a WHERE a.idCurrentStudent = :idCurrentStudent"),
-    @NamedQuery(name = "AttendanceView.findByIdFacultySubject", query = "SELECT a FROM AttendanceView a WHERE a.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "AttendanceView.findByIdFacultySubjectCount", query = "SELECT count(a.idCurrentStudent) FROM AttendanceView a WHERE a.idFacultySubject = :idFacultySubject AND a.idLecture= :idLecture"),
+    @NamedQuery(name = "AttendanceView.findByIdFacultySubject", query = "SELECT a FROM AttendanceView a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idLecture"),
+    @NamedQuery(name = "AttendanceView.findByIdFacultySubjectLecture", query = "SELECT a FROM AttendanceView a WHERE a.idFacultySubject = :idFacultySubject AND a.idLecture= :idLecture"),
     @NamedQuery(name = "AttendanceView.findByLectureDate", query = "SELECT a FROM AttendanceView a WHERE a.lectureDate = :lectureDate"),
     @NamedQuery(name = "AttendanceView.findByIdCourse", query = "SELECT a FROM AttendanceView a WHERE a.idCourse = :idCourse"),
     @NamedQuery(name = "AttendanceView.findByAdmnNo", query = "SELECT a FROM AttendanceView a WHERE a.admnNo = :admnNo"),
@@ -40,6 +42,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceView.findByBatch", query = "SELECT a FROM AttendanceView a WHERE a.batch = :batch"),
     @NamedQuery(name = "AttendanceView.findByRollNo", query = "SELECT a FROM AttendanceView a WHERE a.rollNo = :rollNo")})
 public class AttendanceView implements Serializable {
+    @Column(name = "lecture_start_time")
+    @Temporal(TemporalType.TIME)
+    private Date lectureStartTime;
+    @Column(name = "lecture_end_time")
+    @Temporal(TemporalType.TIME)
+    private Date lectureEndTime;
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -170,5 +179,20 @@ public class AttendanceView implements Serializable {
     public void setRollNo(String rollNo) {
         this.rollNo = rollNo;
     }
-    
+
+    public Date getLectureStartTime() {
+        return lectureStartTime;
+    }
+
+    public void setLectureStartTime(Date lectureStartTime) {
+        this.lectureStartTime = lectureStartTime;
+    }
+
+    public Date getLectureEndTime() {
+        return lectureEndTime;
+    }
+
+    public void setLectureEndTime(Date lectureEndTime) {
+        this.lectureEndTime = lectureEndTime;
+    }
 }

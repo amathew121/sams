@@ -127,7 +127,6 @@ public class TeachingPlanController implements Serializable {
     }
         public String createTP() {
         current.setIdFacultySubject(facSub);
-        current.getPlannedDate().setHours(6);
         create();
         recreateModel();
         return prepareCreateWithId(facSub.getIdFacultySubject());
@@ -149,6 +148,17 @@ public class TeachingPlanController implements Serializable {
             return null;
         }
     }
+    
+    public String prepareUpdateTP(TeachingPlan c){
+        current = c;
+        return "UpdateTPlan?faces-redirect=true";
+    }
+    
+    public String updateTP() {
+        update();
+        current = new TeachingPlan();
+        return "CreateTPlan?faces-redirect=true";
+    }
 
     public String destroy() {
         current = (TeachingPlan) getItems().getRowData();
@@ -157,6 +167,15 @@ public class TeachingPlanController implements Serializable {
         recreatePagination();
         recreateModel();
         return "List";
+    }
+    
+    public String destroyTP(TeachingPlan c) {
+        current = c;
+        performDestroy();
+        current = new TeachingPlan();
+        selectedItemIndex = -1;
+        recreateModel();
+        return "CreateTPlan?faces-redirect=true";
     }
 
     public String destroyAndView() {

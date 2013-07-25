@@ -5,9 +5,14 @@
 package beans;
 
 import entities.AttendanceView;
+import entities.FacultySubject;
+import entities.Lecture;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,4 +32,18 @@ public class AttendanceViewFacade extends AbstractFacade<AttendanceView> {
         super(AttendanceView.class);
     }
     
+    public List<AttendanceView> getAttendanceByFS(FacultySubject facSub){
+        List <AttendanceView> l= new ArrayList();
+        Query q = em.createNamedQuery("AttendanceView.findByIdFacultySubject");
+        q.setParameter("idFacultySubject", facSub.getIdFacultySubject());
+        l = q.getResultList();
+        return l;
+    }
+    public Long getAttendanceByFSCount(FacultySubject facSub, Lecture lec) {
+        Query q = em.createNamedQuery("AttendanceView.findByIdFacultySubjectCount");
+        q.setParameter("idFacultySubject", facSub.getIdFacultySubject());
+        q.setParameter("idLecture", lec.getIdLecture());
+        Long count = (Long) q.getSingleResult();
+        return count;
+    }
 }

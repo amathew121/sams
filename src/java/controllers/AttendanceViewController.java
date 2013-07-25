@@ -4,8 +4,11 @@ import entities.AttendanceView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.AttendanceViewFacade;
+import entities.FacultySubject;
+import entities.Lecture;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -87,6 +90,20 @@ public class AttendanceViewController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }
+    
+    public DataModel getAttendanceByFS(FacultySubject facSub){
+        DataModel attendanceByFS = new ListDataModel(getFacade().getAttendanceByFS(facSub));
+        return attendanceByFS;
+    }
+    
+    public Long getAttendanceCount(FacultySubject facSub, Lecture lec)
+    {
+        return getFacade().getAttendanceByFSCount(facSub, lec);
+    }
+    
+    public List<AttendanceView> getAttendanceByFSLec (FacultySubject facSub, Lecture lec) {
+        return getFacade().findAll();
     }
 
     public String prepareEdit() {

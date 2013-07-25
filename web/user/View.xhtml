@@ -23,9 +23,9 @@
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
             </h:form> 
-            <p:layout rendered="#{lectureController.lectureByFS.rowCount > 0}" style="min-width:100%; min-height: 300px;" id="layout" >
-                <p:layoutUnit  header="Lectures" position="west" minSize="200" resizable="true" >
-                    <p:dataTable value="#{lectureController.lectureByFS}" var="c">
+            <p:layout rendered="#{lectureController.lectureByFS.rowCount > 0}" style="min-width:100%; min-height: 300px;" id="layout">
+                <p:layoutUnit  header="Lectures" position="center" minSize="200" resizable="true" >
+                    <p:dataTable value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Lecture Date"/>
@@ -34,13 +34,42 @@
                                 <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
                             </h:outputText>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Start Time"/>
+                            </f:facet>
+                            <h:outputText value="#{c.lectureStartTime}">
+                                <f:convertDateTime timeZone="IST" pattern="hh:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="End Time"/>
+                            </f:facet>
+                            <h:outputText value="#{c.lectureEndTime}">
+                                <f:convertDateTime timeZone="IST" pattern="hh:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Student Count"/>
+                            </f:facet>
+                            <h:outputText value="#{attendanceViewController.getAttendanceCount(lectureController.facSub,lectureController.getLectureByLecID(c.idLecture))}"/>
+                        </p:column>
+                        <p:ajax event="rowToggle" />  
+                        <p:column style="width:2%">  
+                            <p:rowToggler />  
+                        </p:column>  
+                        
+                        <p:rowExpansion>
+                            <p:dataList itemType="disc" value="#{attendanceController.getAttendanceByFSLec(lectureController.facSub, lectureController.getLectureByLecID(c.idLecture))}" var ="d" >
+                            #{d.idCurrentStudent.rollNo} - #{d.idCurrentStudent.admnNo.studentName}
+                            </p:dataList>
+                        </p:rowExpansion>
                     </p:dataTable>
-
+                            
                 </p:layoutUnit>
-                <p:layoutUnit  header="Details" position="center" >
 
-
-                </p:layoutUnit>
             </p:layout>
         </ui:define>
     </ui:composition>

@@ -5,8 +5,10 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.AttendanceFacade;
 import entities.FacultySubject;
+import entities.Lecture;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -110,6 +112,9 @@ public class AttendanceController implements Serializable {
         return "Edit";
     }
 
+    public List<Attendance> getAttendanceByFSLec(FacultySubject facSub, Lecture lec) {
+        return getFacade().getAttendanceByFSLec(lec);
+    }
     public String update() {
         try {
             getFacade().edit(current);

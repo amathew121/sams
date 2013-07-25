@@ -55,6 +55,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         return l;
     }
     
+    public Lecture getLectureByIdLecture(Integer idLecture) {
+
+
+        Query q = em.createNamedQuery("Lecture.findByIdLecture");
+        q.setParameter("idLecture", idLecture);
+        return (Lecture) q.getSingleResult();
+    }
         
     public FacultySubject getFSById(int s){
             Query q = em.createNamedQuery("FacultySubject.findByIdFacultySubject");

@@ -88,6 +88,10 @@ public class LectureController implements Serializable {
     public LectureController() {
     }
 
+    public Lecture getLectureByLecID(Integer idLecture) {
+        return getFacade().getLectureByIdLecture(idLecture);
+    }
+    
     public DataModel getLectureByFS() {
         lectureByFS = new ListDataModel(getFacade().getLectureByIdFaculty(facSub));
         return lectureByFS;
