@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -27,6 +28,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.PhaseId;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -45,6 +48,7 @@ public class CurrentStudentController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
+    private boolean selectAll;
 
     @PostConstruct
     public void Init() {
@@ -80,6 +84,44 @@ public class CurrentStudentController implements Serializable {
         this.checked = checked;
     }
 
+    public boolean isSelectAll() {
+        return selectAll;
+    }
+
+    public void setSelectAll(boolean selectAll) {
+        this.selectAll = selectAll;
+    }
+
+    public void selectAllComponents(ValueChangeEvent event) {
+        if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            event.queue();
+        } else {
+            if (selectAll) {
+                changeMap(checked, true);
+                setSelectAll(true);
+            } else // If the button is unchecked, unselect all the checkboxes
+            {
+                changeMap(checked, false);
+                setSelectAll(false);
+            }
+        }
+    }
+
+    public void changeMap(Map<Integer, Boolean> selectedComponentMap, Boolean blnValue) {
+        if (selectedComponentMap != null) {
+           /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
+            selectedComponentMap.put(attendanceByDiv.get(0).getIdCurrentStudent(),true);
+            while (itr.hasNext()) {
+                selectedComponentMap.put(itr.next(), true);
+            } */
+            for (CurrentStudent item : attendanceByDiv) {
+                selectedComponentMap.put(item.getIdCurrentStudent(), blnValue);
+            }
+            setChecked(selectedComponentMap);
+        }
+    }
+
     public String createAttendance() {
 
         List<CurrentStudent> checkedItems = new ArrayList<CurrentStudent>();
@@ -92,20 +134,6 @@ public class CurrentStudentController implements Serializable {
 
         checked.clear(); // If necessary.
 
-        // Now do your thing with checkedItems.
-/*
-         List<CurrentStudent> csl = new ArrayList();
-         csl = attendanceByDiv;
-         for (int i = 0; i < csl.size(); i++) {
-         if (csl.get(i).isSelectedBool()) {
-         selectedList.add(csl.get(i));
-         }
-         CurrentStudent t = csl.get(i);
-         t.setSelectedB(false);
-         csl.set(i, t);
-
-         }
-         setAttendanceByDiv(csl); */
 
         List<Attendance> att = new ArrayList<Attendance>();
         if (checkedItems.isEmpty()) {

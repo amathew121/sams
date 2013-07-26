@@ -18,9 +18,14 @@
                 </h:panelGroup>
                 <p:commandButton   value="Create Attendance" action="#{lectureController.currentStudentController.createAttendance()}"  />
                 <p:panelGrid columns="2" >
-                    <p:dataTable value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+                    <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
                         <p:column>
+                            <f:facet name="header" >
+                                <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.selectAll}" id="selectAll" valueChangeListener="#{lectureController.currentStudentController.selectAllComponents}" >
+                                    <p:ajax update="listComponents" />
+                                </p:selectBooleanCheckbox>
+                            </f:facet>
                             <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
                         </p:column>
 

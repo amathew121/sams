@@ -62,14 +62,10 @@
     <p:layoutUnit   position="east"  resizable="true">
         
     </p:layoutUnit>
-</p:layout> 
+</p:layout> -->
                 <p:dataTable rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  selection="#{teachingPlanController.selectedList}" 
-                              selectionMode="multiple" id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+                             rowKey="#{c.idTeachingPlan}" selectionMode="multiple" id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 
-                    <p:ajax event="rowToggle" />  
-                    <p:column style="width:2%">  
-                        <p:rowToggler />  
-                    </p:column>  
                     <p:column>
                         <f:facet name="header">
                             Lecture No
@@ -84,31 +80,22 @@
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                         </h:outputText>
                     </p:column>
-                    <p:column width="100" styleClass="white-space:normal; width: 100;" >
+                    <p:column >
+                        <f:facet name="header">
+                            Delivery Date
+                        </f:facet>
+                        <h:outputText value="#{c.actualDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column width="80%" styleClass="white-space:normal;" >
                         <f:facet name="header">
                             Topics Planned
                         </f:facet>
                         #{c.topicsPlanned}
 
                     </p:column>
-
-                    <p:rowExpansion>
-                        <b>Actual Date :</b>
-
-                        <h:outputText value="#{c.actualDate}">
-                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                        </h:outputText>
-                        <br />
-                        <b>Topics Planned :</b>
-                        #{c.topicsPlanned}
-                        <br />
-                        <b>Contents Delivered :</b>
-
-                        #{c.topicsDelivered}
-                    </p:rowExpansion>
-
-
-                </p:dataTable> -->
+                </p:dataTable> 
                 <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
 
             </h:form>
