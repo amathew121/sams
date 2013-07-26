@@ -26,6 +26,14 @@
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                     <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
                 </h:form>
+                <h:form style="position: relative; float: right; padding-left: 2%;">
+                    <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" value="Manage" >
+                        <p:menuitem disabled="ture" value="Departments" ajax="false"/>
+                        <p:separator ></p:separator>
+                        <p:menuitem  value="Subjects" ajax="false" />
+
+                    </p:menuButton>
+                </h:form>
                     <div  style=" position: relative; float: right; padding-left: 2%" >
                         <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod')}" value="Admin Area" outcome="/admin/index.xhtml" />
                     </div>

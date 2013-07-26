@@ -5,16 +5,21 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +33,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Department.findByIdDepartment", query = "SELECT d FROM Department d WHERE d.idDepartment = :idDepartment"),
     @NamedQuery(name = "Department.findByDepartmentName", query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
 public class Department implements Serializable {
+    @JoinTable(name = "hod", joinColumns = {
+        @JoinColumn(name = "id_department", referencedColumnName = "id_department")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_faculty", referencedColumnName = "id_faculty")})
+    @ManyToMany
+    private Collection<Faculty> facultyCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -92,6 +102,15 @@ public class Department implements Serializable {
     @Override
     public String toString() {
         return "entities.Department[ idDepartment=" + idDepartment + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Faculty> getFacultyCollection() {
+        return facultyCollection;
+    }
+
+    public void setFacultyCollection(Collection<Faculty> facultyCollection) {
+        this.facultyCollection = facultyCollection;
     }
     
 }

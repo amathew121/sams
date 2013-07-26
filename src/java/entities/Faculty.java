@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -44,6 +45,10 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @ManyToMany(mappedBy = "facultyCollection")
+    private Collection<Department> departmentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculty")
+    private Collection<Coordinator> coordinatorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculty")
     private Collection<UserGroup> userGroupCollection;
     private static final long serialVersionUID = 1L;
@@ -220,6 +225,24 @@ public class Faculty implements Serializable {
 
     public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
         this.userGroupCollection = userGroupCollection;
+    }
+
+    @XmlTransient
+    public Collection<Department> getDepartmentCollection() {
+        return departmentCollection;
+    }
+
+    public void setDepartmentCollection(Collection<Department> departmentCollection) {
+        this.departmentCollection = departmentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Coordinator> getCoordinatorCollection() {
+        return coordinatorCollection;
+    }
+
+    public void setCoordinatorCollection(Collection<Coordinator> coordinatorCollection) {
+        this.coordinatorCollection = coordinatorCollection;
     }
     
 }

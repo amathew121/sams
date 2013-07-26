@@ -83,6 +83,7 @@ public class ProgramCourseController implements Serializable {
     public String create() {
         try {
             current.getProgramCoursePK().setIdCourse(current.getCourse().getIdCourse());
+            current.getProgramCoursePK().setIdProgram(current.getProgram().getIdProgram());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramCourseCreated"));
             return prepareCreate();
@@ -101,6 +102,7 @@ public class ProgramCourseController implements Serializable {
     public String update() {
         try {
             current.getProgramCoursePK().setIdCourse(current.getCourse().getIdCourse());
+            current.getProgramCoursePK().setIdProgram(current.getProgram().getIdProgram());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramCourseUpdated"));
             return "View";
@@ -191,19 +193,24 @@ public class ProgramCourseController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public ProgramCourse getProgramCourse(entities.ProgramCoursePK id) {
+        return ejbFacade.find(id);
+    }
+
     @FacesConverter(forClass = ProgramCourse.class)
     public static class ProgramCourseControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
             ProgramCourseController controller = (ProgramCourseController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "programCourseController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.getProgramCourse(getKey(value));
         }
 
         entities.ProgramCoursePK getKey(String value) {
@@ -216,13 +223,14 @@ public class ProgramCourseController implements Serializable {
         }
 
         String getStringKey(entities.ProgramCoursePK value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value.getIdProgram());
             sb.append(SEPARATOR);
             sb.append(value.getIdCourse());
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

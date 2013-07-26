@@ -187,16 +187,21 @@ public class CourseController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public Course getCourse(java.lang.String id) {
+        return ejbFacade.find(id);
+    }
+
     @FacesConverter(forClass = Course.class)
     public static class CourseControllerConverter implements Converter {
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
             CourseController controller = (CourseController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "courseController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.getCourse(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -206,11 +211,12 @@ public class CourseController implements Serializable {
         }
 
         String getStringKey(java.lang.String value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

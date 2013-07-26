@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCoordinatorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCoordinatorLabel_coordinatorPK_division}" for="coordinatorPK_division" />
+                    <h:inputText id="coordinatorPK_division" value="#{coordinatorController.selected.coordinatorPK.division}" title="#{bundle.EditCoordinatorTitle_coordinatorPK_division}" required="true" requiredMessage="#{bundle.EditCoordinatorRequiredMessage_coordinatorPK_division}"/>
+                    <h:outputLabel value="#{bundle.EditCoordinatorLabel_coordinatorPK_semester}" for="coordinatorPK_semester" />
+                    <h:inputText id="coordinatorPK_semester" value="#{coordinatorController.selected.coordinatorPK.semester}" title="#{bundle.EditCoordinatorTitle_coordinatorPK_semester}" required="true" requiredMessage="#{bundle.EditCoordinatorRequiredMessage_coordinatorPK_semester}"/>
+                    <h:outputLabel value="#{bundle.EditCoordinatorLabel_acYear}" for="acYear" />
+                    <h:inputText id="acYear" value="#{coordinatorController.selected.acYear}" title="#{bundle.EditCoordinatorTitle_acYear}" />
+                    <h:outputLabel value="#{bundle.EditCoordinatorLabel_programCourse}" for="programCourse" />
+                    <h:selectOneMenu id="programCourse" value="#{coordinatorController.selected.programCourse}" title="#{bundle.EditCoordinatorTitle_programCourse}" required="true" requiredMessage="#{bundle.EditCoordinatorRequiredMessage_programCourse}">
+                        <f:selectItems value="#{programCourseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditCoordinatorLabel_faculty}" for="faculty" />
+                    <h:selectOneMenu id="faculty" value="#{coordinatorController.selected.faculty}" title="#{bundle.EditCoordinatorTitle_faculty}" required="true" requiredMessage="#{bundle.EditCoordinatorRequiredMessage_faculty}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{coordinatorController.update}" value="#{bundle.EditCoordinatorSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCoordinatorViewLink}"/>
+                <br />
+                <h:commandLink action="#{coordinatorController.prepareList}" value="#{bundle.EditCoordinatorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCoordinatorIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

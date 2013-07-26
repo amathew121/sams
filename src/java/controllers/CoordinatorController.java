@@ -1,15 +1,15 @@
 package controllers;
 
-import entities.Department;
+import entities.Coordinator;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.DepartmentFacade;
+import beans.CoordinatorFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -18,29 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "departmentController")
+@Named("coordinatorController")
 @SessionScoped
-public class DepartmentController implements Serializable {
+public class CoordinatorController implements Serializable {
 
-    private Department current;
+    private Coordinator current;
     private DataModel items = null;
     @EJB
-    private beans.DepartmentFacade ejbFacade;
+    private beans.CoordinatorFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public DepartmentController() {
+    public CoordinatorController() {
     }
 
-    public Department getSelected() {
+    public Coordinator getSelected() {
         if (current == null) {
-            current = new Department();
+            current = new Coordinator();
+            current.setCoordinatorPK(new entities.CoordinatorPK());
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private DepartmentFacade getFacade() {
+    private CoordinatorFacade getFacade() {
         return ejbFacade;
     }
 
@@ -67,21 +68,25 @@ public class DepartmentController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Department) getItems().getRowData();
+        current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Department();
+        current = new Coordinator();
+        current.setCoordinatorPK(new entities.CoordinatorPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            current.getCoordinatorPK().setIdFaculty(current.getFaculty().getIdFaculty());
+            current.getCoordinatorPK().setIdCourse(current.getProgramCourse().getProgramCoursePK().getIdCourse());
+            current.getCoordinatorPK().setIdProgram(current.getProgramCourse().getProgramCoursePK().getIdProgram());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DepartmentCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CoordinatorCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -90,15 +95,18 @@ public class DepartmentController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Department) getItems().getRowData();
+        current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            current.getCoordinatorPK().setIdFaculty(current.getFaculty().getIdFaculty());
+            current.getCoordinatorPK().setIdCourse(current.getProgramCourse().getProgramCoursePK().getIdCourse());
+            current.getCoordinatorPK().setIdProgram(current.getProgramCourse().getProgramCoursePK().getIdProgram());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DepartmentUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CoordinatorUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,7 +115,7 @@ public class DepartmentController implements Serializable {
     }
 
     public String destroy() {
-        current = (Department) getItems().getRowData();
+        current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -131,7 +139,7 @@ public class DepartmentController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DepartmentDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CoordinatorDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -187,32 +195,49 @@ public class DepartmentController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Department getDepartment(java.lang.String id) {
+    public Coordinator getCoordinator(entities.CoordinatorPK id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Department.class)
-    public static class DepartmentControllerConverter implements Converter {
+    @FacesConverter(forClass = Coordinator.class)
+    public static class CoordinatorControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DepartmentController controller = (DepartmentController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "departmentController");
-            return controller.getDepartment(getKey(value));
+            CoordinatorController controller = (CoordinatorController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "coordinatorController");
+            return controller.getCoordinator(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        entities.CoordinatorPK getKey(String value) {
+            entities.CoordinatorPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new entities.CoordinatorPK();
+            key.setIdFaculty(values[0]);
+            key.setIdProgram(values[1]);
+            key.setIdCourse(values[2]);
+            key.setSemester(Short.parseShort(values[3]));
+            key.setDivision(values[4]);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(entities.CoordinatorPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value);
+            sb.append(value.getIdFaculty());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdProgram());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdCourse());
+            sb.append(SEPARATOR);
+            sb.append(value.getSemester());
+            sb.append(SEPARATOR);
+            sb.append(value.getDivision());
             return sb.toString();
         }
 
@@ -221,11 +246,11 @@ public class DepartmentController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Department) {
-                Department o = (Department) object;
-                return getStringKey(o.getIdDepartment());
+            if (object instanceof Coordinator) {
+                Coordinator o = (Coordinator) object;
+                return getStringKey(o.getCoordinatorPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Department.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Coordinator.class.getName());
             }
         }
     }

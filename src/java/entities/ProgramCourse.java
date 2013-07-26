@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ProgramCourse.findByIdProgram", query = "SELECT p FROM ProgramCourse p WHERE p.programCoursePK.idProgram = :idProgram"),
     @NamedQuery(name = "ProgramCourse.findByIdCourse", query = "SELECT p FROM ProgramCourse p WHERE p.programCoursePK.idCourse = :idCourse")})
 public class ProgramCourse implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "programCourse")
+    private Collection<Coordinator> coordinatorCollection;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ProgramCoursePK programCoursePK;
@@ -109,6 +111,15 @@ public class ProgramCourse implements Serializable {
     @Override
     public String toString() {
         return program.getIdProgram() + " " + course.getCourseName();
+    }
+
+    @XmlTransient
+    public Collection<Coordinator> getCoordinatorCollection() {
+        return coordinatorCollection;
+    }
+
+    public void setCoordinatorCollection(Collection<Coordinator> coordinatorCollection) {
+        this.coordinatorCollection = coordinatorCollection;
     }
     
 }

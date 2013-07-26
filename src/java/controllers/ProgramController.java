@@ -187,16 +187,21 @@ public class ProgramController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public Program getProgram(java.lang.String id) {
+        return ejbFacade.find(id);
+    }
+
     @FacesConverter(forClass = Program.class)
     public static class ProgramControllerConverter implements Converter {
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
             ProgramController controller = (ProgramController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "programController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.getProgram(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -206,11 +211,12 @@ public class ProgramController implements Serializable {
         }
 
         String getStringKey(java.lang.String value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
