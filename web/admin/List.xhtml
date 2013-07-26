@@ -9,59 +9,43 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Welcome #{facesContext.externalContext.remoteUser}"></h:outputText>
+            <h:outputText value="Faculty Subject Information"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" />
                 <h:panelGroup style="text-align: center">
-                    <p:dataTable value="#{facultySubjectViewController.listByDept}" var="item" >                      
-                        <p:column>
+                    <p:dataTable value="#{facultySubjectViewController.listByDept}" var="item" >   
+                        <p:subTable value="#{facultySubjectViewController.getListByDeptSub(item.subjectCode)}" var="fac" >
+                        
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_subjectCode}"/>
+                                <h:outputText value="#{item.subjectName}#{' - Semester '}#{item.semester}"/>
                             </f:facet>
-                            <h:outputText value="#{item.subjectCode}"/>
-                        </p:column>
+                            
+                        
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idProgram}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idProgram}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_idCourse}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCourse}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_semester}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.semester}"/>
-                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_division}"/>
                             </f:facet>
-                            <h:outputText value="#{item.division}"/>
+                            <h:outputText value="#{fac.division}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_batch}"/>
                             </f:facet>
-                            <h:outputText value="#{item.batch}"/>
+                            <h:outputText value="#{fac.batch}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Faculty Name"/>
                             </f:facet>
-                            <h:outputText value="#{item.facultyFname}#{' '}#{item.facultyLname}"/>
+                            <h:outputText value="#{fac.facultyFname}#{' '}#{fac.facultyLname}"/>
                         </p:column>
+                        </p:subTable>
                     </p:dataTable>
                 </h:panelGroup>
 

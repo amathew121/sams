@@ -61,6 +61,9 @@ public class FacultySubjectViewController implements Serializable {
     public List<FacultySubjectView> getListByDept(){
         return getFacade().getFSViewByDept("CS");
     }
+    public List<FacultySubjectView> getListByDeptSub(String sub) {
+        return getFacade().getFSViewByDeptSub(sub,"CS");
+    }
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
