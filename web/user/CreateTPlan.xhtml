@@ -68,7 +68,7 @@
                                 Planned Date
                             </f:facet>
                             <h:outputText value="#{c.plannedDate}">
-                                <f:convertDateTime pattern="dd-MM-YYYY" />
+                                <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                             </h:outputText>
                         </p:column>
 
@@ -81,7 +81,7 @@
                             <b>Delivery Date :</b>
                             
                             <h:outputText value="#{c.actualDate}">
-                                <f:convertDateTime pattern="dd-MM-YYYY" />
+                                <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                             </h:outputText>
                             
                             <b>Topics Planned :</b>

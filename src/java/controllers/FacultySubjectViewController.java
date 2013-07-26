@@ -7,6 +7,7 @@ import beans.FacultySubjectViewFacade;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +56,10 @@ public class FacultySubjectViewController implements Serializable {
         String userName = facesContext.getExternalContext().getRemoteUser();
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
+    }
+    
+    public List<FacultySubjectView> getListByDept(){
+        return getFacade().getFSViewByDept("CS");
     }
 
     public PaginationHelper getPagination() {

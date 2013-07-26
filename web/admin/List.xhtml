@@ -16,9 +16,9 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" rendered="#{facultySubjectViewController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserName.rowCount > 0}" style="text-align: center">
-                    <p:dataTable value="#{facultySubjectViewController.modelByUserName}" var="item" >                      
+                <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" />
+                <h:panelGroup style="text-align: center">
+                    <p:dataTable value="#{facultySubjectViewController.listByDept}" var="item" >                      
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_subjectCode}"/>
@@ -58,12 +58,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="Faculty Name"/>
                             </f:facet>
-                            <p:commandButton rendered ="#{facesContext.externalContext.isUserInRole('superuser')}" action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" value="Lectures" immediate="true"/>
-                            <br />
-                            <p:commandButton action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" value="Teaching Plan" immediate="true"/>
-
+                            <h:outputText value="#{item.facultyFname}#{' '}#{item.facultyLname}"/>
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
