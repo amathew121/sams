@@ -13,6 +13,7 @@
     <h:body>
         <div style="width: 100%;">
             <div style="text-align: right; width: 100%; font-size: small;" >
+                
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
                     <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
@@ -23,19 +24,21 @@
                 </p:menuButton>
                 </h:form>
 
+
                 <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
-                </h:form>
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" value="Manage" >
-                        <p:menuitem disabled="ture" value="Departments" ajax="false"/>
+                    <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser')}" value="Manage" >
+                        <p:menuitem  action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
                         <p:separator ></p:separator>
-                        <p:menuitem  value="Subjects" ajax="false" />
+                        <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />
 
                     </p:menuButton>
                 </h:form>
+                
+                <h:form style="position: relative; float: right; padding-left: 2%;">
+                    <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
+                </h:form>
                     <div  style=" position: relative; float: right; padding-left: 2%" >
-                        <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod')}" value="Admin Area" outcome="/admin/index.xhtml" />
+                        <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
                     </div>
             </div>
         </div>

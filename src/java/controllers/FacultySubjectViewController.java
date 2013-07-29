@@ -4,6 +4,8 @@ import entities.FacultySubjectView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.FacultySubjectViewFacade;
+import entities.Department;
+import entities.Faculty;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -28,14 +30,12 @@ public class FacultySubjectViewController implements Serializable {
 
     private FacultySubjectView current;
     private DataModel items = null;
-    private DataModel modelByUserName =null;
+    private DataModel modelByUserName = null;
     @EJB
     private beans.FacultySubjectViewFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    
-    
     public FacultySubjectViewController() {
     }
 
@@ -50,19 +50,35 @@ public class FacultySubjectViewController implements Serializable {
     private FacultySubjectViewFacade getFacade() {
         return ejbFacade;
     }
-    
+
     public DataModel getModelByUserName() {
-        FacesContext facesContext = FacesContext.getCurrentInstance() ;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
     }
-    
-    public List<FacultySubjectView> getListByDept(){
-        return getFacade().getFSViewByDept("CS");
+
+    public List<FacultySubjectView> getListByDept(Faculty fac) {
+        List<Department> deptList = getFacade().getDepartment();
+        Department dept = null;
+        int i = 0;
+        while (i < deptList.size()) {
+            List<Faculty> facList = (List<Faculty>) deptList.get(i).getFacultyCollection();
+            if (facList.contains(fac)) {
+                dept = deptList.get(i);
+                break;
+            }
+            i++;
+        }
+        if (dept != null) {
+            return getFacade().getFSViewByDept(dept.getIdDepartment());
+        } else {
+            return null;
+        }
     }
+
     public List<FacultySubjectView> getListByDeptSub(String sub) {
-        return getFacade().getFSViewByDeptSub(sub,"CS");
+        return getFacade().getFSViewByDeptSub(sub, "CS");
     }
 
     public PaginationHelper getPagination() {
@@ -75,7 +91,7 @@ public class FacultySubjectViewController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    
+
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
@@ -87,11 +103,19 @@ public class FacultySubjectViewController implements Serializable {
         recreateModel();
         return "List";
     }
-    
+
     public void prepareListUser() {
         recreateModel();
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/List.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void prepareListAdmin() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/List.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,6 +143,7 @@ public class FacultySubjectViewController implements Serializable {
             return null;
         }
     }
+
     public int getIdFacSub() {
         current = (FacultySubjectView) getItems().getRowData();
         return current.getIdFacultySubject();

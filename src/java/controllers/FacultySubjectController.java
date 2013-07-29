@@ -191,9 +191,8 @@ public class FacultySubjectController implements Serializable {
     }
 
     public FacultySubject getIdFacSub(int idFacSub) {
-        current = new FacultySubject();
-        current.setDivision("A");
-        return current;
+        
+        return getFacade().getFSById(idFacSub);
     }
     
 

@@ -17,35 +17,50 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:panelGroup style="text-align: center">
-                    <p:dataTable value="#{facultySubjectViewController.listByDept}" var="item" >   
-                        <p:subTable value="#{facultySubjectViewController.getListByDeptSub(item.subjectCode)}" var="fac" >
-                        
+                    <p:dataTable value="#{facultySubjectViewController.getListByDept(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" var="item" >   
+
+
+         
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{item.subjectName}#{' - Semester '}#{item.semester}"/>
+                                <h:outputText value="Semester"/>
                             </f:facet>
-                            
-                        
+                            <h:outputText value="#{item.semester}"/>
+                        </p:column>
 
 
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_division}"/>
                             </f:facet>
-                            <h:outputText value="#{fac.division}"/>
+                            <h:outputText value="#{item.division}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subjectName}"/>
+                        </p:column>  
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_batch}"/>
                             </f:facet>
-                            <h:outputText value="#{fac.batch}"/>
+                            <h:outputText value="#{item.batch}"/>
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Faculty Name"/>
                             </f:facet>
-                            <h:outputText value="#{fac.facultyFname}#{' '}#{fac.facultyLname}"/>
+                            <h:outputText value="#{item.facultyFname}#{' '}#{item.facultyLname}"/>
                         </p:column>
-                        </p:subTable>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Teaching Plan"/>
+                            </f:facet>
+                            <p:commandLink value="View Teaching Plan" 
+                                           action="#{teachingPlanController.prepareListTP(facultySubjectController.getIdFacSub(item.idFacultySubject))}" />
+                        </p:column>
                     </p:dataTable>
                 </h:panelGroup>
 

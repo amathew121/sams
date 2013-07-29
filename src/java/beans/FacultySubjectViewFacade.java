@@ -4,7 +4,10 @@
  */
 package beans;
 
+import entities.Department;
+import entities.Faculty;
 import entities.FacultySubjectView;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +20,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView> {
+
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
     private int count = 0;
@@ -27,12 +31,10 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
 
     @Override
     public int count() {
-        
-                
+
+
         return count; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     @Override
     protected EntityManager getEntityManager() {
@@ -42,18 +44,17 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
     public FacultySubjectViewFacade() {
         super(FacultySubjectView.class);
     }
-    
-    public List <FacultySubjectView> getFSViewById(String s)
-    {
+
+    public List<FacultySubjectView> getFSViewById(String s) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdFaculty");
         q.setParameter("idFaculty", s);
-        List <FacultySubjectView> l = q.getResultList();
+        List<FacultySubjectView> l = q.getResultList();
         count = l.size();
         return l;
-        
-        
+
+
     }
-    
+
     public List<FacultySubjectView> getFSViewByDept(String s) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdCourse");
         q.setParameter("idCourse", s);
@@ -62,7 +63,8 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
 
 
     }
-        public List<FacultySubjectView> getFSViewByDeptSub(String sub, String dept) {
+
+    public List<FacultySubjectView> getFSViewByDeptSub(String sub, String dept) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdCourseSubject");
         q.setParameter("idCourse", dept);
         q.setParameter("subjectCode", sub);
@@ -71,5 +73,11 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
 
 
     }
-    
+
+    public List<Department> getDepartment() {
+        List<Department> l= new ArrayList();
+        Query q = em.createNamedQuery("Department.findAll");
+        l = q.getResultList();
+        return l;
+    }
 }

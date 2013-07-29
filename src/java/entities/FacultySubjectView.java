@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FacultySubjectView.findBySubjectSrNo", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectSrNo = :subjectSrNo"),
     @NamedQuery(name = "FacultySubjectView.findBySubjectName", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectName = :subjectName"),
     @NamedQuery(name = "FacultySubjectView.findByIdProgram", query = "SELECT f FROM FacultySubjectView f WHERE f.idProgram = :idProgram"),
-    @NamedQuery(name = "FacultySubjectView.findByIdCourse", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse GROUP BY f.subjectCode"),
+    @NamedQuery(name = "FacultySubjectView.findByIdCourse", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse ORDER BY f.semester, f.division, f.subjectName, f.batch"),
     @NamedQuery(name = "FacultySubjectView.findByIdCourseSubject", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse AND f.subjectCode = :subjectCode"),
     @NamedQuery(name = "FacultySubjectView.findBySemester", query = "SELECT f FROM FacultySubjectView f WHERE f.semester = :semester"),
     @NamedQuery(name = "FacultySubjectView.findByDivision", query = "SELECT f FROM FacultySubjectView f WHERE f.division = :division"),

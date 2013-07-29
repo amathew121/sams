@@ -95,7 +95,13 @@ public class TeachingPlanController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    public String prepareListTP(FacultySubject f) {
+        facSub = f;
+        recreateModel();
+        return "FSTP?faces-redirect=true";
+    }
+    
     public String prepareView() {
         current = (TeachingPlan) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -213,6 +219,10 @@ public class TeachingPlanController implements Serializable {
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
+    }
+
+    public FacultySubject getFacSub() {
+        return facSub;
     }
 
     public DataModel getItems() {
