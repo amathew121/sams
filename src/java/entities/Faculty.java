@@ -45,6 +45,8 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFaculty")
+    private Collection<Suggesstions> suggesstionsCollection;
     @ManyToMany(mappedBy = "facultyCollection")
     private Collection<Department> departmentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculty")
@@ -243,6 +245,15 @@ public class Faculty implements Serializable {
 
     public void setCoordinatorCollection(Collection<Coordinator> coordinatorCollection) {
         this.coordinatorCollection = coordinatorCollection;
+    }
+
+    @XmlTransient
+    public Collection<Suggesstions> getSuggesstionsCollection() {
+        return suggesstionsCollection;
+    }
+
+    public void setSuggesstionsCollection(Collection<Suggesstions> suggesstionsCollection) {
+        this.suggesstionsCollection = suggesstionsCollection;
     }
     
 }

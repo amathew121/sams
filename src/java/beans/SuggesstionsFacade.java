@@ -4,7 +4,7 @@
  */
 package beans;
 
-import entities.Faculty;
+import entities.Suggesstions;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author piit
  */
 @Stateless
-public class FacultyFacade extends AbstractFacade<Faculty> {
+public class SuggesstionsFacade extends AbstractFacade<Suggesstions> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class FacultyFacade extends AbstractFacade<Faculty> {
         return em;
     }
 
-    public FacultyFacade() {
-        super(Faculty.class);
+    public SuggesstionsFacade() {
+        super(Suggesstions.class);
     }
     
 }

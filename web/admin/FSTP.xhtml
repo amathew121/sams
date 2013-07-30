@@ -16,14 +16,20 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:panelGroup style="text-align: center">
+                <h:panelGroup style="text-align: center; width: 100%">
                     <p:dataTable value="#{teachingPlanController.itemsUser}" var="c" >   
 
                         <p:column>
                             <f:facet name="header">
-                                Lecture No
+                                Lecture
                             </f:facet>
                             #{c.lectureNo}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                Module
+                            </f:facet>
+                            #{c.moduleNo}
                         </p:column>
 
                         <p:column width="80%" styleClass="white-space:normal;" >

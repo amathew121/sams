@@ -13,15 +13,16 @@
     <h:body>
         <div style="width: 100%;">
             <div style="text-align: right; width: 100%; font-size: small;" >
-                
+
                 <h:form style="position: relative; float: right; padding-left: 2%;">
-                <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
-                    <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
-                    <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
-                    <p:separator ></p:separator>
-                    <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
-                    
-                </p:menuButton>
+                    <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
+                        <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                        <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
+                        <p:separator ></p:separator>
+                        <p:menuitem value="Suggestions" action="#{suggesstionsController.prepareCreateUser()}" ajax="false" />
+                        <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
+
+                    </p:menuButton>
                 </h:form>
 
 
@@ -33,13 +34,13 @@
 
                     </p:menuButton>
                 </h:form>
-                
+
                 <h:form style="position: relative; float: right; padding-left: 2%;">
                     <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
                 </h:form>
-                    <div  style=" position: relative; float: right; padding-left: 2%" >
-                        <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
-                    </div>
+                <div  style=" position: relative; float: right; padding-left: 2%" >
+                    <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
+                </div>
             </div>
         </div>
         <div style="text-align: center; width: 100%; font-size: x-large;" >
