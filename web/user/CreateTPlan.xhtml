@@ -29,6 +29,9 @@
                             <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_lectureNo}" for="lectureNo" />
                             <p:inputText value="#{teachingPlanController.selected.lectureNo}" id="lectureNo" type="number" />
 
+                            <p:outputLabel value="Module / Chapter" for="moduleNo" />
+                            <p:inputText value="#{teachingPlanController.selected.moduleNo}" id="moduleNo" type="number" />
+
 
                             <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_topicsPlanned}" for="topicsPlanned" />
                             <p:inputTextarea rows="6" cols="33" id ="topicsPlanned" value="#{teachingPlanController.selected.topicsPlanned}" /> 
@@ -54,6 +57,12 @@
                                 Lecture No
                             </f:facet>
                             #{c.lectureNo}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                Module No
+                            </f:facet>
+                            #{c.moduleNo}
                         </p:column>
 
                         <p:column width="80%" styleClass="white-space:normal;" >

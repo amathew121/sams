@@ -56,9 +56,16 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Planned Lectures" styleClass="whitespace:normal"/>
+                            </f:facet>
+                            <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="Teaching Plan"/>
                             </f:facet>
                             <p:commandLink value="View Teaching Plan" 
+                                           rendered="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size() > 0}"
                                            action="#{teachingPlanController.prepareListTP(facultySubjectController.getIdFacSub(item.idFacultySubject))}" />
                         </p:column>
                     </p:dataTable>

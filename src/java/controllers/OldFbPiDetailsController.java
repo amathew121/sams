@@ -4,8 +4,10 @@ import entities.OldFbPiDetails;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.OldFbPiDetailsFacade;
+import entities.OldFbPi;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -36,6 +38,7 @@ public class OldFbPiDetailsController implements Serializable {
     private short batch;
     private short ftype;
     private String div;
+    private BigDecimal pi;
 
     public OldFbPiDetailsController() {
     }
@@ -168,13 +171,22 @@ public class OldFbPiDetailsController implements Serializable {
         }
         return items;
     }
+
+    public BigDecimal getPi() {
+        return pi;
+    }
+
+    public void setPi(BigDecimal pi) {
+        this.pi = pi;
+    }
     
-    public String getFeedbackDetails(String subID, String div,short ftype,short batch)
+    public String getFeedbackDetails(OldFbPi fb)
     {
-        this.subID = subID;
-        this.div = div;
-        this.ftype = ftype;
-        this.batch = batch;
+        this.pi = fb.getPi();
+        this.subID = fb.getOldFbPiPK().getSubId();
+        this.div = fb.getOldFbPiPK().getDivision();
+        this.ftype = fb.getFtype();
+        this.batch = fb.getOldFbPiPK().getBatch();
         recreateModel();
         return "FeedbackDetails?faces-redirect=true";
                 

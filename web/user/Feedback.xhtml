@@ -55,7 +55,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item.oldFbPiPK.subId, item.oldFbPiPK.division, item.ftype, item.oldFbPiPK.batch)}" 
+                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item)}" 
                                                   value="Details" immediate="true"/>
                                 <br />
                                 <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" 

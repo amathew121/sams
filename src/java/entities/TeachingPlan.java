@@ -40,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TeachingPlan.findByActualDate", query = "SELECT t FROM TeachingPlan t WHERE t.actualDate = :actualDate"),
     @NamedQuery(name = "TeachingPlan.findByLectureNo", query = "SELECT t FROM TeachingPlan t WHERE t.lectureNo = :lectureNo")})
 public class TeachingPlan implements Serializable {
+    @Column(name = "module_no")
+    private Short moduleNo;
     @Lob
     @Size(max = 65535)
     @Column(name = "topics_delivered")
@@ -162,6 +164,14 @@ public class TeachingPlan implements Serializable {
 
     public void setTopicsDelivered(String topicsDelivered) {
         this.topicsDelivered = topicsDelivered;
+    }
+
+    public Short getModuleNo() {
+        return moduleNo;
+    }
+
+    public void setModuleNo(Short moduleNo) {
+        this.moduleNo = moduleNo;
     }
     
 }
