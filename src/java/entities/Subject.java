@@ -263,7 +263,7 @@ public class Subject implements Serializable {
     @Override
     public String toString() {
         if (programCourse != null) {
-            return subjectCode + " " + programCourse.toString() + " " + "Sem " + semester + " ";
+            return subjectCode + "/" + programCourse.toString() + "/" + "Sem " + semester ;
         } else {
             return subjectCode + " " + "Sem " + semester + " ";
         }

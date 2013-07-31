@@ -34,15 +34,14 @@ public class TeachingPlanController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private FacultySubject facSub;
-
-
+    private FacultySubject facSubImport;
 
     @PostConstruct
     public void init() {
         current = new TeachingPlan();
         facSub = new FacultySubject();
     }
-    
+
     public TeachingPlanController() {
     }
 
@@ -61,10 +60,6 @@ public class TeachingPlanController implements Serializable {
     public void setSelectedList(TeachingPlan[] selectedList) {
         this.selectedList = selectedList;
     }
-
-    
-    
-    
 
     private TeachingPlanFacade getFacade() {
         return ejbFacade;
@@ -95,13 +90,13 @@ public class TeachingPlanController implements Serializable {
         recreateModel();
         return "List";
     }
-    
+
     public String prepareListTP(FacultySubject f) {
         facSub = f;
         recreateModel();
         return "FSTP?faces-redirect=true";
     }
-    
+
     public String prepareView() {
         current = (TeachingPlan) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -114,11 +109,15 @@ public class TeachingPlanController implements Serializable {
         return "Create";
     }
     
+     public String prepareImport() {
+       return "ImportTP?faces-redirect=true";
+    }
+
     public String prepareCreateWithId(int f) {
         current = new TeachingPlan();
         selectedItemIndex = -1;
         facSub = getFacade().getFSById(f);
-        return "CreateTPlan?foo="+f+"&faces-redirect=true";
+        return "CreateTPlan?foo=" + f + "&faces-redirect=true";
     }
 
     public String create() {
@@ -131,9 +130,21 @@ public class TeachingPlanController implements Serializable {
             return null;
         }
     }
-        public String createTP() {
+
+    public String createTP() {
         current.setIdFacultySubject(facSub);
         create();
+        recreateModel();
+        return prepareCreateWithId(facSub.getIdFacultySubject());
+    }
+
+    public String importTP() {
+
+        List<TeachingPlan> l = (List<TeachingPlan>) facSubImport.getTeachingPlanCollection();
+        for (int i = 0; i < l.size(); i++) {
+            current = l.get(i);
+            createTP();
+        }
         recreateModel();
         return prepareCreateWithId(facSub.getIdFacultySubject());
     }
@@ -154,12 +165,12 @@ public class TeachingPlanController implements Serializable {
             return null;
         }
     }
-    
-    public String prepareUpdateTP(TeachingPlan c){
+
+    public String prepareUpdateTP(TeachingPlan c) {
         current = c;
         return "UpdateTPlan?faces-redirect=true";
     }
-    
+
     public String updateTP() {
         update();
         current = new TeachingPlan();
@@ -174,7 +185,7 @@ public class TeachingPlanController implements Serializable {
         recreateModel();
         return "List";
     }
-    
+
     public String destroyTP(TeachingPlan c) {
         current = c;
         performDestroy();
@@ -225,6 +236,14 @@ public class TeachingPlanController implements Serializable {
         return facSub;
     }
 
+    public FacultySubject getFacSubImport() {
+        return facSubImport;
+    }
+
+    public void setFacSubImport(FacultySubject facSubImport) {
+        this.facSubImport = facSubImport;
+    }
+
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -237,12 +256,11 @@ public class TeachingPlanController implements Serializable {
         itemsUser = new ListDataModel(getFacade().getTeachingPlanByFS(facSub));
 
         return itemsUser;
-    }
+    } 
 
     public void setFacSub(FacultySubject facSub) {
         this.facSub = facSub;
     }
-
 
     private void recreateModel() {
         items = null;

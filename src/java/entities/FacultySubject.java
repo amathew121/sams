@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FacultySubject.findAll", query = "SELECT f FROM FacultySubject f"),
+    @NamedQuery(name = "FacultySubject.findByIdFaculty", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty"),
     @NamedQuery(name = "FacultySubject.findByIdFacultySubject", query = "SELECT f FROM FacultySubject f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubject.findByBatch", query = "SELECT f FROM FacultySubject f WHERE f.batch = :batch")})
@@ -158,7 +159,7 @@ public class FacultySubject implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.FacultySubject[ idFacultySubject=" + idFacultySubject + " ]";
+        return idSubject.toString()+"/"+division+"/"+batch;
     }
 
     public Integer getAcademicYear() {

@@ -4,6 +4,7 @@ import entities.FacultySubject;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.FacultySubjectFacade;
+import entities.Faculty;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -190,11 +191,17 @@ public class FacultySubjectController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public SelectItem[] getItemsAvailableSelectOneByUserName() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        Faculty fac = getFacade().getFacById(userName);
+        return JsfUtil.getSelectItems(ejbFacade.getFSByIdFac(fac), true);
+    }
+
     public FacultySubject getIdFacSub(int idFacSub) {
-        
+
         return getFacade().getFSById(idFacSub);
     }
-    
 
     @FacesConverter(forClass = FacultySubject.class)
     public static class FacultySubjectControllerConverter implements Converter {

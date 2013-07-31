@@ -110,7 +110,7 @@ public class ProgramCourse implements Serializable {
 
     @Override
     public String toString() {
-        return program.getIdProgram() + " " + course.getCourseName();
+        return program.getIdProgram() + "/" + course.getCourseName();
     }
 
     @XmlTransient

@@ -247,7 +247,12 @@ public class FacultySubjectViewController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    
+    public SelectItem[] getItemsAvailableSelectOneByUserName() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        return JsfUtil.getSelectItems(ejbFacade.getFSViewById(userName), true);
+    }
     @FacesConverter(forClass = FacultySubjectView.class)
     public static class FacultySubjectViewControllerConverter implements Converter {
 
