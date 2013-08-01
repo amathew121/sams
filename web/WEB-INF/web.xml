@@ -51,6 +51,7 @@
             <role-name>staff</role-name>
             <role-name>superuser</role-name>
             <role-name>hod</role-name>
+            <role-name>principal</role-name>
         </auth-constraint>
         <user-data-constraint>
             <description/>
@@ -67,6 +68,23 @@
         <auth-constraint>
             <description/>
             <role-name>hod</role-name>
+            <role-name>superuser</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Principal</display-name>
+        <web-resource-collection>
+            <web-resource-name>Admin Pages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>principal</role-name>
             <role-name>superuser</role-name>
         </auth-constraint>
         <user-data-constraint>
@@ -93,5 +111,9 @@
     <security-role>
         <description/>
         <role-name>hod</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>principal</role-name>
     </security-role>
 </web-app>

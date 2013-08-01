@@ -35,6 +35,7 @@ public class FacultySubjectViewController implements Serializable {
     private beans.FacultySubjectViewFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Department deptSelected;
 
     public FacultySubjectViewController() {
     }
@@ -51,6 +52,14 @@ public class FacultySubjectViewController implements Serializable {
         return ejbFacade;
     }
 
+    public Department getDeptSelected() {
+        return deptSelected;
+    }
+
+    public void setDeptSelected(Department deptSelected) {
+        this.deptSelected = deptSelected;
+    }
+
     public DataModel getModelByUserName() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
@@ -59,16 +68,23 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     public List<FacultySubjectView> getListByDept(Faculty fac) {
-        List<Department> deptList = getFacade().getDepartment();
         Department dept = null;
-        int i = 0;
-        while (i < deptList.size()) {
-            List<Faculty> facList = (List<Faculty>) deptList.get(i).getFacultyCollection();
-            if (facList.contains(fac)) {
-                dept = deptList.get(i);
-                break;
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext.getExternalContext().isUserInRole("superuser")  || facesContext.getExternalContext().isUserInRole("principal")) {
+            dept = deptSelected;
+        } else {
+            List<Department> deptList = getFacade().getDepartment();
+
+            int i = 0;
+            while (i < deptList.size()) {
+                List<Faculty> facList = (List<Faculty>) deptList.get(i).getFacultyCollection();
+                if (facList.contains(fac)) {
+                    dept = deptList.get(i);
+                    break;
+                }
+                i++;
             }
-            i++;
         }
         if (dept != null) {
             return getFacade().getFSViewByDept(dept.getIdDepartment());
@@ -247,12 +263,13 @@ public class FacultySubjectViewController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
+
     public SelectItem[] getItemsAvailableSelectOneByUserName() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         return JsfUtil.getSelectItems(ejbFacade.getFSViewById(userName), true);
     }
+
     @FacesConverter(forClass = FacultySubjectView.class)
     public static class FacultySubjectViewControllerConverter implements Converter {
 

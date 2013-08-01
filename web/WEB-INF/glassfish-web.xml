@@ -13,6 +13,10 @@
     <role-name>hod</role-name>
     <group-name>hod</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>principal</role-name>
+    <group-name>principal</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">

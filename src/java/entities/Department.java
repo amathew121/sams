@@ -101,7 +101,7 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Department[ idDepartment=" + idDepartment + " ]";
+        return departmentName;
     }
 
     @XmlTransient
