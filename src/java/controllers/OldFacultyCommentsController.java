@@ -4,6 +4,7 @@ import entities.OldFacultyComments;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.OldFacultyCommentsFacade;
+import entities.OldFbPi;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -24,7 +25,6 @@ public class OldFacultyCommentsController implements Serializable {
 
     private OldFacultyComments current;
     private DataModel items = null;
-    
     @EJB
     private beans.OldFacultyCommentsFacade ejbFacade;
     private PaginationHelper pagination;
@@ -34,6 +34,7 @@ public class OldFacultyCommentsController implements Serializable {
     private String div;
     private short ftype;
     private short batch;
+    private String userName;
 
     public OldFacultyCommentsController() {
     }
@@ -164,26 +165,35 @@ public class OldFacultyCommentsController implements Serializable {
         }
         return items;
     }
-    
-    public String getFeedbackComments(String subID, String div,short ftype,short batch) {
-        this.subID = subID;
-        this.div = div;
-        this.ftype = ftype;
-        this.batch = batch;
+
+    public String getFeedbackComments(OldFbPi item) {
+        this.userName = item.getOldFbPiPK().getFacId();
+        this.subID = item.getOldFbPiPK().getSubId();
+        this.div = item.getOldFbPiPK().getDivision();
+        this.ftype = item.getFtype();
+        this.batch = item.getOldFbPiPK().getBatch();
         recreateModel();
-        return "FeedbackComments?faces-redirect=true";
+           return "FeedbackDetails?faces-redirect=true";
+
     }
-    
+    public String getFeedbackCommentsAdmin(OldFbPi item) {
+        this.userName = item.getOldFbPiPK().getFacId();
+        this.subID = item.getOldFbPiPK().getSubId();
+        this.div = item.getOldFbPiPK().getDivision();
+        this.ftype = item.getFtype();
+        this.batch = item.getOldFbPiPK().getBatch();
+        recreateModel();
+        return null;
+    }
+
     public DataModel getDetailsByFS() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String userName = facesContext.getExternalContext().getRemoteUser();
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;
     }
 
     private void recreateModel() {
         items = null;
-        detailsByFS=null;
+        detailsByFS = null;
     }
 
     private void recreatePagination() {

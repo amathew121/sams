@@ -136,6 +136,17 @@ public class FacultySubjectViewController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void prepareListAdminFeedback() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FeedbackAll.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String navList(){
+        return "List?faces-redirect=true";
+    }
 
     public String prepareView() {
         current = (FacultySubjectView) getItems().getRowData();

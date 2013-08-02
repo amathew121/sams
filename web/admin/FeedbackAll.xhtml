@@ -12,13 +12,17 @@
             <h:outputText value="Feedback"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <p:accordionPanel multiple="true"  activeIndex="4">
-                <p:tab title="Feedback Performance Index" >
                     <h:form styleClass="jsfcrud_list_form">
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>
-                        <p:dataTable value="#{oldFbPiController.getItemsByUserName(facesContext.externalContext.remoteUser)}" var="item" >                      
+
+                        <p:dataTable value="#{oldFbPiController.itemsByUserNameGroup}" var="fac">
+
+                        <p:subTable value="#{oldFbPiController.getItemsByUserName(fac.oldFbPiPK.facId)}" var="item" >                      
+                            <f:facet name="header" >
+                                #{fac.fname}#{' '}#{fac.lname}
+                            </f:facet>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Subject"/>
@@ -54,22 +58,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item)}" 
-                                                  value="Details" immediate="true"/>
+                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetailsAdmin(item)}" 
+                                                  value="Details" immediate="true" onclick="window.open('FeedbackDetails.xhtml')"/>
                                 <br />
-                                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" 
-                                                 action="#{oldFacultyCommentsController.getFeedbackComments(item)}"
-                                                 value="Comments" immediate="true"/>
+                                <p:commandButton action="#{oldFacultyCommentsController.getFeedbackCommentsAdmin(item)}"
+                                                 value="Comments" immediate="true" onclick="window.open('FeedbackComments.xhtml')"/>
 
                             </p:column>
-                        </p:dataTable>
-
+                        </p:subTable>
+                    </p:dataTable>
                     </h:form>
-                </p:tab>
-                <p:tab title="Performance Index BarGraph"  >
-                <h:graphicImage alt="Feedback Scale" url="/resources/images/pi.jpg" width="100%" />
-                </p:tab>
-            </p:accordionPanel>
             <br />
 
 

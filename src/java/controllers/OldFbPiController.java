@@ -6,6 +6,7 @@ import controllers.util.PaginationHelper;
 import beans.OldFbPiFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -62,11 +63,12 @@ public class OldFbPiController implements Serializable {
         return pagination;
     }
     
-    public DataModel getItemsByUserName(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String userName = facesContext.getExternalContext().getRemoteUser();
-        return new ListDataModel(getFacade().findByUserName(userName));
-        
+    public List<OldFbPi> getItemsByUserName(String userName){
+        return getFacade().findByUserName(userName);
+    }
+    
+    public DataModel getItemsByUserNameGroup() {
+        return new ListDataModel(getFacade().findByUserNameGroup());
     }
 
     public String prepareList() {

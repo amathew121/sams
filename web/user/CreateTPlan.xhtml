@@ -36,8 +36,23 @@
                     <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_topicsPlanned}" for="topicsPlanned" />
                     <p:inputTextarea rows="6" cols="33" id ="topicsPlanned" value="#{teachingPlanController.selected.topicsPlanned}" /> 
 
-                    <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_plannedDate}" for="plannedDate" />
-                    <p:calendar value="#{teachingPlanController.selected.plannedDate}" id="plannedDate" maxdate="#{now}"/>
+                    <p:outputLabel value="#{bundle.CreateTeachingPlanLabel_plannedDate}"  for="plannedDate" />
+                    <p:calendar value="#{teachingPlanController.selected.plannedDate}" beforeShowDay="disableAllTheseDays" id="plannedDate" maxdate="#{now}"/>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var disabledDays = ["8-9-2013", "8-29-2013", "8-30-2013", "8-31-2013", "9-1-2013", "9-2-2013", "9-3-2013", "9-4-2013", "9-5-2013", "9-9-2013", "9-13-2013", "9-16-2013", "9-18-2013"
+                        , "10-13-2013", "10-14-2013", "10-15-2013", "10-16-2013", "10-17-2013", "10-18-2013"];
+                        function disableAllTheseDays(date) {
+                            var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+                            for (i = 0; i < disabledDays.length; i++) {
+                                if ($.inArray((m + 1) + '-' + d + '-' + y, disabledDays) != -1) {
+                                    return [false];
+                                }
+                            }
+                            return [true];
+                        }
+                        //]]>
+                    </script>
 
 
                 </p:panelGrid>

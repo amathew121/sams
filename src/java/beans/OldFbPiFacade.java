@@ -38,4 +38,10 @@ public class OldFbPiFacade extends AbstractFacade<OldFbPi> {
         List <OldFbPi> l = q.getResultList();
         return l;    }
     
+    public List<OldFbPi> findByUserNameGroup() {
+        Query q = em.createNamedQuery("OldFbPi.findAllGroupByUser");
+        List<OldFbPi> l = q.getResultList();
+        return l;
+    }
+    
 }

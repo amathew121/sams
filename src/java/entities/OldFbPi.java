@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OldFbPi.findAll", query = "SELECT o FROM OldFbPi o"),
+    @NamedQuery(name = "OldFbPi.findAllGroupByUser", query = "SELECT o FROM OldFbPi o GROUP BY o.oldFbPiPK.facId"),
     @NamedQuery(name = "OldFbPi.findByFacId", query = "SELECT o FROM OldFbPi o WHERE o.oldFbPiPK.facId = :facId ORDER BY o.oldFbPiPK.subId,o.oldFbPiPK.division,o.oldFbPiPK.batch"),
     @NamedQuery(name = "OldFbPi.findByFname", query = "SELECT o FROM OldFbPi o WHERE o.fname = :fname"),
     @NamedQuery(name = "OldFbPi.findByLname", query = "SELECT o FROM OldFbPi o WHERE o.lname = :lname"),

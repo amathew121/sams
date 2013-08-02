@@ -28,7 +28,6 @@ public class OldFbPiDetailsController implements Serializable {
 
     private OldFbPiDetails current;
     private DataModel items = null;
-    
     @EJB
     private beans.OldFbPiDetailsFacade ejbFacade;
     private PaginationHelper pagination;
@@ -39,6 +38,7 @@ public class OldFbPiDetailsController implements Serializable {
     private short ftype;
     private String div;
     private BigDecimal pi;
+    private String userName;
 
     public OldFbPiDetailsController() {
     }
@@ -179,29 +179,38 @@ public class OldFbPiDetailsController implements Serializable {
     public void setPi(BigDecimal pi) {
         this.pi = pi;
     }
-    
-    public String getFeedbackDetails(OldFbPi fb)
-    {
+
+    public String getFeedbackDetails(OldFbPi fb) {
+        this.userName = fb.getOldFbPiPK().getFacId();
         this.pi = fb.getPi();
         this.subID = fb.getOldFbPiPK().getSubId();
         this.div = fb.getOldFbPiPK().getDivision();
         this.ftype = fb.getFtype();
         this.batch = fb.getOldFbPiPK().getBatch();
         recreateModel();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         return "FeedbackDetails?faces-redirect=true";
-                
     }
-    
-@PostConstruct
-public void init(){
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-        String userName = facesContext.getExternalContext().getRemoteUser();
-    detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
-}
-        
-    public DataModel getDetailsByFS() {
+    public String getFeedbackDetailsAdmin(OldFbPi fb) {
+        this.userName = fb.getOldFbPiPK().getFacId();
+        this.pi = fb.getPi();
+        this.subID = fb.getOldFbPiPK().getSubId();
+        this.div = fb.getOldFbPiPK().getDivision();
+        this.ftype = fb.getFtype();
+        this.batch = fb.getOldFbPiPK().getBatch();
+        recreateModel();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return null;
+    }
+
+    @PostConstruct
+    public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
+        detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
+    }
+
+    public DataModel getDetailsByFS() {
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;
     }
@@ -209,17 +218,18 @@ public void init(){
     public void setDetailsByFS(DataModel detailsByFS) {
         this.detailsByFS = detailsByFS;
     }
-    
-    public int getTotalT1 (DataModel d){
-        List<OldFbPiDetails> l =  (List<OldFbPiDetails>)d.getWrappedData();
+
+    public int getTotalT1(DataModel d) {
+        List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
-        
-        for(OldFbPiDetails i : l) {
-            total+=i.getTa1();
+
+        for (OldFbPiDetails i : l) {
+            total += i.getTa1();
         }
-        
+
         return total;
     }
+
     public int getTotalT2(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
