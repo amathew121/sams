@@ -173,7 +173,7 @@ public class OldFacultyCommentsController implements Serializable {
         this.ftype = item.getFtype();
         this.batch = item.getOldFbPiPK().getBatch();
         recreateModel();
-           return "FeedbackDetails?faces-redirect=true";
+           return "FeedbackComments?faces-redirect=true";
 
     }
     public String getFeedbackCommentsAdmin(OldFbPi item) {
