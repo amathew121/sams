@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSubjectSyllabusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSubjectSyllabusLabel_idSubjectSyllabus}" for="idSubjectSyllabus" />
+                    <h:inputText id="idSubjectSyllabus" value="#{subjectSyllabusController.selected.idSubjectSyllabus}" title="#{bundle.CreateSubjectSyllabusTitle_idSubjectSyllabus}" required="true" requiredMessage="#{bundle.CreateSubjectSyllabusRequiredMessage_idSubjectSyllabus}"/>
+                    <h:outputLabel value="#{bundle.CreateSubjectSyllabusLabel_moduleNo}" for="moduleNo" />
+                    <h:inputText id="moduleNo" value="#{subjectSyllabusController.selected.moduleNo}" title="#{bundle.CreateSubjectSyllabusTitle_moduleNo}" required="true" requiredMessage="#{bundle.CreateSubjectSyllabusRequiredMessage_moduleNo}"/>
+                    <h:outputLabel value="#{bundle.CreateSubjectSyllabusLabel_topics}" for="topics" />
+                    <h:inputTextarea rows="4" cols="30" id="topics" value="#{subjectSyllabusController.selected.topics}" title="#{bundle.CreateSubjectSyllabusTitle_topics}" required="true" requiredMessage="#{bundle.CreateSubjectSyllabusRequiredMessage_topics}"/>
+                    <h:outputLabel value="#{bundle.CreateSubjectSyllabusLabel_noOfHours}" for="noOfHours" />
+                    <h:inputText id="noOfHours" value="#{subjectSyllabusController.selected.noOfHours}" title="#{bundle.CreateSubjectSyllabusTitle_noOfHours}" />
+                    <h:outputLabel value="#{bundle.CreateSubjectSyllabusLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{subjectSyllabusController.selected.idSubject}" title="#{bundle.CreateSubjectSyllabusTitle_idSubject}" >
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.create}" value="#{bundle.CreateSubjectSyllabusSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.prepareList}" value="#{bundle.CreateSubjectSyllabusShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSubjectSyllabusIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

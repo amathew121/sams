@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSubjectSyllabusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSubjectSyllabusLabel_idSubjectSyllabus}"/>
+                    <h:outputText value="#{subjectSyllabusController.selected.idSubjectSyllabus}" title="#{bundle.ViewSubjectSyllabusTitle_idSubjectSyllabus}"/>
+                    <h:outputText value="#{bundle.ViewSubjectSyllabusLabel_moduleNo}"/>
+                    <h:outputText value="#{subjectSyllabusController.selected.moduleNo}" title="#{bundle.ViewSubjectSyllabusTitle_moduleNo}"/>
+                    <h:outputText value="#{bundle.ViewSubjectSyllabusLabel_topics}"/>
+                    <h:outputText value="#{subjectSyllabusController.selected.topics}" title="#{bundle.ViewSubjectSyllabusTitle_topics}"/>
+                    <h:outputText value="#{bundle.ViewSubjectSyllabusLabel_noOfHours}"/>
+                    <h:outputText value="#{subjectSyllabusController.selected.noOfHours}" title="#{bundle.ViewSubjectSyllabusTitle_noOfHours}"/>
+                    <h:outputText value="#{bundle.ViewSubjectSyllabusLabel_idSubject}"/>
+                    <h:outputText value="#{subjectSyllabusController.selected.idSubject}" title="#{bundle.ViewSubjectSyllabusTitle_idSubject}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.destroyAndView}" value="#{bundle.ViewSubjectSyllabusDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSubjectSyllabusEditLink}"/>
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.prepareCreate}" value="#{bundle.ViewSubjectSyllabusCreateLink}" />
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.prepareList}" value="#{bundle.ViewSubjectSyllabusShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSubjectSyllabusIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

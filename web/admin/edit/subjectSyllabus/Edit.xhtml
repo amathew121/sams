@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSubjectSyllabusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSubjectSyllabusLabel_idSubjectSyllabus}" for="idSubjectSyllabus" />
+                    <h:inputText id="idSubjectSyllabus" value="#{subjectSyllabusController.selected.idSubjectSyllabus}" title="#{bundle.EditSubjectSyllabusTitle_idSubjectSyllabus}" required="true" requiredMessage="#{bundle.EditSubjectSyllabusRequiredMessage_idSubjectSyllabus}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectSyllabusLabel_moduleNo}" for="moduleNo" />
+                    <h:inputText id="moduleNo" value="#{subjectSyllabusController.selected.moduleNo}" title="#{bundle.EditSubjectSyllabusTitle_moduleNo}" required="true" requiredMessage="#{bundle.EditSubjectSyllabusRequiredMessage_moduleNo}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectSyllabusLabel_topics}" for="topics" />
+                    <h:inputTextarea rows="4" cols="30" id="topics" value="#{subjectSyllabusController.selected.topics}" title="#{bundle.EditSubjectSyllabusTitle_topics}" required="true" requiredMessage="#{bundle.EditSubjectSyllabusRequiredMessage_topics}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectSyllabusLabel_noOfHours}" for="noOfHours" />
+                    <h:inputText id="noOfHours" value="#{subjectSyllabusController.selected.noOfHours}" title="#{bundle.EditSubjectSyllabusTitle_noOfHours}" />
+                    <h:outputLabel value="#{bundle.EditSubjectSyllabusLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{subjectSyllabusController.selected.idSubject}" title="#{bundle.EditSubjectSyllabusTitle_idSubject}" >
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{subjectSyllabusController.update}" value="#{bundle.EditSubjectSyllabusSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSubjectSyllabusViewLink}"/>
+                <br />
+                <h:commandLink action="#{subjectSyllabusController.prepareList}" value="#{bundle.EditSubjectSyllabusShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSubjectSyllabusIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
