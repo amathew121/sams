@@ -41,7 +41,7 @@
                     <script type="text/javascript">
                         //<![CDATA[
                         var disabledDays = ["8-9-2013", "8-29-2013", "8-30-2013", "8-31-2013", "9-1-2013", "9-2-2013", "9-3-2013", "9-4-2013", "9-5-2013", "9-9-2013", "9-13-2013", "9-16-2013", "9-18-2013"
-                        , "10-13-2013", "10-14-2013", "10-15-2013", "10-16-2013", "10-17-2013", "10-18-2013"];
+                                    , "10-13-2013", "10-14-2013", "10-15-2013", "10-16-2013", "10-17-2013", "10-18-2013"];
                         function disableAllTheseDays(date) {
                             var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
                             for (i = 0; i < disabledDays.length; i++) {
@@ -65,7 +65,7 @@
             </h:form>
             <br />
             <h:form id ="teachPlanForm">
-                <p:dataTable rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+                <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 
                     <p:ajax event="rowToggle" />  
                     <p:column style="width:2%">  
@@ -129,6 +129,18 @@
 
 
                 </p:dataTable>
+                <p:panel header="Export Plan" style="width: 12%;">  
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.jpg" style="width: 50%" />  
+                        <p:dataExporter type="xls" target="tbl" fileName="cars" />  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/pdf.jpg" style="width: 50%"/>  
+                        <p:dataExporter type="pdf" target="tbl" fileName="cars"/>  
+                    </h:commandLink>  
+
+                </p:panel>  
             </h:form>
         </ui:define>
     </ui:composition>

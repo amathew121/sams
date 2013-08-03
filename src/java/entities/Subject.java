@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,6 +48,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findByCreditPractical", query = "SELECT s FROM Subject s WHERE s.creditPractical = :creditPractical"),
     @NamedQuery(name = "Subject.findByCreditTutorial", query = "SELECT s FROM Subject s WHERE s.creditTutorial = :creditTutorial")})
 public class Subject implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "id_program")
+    private String idProgram;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "id_course")
+    private String idCourse;
+    @OneToMany(mappedBy = "idSubject")
+    private List<SubjectSyllabus> subjectSyllabusList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -267,5 +280,30 @@ public class Subject implements Serializable {
         } else {
             return subjectCode + " " + "Sem " + semester + " ";
         }
+    }
+
+    public String getIdProgram() {
+        return idProgram;
+    }
+
+    public void setIdProgram(String idProgram) {
+        this.idProgram = idProgram;
+    }
+
+    public String getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(String idCourse) {
+        this.idCourse = idCourse;
+    }
+
+    @XmlTransient
+    public List<SubjectSyllabus> getSubjectSyllabusList() {
+        return subjectSyllabusList;
+    }
+
+    public void setSubjectSyllabusList(List<SubjectSyllabus> subjectSyllabusList) {
+        this.subjectSyllabusList = subjectSyllabusList;
     }
     }
