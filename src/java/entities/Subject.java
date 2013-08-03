@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,6 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findByCreditPractical", query = "SELECT s FROM Subject s WHERE s.creditPractical = :creditPractical"),
     @NamedQuery(name = "Subject.findByCreditTutorial", query = "SELECT s FROM Subject s WHERE s.creditTutorial = :creditTutorial")})
 public class Subject implements Serializable {
+
+    @OneToMany(mappedBy = "idSubject")
+    private List<SubjectSyllabus> subjectSyllabusList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -267,5 +271,14 @@ public class Subject implements Serializable {
         } else {
             return subjectCode + " " + "Sem " + semester + " ";
         }
+    }
+
+    @XmlTransient
+    public List<SubjectSyllabus> getSubjectSyllabusList() {
+        return subjectSyllabusList;
+    }
+
+    public void setSubjectSyllabusList(List<SubjectSyllabus> subjectSyllabusList) {
+        this.subjectSyllabusList = subjectSyllabusList;
     }
     }

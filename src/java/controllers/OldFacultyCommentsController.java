@@ -186,6 +186,24 @@ public class OldFacultyCommentsController implements Serializable {
         return null;
     }
 
+    public String getSubID() {
+        return subID;
+    }
+
+    public String getDivision() {
+        return div;
+    }
+
+    public short getBatch() {
+        return batch;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+    
+    
+
     public DataModel getDetailsByFS() {
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;

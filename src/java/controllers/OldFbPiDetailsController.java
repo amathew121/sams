@@ -14,7 +14,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -188,9 +190,9 @@ public class OldFbPiDetailsController implements Serializable {
         this.ftype = fb.getFtype();
         this.batch = fb.getOldFbPiPK().getBatch();
         recreateModel();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
         return "FeedbackDetails?faces-redirect=true";
     }
+
     public String getFeedbackDetailsAdmin(OldFbPi fb) {
         this.userName = fb.getOldFbPiPK().getFacId();
         this.pi = fb.getPi();
@@ -199,10 +201,26 @@ public class OldFbPiDetailsController implements Serializable {
         this.ftype = fb.getFtype();
         this.batch = fb.getOldFbPiPK().getBatch();
         recreateModel();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
         return null;
     }
 
+    public String getSubID() {
+        return subID;
+    }
+
+    public short getBatch() {
+        return batch;
+    }
+
+    public String getDivision() {
+        return div;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -211,6 +229,18 @@ public class OldFbPiDetailsController implements Serializable {
     }
 
     public DataModel getDetailsByFS() {
+        detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
+        return detailsByFS;
+    }
+    
+    public DataModel getDetailsByFSAdmin(OldFbPi fb) {
+        this.userName = fb.getOldFbPiPK().getFacId();
+        this.pi = fb.getPi();
+        this.subID = fb.getOldFbPiPK().getSubId();
+        this.div = fb.getOldFbPiPK().getDivision();
+        this.ftype = fb.getFtype();
+        this.batch = fb.getOldFbPiPK().getBatch();
+        recreateModel();
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;
     }
