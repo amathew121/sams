@@ -59,10 +59,10 @@
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
                                 <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetailsAdmin(item)}" 
-                                                  value="Details" immediate="true" onclick="window.open('FeedbackDetails.xhtml')"/>
+                                                  value="Details" immediate="true" oncomplete="window.open('FeedbackDetails.xhtml')"/>
                                 <br />
                                 <p:commandButton action="#{oldFacultyCommentsController.getFeedbackCommentsAdmin(item)}"
-                                                 value="Comments" immediate="true" onclick="window.open('FeedbackComments.xhtml')"/>
+                                                 value="Comments" immediate="true" oncomplete="window.open('FeedbackComments.xhtml')"/>
 
                             </p:column>
                         </p:subTable>

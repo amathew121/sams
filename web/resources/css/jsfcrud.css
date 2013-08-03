@@ -39,6 +39,7 @@ form.jsfcrud_list_form th, td th {
     padding-left: 6px;
     padding-right: 6px;
     background-color: lightgray;
+    white-space: normal;
 }
 
 td {
@@ -62,6 +63,7 @@ form.jsfcrud_list_form td, td td {
     border-right-color: #b2d5d6;
     vertical-align: baseline;
     padding-bottom: 0px;
+    white-space: normal;
 }
 
 tr.jsfcrud_odd_row {

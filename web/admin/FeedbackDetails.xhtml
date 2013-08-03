@@ -9,7 +9,7 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Feedback Details"></h:outputText>
+            <h:outputText value="#{'Feedback Details for '}#{oldFbPiDetailsController.userName}#{' '}#{oldFbPiDetailsController.subID}#{' '}#{oldFbPiDetailsController.division}#{oldFbPiDetailsController.batch}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
@@ -99,28 +99,8 @@
                 </p:dataTable>
 
                 <br />
-                <h:outputText value="#{'Performance Index = '}#{oldFbPiDetailsController.pi}#{' (5.0*A1 + 2.5*A2 + 0.0*A3 - 2.5*A4 - 5.0*A5)/(A1+A2+A3+A4+A5)'}" /> 
+                <h:outputText style="text-align: center" value="#{'Performance Index = '}#{oldFbPiDetailsController.pi}#{' (5.0*A1 + 2.5*A2 + 0.0*A3 - 2.5*A4 - 5.0*A5)/(A1+A2+A3+A4+A5)'}" /> 
 
-                <br />
-
-                <br />
-                <h:outputText value="Legend" />
-                <br />
-
-                <h:panelGrid columns="2" title="Legend">
-
-                    <h:outputText value="A1"/>
-                    <h:outputText value="Strongly Agree"/>
-                    <h:outputText value="A2"/>
-                    <h:outputText value="Agree"/>
-                    <h:outputText value="A3"/>
-                    <h:outputText value="Neutral"/>
-                    <h:outputText value="A4"/>
-                    <h:outputText value="Disagree"/>
-                    <h:outputText value="A5"/>
-                    <h:outputText value="Strongly Disagree"/>
-
-                </h:panelGrid>
 
             </h:form>
         </ui:define>
