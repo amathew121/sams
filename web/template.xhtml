@@ -11,7 +11,8 @@
     </h:head>
 
     <h:body>
-        <div style="width: 100%;">
+        <div style=" height: 90px; width: 100%; background-image: url('/piit/resources/images/PIITBanner.png')" >
+        </div>
             <div style="text-align: right; width: 100%; font-size: small;" >
 
                 <h:form style="position: relative; float: right; padding-left: 2%;">
@@ -43,10 +44,8 @@
                     <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
                 </div>
             </div>
-        </div>
-        <div style="text-align: center; width: 100%; font-size: x-large;" >
-            <h2>PIIT ONLINE</h2>
-        </div>
+        
+
         <h1>
             <ui:insert name="title">Default Title</ui:insert>
         </h1>
