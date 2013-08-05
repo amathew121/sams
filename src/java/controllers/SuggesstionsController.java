@@ -29,6 +29,7 @@ public class SuggesstionsController implements Serializable {
     private beans.SuggesstionsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private ListDataModel itemsByUser;
 
     public SuggesstionsController() {
     }
@@ -82,6 +83,7 @@ public class SuggesstionsController implements Serializable {
     public String prepareCreateUser() {
         current = new Suggesstions();
         selectedItemIndex = -1;
+        recreateModel();
         return "Suggestion";
     }
 
@@ -170,9 +172,15 @@ public class SuggesstionsController implements Serializable {
         }
         return items;
     }
+    
+    public DataModel getItemsByUser(Faculty fac) {
+        itemsByUser = new ListDataModel (getFacade().getSuggestionsByUserName(fac));
+        return itemsByUser;
+    }
 
     private void recreateModel() {
         items = null;
+        itemsByUser = null;
     }
 
     private void recreatePagination() {

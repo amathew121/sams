@@ -28,10 +28,25 @@
                 <p:inputTextarea rows="6" cols="50" id="ss" value="#{suggesstionsController.selected.ss}" title="#{bundle.CreateSuggesstionsTitle_ss}" />
                 <br />
                 <br />
-                <p:commandButton update ="ss,messagePanel" value="Submit" action="#{suggesstionsController.createUser(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" />
+                <p:commandButton update =":mySuggestions,ss,messagePanel" value="Submit" action="#{suggesstionsController.createUser(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" />
 
             </h:form>
             <br />
+            
+            <h2> My Suggestions </h2>
+            
+            <p:dataTable id="mySuggestions" value="#{suggesstionsController.getItemsByUser(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" var="item">
+
+                <p:column style="width: 49%; white-space: normal;" headerText="Suggestion">
+                    <h:outputText value="#{item.ss}" />
+
+                </p:column>
+                <p:column style="width: 49%; white-space: normal;" headerText="Reply">
+                    <h:outputText value="#{item.reply}" />
+
+                </p:column>
+            </p:dataTable>
+            
 
         </ui:define>
     </ui:composition>

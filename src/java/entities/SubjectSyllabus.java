@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SubjectSyllabus.findAll", query = "SELECT s FROM SubjectSyllabus s"),
     @NamedQuery(name = "SubjectSyllabus.findByIdSubjectSyllabus", query = "SELECT s FROM SubjectSyllabus s WHERE s.idSubjectSyllabus = :idSubjectSyllabus"),
+    @NamedQuery(name = "SubjectSyllabus.findByIdSubject", query = "SELECT s FROM SubjectSyllabus s WHERE s.idSubject = :idSubject"),
     @NamedQuery(name = "SubjectSyllabus.findByModuleNo", query = "SELECT s FROM SubjectSyllabus s WHERE s.moduleNo = :moduleNo"),
     @NamedQuery(name = "SubjectSyllabus.findByNoOfHours", query = "SELECT s FROM SubjectSyllabus s WHERE s.noOfHours = :noOfHours")})
 public class SubjectSyllabus implements Serializable {

@@ -63,6 +63,10 @@
                 <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
 
             </h:form>
+            <h:form >
+                <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+
+            </h:form>
             <br />
             <h:form id ="teachPlanForm">
                 <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                

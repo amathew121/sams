@@ -4,10 +4,13 @@
  */
 package beans;
 
+import entities.Faculty;
 import entities.Suggesstions;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,4 +30,9 @@ public class SuggesstionsFacade extends AbstractFacade<Suggesstions> {
         super(Suggesstions.class);
     }
     
+    public List<Suggesstions> getSuggestionsByUserName(Faculty idFaculty){
+        Query q  = em.createNamedQuery("Suggesstions.findByIdFaculty");
+        q.setParameter("idFaculty", idFaculty);
+        return q.getResultList();
+    }
 }

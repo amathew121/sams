@@ -4,10 +4,13 @@
  */
 package beans;
 
+import entities.Subject;
 import entities.SubjectSyllabus;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +28,12 @@ public class SubjectSyllabusFacade extends AbstractFacade<SubjectSyllabus> {
 
     public SubjectSyllabusFacade() {
         super(SubjectSyllabus.class);
+    }
+    
+    public List<SubjectSyllabus> getByIdSubject(Subject sub){
+        Query q = em.createNamedQuery("SubjectSyllabus.findByIdSubject");
+        q.setParameter("idSubject", sub);
+        return q.getResultList();
     }
     
 }

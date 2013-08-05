@@ -5,6 +5,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,8 +32,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Suggesstions.findAll", query = "SELECT s FROM Suggesstions s"),
+    @NamedQuery(name = "Suggesstions.findByIdFaculty", query = "SELECT s FROM Suggesstions s WHERE s.idFaculty = :idFaculty"),
     @NamedQuery(name = "Suggesstions.findByIdSuggesstions", query = "SELECT s FROM Suggesstions s WHERE s.idSuggesstions = :idSuggesstions")})
 public class Suggesstions implements Serializable {
+    @Column(name = "dt_timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtTimestamp;
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "reply")
+    private String reply;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +110,22 @@ public class Suggesstions implements Serializable {
     @Override
     public String toString() {
         return "entities.Suggesstions[ idSuggesstions=" + idSuggesstions + " ]";
+    }
+
+    public Date getDtTimestamp() {
+        return dtTimestamp;
+    }
+
+    public void setDtTimestamp(Date dtTimestamp) {
+        this.dtTimestamp = dtTimestamp;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
     
 }
