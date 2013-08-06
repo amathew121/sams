@@ -5,21 +5,38 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.TeachingPlanFacade;
 import entities.FacultySubject;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
 
 @ManagedBean(name = "teachingPlanController")
 @SessionScoped
@@ -108,9 +125,9 @@ public class TeachingPlanController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-    
-     public String prepareImport() {
-       return "ImportTP?faces-redirect=true";
+
+    public String prepareImport() {
+        return "ImportTP?faces-redirect=true";
     }
 
     public String prepareCreateWithId(int f) {
@@ -175,6 +192,56 @@ public class TeachingPlanController implements Serializable {
         update();
         current = new TeachingPlan();
         return "CreateTPlan?faces-redirect=true";
+    }
+
+    public String teachingPlanXlsExport() {
+        List<TeachingPlan> teachingPlan;
+        teachingPlan = getItemsUserExport();
+        Map beans = new HashMap();
+        beans.put("teachingPlan", teachingPlan);
+        XLSTransformer transformer = new XLSTransformer();
+        try {
+
+            transformer.transformXLS("/home/piit/Documents/Development/piit/web/resources/template.xls", beans, "/home/piit/Documents/Development/piit/web/user/teachPlan.xls");
+        } catch (ParsePropertyException ex) {
+            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+
+            return viewReport();
+        }
+
+    }
+
+    public String viewReport() {
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.reset();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=teachingPlan.xls");
+
+        try {
+            File file = new File("/home/piit/Documents/Development/piit/web/user/teachPlan.xls");
+            FileInputStream fileIn = new FileInputStream(file);
+            ServletOutputStream out = response.getOutputStream();
+
+            byte[] outputByte = new byte[4096];
+            //copy binary contect to output stream
+            while (fileIn.read(outputByte, 0, 4096) != -1) {
+                out.write(outputByte, 0, 4096);
+            }
+            fileIn.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.responseComplete();
+        return null;
     }
 
     public String destroy() {
@@ -253,10 +320,14 @@ public class TeachingPlanController implements Serializable {
 
     public DataModel getItemsUser() {
 
-        itemsUser = new ListDataModel(getFacade().getTeachingPlanByFS(facSub));
+        itemsUser = new ListDataModel(getItemsUserExport());
 
         return itemsUser;
-    } 
+    }
+
+    public List<TeachingPlan> getItemsUserExport() {
+        return getFacade().getTeachingPlanByFS(facSub);
+    }
 
     public void setFacSub(FacultySubject facSub) {
         this.facSub = facSub;

@@ -12,6 +12,10 @@
             <h:outputText value="#{'Teaching Plan for '}#{teachingPlanController.facSub.idFaculty.facultyFname}#{' '}#{teachingPlanController.facSub.idFaculty.facultyLname}"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
+            <h:form >
+                <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+
+            </h:form>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>

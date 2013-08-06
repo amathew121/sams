@@ -131,8 +131,14 @@
 
                     </p:rowExpansion>
 
-
+                
                 </p:dataTable>
+                <p:panel header="Export" style="width: 80px;">
+                <h:commandLink action="#{teachingPlanController.teachingPlanXlsExport()}">  
+                        <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
+                          
+                    </h:commandLink>  
+</p:panel>
 
             </h:form>
         </ui:define>
