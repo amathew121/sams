@@ -37,15 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TeachingPlan.findByIdTeachingPlan", query = "SELECT t FROM TeachingPlan t WHERE t.idTeachingPlan = :idTeachingPlan"),
     @NamedQuery(name = "TeachingPlan.findByIdFacultySubject", query = "SELECT t FROM TeachingPlan t WHERE t.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "TeachingPlan.findByPlannedDate", query = "SELECT t FROM TeachingPlan t WHERE t.plannedDate = :plannedDate"),
-    @NamedQuery(name = "TeachingPlan.findByActualDate", query = "SELECT t FROM TeachingPlan t WHERE t.actualDate = :actualDate"),
     @NamedQuery(name = "TeachingPlan.findByLectureNo", query = "SELECT t FROM TeachingPlan t WHERE t.lectureNo = :lectureNo")})
 public class TeachingPlan implements Serializable {
     @Column(name = "module_no")
     private Short moduleNo;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "topics_delivered")
-    private String topicsDelivered;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,10 +56,7 @@ public class TeachingPlan implements Serializable {
     @Column(name = "planned_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date plannedDate;
-    @Column(name = "actual_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date actualDate;
-    @Basic(optional = false)
+   @Basic(optional = false)
     @NotNull
     @Column(name = "lecture_no")
     private short lectureNo;
@@ -108,15 +100,6 @@ public class TeachingPlan implements Serializable {
     public void setPlannedDate(Date plannedDate) {
         this.plannedDate = plannedDate;
     }
-
-    public Date getActualDate() {
-        return actualDate;
-    }
-
-    public void setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
-    }
-
     public short getLectureNo() {
         return lectureNo;
     }
@@ -156,14 +139,6 @@ public class TeachingPlan implements Serializable {
     @Override
     public String toString() {
         return "entities.TeachingPlan[ idTeachingPlan=" + idTeachingPlan + " ]";
-    }
-
-    public String getTopicsDelivered() {
-        return topicsDelivered;
-    }
-
-    public void setTopicsDelivered(String topicsDelivered) {
-        this.topicsDelivered = topicsDelivered;
     }
 
     public Short getModuleNo() {

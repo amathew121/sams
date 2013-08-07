@@ -91,26 +91,11 @@
                     #{c.topicsPlanned}
 
                 </p:column>
-                <p:column style="width: 40%; white-space: normal " >
-                    <f:facet name="header">
-                        Contents Delivered
-                    </f:facet>
-                    #{c.topicsDelivered}
-
-                </p:column>
                 <p:column >
                     <f:facet name="header">
                         Planned on
                     </f:facet>
                     <h:outputText value="#{c.plannedDate}">
-                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                    </h:outputText>
-                </p:column>
-                <p:column >
-                    <f:facet name="header">
-                        Delivered on
-                    </f:facet>
-                    <h:outputText value="#{c.actualDate}">
                         <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                     </h:outputText>
                 </p:column>

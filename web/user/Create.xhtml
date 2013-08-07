@@ -31,38 +31,7 @@
                         myCalendar.jqEl.datepicker("option", "minDate", -3);
                     });
                 </script>
-                <!--
-                                <p:layout style="min-width:400px; min-height: 400px;" id="layaout" >
-                
-                
-                                    <p:layoutUnit  header="Student List" position="center" minSize="400" resizable="true" >
-                
-                                        <h:dataTable value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" var="c" >
-                
-                                            <h:column>
-                                                <h:selectBooleanCheckbox value="#{currentStudentController.selected.selectedBool}" />
-                                            </h:column>
-                
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    Roll No
-                                                </f:facet>
-                #{c.rollNo}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Name
-                </f:facet>
-                #{c.admnNo.studentName}
-            </h:column>
 
-        </h:dataTable>
-
-    </p:layoutUnit>
-    <p:layoutUnit   position="east"  resizable="true">
-        
-    </p:layoutUnit>
-</p:layout> -->
                 <p:dataTable rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  selection="#{teachingPlanController.selectedList}" 
                              rowKey="#{c.idTeachingPlan}" selectionMode="multiple" id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 

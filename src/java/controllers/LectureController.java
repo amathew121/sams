@@ -192,14 +192,7 @@ public class LectureController implements Serializable {
         create();
         currentStudentController.setLec(temp);
         
-        TeachingPlan[] tpList = teachingPlanController.getSelectedList();
-        for (int i = 0; i < tpList.length; i++) {
-            tpList[i].setActualDate(temp.getLectureDate());
-            if(topicsDelivered != null || !"".equals(topicsDelivered))
-                tpList[i].setTopicsDelivered(topicsDelivered);
-            teachingPlanController.setCurrent(tpList[i]);
-            teachingPlanController.update();
-        }
+
 /*
         List<CurrentStudent> csl = new ArrayList();
         csl = currentStudentController.getAttendanceByDiv();

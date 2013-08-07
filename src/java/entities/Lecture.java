@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,6 +39,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureEndTime", query = "SELECT l FROM Lecture l WHERE l.lectureEndTime = :lectureEndTime")})
 public class Lecture implements Serializable {
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "content_delivered")
+    private String contentDelivered;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -136,6 +142,14 @@ public class Lecture implements Serializable {
     @Override
     public String toString() {
         return "entities.Lecture[ idLecture=" + idLecture + " ]";
+    }
+
+    public String getContentDelivered() {
+        return contentDelivered;
+    }
+
+    public void setContentDelivered(String contentDelivered) {
+        this.contentDelivered = contentDelivered;
     }
 
 

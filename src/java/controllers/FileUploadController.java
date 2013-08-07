@@ -11,26 +11,40 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author piit
  */
 @ManagedBean(name = "fileUploadController")
+@RequestScoped
 public class FileUploadController {
 
     private String destination = "/home/piit/Desktop/";
+    private UploadedFile file;  
+  
+    public UploadedFile getFile() {  
+        return file;  
+    }  
+  
+    public void setFile(UploadedFile file) {  
+        this.file = file;  
+    }  
 
-    public void upload(FileUploadEvent event) {
-        FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        // Do what you want with the file        
-        try {
-            copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void upload() {
+        
+        if (file != null) {
+            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            try {
+                copyFile(file.getFileName(), file.getInputstream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
