@@ -63,85 +63,76 @@
                 <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
 
             </h:form>
-            <h:form >
-                <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+        <h:form >
+            <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
 
-            </h:form>
-            <br />
-            <h:form id ="teachPlanForm">
-                <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+        </h:form>
+        <br />
+        <h:form id ="teachPlanForm">
+            <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 
-                    <p:ajax event="rowToggle" />  
-                    <p:column style="width:2%">  
-                        <p:rowToggler />  
-                    </p:column>  
-                    <p:column>
-                        <f:facet name="header">
-                            Lecture No
-                        </f:facet>
-                        #{c.lectureNo}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            Module No
-                        </f:facet>
-                        #{c.moduleNo}
-                    </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        L.No
+                    </f:facet>
+                    #{c.lectureNo}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        M.No
+                    </f:facet>
+                    #{c.moduleNo}
+                </p:column>
 
-                    <p:column style="width: 80%; white-space: normal " >
-                        <f:facet name="header">
-                            Topics Planned
-                        </f:facet>
-                        #{c.topicsPlanned}
+                <p:column style="width: 40%; white-space: normal " >
+                    <f:facet name="header">
+                        Topics Planned
+                    </f:facet>
+                    #{c.topicsPlanned}
 
-                    </p:column>
-                    <p:column >
-                        <f:facet name="header">
-                            Planned Date
-                        </f:facet>
-                        <h:outputText value="#{c.plannedDate}">
-                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                        </h:outputText>
-                    </p:column>
+                </p:column>
+                <p:column style="width: 40%; white-space: normal " >
+                    <f:facet name="header">
+                        Contents Delivered
+                    </f:facet>
+                    #{c.topicsDelivered}
 
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        Planned on
+                    </f:facet>
+                    <h:outputText value="#{c.plannedDate}">
+                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                    </h:outputText>
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        Delivered on
+                    </f:facet>
+                    <h:outputText value="#{c.actualDate}">
+                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                    </h:outputText>
+                </p:column>
+                <p:column style="width:70px">  
 
-
-
-                    <p:rowExpansion>
-
-                        <h:panelGrid columns="2">
-                            <b>Delivery Date :</b>
-
-                            <h:outputText value="#{c.actualDate}">
-                                <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                            </h:outputText>
-
-                            <b>Topics Planned :</b>
-                            <h:outputText value ="#{c.topicsPlanned}"/>
-
-                            <b>Contents Delivered :</b>
-
-                            <h:outputText value="#{c.topicsDelivered}"/>
-
-
-                        </h:panelGrid>
-                        <p:commandButton value="Edit" action="#{teachingPlanController.prepareUpdateTP(c)}" />
-                        <p:commandButton value="Delete" action="#{teachingPlanController.destroyTP(c)}" />
-
-
-                    </p:rowExpansion>
-
-                
-                </p:dataTable>
-                <p:panel header="Export" style="width: 80px;">
+                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c)}" >
+                        <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/editicon.jpg" />  
+                    </h:commandLink>
+                    <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c)}" >
+                        <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                    </h:commandLink>
+                </p:column>  
+          </p:dataTable>
+            <p:panel header="Export" style="width: 80px;">
                 <h:commandLink action="#{teachingPlanController.teachingPlanXlsExport()}">  
-                        <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
-                          
-                    </h:commandLink>  
-</p:panel>
+                    <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
 
-            </h:form>
-        </ui:define>
-    </ui:composition>
+                </h:commandLink>  
+            </p:panel>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>
