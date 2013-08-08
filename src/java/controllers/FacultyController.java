@@ -227,7 +227,7 @@ public class FacultyController implements Serializable {
 
     public DataModel getItems() {
         if (items == null) {
-            items = new ListDataModel(getFacade().findAll());
+            items = getPagination().createPageDataModel();
         }
         return items;
     }

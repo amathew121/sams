@@ -25,10 +25,6 @@
                     <h:inputText id="lectureStartTime" value="#{lectureController.selected.lectureStartTime}" title="#{bundle.CreateLectureTitle_lectureStartTime}" >
                         <f:convertDateTime pattern="HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateLectureLabel_lectureEndTime}" for="lectureEndTime" />
-                    <h:inputText id="lectureEndTime" value="#{lectureController.selected.lectureEndTime}" title="#{bundle.CreateLectureTitle_lectureEndTime}" >
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateLectureLabel_idFacultySubject}" for="idFacultySubject" />
                     <h:selectOneMenu id="idFacultySubject" value="#{lectureController.selected.idFacultySubject}" title="#{bundle.CreateLectureTitle_idFacultySubject}" >
                         <f:selectItems value="#{facultySubjectController.itemsAvailableSelectOne}"/>

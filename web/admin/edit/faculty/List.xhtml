@@ -16,6 +16,10 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListFacultyEmpty}" rendered="#{facultyController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{facultyController.items.rowCount > 0}">
+                    <h:outputText value="#{facultyController.pagination.pageFirstItem + 1}..#{facultyController.pagination.pageLastItem + 1}/#{facultyController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{facultyController.previous}" value="#{bundle.Previous} #{facultyController.pagination.pageSize}" rendered="#{facultyController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{facultyController.next}" value="#{bundle.Next} #{facultyController.pagination.pageSize}" rendered="#{facultyController.pagination.hasNextPage}"/>&nbsp;
+
                     <h:dataTable value="#{facultyController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">

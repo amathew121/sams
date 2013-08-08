@@ -54,16 +54,7 @@ public class LectureController implements Serializable {
     public void setCurrentStudentController(CurrentStudentController currentStudentController) {
         this.currentStudentController = currentStudentController;
     }
-    @ManagedProperty(value = "#{teachingPlanController}")
-    private TeachingPlanController teachingPlanController;
 
-    public TeachingPlanController getTeachingPlanController() {
-        return teachingPlanController;
-    }
-
-    public void setTeachingPlanController(TeachingPlanController teachingPlanController) {
-        this.teachingPlanController = teachingPlanController;
-    }
     @EJB
     private beans.LectureFacade ejbFacade;
     private PaginationHelper pagination;
@@ -151,8 +142,6 @@ public class LectureController implements Serializable {
 
     public String prepareCreateWithId() {
         prepareCreate();
-        // facSub = getFacade().getFSById(idFacSub);
-        teachingPlanController.setFacSub(facSub);
         return "Create?foo=" + idFacSub + "&faces-redirect=true";
     }
 
@@ -189,40 +178,27 @@ public class LectureController implements Serializable {
     public String createA() throws Exception {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
-        create();
-        currentStudentController.setLec(temp);
-        
+        try {
+            getFacade().create(temp);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureCreated"));
 
-/*
-        List<CurrentStudent> csl = new ArrayList();
-        csl = currentStudentController.getAttendanceByDiv();
-        for (int i = 0; i < csl.size(); i++) {
-            if (csl.get(i).isSelectedBool()) {
-                selectedList.add(csl.get(i));
-            }
-            CurrentStudent t = csl.get(i);
-            t.setSelectedB(false);
-            csl.set(i, t);
+        currentStudentController.setLec(temp);
+        recreateModel();
+      //  return "CreateAttendance?faces-redirect=true";
+        currentStudentController.createAttendance();
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+            destroy();
+            JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
 
         }
-        currentStudentController.setAttendanceByDiv(csl);
-
-        List<Attendance> att = new ArrayList<Attendance>();
-        for (int i = 0; i < selectedList.size(); i++) {
-
-            Attendance ae = new Attendance();
-
-
-            ae.setIdAttendance(Long.MIN_VALUE);
-            ae.setIdCurrentStudent(selectedList.get(i));
-            ae.setIdLecture(temp);
-            att.add(ae);
-
-            attendanceController.createEntry(ae);
-            attendanceController.create();
-        } */
-        recreateModel();
-        return "CreateAttendance?faces-redirect=true";
+        finally{
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceCreated"));
+            prepareCreate();
+            return "View?faces-redirect=true";
+        }
     }
 
     public String prepareEdit() {
@@ -249,6 +225,21 @@ public class LectureController implements Serializable {
         recreatePagination();
         recreateModel();
         return "List";
+    }
+    
+    public String destroyLectureRestrict() throws Exception {
+        current = (Lecture) getItems().getRowData();
+        List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(facSub, current);
+        for(int i = 0; i<attendance.size(); i++) {
+            currentStudentController.getAttendanceController().createEntry(attendance.get(i));
+            currentStudentController.getAttendanceController().destroy();
+        }
+        
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreatePagination();
+        recreateModel();
+        return "View?faces-redirect=true";
     }
 
     public String destroyAndView() {

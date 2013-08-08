@@ -20,10 +20,8 @@
                     <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
                     <p:outputLabel value="Start Time" for="startTime" />
                     <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
-                    <p:outputLabel value="End Time" for="endTime" />
-                    <p:calendar id="endTime" value="#{lectureController.selected.lectureEndTime}" maxHour="18" minHour="8" stepMinute="30" pattern="HH:mm" timeOnly="true" required="true" />  
                     <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
-                    <p:inputTextarea value="#{lectureController.topicsDelivered}" id ="topicsDelivered" />
+                    <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" />
                 </h:panelGrid>
                 <script type="text/javascript">
                     jQuery(document).ready(function() {
@@ -32,42 +30,36 @@
                     });
                 </script>
 
-                <p:dataTable rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  selection="#{teachingPlanController.selectedList}" 
-                             rowKey="#{c.idTeachingPlan}" selectionMode="multiple" id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
+                <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+
+                    <p:column>
+                        <f:facet name="header" >
+                            <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.selectAll}" id="selectAll" valueChangeListener="#{lectureController.currentStudentController.selectAllComponents}" >
+                                <p:ajax update="listComponents" />
+                            </p:selectBooleanCheckbox>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
+                    </p:column>
 
                     <p:column>
                         <f:facet name="header">
-                            Lecture No
+                            Roll No
                         </f:facet>
-                        #{c.lectureNo}
+                            #{c.rollNo}
                     </p:column>
-                    <p:column >
+                    <p:column>
                         <f:facet name="header">
-                            Planned Date
+                            Name
                         </f:facet>
-                        <h:outputText value="#{c.plannedDate}">
-                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                        </h:outputText>
+                            #{c.admnNo.studentName}
                     </p:column>
-                    <p:column >
-                        <f:facet name="header">
-                            Delivery Date
-                        </f:facet>
-                        <h:outputText value="#{c.actualDate}">
-                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column width="80%" styleClass="white-space:normal;" >
-                        <f:facet name="header">
-                            Topics Planned
-                        </f:facet>
-                        #{c.topicsPlanned}
+                    
 
-                    </p:column>
-                </p:dataTable> 
+                </p:dataTable>
                 <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
 
-            </h:form>
+            </h:form> 
         </ui:define>
     </ui:composition>
 

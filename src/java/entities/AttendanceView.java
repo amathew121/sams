@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -42,13 +43,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceView.findByBatch", query = "SELECT a FROM AttendanceView a WHERE a.batch = :batch"),
     @NamedQuery(name = "AttendanceView.findByRollNo", query = "SELECT a FROM AttendanceView a WHERE a.rollNo = :rollNo")})
 public class AttendanceView implements Serializable {
-    @Column(name = "lecture_start_time")
-    @Temporal(TemporalType.TIME)
-    private Date lectureStartTime;
-    @Column(name = "lecture_end_time")
-    @Temporal(TemporalType.TIME)
-    private Date lectureEndTime;
-
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -61,6 +55,10 @@ public class AttendanceView implements Serializable {
     private Integer idCurrentStudent;
     @Column(name = "id_faculty_subject")
     private Integer idFacultySubject;
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "content_delivered")
+    private String contentDelivered;
     @Column(name = "lecture_date")
     @Temporal(TemporalType.DATE)
     private Date lectureDate;
@@ -89,7 +87,7 @@ public class AttendanceView implements Serializable {
     @Column(name = "roll_no")
     private String rollNo;
 
-    public AttendanceView() {
+        public AttendanceView() {
     }
 
     public long getIdAttendance() {
@@ -180,19 +178,13 @@ public class AttendanceView implements Serializable {
         this.rollNo = rollNo;
     }
 
-    public Date getLectureStartTime() {
-        return lectureStartTime;
+
+    public String getContentDelivered() {
+        return contentDelivered;
     }
 
-    public void setLectureStartTime(Date lectureStartTime) {
-        this.lectureStartTime = lectureStartTime;
+    public void setContentDelivered(String contentDelivered) {
+        this.contentDelivered = contentDelivered;
     }
 
-    public Date getLectureEndTime() {
-        return lectureEndTime;
-    }
-
-    public void setLectureEndTime(Date lectureEndTime) {
-        this.lectureEndTime = lectureEndTime;
-    }
 }

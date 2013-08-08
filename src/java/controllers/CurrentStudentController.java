@@ -138,7 +138,7 @@ public class CurrentStudentController implements Serializable {
         List<Attendance> att = new ArrayList<Attendance>();
         if (checkedItems.isEmpty()) {
             JsfUtil.addErrorMessage("No Students Selected");
-            return null;
+            throw new NullPointerException();
         }
         for (int i = 0; i < checkedItems.size(); i++) {
 

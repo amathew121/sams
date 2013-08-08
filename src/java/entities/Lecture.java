@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lecture.findByIdLecture", query = "SELECT l FROM Lecture l WHERE l.idLecture = :idLecture"),
     @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "Lecture.findByLectureDate", query = "SELECT l FROM Lecture l WHERE l.lectureDate = :lectureDate"),
-    @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime"),
-    @NamedQuery(name = "Lecture.findByLectureEndTime", query = "SELECT l FROM Lecture l WHERE l.lectureEndTime = :lectureEndTime")})
+    @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
     @Lob
     @Size(max = 16777215)
@@ -55,9 +54,6 @@ public class Lecture implements Serializable {
     @Column(name = "lecture_start_time")
     @Temporal(TemporalType.TIME)
     private Date lectureStartTime;
-    @Column(name = "lecture_end_time")
-    @Temporal(TemporalType.TIME)
-    private Date lectureEndTime;
     @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
     @ManyToOne
     private FacultySubject idFacultySubject;
@@ -93,14 +89,6 @@ public class Lecture implements Serializable {
 
     public void setLectureStartTime(Date lectureStartTime) {
         this.lectureStartTime = lectureStartTime;
-    }
-
-    public Date getLectureEndTime() {
-        return lectureEndTime;
-    }
-
-    public void setLectureEndTime(Date lectureEndTime) {
-        this.lectureEndTime = lectureEndTime;
     }
 
     public FacultySubject getIdFacultySubject() {
