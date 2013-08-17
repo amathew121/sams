@@ -22,46 +22,61 @@
             </h:form>
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
-            
-                       <p:dataTable rendered="#{lectureController.lectureByFS.rowCount > 0}" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Lecture Date"/>
-                            </f:facet>
-                            <h:outputText value="#{c.lectureDate}">
-                                <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column style="white-space: normal;">
-                            <f:facet name="header">
-                                <h:outputText value="Contents Delivered"/>
-                            </f:facet>
-                            <h:outputText value="#{c.contentDelivered}">
-                           </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Student Count"/>
-                            </f:facet>
-                            <h:outputText value="#{attendanceViewController.getAttendanceCount(lectureController.facSub,lectureController.getLectureByLecID(c.idLecture))}"/>
-                        </p:column>
-                        <p:ajax event="rowToggle" />  
-                        <p:column style="width:2%">  
-                            <p:rowToggler />  
-                            <h:commandLink title="Delete" disabled="true">
-                                <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
-                            </h:commandLink>
-                        </p:column>  
-                        
-                        <p:rowExpansion>
-                            <p:commandButton value="Edit" />
-                            <p:dataList itemType="disc" value="#{attendanceController.getAttendanceByFSLec(lectureController.facSub, lectureController.getLectureByLecID(c.idLecture))}" var ="d" >
+
+                <p:dataTable rendered="#{lectureController.lectureByFS.rowCount > 0}" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lecture ID"/>
+                        </f:facet>
+                        <h:outputText value="#{c.idLecture}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lecture Date"/>
+                        </f:facet>
+                        <h:outputText value="#{c.lectureDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <h:outputText value="Contents Delivered"/>
+                        </f:facet>
+                        <h:outputText value="#{c.contentDelivered}">
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Student Count"/>
+                        </f:facet>
+                        <h:outputText value="#{attendanceViewController.getAttendanceCount(lectureController.facSub,lectureController.getLectureByLecID(c.idLecture))}"/>
+                    </p:column>
+                    <p:ajax event="rowToggle" />  
+                    <p:column style="width:2%">  
+                        <p:rowToggler />  
+                        <h:commandLink action="#{lectureController.destroyLectureRestrict(lectureController.getLectureByLecID(c.idLecture))}" title="Delete" >
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </h:commandLink>
+                        <h:commandLink action="#{lectureController.prepareUpdateLectureRestrict(lectureController.getLectureByLecID(c.idLecture))}" title="Edit" >
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/editicon.jpg" />  
+                        </h:commandLink>
+                    </p:column>  
+
+
+                    <p:rowExpansion>
+                        <p:dataList itemType="disc" value="#{attendanceController.getAttendanceByFSLec(lectureController.getLectureByLecID(c.idLecture))}" var ="d" >
                             #{d.idCurrentStudent.rollNo} - #{d.idCurrentStudent.admnNo.studentName}
-                            </p:dataList>
-                        </p:rowExpansion>
-                    </p:dataTable>
-                            
-           </h:form>
+                        </p:dataList>
+                    </p:rowExpansion>
+
+                </p:dataTable>
+
+
+
+            </h:form>
+
         </ui:define>
     </ui:composition>
 

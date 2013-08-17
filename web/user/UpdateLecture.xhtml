@@ -30,7 +30,7 @@
                     });
                 </script>
 
-                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
+                <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
                 <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
                     <p:column>
@@ -57,7 +57,7 @@
                     
 
                 </p:dataTable>
-                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
+                <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
 
             </h:form> 
         </ui:define>

@@ -112,7 +112,7 @@ public class AttendanceController implements Serializable {
         return "Edit";
     }
 
-    public List<Attendance> getAttendanceByFSLec(FacultySubject facSub, Lecture lec) {
+    public List<Attendance> getAttendanceByFSLec(Lecture lec) {
         return getFacade().getAttendanceByFSLec(lec);
     }
     public String update() {
@@ -129,6 +129,13 @@ public class AttendanceController implements Serializable {
     public String destroy() {
         current = (Attendance) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+    
+    public String destroyA() {
         performDestroy();
         recreatePagination();
         recreateModel();
