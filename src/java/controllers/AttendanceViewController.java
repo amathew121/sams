@@ -8,6 +8,7 @@ import entities.FacultySubject;
 import entities.Lecture;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -222,7 +223,7 @@ public class AttendanceViewController implements Serializable {
             return key;
         }
 
-        String getStringKey(long value) {
+        String getStringKey(BigInteger value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();

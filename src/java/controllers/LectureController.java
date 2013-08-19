@@ -185,7 +185,7 @@ public class LectureController implements Serializable {
             currentStudentController.createAttendance();
         } catch (Exception e) {
             e.printStackTrace();
-            destroy();
+            destroyLectureRestrict(temp);
             JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
 
         } finally {
@@ -236,31 +236,25 @@ public class LectureController implements Serializable {
     }
 
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
-        /*   List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
-         for (int i = 0; i < attendance.size(); i++) {
-         currentStudentController.getAttendanceController().createEntry(attendance.get(i));
-         currentStudentController.getAttendanceController().destroy();
-         }
-         current = lec;
-         performDestroy();
-         current = null;
-         recreatePagination();
-         recreateModel();
-         return "View?faces-redirect=true";*/
+        if (lec != null){
         current = lec;
+        currentStudentController.setLec(lec);
         List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
         for (int i = 0; i < attendance.size(); i++) {
             currentStudentController.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
             currentStudentController.getAttendanceController().createEntry(attendance.get(i));
             currentStudentController.getAttendanceController().destroyA();
         }
-
+        
         return "UpdateLecture?faces-redirect=true";
+        }
+        else
+            return null;
     }
 
     public String updateLectureRestrict() throws Exception {
-        update();
         currentStudentController.createAttendance();
+        update();
 
         return "View?faces-redirect=true";
     }

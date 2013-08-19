@@ -5,6 +5,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,12 +44,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceView.findByBatch", query = "SELECT a FROM AttendanceView a WHERE a.batch = :batch"),
     @NamedQuery(name = "AttendanceView.findByRollNo", query = "SELECT a FROM AttendanceView a WHERE a.rollNo = :rollNo")})
 public class AttendanceView implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "id_attendance")
     @Id
-    private long idAttendance;
+    private BigInteger idAttendance;
+    @Column(name = "lecture_start_time")
+    @Temporal(TemporalType.TIME)
+    private Date lectureStartTime;
+    private static final long serialVersionUID = 1L;
     @Column(name = "id_lecture")
     private Integer idLecture;
     @Column(name = "id_current_student")
@@ -88,14 +90,6 @@ public class AttendanceView implements Serializable {
     private String rollNo;
 
         public AttendanceView() {
-    }
-
-    public long getIdAttendance() {
-        return idAttendance;
-    }
-
-    public void setIdAttendance(long idAttendance) {
-        this.idAttendance = idAttendance;
     }
 
     public Integer getIdLecture() {
@@ -185,6 +179,22 @@ public class AttendanceView implements Serializable {
 
     public void setContentDelivered(String contentDelivered) {
         this.contentDelivered = contentDelivered;
+    }
+
+    public BigInteger getIdAttendance() {
+        return idAttendance;
+    }
+
+    public void setIdAttendance(BigInteger idAttendance) {
+        this.idAttendance = idAttendance;
+    }
+
+    public Date getLectureStartTime() {
+        return lectureStartTime;
+    }
+
+    public void setLectureStartTime(Date lectureStartTime) {
+        this.lectureStartTime = lectureStartTime;
     }
 
 }

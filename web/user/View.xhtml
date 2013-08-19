@@ -23,21 +23,22 @@
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
 
-                <p:dataTable rendered="#{lectureController.lectureByFS.rowCount > 0}" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Lecture ID"/>
-                        </f:facet>
-                        <h:outputText value="#{c.idLecture}">
-                            <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
-                        </h:outputText>
-                    </p:column>
+                <p:dataTable value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Lecture Date"/>
                         </f:facet>
                         <h:outputText value="#{c.lectureDate}">
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lecture ID"/>
+                        </f:facet>
+                        <h:outputText value="#{c.lectureStartTime}" >
+                            <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                         </h:outputText>
                     </p:column>
                     <p:column style="white-space: normal;">
