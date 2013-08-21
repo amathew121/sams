@@ -4,10 +4,13 @@ import entities.AttendanceReport;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.AttendanceReportFacade;
+import entities.CurrentStudent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -112,7 +115,7 @@ public class AttendanceReportController implements Serializable {
         return "Edit";
     }
 
-    public List<AttendanceReport> getStudentAttendanceByFS(int idFacSub)
+    public List<CurrentStudent> getStudentAttendanceByFS(int idFacSub)
     {
         List<Object[]> l = getFacade().getStudentAttendanceByFS(idFacSub);
         List<AttendanceReport> ls = new ArrayList();
@@ -122,7 +125,24 @@ public class AttendanceReportController implements Serializable {
             ls.add((AttendanceReport) c[0]);
             
         }
-        return ls;
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+        FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
+        Map<Integer, Integer> hm = new HashMap<Integer,Integer>();
+        
+        List<CurrentStudent> lcs = csc.getAttendanceByDiv(fsc.getIdFacSub(idFacSub));
+        for(CurrentStudent item : lcs) {
+            hm.put(item.getIdCurrentStudent(), 0);
+        }
+
+        for (AttendanceReport item : ls) {
+            hm.put(item.getIdCurrentStudent(), item.getCount());
+        }
+        for (CurrentStudent item : lcs) {
+            item.setCount(hm.get(item.getIdCurrentStudent()));
+        }
+        return lcs;
     }
 
     

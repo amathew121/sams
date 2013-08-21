@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceReport.findByIdSubject", query = "SELECT a FROM AttendanceReport a WHERE a.idSubject = :idSubject"),
     @NamedQuery(name = "AttendanceReport.findByIdFaculty", query = "SELECT a FROM AttendanceReport a WHERE a.idFaculty = :idFaculty"),
     @NamedQuery(name = "AttendanceReport.findByIdFacultySubjectCount", query = "SELECT Count(a) FROM AttendanceReport a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idCurrentStudent"),
-    @NamedQuery(name = "AttendanceReport.findByIdFacultySubject", query = "SELECT a,Count(a) FROM AttendanceReport a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idCurrentStudent")})
+    @NamedQuery(name = "AttendanceReport.findByIdFacultySubject", query = "SELECT a,Count(a) FROM AttendanceReport a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idCurrentStudent ORDER BY a.rollNo")})
 
 public class AttendanceReport implements Serializable {
     private static final long serialVersionUID = 1L;

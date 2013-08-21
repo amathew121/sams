@@ -85,6 +85,16 @@ public class CurrentStudent implements Serializable {
     private Attendance attendance;
     @Transient
     private boolean selectedBool;
+    @Transient
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
     
     public boolean isSelectedBool () {
         return selectedBool;
