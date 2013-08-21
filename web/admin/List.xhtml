@@ -70,11 +70,22 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Lectures Delivered" styleClass="whitespace:normal"/>
+                            </f:facet>
+                            <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="Teaching Plan"/>
                             </f:facet>
                             <p:commandLink value="View Teaching Plan" 
                                            rendered="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size() > 0}"
                                            action="#{teachingPlanController.prepareListTP(facultySubjectController.getIdFacSub(item.idFacultySubject))}" />
+                            <br />
+                            <p:commandLink value="View Lectures" 
+                                           rendered="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size() > 0}"
+                                           action="#{lectureController.prepareListTP(facultySubjectController.getIdFacSub(item.idFacultySubject))}" />
+
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>

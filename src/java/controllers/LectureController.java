@@ -200,6 +200,12 @@ public class LectureController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
+    
+    public String prepareListTP(FacultySubject f) {
+        facSub = f;
+        recreateModel();
+        return "FSLec?faces-redirect=true";
+    }
 
     public String update() {
         try {
