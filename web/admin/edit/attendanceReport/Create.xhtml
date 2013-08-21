@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAttendanceReportTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idAttendance}" for="idAttendance" />
+                    <h:inputText id="idAttendance" value="#{attendanceReportController.selected.idAttendance}" title="#{bundle.CreateAttendanceReportTitle_idAttendance}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idAttendance}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idCurrentStudent}" for="idCurrentStudent" />
+                    <h:inputText id="idCurrentStudent" value="#{attendanceReportController.selected.idCurrentStudent}" title="#{bundle.CreateAttendanceReportTitle_idCurrentStudent}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idCurrentStudent}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idLecture}" for="idLecture" />
+                    <h:inputText id="idLecture" value="#{attendanceReportController.selected.idLecture}" title="#{bundle.CreateAttendanceReportTitle_idLecture}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idLecture}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_studentName}" for="studentName" />
+                    <h:inputText id="studentName" value="#{attendanceReportController.selected.studentName}" title="#{bundle.CreateAttendanceReportTitle_studentName}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_studentName}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idProgram}" for="idProgram" />
+                    <h:inputText id="idProgram" value="#{attendanceReportController.selected.idProgram}" title="#{bundle.CreateAttendanceReportTitle_idProgram}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idProgram}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idCourse}" for="idCourse" />
+                    <h:inputText id="idCourse" value="#{attendanceReportController.selected.idCourse}" title="#{bundle.CreateAttendanceReportTitle_idCourse}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idCourse}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_semester}" for="semester" />
+                    <h:inputText id="semester" value="#{attendanceReportController.selected.semester}" title="#{bundle.CreateAttendanceReportTitle_semester}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_semester}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{attendanceReportController.selected.division}" title="#{bundle.CreateAttendanceReportTitle_division}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{attendanceReportController.selected.batch}" title="#{bundle.CreateAttendanceReportTitle_batch}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_rollNo}" for="rollNo" />
+                    <h:inputText id="rollNo" value="#{attendanceReportController.selected.rollNo}" title="#{bundle.CreateAttendanceReportTitle_rollNo}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_lectureDate}" for="lectureDate" />
+                    <h:inputText id="lectureDate" value="#{attendanceReportController.selected.lectureDate}" title="#{bundle.CreateAttendanceReportTitle_lectureDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_lectureStartTime}" for="lectureStartTime" />
+                    <h:inputText id="lectureStartTime" value="#{attendanceReportController.selected.lectureStartTime}" title="#{bundle.CreateAttendanceReportTitle_lectureStartTime}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_contentDelivered}" for="contentDelivered" />
+                    <h:inputTextarea rows="4" cols="30" id="contentDelivered" value="#{attendanceReportController.selected.contentDelivered}" title="#{bundle.CreateAttendanceReportTitle_contentDelivered}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_facultyFname}" for="facultyFname" />
+                    <h:inputText id="facultyFname" value="#{attendanceReportController.selected.facultyFname}" title="#{bundle.CreateAttendanceReportTitle_facultyFname}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_facultyFname}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_facultyLname}" for="facultyLname" />
+                    <h:inputText id="facultyLname" value="#{attendanceReportController.selected.facultyLname}" title="#{bundle.CreateAttendanceReportTitle_facultyLname}" />
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_subjectCode}" for="subjectCode" />
+                    <h:inputText id="subjectCode" value="#{attendanceReportController.selected.subjectCode}" title="#{bundle.CreateAttendanceReportTitle_subjectCode}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_subjectCode}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_theory}" for="theory" />
+                    <h:inputText id="theory" value="#{attendanceReportController.selected.theory}" title="#{bundle.CreateAttendanceReportTitle_theory}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_theory}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_practical}" for="practical" />
+                    <h:inputText id="practical" value="#{attendanceReportController.selected.practical}" title="#{bundle.CreateAttendanceReportTitle_practical}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_practical}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_tutorial}" for="tutorial" />
+                    <h:inputText id="tutorial" value="#{attendanceReportController.selected.tutorial}" title="#{bundle.CreateAttendanceReportTitle_tutorial}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_tutorial}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_elective}" for="elective" />
+                    <h:inputText id="elective" value="#{attendanceReportController.selected.elective}" title="#{bundle.CreateAttendanceReportTitle_elective}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_elective}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idSubject}" for="idSubject" />
+                    <h:inputText id="idSubject" value="#{attendanceReportController.selected.idSubject}" title="#{bundle.CreateAttendanceReportTitle_idSubject}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idSubject}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idFaculty}" for="idFaculty" />
+                    <h:inputText id="idFaculty" value="#{attendanceReportController.selected.idFaculty}" title="#{bundle.CreateAttendanceReportTitle_idFaculty}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idFaculty}"/>
+                    <h:outputLabel value="#{bundle.CreateAttendanceReportLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:inputText id="idFacultySubject" value="#{attendanceReportController.selected.idFacultySubject}" title="#{bundle.CreateAttendanceReportTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.CreateAttendanceReportRequiredMessage_idFacultySubject}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{attendanceReportController.create}" value="#{bundle.CreateAttendanceReportSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{attendanceReportController.prepareList}" value="#{bundle.CreateAttendanceReportShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAttendanceReportIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

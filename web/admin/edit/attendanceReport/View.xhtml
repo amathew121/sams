@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAttendanceReportTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idAttendance}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idAttendance}" title="#{bundle.ViewAttendanceReportTitle_idAttendance}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idCurrentStudent}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idCurrentStudent}" title="#{bundle.ViewAttendanceReportTitle_idCurrentStudent}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idLecture}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idLecture}" title="#{bundle.ViewAttendanceReportTitle_idLecture}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_studentName}"/>
+                    <h:outputText value="#{attendanceReportController.selected.studentName}" title="#{bundle.ViewAttendanceReportTitle_studentName}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idProgram}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idProgram}" title="#{bundle.ViewAttendanceReportTitle_idProgram}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idCourse}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idCourse}" title="#{bundle.ViewAttendanceReportTitle_idCourse}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_semester}"/>
+                    <h:outputText value="#{attendanceReportController.selected.semester}" title="#{bundle.ViewAttendanceReportTitle_semester}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_division}"/>
+                    <h:outputText value="#{attendanceReportController.selected.division}" title="#{bundle.ViewAttendanceReportTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_batch}"/>
+                    <h:outputText value="#{attendanceReportController.selected.batch}" title="#{bundle.ViewAttendanceReportTitle_batch}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_rollNo}"/>
+                    <h:outputText value="#{attendanceReportController.selected.rollNo}" title="#{bundle.ViewAttendanceReportTitle_rollNo}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_lectureDate}"/>
+                    <h:outputText value="#{attendanceReportController.selected.lectureDate}" title="#{bundle.ViewAttendanceReportTitle_lectureDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_lectureStartTime}"/>
+                    <h:outputText value="#{attendanceReportController.selected.lectureStartTime}" title="#{bundle.ViewAttendanceReportTitle_lectureStartTime}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_contentDelivered}"/>
+                    <h:outputText value="#{attendanceReportController.selected.contentDelivered}" title="#{bundle.ViewAttendanceReportTitle_contentDelivered}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_facultyFname}"/>
+                    <h:outputText value="#{attendanceReportController.selected.facultyFname}" title="#{bundle.ViewAttendanceReportTitle_facultyFname}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_facultyLname}"/>
+                    <h:outputText value="#{attendanceReportController.selected.facultyLname}" title="#{bundle.ViewAttendanceReportTitle_facultyLname}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_subjectCode}"/>
+                    <h:outputText value="#{attendanceReportController.selected.subjectCode}" title="#{bundle.ViewAttendanceReportTitle_subjectCode}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_theory}"/>
+                    <h:outputText value="#{attendanceReportController.selected.theory}" title="#{bundle.ViewAttendanceReportTitle_theory}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_practical}"/>
+                    <h:outputText value="#{attendanceReportController.selected.practical}" title="#{bundle.ViewAttendanceReportTitle_practical}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_tutorial}"/>
+                    <h:outputText value="#{attendanceReportController.selected.tutorial}" title="#{bundle.ViewAttendanceReportTitle_tutorial}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_elective}"/>
+                    <h:outputText value="#{attendanceReportController.selected.elective}" title="#{bundle.ViewAttendanceReportTitle_elective}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idSubject}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idSubject}" title="#{bundle.ViewAttendanceReportTitle_idSubject}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idFaculty}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idFaculty}" title="#{bundle.ViewAttendanceReportTitle_idFaculty}"/>
+                    <h:outputText value="#{bundle.ViewAttendanceReportLabel_idFacultySubject}"/>
+                    <h:outputText value="#{attendanceReportController.selected.idFacultySubject}" title="#{bundle.ViewAttendanceReportTitle_idFacultySubject}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{attendanceReportController.destroyAndView}" value="#{bundle.ViewAttendanceReportDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAttendanceReportEditLink}"/>
+                <br />
+                <h:commandLink action="#{attendanceReportController.prepareCreate}" value="#{bundle.ViewAttendanceReportCreateLink}" />
+                <br />
+                <h:commandLink action="#{attendanceReportController.prepareList}" value="#{bundle.ViewAttendanceReportShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAttendanceReportIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
