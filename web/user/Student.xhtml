@@ -35,13 +35,12 @@
                             <h:outputText value="Student Name"/>
                         </f:facet>
                         <h:outputText value="#{c.admnNo.studentName}"/>
-
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Total Lectures"/>
                         </f:facet>
-                        <h:outputText value="#{facultySubjectController.getIdFacSub(attendanceReportController.idFacSub).lectureCollection.size()}"/>
+                        <h:outputText value="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(attendanceReportController.idFacSub)).size()}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">

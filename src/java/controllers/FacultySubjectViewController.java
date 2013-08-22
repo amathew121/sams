@@ -147,6 +147,9 @@ public class FacultySubjectViewController implements Serializable {
     public String navList(){
         return "List?faces-redirect=true";
     }
+    public String navReport() {
+        return "Report?faces-redirect=true";
+    }
 
     public String prepareView() {
         current = (FacultySubjectView) getItems().getRowData();

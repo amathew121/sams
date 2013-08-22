@@ -8,6 +8,7 @@ import entities.Attendance;
 import entities.Course;
 import entities.FacultySubject;
 import entities.Lecture;
+import entities.ProgramCourse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,12 +50,34 @@ public class CurrentStudentController implements Serializable {
     private int selectedItemIndex;
     private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
     private boolean selectAll;
+    
+    private ProgramCourse pc;
+    private short semester;
+
+    public ProgramCourse getPc() {
+        return pc;
+    }
+
+    public void setPc(ProgramCourse pc) {
+        this.pc = pc;
+    }
+
+    public short getSemester() {
+        return semester;
+    }
+
+    public void setSemester(short semester) {
+        this.semester = semester;
+    }
+
 
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
     }
-
+    public String navList() {
+        return "ReportAll?faces-redirect=true";
+    }
     public CurrentStudentController() {
     }
     @ManagedProperty(value = "#{attendanceController}")
@@ -176,6 +199,10 @@ public class CurrentStudentController implements Serializable {
             return attendanceByDiv;
         }
     }
+ /*   public List<CurrentStudent> getAttendanceList(){
+        Course course = pc.getCourse();
+        return getFacade().getCurrentStudentByDivTheory(course, semester, division);
+    } */
 
     public List<CurrentStudent> getAttendanceByDiv() {
         return attendanceByDiv;

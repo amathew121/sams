@@ -52,7 +52,7 @@
                         <f:facet name="header">
                             <h:outputText value="Student Count"/>
                         </f:facet>
-                        <h:outputText value="#{attendanceViewController.getAttendanceCount(lectureController.facSub,lectureController.getLectureByLecID(c.idLecture))}"/>
+                        <h:outputText value="#{c.attendanceCount}"/>
                     </p:column>
                     <p:ajax event="rowToggle" />  
                     <p:column style="width:2%">  

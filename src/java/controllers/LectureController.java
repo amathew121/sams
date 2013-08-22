@@ -172,6 +172,10 @@ public class LectureController implements Serializable {
         }
     }
 
+    public List<Lecture> getLectureByFSList(FacultySubject facSub){
+        return getFacade().getLectureByIdFaculty(facSub);
+    }
+    
     public String createA() throws Exception {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;

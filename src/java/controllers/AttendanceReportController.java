@@ -5,6 +5,7 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.AttendanceReportFacade;
 import entities.CurrentStudent;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -57,7 +60,14 @@ public class AttendanceReportController implements Serializable {
     public void setIdFacSub(int idFacSub) {
         this.idFacSub = idFacSub;
     }
-
+    
+    public void prepareListAttendanceReport() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAll.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -92,6 +102,7 @@ public class AttendanceReportController implements Serializable {
         return "Create";
     }
     
+
     public String prepareViewWithId(int i) {
         idFacSub = i;
         recreateModel();

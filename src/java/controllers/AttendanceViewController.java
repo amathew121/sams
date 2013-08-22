@@ -9,7 +9,9 @@ import entities.Lecture;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -92,18 +94,38 @@ public class AttendanceViewController implements Serializable {
             return null;
         }
     }
-    
-    public DataModel getAttendanceByFS(FacultySubject facSub){
-        DataModel attendanceByFS = new ListDataModel(getFacade().getAttendanceByFS(facSub));
-        return attendanceByFS;
+
+    public List<Lecture> getAttendanceByFS(FacultySubject facSub) {
+
+        List<AttendanceView> l = getFacade().getAttendanceByFS(facSub);
+        FacesContext context = FacesContext.getCurrentInstance();
+        LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+
+        List<Lecture> ll = lc.getLectureByFSList(facSub);
+        Map<Integer, Long> hm = new HashMap<Integer, Long>();
+        
+        for (Lecture item : ll) {
+            hm.put(item.getIdLecture(), 0L);
+        }
+        
+        for (AttendanceView item : l) {
+            Lecture lec = lc.getLectureByLecID(item.getIdLecture());
+            hm.put(item.getIdLecture(), getAttendanceCount(facSub,lec));
+        }
+        
+        for (Lecture item : ll) {
+            item.setAttendanceCount(hm.get(item.getIdLecture()));
+        }
+
+
+        return ll;
     }
-    
-    public Long getAttendanceCount(FacultySubject facSub, Lecture lec)
-    {
+
+    public Long getAttendanceCount(FacultySubject facSub, Lecture lec) {
         return getFacade().getAttendanceByFSCount(facSub, lec);
     }
-    
-    public List<AttendanceView> getAttendanceByFSLec (FacultySubject facSub, Lecture lec) {
+
+    public List<AttendanceView> getAttendanceByFSLec(FacultySubject facSub, Lecture lec) {
         return getFacade().findAll();
     }
 

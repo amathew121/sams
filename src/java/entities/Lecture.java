@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Lecture.findAll", query = "SELECT l FROM Lecture l"),
     @NamedQuery(name = "Lecture.findByIdLecture", query = "SELECT l FROM Lecture l WHERE l.idLecture = :idLecture"),
-    @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureDate", query = "SELECT l FROM Lecture l WHERE l.lectureDate = :lectureDate"),
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
@@ -60,6 +61,17 @@ public class Lecture implements Serializable {
     @OneToOne(mappedBy = "idLecture")
     private Attendance attendance;
 
+    @Transient
+    private Long attendanceCount;
+
+    public Long getAttendanceCount() {
+        return attendanceCount;
+    }
+
+    public void setAttendanceCount(Long attendanceCount) {
+        this.attendanceCount = attendanceCount;
+    }
+    
     public Lecture() {
     }
 
