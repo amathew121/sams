@@ -5,6 +5,7 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.FacultySubjectFacade;
 import entities.Faculty;
+import entities.Subject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -201,6 +202,11 @@ public class FacultySubjectController implements Serializable {
     public FacultySubject getIdFacSub(int idFacSub) {
 
         return getFacade().getFSById(idFacSub);
+    }
+
+    public FacultySubject getIdFacSub(String division, short batch, Subject idSubject) {
+
+        return getFacade().getFSBySemDivBatchSub(division, batch, idSubject);
     }
 
     @FacesConverter(forClass = FacultySubject.class)

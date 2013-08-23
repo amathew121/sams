@@ -117,7 +117,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Course[ idCourse=" + idCourse + " ]";
+        return courseName;
     }
     
 }

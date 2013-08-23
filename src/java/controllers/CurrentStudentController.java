@@ -5,10 +5,15 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.CurrentStudentFacade;
 import entities.Attendance;
+import entities.AttendanceList;
+import entities.AttendanceReport;
 import entities.Course;
 import entities.FacultySubject;
 import entities.Lecture;
+import entities.Program;
 import entities.ProgramCourse;
+import entities.ProgramCoursePK;
+import entities.Subject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,9 +55,22 @@ public class CurrentStudentController implements Serializable {
     private int selectedItemIndex;
     private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
     private boolean selectAll;
-    
-    private ProgramCourse pc;
+    private ProgramCourse pc = new ProgramCourse();
+    private Course course = new Course();
     private short semester;
+    private String division;
+    
+    List<Subject> subject = new ArrayList();
+
+    public List<Subject> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<Subject> subject) {
+        this.subject = subject;
+    }
+    
+    
 
     public ProgramCourse getPc() {
         return pc;
@@ -70,14 +88,41 @@ public class CurrentStudentController implements Serializable {
         this.semester = semester;
     }
 
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
     }
+
     public String navList() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
+        SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
+        AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
+
+        ProgramCoursePK pcpk = new ProgramCoursePK();
+        pcpk.setIdProgram("BE");
+        pcpk.setIdCourse(course.getIdCourse());
+        pc = pcll.getProgramCourse(pcpk);
+        subject = sc.getSubjectBySemester(pc, semester);
         return "ReportAll?faces-redirect=true";
     }
+
     public CurrentStudentController() {
     }
     @ManagedProperty(value = "#{attendanceController}")
@@ -133,11 +178,11 @@ public class CurrentStudentController implements Serializable {
 
     public void changeMap(Map<Integer, Boolean> selectedComponentMap, Boolean blnValue) {
         if (selectedComponentMap != null) {
-           /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
-            selectedComponentMap.put(attendanceByDiv.get(0).getIdCurrentStudent(),true);
-            while (itr.hasNext()) {
-                selectedComponentMap.put(itr.next(), true);
-            } */
+            /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
+             selectedComponentMap.put(attendanceByDiv.get(0).getIdCurrentStudent(),true);
+             while (itr.hasNext()) {
+             selectedComponentMap.put(itr.next(), true);
+             } */
             for (CurrentStudent item : attendanceByDiv) {
                 selectedComponentMap.put(item.getIdCurrentStudent(), blnValue);
             }
@@ -199,10 +244,40 @@ public class CurrentStudentController implements Serializable {
             return attendanceByDiv;
         }
     }
- /*   public List<CurrentStudent> getAttendanceList(){
-        Course course = pc.getCourse();
-        return getFacade().getCurrentStudentByDivTheory(course, semester, division);
-    } */
+
+    public List<CurrentStudent> getAttendanceList() {
+        
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
+
+        List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(course, semester, division);
+
+
+       for (Subject item : subject) {
+            Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
+            List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(course, semester, division, item.getIdSubject());
+
+        
+            
+            for (CurrentStudent cs : lcs) {
+                hm.put(cs.getIdCurrentStudent(), 0);
+            }
+
+            for (Object[] ar : arl) {
+                hm.put(((AttendanceReport)ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
+            }
+            for (CurrentStudent cs : lcs) {
+                int[] theoryCount = cs.getTheoryCount();
+               
+                theoryCount[item.getSubjectSrNo()] = hm.get(cs.getIdCurrentStudent());
+                cs.setTheoryCount(theoryCount);
+                cs.setCount(hm.get(cs.getIdCurrentStudent()));
+            }
+
+        }
+        return lcs;
+    }
 
     public List<CurrentStudent> getAttendanceByDiv() {
         return attendanceByDiv;

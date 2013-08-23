@@ -87,7 +87,18 @@ public class CurrentStudent implements Serializable {
     private boolean selectedBool;
     @Transient
     private int count;
+    @Transient
+    private int[] theoryCount = new int[10];
 
+    public int[] getTheoryCount() {
+        return theoryCount;
+    }
+
+    public void setTheoryCount(int[] theoryCount) {
+        this.theoryCount = theoryCount;
+    }
+
+    
     public int getCount() {
         return count;
     }

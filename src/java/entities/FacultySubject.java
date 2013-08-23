@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FacultySubject.findAll", query = "SELECT f FROM FacultySubject f"),
+    @NamedQuery(name = "FacultySubject.findBySemDivBatchSub", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division"),
     @NamedQuery(name = "FacultySubject.findByIdFaculty", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty"),
     @NamedQuery(name = "FacultySubject.findByIdFacultySubject", query = "SELECT f FROM FacultySubject f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
