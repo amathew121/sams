@@ -46,6 +46,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CurrentStudent.findByProvisional", query = "SELECT c FROM CurrentStudent c WHERE c.provisional = :provisional"),
     @NamedQuery(name = "CurrentStudent.findByAcademicYear", query = "SELECT c FROM CurrentStudent c WHERE c.academicYear = :academicYear")})
 public class CurrentStudent implements Serializable {
+    @Column(name = "roll_no")
+    private Integer rollNo;
     private static final long serialVersionUID = 1L;
     @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,9 +65,6 @@ public class CurrentStudent implements Serializable {
     private String division;
     @Column(name = "batch")
     private Short batch;
-    @Size(max = 10)
-    @Column(name = "roll_no")
-    private String rollNo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "provisional")
@@ -164,14 +163,6 @@ public class CurrentStudent implements Serializable {
         this.batch = batch;
     }
 
-    public String getRollNo() {
-        return rollNo;
-    }
-
-    public void setRollNo(String rollNo) {
-        this.rollNo = rollNo;
-    }
-
     public boolean getProvisional() {
         return provisional;
     }
@@ -236,6 +227,14 @@ public class CurrentStudent implements Serializable {
     @Override
     public String toString() {
         return "entities.CurrentStudent[ idCurrentStudent=" + idCurrentStudent + " ]";
+    }
+
+    public Integer getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(Integer rollNo) {
+        this.rollNo = rollNo;
     }
     
 }
