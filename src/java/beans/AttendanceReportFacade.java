@@ -45,6 +45,7 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
         q.setParameter("semester", semester);
         q.setParameter("division", division);
         q.setParameter("idCourse", course.getIdCourse());
+        q.setParameter("fsBatch", 0);
         List<Object[]> l = q.getResultList();
         return l;
     }

@@ -53,11 +53,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AttendanceReport.findByIdSubject", query = "SELECT a FROM AttendanceReport a WHERE a.idSubject = :idSubject"),
     @NamedQuery(name = "AttendanceReport.findByIdFaculty", query = "SELECT a FROM AttendanceReport a WHERE a.idFaculty = :idFaculty"),
     @NamedQuery(name = "AttendanceReport.findByIdFacultySubjectCount", query = "SELECT Count(a) FROM AttendanceReport a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idCurrentStudent"),
-    @NamedQuery(name = "AttendanceReport.findByIdSubjectSemesterDivisionCount", query = "SELECT a,Count(a) FROM AttendanceReport a WHERE a.idCourse = :idCourse AND a.semester = :semester AND a.idSubject = :idSubject AND a.division = :division GROUP BY a.idCurrentStudent ORDER BY a.rollNo"),
+    @NamedQuery(name = "AttendanceReport.findByIdSubjectSemesterDivisionCount", query = "SELECT a,Count(a) FROM AttendanceReport a WHERE a.idCourse = :idCourse AND a.semester = :semester AND a.idSubject = :idSubject AND a.division = :division AND a.fsBatch=:fsBatch GROUP BY a.idCurrentStudent ORDER BY a.rollNo"),
     @NamedQuery(name = "AttendanceReport.findByIdSubjectSemesterDivCount", query = "SELECT Count(a) FROM AttendanceReport a WHERE a.semester = :semester AND a.idSubject = :idSubject AND a.division = :division GROUP BY a.idCurrentStudent"),
     @NamedQuery(name = "AttendanceReport.findByIdFacultySubject", query = "SELECT a,Count(a) FROM AttendanceReport a WHERE a.idFacultySubject = :idFacultySubject GROUP BY a.idCurrentStudent ORDER BY a.rollNo")})
 
 public class AttendanceReport implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fs_batch")
+    private short fsBatch;
+    @Column(name = "roll_no")
+    private Integer rollNo;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -98,9 +104,6 @@ public class AttendanceReport implements Serializable {
     private String division;
     @Column(name = "batch")
     private Short batch;
-    @Size(max = 10)
-    @Column(name = "roll_no")
-    private String rollNo;
     @Column(name = "lecture_date")
     @Temporal(TemporalType.DATE)
     private Date lectureDate;
@@ -241,14 +244,6 @@ public class AttendanceReport implements Serializable {
         this.batch = batch;
     }
 
-    public String getRollNo() {
-        return rollNo;
-    }
-
-    public void setRollNo(String rollNo) {
-        this.rollNo = rollNo;
-    }
-
     public Date getLectureDate() {
         return lectureDate;
     }
@@ -351,6 +346,22 @@ public class AttendanceReport implements Serializable {
 
     public void setIdFacultySubject(int idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
+    }
+
+    public short getFsBatch() {
+        return fsBatch;
+    }
+
+    public void setFsBatch(short fsBatch) {
+        this.fsBatch = fsBatch;
+    }
+
+    public Integer getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(Integer rollNo) {
+        this.rollNo = rollNo;
     }
     
 }

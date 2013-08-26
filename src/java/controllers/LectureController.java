@@ -7,6 +7,7 @@ import beans.LectureFacade;
 import entities.Attendance;
 import entities.CurrentStudent;
 import entities.FacultySubject;
+import entities.Subject;
 import entities.TeachingPlan;
 
 import java.io.Serializable;
@@ -175,6 +176,21 @@ public class LectureController implements Serializable {
     public List<Lecture> getLectureByFSList(FacultySubject facSub){
         return getFacade().getLectureByIdFaculty(facSub);
     }
+    
+    public int getLectureByFSListTotal(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+        FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
+        int total =0;
+        for(Subject s : csc.subject) {
+            FacultySubject facsub = fsc.getIdFacSub(csc.getDivision(), (short) 0, s);
+            total += getFacade().getLectureByIdFaculty(facsub).size();
+
+        }
+        
+        return total;
+    }
+    
     
     public String createA() throws Exception {
         current.setIdFacultySubject(facSub);

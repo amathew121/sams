@@ -88,6 +88,16 @@ public class CurrentStudent implements Serializable {
     private int count;
     @Transient
     private int[] theoryCount = new int[10];
+    @Transient
+    private int theoryCountTotal;
+
+    public int getTheoryCountTotal() {
+        theoryCountTotal =0;
+        for(int t : theoryCount){
+            theoryCountTotal += t;
+        }
+        return theoryCountTotal;
+    }
 
     public int[] getTheoryCount() {
         return theoryCount;
