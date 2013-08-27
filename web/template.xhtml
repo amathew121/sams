@@ -13,39 +13,39 @@
     <h:body>
         <div style=" height: 90px; background-size: 100% 90px; background-image: url('/piit/resources/images/PIITBanner.png'); background-repeat: no-repeat" >
         </div>
-            <div style="text-align: right; width: 100%; font-size: small;" >
+        <div style="text-align: right; width: 100%; font-size: small;" >
 
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
-                        <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
-                        <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
-                        <p:separator ></p:separator>
-                        <p:menuitem value="Suggestions" action="#{suggesstionsController.prepareCreateUser()}" ajax="false" />
-                        <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
+            <h:form style="position: relative; float: right; padding-left: 2%;">
+                <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
+                    <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                    <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
+                    <p:separator ></p:separator>
+                    <p:menuitem value="Suggestions" action="#{suggesstionsController.prepareCreateUser()}" ajax="false" />
+                    <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
 
-                    </p:menuButton>
-                </h:form>
+                </p:menuButton>
+            </h:form>
 
 
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}" value="Manage" >
-                        <p:menuitem  action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
-                        <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
-                        <p:menuitem  action="#{attendanceReportController.prepareListAttendanceReport()}" value="Attendance Report" ajax="false" />
-                        <p:separator ></p:separator>
-                        <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />
+            <h:form style="position: relative; float: right; padding-left: 2%;">
+                <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}" value="Manage" >
+                    <p:menuitem  action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
+                    <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
+                    <p:menuitem  action="#{attendanceReportController.prepareListAttendanceReport()}" value="Attendance Report" ajax="false" />
+                    <p:separator ></p:separator>
+                    <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />
 
-                    </p:menuButton>
-                </h:form>
+                </p:menuButton>
+            </h:form>
 
-                <h:form style="position: relative; float: right; padding-left: 2%;">
-                    <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
-                </h:form>
-                <div  style=" position: relative; float: right; padding-left: 2%" >
-                    <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
-                </div>
+            <h:form style="position: relative; float: right; padding-left: 2%;">
+                <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
+            </h:form>
+            <div  style=" position: relative; float: right; padding-left: 2%" >
+                <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser') }" value="Admin Area" outcome="/admin/index.xhtml" />
             </div>
-        
+        </div>
+
 
         <h1>
             <ui:insert name="title">Default Title</ui:insert>
@@ -53,7 +53,27 @@
         <p>
             <ui:insert name="body">Default Body</ui:insert>
         </p>
-        
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u = (("https:" == document.location.protocol) ? "https" : "http") + "://192.168.4.90/piwik//";
+                _paq.push(['setTrackerUrl', u + 'piwik.php']);
+                _paq.push(['setSiteId', 1]);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.type = 'text/javascript';
+                g.defer = true;
+                g.async = true;
+                g.src = u + 'piwik.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+
+        </script>
+        <noscript><p><img src="http://localhost/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+
     </h:body>
 
 </html>

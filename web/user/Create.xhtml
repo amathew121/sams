@@ -23,12 +23,12 @@
                     <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
                     <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" cols="40"  autoResize="true" />
                 </h:panelGrid>
-                <script type="text/javascript">
+        <!--        <script type="text/javascript">
                     jQuery(document).ready(function() {
                         myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
                         myCalendar.jqEl.datepicker("option", "minDate", -3);
                     });
-                </script>
+                </script> -->
 
                 <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
                 <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >

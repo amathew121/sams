@@ -13,7 +13,7 @@
             <h:outputText value="Faculty Subject Information"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
+            <h:form>
                 <p:selectOneMenu value="#{currentStudentController.course}" >
                     <f:selectItems value="#{courseController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>
@@ -40,6 +40,8 @@
                     <f:selectItem itemLabel="F" itemValue="F" />
                     <f:selectItem itemLabel="G" itemValue="G" />
                     <f:selectItem itemLabel="H" itemValue="H" />
+                    <f:selectItem itemLabel="I" itemValue="I" />
+                    <f:selectItem itemLabel="J" itemValue="J" />
                 </p:selectOneMenu>
                 <br />
                 
