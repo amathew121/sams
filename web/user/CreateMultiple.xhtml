@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form id="createMultiple">
+                <p:growl id="growl" life="1000" showDetail="true" autoUpdate="true" />
+                <p:commandButton value="Submit"  action="#{lectureController.createAll()}" ></p:commandButton>
+                <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+
+                    <p:column>
+                        <f:facet name="header">
+                            Roll No
+                        </f:facet>
+                        #{c.rollNo}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{c.admnNo.studentName}
+                    </p:column>
+                    <p:columns columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
+                        <f:facet name="header" >
+                            <h:outputText value="#{column.lectureDate}">
+                                <f:convertDateTime timeZone="IST" pattern="dd-MM" />
+                            </h:outputText>
+                            <br />
+                            <h:outputText value="#{column.lectureStartTime}" >
+                                <f:convertDateTime timeZone="IST" pattern="hh:mm" />
+                            </h:outputText>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{column.checked[c.idCurrentStudent]}" />
+                    </p:columns>
+
+                    
+                </p:dataTable>
+                <p:commandButton value="Submit"  action="#{lectureController.createAll()}" ></p:commandButton>
+
+            </h:form> 
+        </ui:define>
+    </ui:composition>
+
+</html>

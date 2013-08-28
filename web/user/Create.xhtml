@@ -39,7 +39,7 @@
                                 <p:ajax update="listComponents" />
                             </p:selectBooleanCheckbox>
                         </f:facet>
-                        <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
+                        <p:selectBooleanCheckbox rendered="#{c.admnNo != null}" value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
                     </p:column>
 
                     <p:column>

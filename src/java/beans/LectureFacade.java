@@ -9,6 +9,7 @@ import entities.CurrentStudent;
 import entities.FacultySubject;
 import entities.Lecture;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +55,20 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         List<Lecture> l = q.getResultList();
         return l;
     }
+    
+    public List<Lecture> getLectureByIdFacultyDateRange(FacultySubject f, Date startDate, Date endDate) {
+
+
+        Query q = em.createNamedQuery("Lecture.findByLectureDateRange");
+        q.setParameter("idFacultySubject", f);
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+        q.setMaxResults(7);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
+    
+    
     
     public Lecture getLectureByIdLecture(Integer idLecture) {
 

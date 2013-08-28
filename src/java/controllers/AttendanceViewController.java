@@ -95,7 +95,7 @@ public class AttendanceViewController implements Serializable {
         }
     }
 
-    public List<Lecture> getAttendanceByFS(FacultySubject facSub) {
+    public List<Lecture> getAttendanceByFS(FacultySubject facSub) throws Exception {
 
         List<AttendanceView> l = getFacade().getAttendanceByFS(facSub);
         FacesContext context = FacesContext.getCurrentInstance();

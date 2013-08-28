@@ -22,6 +22,7 @@
             </h:form>
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
+                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
 
                 <p:dataTable value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
 
@@ -35,10 +36,17 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Lecture ID"/>
+                            <h:outputText value="Start Time"/>
                         </f:facet>
                         <h:outputText value="#{c.lectureStartTime}" >
                             <f:convertDateTime timeZone="IST" pattern="hh:mm" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
+                        <f:facet name="header">
+                            <h:outputText value="Lecture ID"/>
+                        </f:facet>
+                        <h:outputText value="#{c.idLecture}" >
                         </h:outputText>
                     </p:column>
                     <p:column style="white-space: normal;">

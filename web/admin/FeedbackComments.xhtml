@@ -17,9 +17,9 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <p:dataTable value="#{oldFacultyCommentsController.detailsByFS}" var="item" >                      
-                    <p:column>
+                    <p:column style="white-space: normal;width: 100%;">
                         <f:facet name="header">
-                            <h:outputText value="Subject"/>
+                            <h:outputText value="Comments"/>
                         </f:facet>
                         <h:outputText rendered="#{item.showStatus == null}" value="#{item.comments}"/>
                         <h:outputText rendered="#{item.showStatus != null}" value="#{'**'}#{item.showStatus}"/>

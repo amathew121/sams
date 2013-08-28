@@ -12,6 +12,7 @@ import entities.TeachingPlan;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -36,6 +37,27 @@ public class LectureController implements Serializable {
     private CurrentStudent[] selectList;
     private String topicsDelivered;
     private DataModel items = null;
+    private List<Lecture> lectureList;
+    private Date startDate;
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+    
 
     public CurrentStudent[] getSelectList() {
         return selectList;
@@ -99,6 +121,15 @@ public class LectureController implements Serializable {
         this.topicsDelivered = topicsDelivered;
     }
 
+    public List<Lecture> getLectureList() {
+        return lectureList;
+    }
+
+    public void setLectureList(List<Lecture> lectureList) {
+        this.lectureList = lectureList;
+    }
+
+    
     public Lecture getSelected() {
         if (current == null) {
             current = new Lecture();
@@ -144,6 +175,24 @@ public class LectureController implements Serializable {
         return "Create?foo=" + idFacSub + "&faces-redirect=true";
     }
 
+    public String prepareMultipleRange() throws Exception {
+        return "MultipleDateRange?foo=" + idFacSub + "&faces-redirect=true";
+    }
+    
+    public String prepareCreateMultipleWithId() throws Exception{
+        lectureList = getLectureByFSList(facSub, startDate, endDate);
+        for(Lecture lec : lectureList){
+            currentStudentController.setLec(lec);
+            lec.changeMap(lec.getChecked(), Boolean.FALSE);
+            List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
+            for (int i = 0; i < attendance.size(); i++) {
+                lec.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
+            }
+        }
+        prepareCreate();
+        return "CreateMultiple?foo=" + idFacSub + "&faces-redirect=true";
+    }
+
     public String prepareViewWithId(int i) {
         idFacSub = i;
         getFacSubject(idFacSub);
@@ -176,23 +225,25 @@ public class LectureController implements Serializable {
     public List<Lecture> getLectureByFSList(FacultySubject facSub){
         return getFacade().getLectureByIdFaculty(facSub);
     }
-    
+    public List<Lecture> getLectureByFSList(FacultySubject facSub, Date startDate, Date endDate) {
+        return getFacade().getLectureByIdFacultyDateRange(facSub, startDate, endDate);
+    }
+
     public int getLectureByFSListTotal(){
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
-        int total =0;
-        for(Subject s : csc.subject) {
+        int total = 0;
+        for (Subject s : csc.subject) {
             FacultySubject facsub = fsc.getIdFacSub(csc.getDivision(), (short) 0, s);
             total += getFacade().getLectureByIdFaculty(facsub).size();
 
         }
-        
+
         return total;
     }
-    
-    
-    public String createA() throws Exception {
+
+    public String createA() {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
         try {
@@ -205,7 +256,6 @@ public class LectureController implements Serializable {
             currentStudentController.createAttendance();
         } catch (Exception e) {
             e.printStackTrace();
-            destroyLectureRestrict(temp);
             JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
 
         } finally {
@@ -215,12 +265,41 @@ public class LectureController implements Serializable {
         }
     }
 
+    public String createAll() throws Exception {
+
+        for (Lecture lec : lectureList) {
+            List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
+            for (int i = 0; i < attendance.size(); i++) {
+                currentStudentController.getAttendanceController().createEntry(attendance.get(i));
+                currentStudentController.getAttendanceController().destroyA();
+            }
+            lec.setIdFacultySubject(facSub);
+            Lecture temp = lec;
+            currentStudentController.setChecked(temp.getChecked());
+            try {
+                currentStudentController.setLec(temp);
+                recreateModel();
+                //  return "CreateAttendance?faces-redirect=true";
+                currentStudentController.createAttendance();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
+
+            } finally {
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceCreated"));
+                prepareCreate();
+            }
+        }
+        return "View?faces-redirect=true";
+
+    }
+
     public String prepareEdit() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-    
+
     public String prepareListTP(FacultySubject f) {
         facSub = f;
         recreateModel();
@@ -262,23 +341,27 @@ public class LectureController implements Serializable {
     }
 
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
-        if (lec != null){
-        current = lec;
-        currentStudentController.setLec(lec);
-        List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
-        for (int i = 0; i < attendance.size(); i++) {
-            currentStudentController.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
-            currentStudentController.getAttendanceController().createEntry(attendance.get(i));
-            currentStudentController.getAttendanceController().destroyA();
-        }
-        
-        return "UpdateLecture?faces-redirect=true";
-        }
-        else
+        if (lec != null) {
+            current = lec;
+            currentStudentController.setLec(lec);
+            currentStudentController.changeMap(currentStudentController.getChecked(), Boolean.FALSE);
+            List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
+            for (int i = 0; i < attendance.size(); i++) {
+                currentStudentController.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
+            }
+
+            return "UpdateLecture?faces-redirect=true";
+        } else {
             return null;
+        }
     }
 
     public String updateLectureRestrict() throws Exception {
+        List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(currentStudentController.getLec());
+        for (int i = 0; i < attendance.size(); i++) {
+            currentStudentController.getAttendanceController().createEntry(attendance.get(i));
+            currentStudentController.getAttendanceController().destroyA();
+        }
         currentStudentController.createAttendance();
         update();
 
@@ -332,6 +415,7 @@ public class LectureController implements Serializable {
     private void recreateModel() {
         items = null;
         lectureByFS = null;
+        lectureList = null;
     }
 
     private void recreatePagination() {

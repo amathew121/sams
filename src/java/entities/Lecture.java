@@ -4,8 +4,15 @@
  */
 package entities;
 
+import controllers.CurrentStudentController;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lecture.findByIdLecture", query = "SELECT l FROM Lecture l WHERE l.idLecture = :idLecture"),
     @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureDate", query = "SELECT l FROM Lecture l WHERE l.lectureDate = :lectureDate"),
+    @NamedQuery(name = "Lecture.findByLectureDateRange", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate AND l.lectureDate <= :endDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
     @Lob
@@ -63,7 +71,62 @@ public class Lecture implements Serializable {
 
     @Transient
     private Long attendanceCount;
+    @Transient
+    private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
 
+    @Transient
+    private boolean selectAll;
+    
+    public Map<Integer, Boolean> getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Map<Integer, Boolean> checked) {
+        this.checked = checked;
+    }
+
+
+    public boolean isSelectAll() {
+        return selectAll;
+    }
+
+    public void setSelectAll(boolean selectAll) {
+        this.selectAll = selectAll;
+    }
+
+    public void selectAllComponents(ValueChangeEvent event) {
+        if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            event.queue();
+        } else {
+            if (selectAll) {
+                changeMap(checked, true);
+                setSelectAll(true);
+            } else // If the button is unchecked, unselect all the checkboxes
+            {
+                changeMap(checked, false);
+                setSelectAll(false);
+            }
+        }
+    }
+
+    public void changeMap(Map<Integer, Boolean> selectedComponentMap, Boolean blnValue) {
+        if (selectedComponentMap != null) {
+            /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
+             selectedComponentMap.put(attendanceByDiv.get(0).getIdCurrentStudent(),true);
+             while (itr.hasNext()) {
+             selectedComponentMap.put(itr.next(), true);
+             } */
+            FacesContext context = FacesContext.getCurrentInstance();
+            CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+            List<CurrentStudent> attendanceByDiv = csc.getAttendanceByDiv(idFacultySubject);
+            for (CurrentStudent item : attendanceByDiv) {
+                selectedComponentMap.put(item.getIdCurrentStudent(), blnValue);
+            }
+            setChecked(selectedComponentMap);
+        }
+    }
+    
     public Long getAttendanceCount() {
         return attendanceCount;
     }

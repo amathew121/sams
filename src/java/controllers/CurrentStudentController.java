@@ -56,7 +56,7 @@ public class CurrentStudentController implements Serializable {
     private Course course = new Course();
     private short semester;
     private String division;
-    
+
     List<Subject> subject = new ArrayList();
 
     public List<Subject> getSubject() {
@@ -196,9 +196,6 @@ public class CurrentStudentController implements Serializable {
                 checkedItems.add(item);
             }
         }
-
-        checked.clear(); // If necessary.
-
 
         List<Attendance> att = new ArrayList<Attendance>();
     /*    if (checkedItems.isEmpty()) {
