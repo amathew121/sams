@@ -40,7 +40,16 @@ public class LectureController implements Serializable {
     private List<Lecture> lectureList;
     private Date startDate;
     private Date endDate;
+    private int startIndex;
 
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+    
     public Date getStartDate() {
         return startDate;
     }
@@ -180,7 +189,33 @@ public class LectureController implements Serializable {
     }
     
     public String prepareCreateMultipleWithId() throws Exception{
-        lectureList = getLectureByFSList(facSub, startDate, endDate);
+        lectureList = getLectureByFSList(facSub);
+        
+        List<Lecture> checkedItems = new ArrayList<Lecture>();
+
+        for (Lecture item : lectureList) {
+            if (currentStudentController.getChecked().get(item.getIdLecture())) {
+                checkedItems.add(item);
+            }
+        }
+        if(!checkedItems.isEmpty() )
+            lectureList = checkedItems;
+
+        else if(startDate!=null) {
+            lectureList = getLectureByFSList(facSub, startDate);
+        }
+        else if (startDate!=null && endDate!= null) {
+            lectureList = getLectureByFSList(facSub, startDate, endDate);
+        }
+        else 
+        {
+            if(startIndex+9 < lectureList.size())
+                lectureList = lectureList.subList(startIndex-1, startIndex+9);
+            else 
+                lectureList = lectureList.subList(startIndex-1, lectureList.size());
+
+        }
+
         for(Lecture lec : lectureList){
             currentStudentController.setLec(lec);
             lec.changeMap(lec.getChecked(), Boolean.FALSE);
@@ -227,6 +262,9 @@ public class LectureController implements Serializable {
     }
     public List<Lecture> getLectureByFSList(FacultySubject facSub, Date startDate, Date endDate) {
         return getFacade().getLectureByIdFacultyDateRange(facSub, startDate, endDate);
+    }
+    public List<Lecture> getLectureByFSList(FacultySubject facSub, Date startDate) {
+        return getFacade().getLectureByIdFacultyDateRange(facSub, startDate);
     }
 
     public int getLectureByFSListTotal(){

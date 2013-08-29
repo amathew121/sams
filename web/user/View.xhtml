@@ -22,10 +22,15 @@
             </h:form>
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
-                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}" action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
+                <p:commandButton action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
 
-                <p:dataTable value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
-
+                <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="No"/>
+                        </f:facet>
+                        <h:outputText value="#{index + 1}" />
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Lecture Date"/>

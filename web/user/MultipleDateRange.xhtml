@@ -14,13 +14,77 @@
         </ui:define>
         <ui:define name="body">
 
-            <h:form >
+            <h:form>
+                <h:outputLabel style="color: red" value="***Select only 10 or less lectures for multiple editing. Performance may degrade for more lectures. " />
+                <br/>
+                <br />
+
+                <p:growl id="growl" life="400" showDetail="true" autoUpdate="true" />
 
                 <p:outputLabel value="Start Date" for="startDate" />
-                <p:calendar value="#{lectureController.startDate}" id="startDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
+                <p:calendar value="#{lectureController.startDate}" id="startDate" widgetVar="myCalendar" pattern="dd/MM/yyyy"/>
                 <p:outputLabel value="End Date" for="endDate" />
-                <p:calendar value="#{lectureController.endDate}" id="endDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
+                <p:calendar value="#{lectureController.endDate}" id="endDate" widgetVar="myCalendar" pattern="dd/MM/yyyy"/>
                 <br/>
+                <h:outputLabel value="OR" />
+                <br />
+
+                               <p:outputLabel value="Start Index" />
+                               <p:inputText type="number" value="#{lectureController.startIndex}" />
+                <br/>
+                <h:outputLabel value="OR" />
+<br />
+<p:commandButton rendered="false" value="Submit"  action="#{lectureController.prepareCreateMultipleWithId()}" ></p:commandButton>
+                <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" rowKey="#{c.idLecture}" var="c" >
+
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idLecture]}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="No"/>
+                        </f:facet>
+                        <h:outputText value="#{index + 1}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lecture Date"/>
+                        </f:facet>
+                        <h:outputText value="#{c.lectureDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Start Time"/>
+                        </f:facet>
+                        <h:outputText value="#{c.lectureStartTime}" >
+                            <f:convertDateTime timeZone="IST" pattern="hh:mm" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
+                        <f:facet name="header">
+                            <h:outputText value="Lecture ID"/>
+                        </f:facet>
+                        <h:outputText value="#{c.idLecture}" >
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <h:outputText value="Contents Delivered"/>
+                        </f:facet>
+                        <h:outputText value="#{c.contentDelivered}">
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Student Count"/>
+                        </f:facet>
+                        <h:outputText value="#{c.attendanceCount}"/>
+                    </p:column>
+
+
+                </p:dataTable>
                 <p:commandButton value="Submit"  action="#{lectureController.prepareCreateMultipleWithId()}" ></p:commandButton>
 
             </h:form> 

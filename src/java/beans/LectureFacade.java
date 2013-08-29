@@ -63,7 +63,17 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         q.setParameter("idFacultySubject", f);
         q.setParameter("startDate", startDate);
         q.setParameter("endDate", endDate);
-        q.setMaxResults(7);
+        q.setMaxResults(10);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
+    public List<Lecture> getLectureByIdFacultyDateRange(FacultySubject f, Date startDate) {
+
+
+        Query q = em.createNamedQuery("Lecture.findByLectureDateRangeStart");
+        q.setParameter("idFacultySubject", f);
+        q.setParameter("startDate", startDate);
+        q.setMaxResults(10);
         List<Lecture> l = q.getResultList();
         return l;
     }
