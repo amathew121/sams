@@ -328,6 +328,10 @@ public class TeachingPlanController implements Serializable {
     public List<TeachingPlan> getItemsUserExport() {
         return getFacade().getTeachingPlanByFS(facSub);
     }
+    
+    public List<TeachingPlan> getItemsUserExport(FacultySubject facSub) {
+        return getFacade().getTeachingPlanByFS(facSub);
+    }
 
     public void setFacSub(FacultySubject facSub) {
         this.facSub = facSub;
