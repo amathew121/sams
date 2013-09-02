@@ -197,6 +197,9 @@ public class FacultySubjectView implements Serializable {
         this.division = division;
     }
 
+    public short getBatchNo() {
+        return batch;
+    }
     public String getBatch() {
         String b ;
         if(batch==0)

@@ -29,10 +29,10 @@
                 <h:outputLabel value="OR" />
                 <br />
 
-                               <p:outputLabel value="Start Index" />
+ <!--                              <p:outputLabel value="Start Index" />
                                <p:inputText type="number" value="#{lectureController.startIndex}" />
                 <br/>
-                <h:outputLabel value="OR" />
+                <h:outputLabel value="OR" /> -->
 <br />
 <p:commandButton rendered="false" value="Submit"  action="#{lectureController.prepareCreateMultipleWithId()}" ></p:commandButton>
                 <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" rowKey="#{c.idLecture}" var="c" >

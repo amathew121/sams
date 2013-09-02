@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListStudentTestTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListStudentTestEmpty}" rendered="#{studentTestController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{studentTestController.items.rowCount > 0}">
+                    <h:outputText value="#{studentTestController.pagination.pageFirstItem + 1}..#{studentTestController.pagination.pageLastItem + 1}/#{studentTestController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{studentTestController.previous}" value="#{bundle.Previous} #{studentTestController.pagination.pageSize}" rendered="#{studentTestController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{studentTestController.next}" value="#{bundle.Next} #{studentTestController.pagination.pageSize}" rendered="#{studentTestController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{studentTestController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentTestTitle_studentTestPK_test}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.studentTestPK.test}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentTestTitle_marks}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.marks}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentTestTitle_subject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentTestTitle_currentStudent}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.currentStudent}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{studentTestController.prepareView}" value="#{bundle.ListStudentTestViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{studentTestController.prepareEdit}" value="#{bundle.ListStudentTestEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{studentTestController.destroy}" value="#{bundle.ListStudentTestDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{studentTestController.prepareCreate}" value="#{bundle.ListStudentTestCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListStudentTestIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

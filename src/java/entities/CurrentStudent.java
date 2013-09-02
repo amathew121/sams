@@ -6,9 +6,9 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +27,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -46,6 +48,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CurrentStudent.findByProvisional", query = "SELECT c FROM CurrentStudent c WHERE c.provisional = :provisional"),
     @NamedQuery(name = "CurrentStudent.findByAcademicYear", query = "SELECT c FROM CurrentStudent c WHERE c.academicYear = :academicYear")})
 public class CurrentStudent implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentStudent")
+    private List<StudentTest> studentTestList;
     @Column(name = "roll_no")
     private Integer rollNo;
     private static final long serialVersionUID = 1L;
@@ -90,6 +94,16 @@ public class CurrentStudent implements Serializable {
     private int[] theoryCount = new int[10];
     @Transient
     private int theoryCountTotal;
+    @Transient
+    private short marks;
+
+    public short getMarks() {
+        return marks;
+    }
+
+    public void setMarks(short marks) {
+        this.marks = marks;
+    }
 
     public int getTheoryCountTotal() {
         theoryCountTotal =0;
@@ -245,6 +259,15 @@ public class CurrentStudent implements Serializable {
 
     public void setRollNo(Integer rollNo) {
         this.rollNo = rollNo;
+    }
+
+    @XmlTransient
+    public List<StudentTest> getStudentTestList() {
+        return studentTestList;
+    }
+
+    public void setStudentTestList(List<StudentTest> studentTestList) {
+        this.studentTestList = studentTestList;
     }
     
 }

@@ -107,7 +107,7 @@ public class AttendanceReportController implements Serializable {
     public String prepareViewWithId(int i) {
         idFacSub = i;
         recreateModel();
-        return "Student?foo=" + i + "&faces-redirect=true";
+        return "Student?faces-redirect=true";
     }
     
     public String create() {

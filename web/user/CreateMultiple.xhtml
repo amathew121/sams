@@ -15,13 +15,14 @@
         <ui:define name="body">
 
             <h:form id="createMultiple">
-                <p:growl id="growl" life="1000" showDetail="true" autoUpdate="true" />
+                <p:growl id="growl" showDetail="true" autoUpdate="true" />
                 <p:commandButton value="Submit"  action="#{lectureController.createAll()}" ></p:commandButton>
-                <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+                <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
-                    <p:column>
+
+                    <p:column width="5%">
                         <f:facet name="header">
-                            Roll No
+                            RNo
                         </f:facet>
                         #{c.rollNo}
                     </p:column>
@@ -31,8 +32,10 @@
                         </f:facet>
                         #{c.admnNo.studentName}
                     </p:column>
-                    <p:columns columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
+                    <p:columns width="5%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
                         <f:facet name="header" >
+                            <h:outputText value="#{index}" />
+                            <br />
                             <h:outputText value="#{column.lectureDate}">
                                 <f:convertDateTime timeZone="IST" pattern="dd-MM" />
                             </h:outputText>
@@ -41,7 +44,9 @@
                                 <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                             </h:outputText>
                         </f:facet>
-                        <p:selectBooleanCheckbox value="#{column.checked[c.idCurrentStudent]}" />
+                        
+                        <h:selectBooleanCheckbox style="width: 20px; height: 20px;"  title="#{index}" rendered="#{c.admnNo != null}" value="#{column.checked[c.idCurrentStudent]}" />
+                       
                     </p:columns>
 
                     

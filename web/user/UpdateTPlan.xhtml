@@ -17,7 +17,8 @@
         </ui:define>
         <ui:define name="body">
  
-                    <h:form>                        
+                    <h:form>       
+                        <p:growl id="growl" autoUpdate="true" showDetail="true" />
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>

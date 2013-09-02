@@ -49,6 +49,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findByCreditTutorial", query = "SELECT s FROM Subject s WHERE s.creditTutorial = :creditTutorial")})
 public class Subject implements Serializable {
 
+    @Column(name = "test1")
+    private Short test1;
+    @Column(name = "test2")
+    private Short test2;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
+    private List<StudentTest> studentTestList;
+
     @OneToMany(mappedBy = "idSubject")
     private List<SubjectSyllabus> subjectSyllabusList;
 
@@ -280,5 +287,31 @@ public class Subject implements Serializable {
 
     public void setSubjectSyllabusList(List<SubjectSyllabus> subjectSyllabusList) {
         this.subjectSyllabusList = subjectSyllabusList;
+    }
+
+
+    public Short getTest1() {
+        return test1;
+    }
+
+    public void setTest1(Short test1) {
+        this.test1 = test1;
+    }
+
+    public Short getTest2() {
+        return test2;
+    }
+
+    public void setTest2(Short test2) {
+        this.test2 = test2;
+    }
+
+    @XmlTransient
+    public List<StudentTest> getStudentTestList() {
+        return studentTestList;
+    }
+
+    public void setStudentTestList(List<StudentTest> studentTestList) {
+        this.studentTestList = studentTestList;
     }
     }

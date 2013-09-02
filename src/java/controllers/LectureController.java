@@ -181,11 +181,11 @@ public class LectureController implements Serializable {
 
     public String prepareCreateWithId() {
         prepareCreate();
-        return "Create?foo=" + idFacSub + "&faces-redirect=true";
+        return "Create?faces-redirect=true";
     }
 
     public String prepareMultipleRange() throws Exception {
-        return "MultipleDateRange?foo=" + idFacSub + "&faces-redirect=true";
+        return "MultipleDateRange?faces-redirect=true";
     }
     
     public String prepareCreateMultipleWithId() throws Exception{
@@ -225,14 +225,14 @@ public class LectureController implements Serializable {
             }
         }
         prepareCreate();
-        return "CreateMultiple?foo=" + idFacSub + "&faces-redirect=true";
+        return "CreateMultiple?faces-redirect=true";
     }
 
     public String prepareViewWithId(int i) {
         idFacSub = i;
         getFacSubject(idFacSub);
         recreateModel();
-        return "View?foo=" + i + "&faces-redirect=true";
+        return "View?faces-redirect=true";
     }
 
     public FacultySubject getFacSubject(int i) {

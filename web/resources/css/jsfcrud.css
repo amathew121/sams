@@ -43,7 +43,7 @@ form.jsfcrud_list_form th, td th {
 }
 
 td {
-    vertical-align: top;
+    vertical-align: middle;
     padding-bottom: 8px;
     font-size: small;
 }
@@ -61,7 +61,7 @@ form.jsfcrud_list_form td, td td {
     border-bottom-color: #b2d5d6;
     border-left-color: #b2d5d6;
     border-right-color: #b2d5d6;
-    vertical-align: baseline;
+    vertical-align: middle;
     padding-bottom: 0px;
     white-space: normal;
 }

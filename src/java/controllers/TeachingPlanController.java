@@ -134,7 +134,7 @@ public class TeachingPlanController implements Serializable {
         current = new TeachingPlan();
         selectedItemIndex = -1;
         facSub = getFacade().getFSById(f);
-        return "CreateTPlan?foo=" + f + "&faces-redirect=true";
+        return "CreateTPlan?faces-redirect=true";
     }
 
     public String create() {
