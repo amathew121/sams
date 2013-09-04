@@ -14,10 +14,9 @@
         </ui:define>
         <ui:define name="body">
 
-            <h:form id="createMultiple">
+            <h:form onsubmit="document.body.style.cursor='wait'" id="createMultiple">
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />
-                <p:commandButton value="Submit"  action="#{lectureController.createAll()}" ></p:commandButton>
-                <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+                <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowIndexVar="rowIndex" rowKey="#{c.idCurrentStudent}" var="c" >
 
 
                     <p:column width="5%">
@@ -32,9 +31,17 @@
                         </f:facet>
                         #{c.admnNo.studentName}
                     </p:column>
-                    <p:columns width="5%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
+
+                    <p:column width ="8%">
+                       <!-- -->
+                       <p:inputText id="txt5" rendered="#{c.admnNo !=null}" value="#{c.lectureAttended}" disabled="true" />  
+                       <p:slider rendered="#{c.admnNo !=null}" for="txt5" maxValue="#{lectureController.lectureList.size()}">  
+                           <p:ajax process="@this" event="slideEnd" listener="#{lectureController.onSlideEnd}" update=":createMultiple:listComponents" />  
+                        </p:slider> 
+                    </p:column>
+                    <p:columns id="attendanceComponent" width="5%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
                         <f:facet name="header" >
-                            <h:outputText value="#{index}" />
+                            <h:outputText value="#{index+1}" />
                             <br />
                             <h:outputText value="#{column.lectureDate}">
                                 <f:convertDateTime timeZone="IST" pattern="dd-MM" />
@@ -44,16 +51,18 @@
                                 <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                             </h:outputText>
                         </f:facet>
-                        
-                        <h:selectBooleanCheckbox style="width: 20px; height: 20px;"  title="#{index}" rendered="#{c.admnNo != null}" value="#{column.checked[c.idCurrentStudent]}" />
-                       
+
+                        <h:selectBooleanCheckbox title="#{index+1}" style="width: 20px; height: 20px;"  rendered="#{c.admnNo != null}" value="#{column.checked[c.idCurrentStudent]}" >
+                            <p:ajax process="@form" update=":createMultiple:listComponents" />
+                        </h:selectBooleanCheckbox>
                     </p:columns>
 
-                    
-                </p:dataTable>
-                <p:commandButton value="Submit"  action="#{lectureController.createAll()}" ></p:commandButton>
 
+                </p:dataTable>
+                <p:commandButton value="Submit" id="submitMultiple"  onclick="this.style.display='none';"  action="#{lectureController.createAll()}" ></p:commandButton>
+                
             </h:form> 
+            <p:outputLabel id="label" value="Please Wait" />
         </ui:define>
     </ui:composition>
 

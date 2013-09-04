@@ -17,16 +17,21 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.PhaseId;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.SlideEndEvent;
 
 @ManagedBean(name = "lectureController")
 @SessionScoped
@@ -41,6 +46,16 @@ public class LectureController implements Serializable {
     private Date startDate;
     private Date endDate;
     private int startIndex;
+    private boolean[] selectAll;
+
+    public boolean[] getSelectAll() {
+        return selectAll;
+    }
+
+    public void setSelectAll(boolean[] selectAll) {
+        this.selectAll = selectAll;
+    }
+
 
     public int getStartIndex() {
         return startIndex;
@@ -281,6 +296,7 @@ public class LectureController implements Serializable {
         return total;
     }
 
+
     public String createA() {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
@@ -302,7 +318,60 @@ public class LectureController implements Serializable {
             return "View?faces-redirect=true";
         }
     }
+    public void selectAllComponents(ValueChangeEvent event) {
+        if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            event.queue();
+        } 
+        else {
 
+             UIData data = (UIData) event.getComponent().findComponent("listComponents");
+             CurrentStudent cs = (CurrentStudent)data.getRowData();
+             System.out.println("Old:" +event.getOldValue().toString());
+             System.out.println("New:" + event.getNewValue().toString());
+             short newValue = (Short) event.getNewValue();
+             if (newValue > 0) {
+                 cs.setLectureAttended(newValue);
+                 int i;
+                for( i = 0; i < lectureList.size() && i < newValue ; i++) {
+                
+                    lectureList.get(i).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                    System.out.println(lectureList.get(i).getChecked());
+                    
+                }
+                for(int j = i; j< lectureList.size() ; j++) {
+                    lectureList.get(j).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
+                    System.out.println(lectureList.get(j).getChecked());
+                }
+
+            } 
+        }
+    }
+    
+    public void onSlideEnd(SlideEndEvent event) {
+        
+        UIData data = (UIData) event.getComponent().findComponent("listComponents");
+        CurrentStudent cs = (CurrentStudent) data.getRowData();
+        short newValue = (short) event.getValue();
+        if (newValue >= 0) {
+            cs.setLectureAttended(newValue);
+            int i;
+            for (i = 0; i < lectureList.size() && i < newValue; i++) {
+
+                lectureList.get(i).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                System.out.println(lectureList.get(i).getChecked());
+
+            }
+            for (int j = i; j < lectureList.size(); j++) {
+                lectureList.get(j).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
+                System.out.println(lectureList.get(j).getChecked());
+            }
+        }
+        FacesMessage msg = new FacesMessage("Slide Ended", "Value: " + event.getValue());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    
     public String createAll() throws Exception {
 
         for (Lecture lec : lectureList) {

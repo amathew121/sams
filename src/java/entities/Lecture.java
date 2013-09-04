@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
@@ -73,10 +74,21 @@ public class Lecture implements Serializable {
     @Transient
     private Long attendanceCount;
     @Transient
+    private Boolean check;
+    
+    @Transient
     private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
 
     @Transient
     private boolean selectAll;
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
+    }
     
     public Map<Integer, Boolean> getChecked() {
         return checked;
@@ -94,7 +106,12 @@ public class Lecture implements Serializable {
     public void setSelectAll(boolean selectAll) {
         this.selectAll = selectAll;
     }
-
+    public void checkedControl(ValueChangeEvent event) {
+        UIData data = (UIData) event.getComponent().findComponent("listComponents");
+        CurrentStudent cs = (CurrentStudent) data.getRowData();
+        getChecked().put(cs.getIdCurrentStudent(), true);
+    }
+    
     public void selectAllComponents(ValueChangeEvent event) {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);

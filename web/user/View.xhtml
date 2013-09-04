@@ -22,14 +22,18 @@
             </h:form>
             <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
-                <p:commandButton action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
+                <p:commandButton onclick="this.style.display='none';" action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
 
                 <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
+                    <p:ajax event="rowToggle" />  
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="No"/>
                         </f:facet>
                         <h:outputText value="#{index + 1}" />
+                        <p:rowToggler />  
+
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -67,9 +71,7 @@
                         </f:facet>
                         <h:outputText value="#{c.attendanceCount}"/>
                     </p:column>
-                    <p:ajax event="rowToggle" />  
                     <p:column style="width:2%">  
-                        <p:rowToggler />  
                         <h:commandLink action="#{lectureController.destroyLectureRestrict(lectureController.getLectureByLecID(c.idLecture))}" title="Delete" >
                             <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
                         </h:commandLink>

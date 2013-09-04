@@ -100,7 +100,7 @@ public class CurrentStudentController implements Serializable {
     public void setCourse(Course course) {
         this.course = course;
     }
-
+    
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
@@ -420,6 +420,10 @@ public class CurrentStudentController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+    
+    public CurrentStudent getCurrentStudentByID(Integer idCurrentStudent) {
+        return getFacade().find(idCurrentStudent);
     }
 
     private void recreateModel() {

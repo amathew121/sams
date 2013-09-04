@@ -4,9 +4,15 @@
  */
 package entities;
 
+import controllers.CurrentStudentController;
+import controllers.LectureController;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.faces.component.UIData;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,12 +54,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CurrentStudent.findByProvisional", query = "SELECT c FROM CurrentStudent c WHERE c.provisional = :provisional"),
     @NamedQuery(name = "CurrentStudent.findByAcademicYear", query = "SELECT c FROM CurrentStudent c WHERE c.academicYear = :academicYear")})
 public class CurrentStudent implements Serializable {
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentStudent")
     private List<StudentTest> studentTestList;
     @Column(name = "roll_no")
     private Integer rollNo;
     private static final long serialVersionUID = 1L;
-    @Id  
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_current_student")
@@ -96,6 +103,27 @@ public class CurrentStudent implements Serializable {
     private int theoryCountTotal;
     @Transient
     private short marks;
+    @Transient
+    private short lectureAttended;
+    @Transient
+    private boolean selectAll;
+
+    public short getLectureAttended() {
+        return lectureAttended;
+    }
+
+    public void setLectureAttended(short lectureAttended) {
+        this.lectureAttended = lectureAttended;
+    }
+
+    
+    public boolean isSelectAll() {
+        return selectAll;
+    }
+
+    public void setSelectAll(boolean selectAll) {
+        this.selectAll = selectAll;
+    }
 
     public short getMarks() {
         return marks;
@@ -106,8 +134,8 @@ public class CurrentStudent implements Serializable {
     }
 
     public int getTheoryCountTotal() {
-        theoryCountTotal =0;
-        for(int t : theoryCount){
+        theoryCountTotal = 0;
+        for (int t : theoryCount) {
             theoryCountTotal += t;
         }
         return theoryCountTotal;
@@ -121,7 +149,6 @@ public class CurrentStudent implements Serializable {
         this.theoryCount = theoryCount;
     }
 
-    
     public int getCount() {
         return count;
     }
@@ -129,16 +156,14 @@ public class CurrentStudent implements Serializable {
     public void setCount(int count) {
         this.count = count;
     }
-    
-    public boolean isSelectedBool () {
+
+    public boolean isSelectedBool() {
         return selectedBool;
     }
-    
+
     public void setSelectedB(boolean selectedB) {
         this.selectedBool = selectedB;
     }
-    
-    
 
     public CurrentStudent() {
     }
@@ -155,8 +180,40 @@ public class CurrentStudent implements Serializable {
         this.academicYear = academicYear;
     }
 
-            public Integer getIdCurrentStudent() {
+    public Integer getIdCurrentStudent() {
         return idCurrentStudent;
+    }
+
+    public void selectAllComponents(ValueChangeEvent event) {
+        if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            event.queue();
+        } else {
+
+            UIData data = (UIData) event.getComponent().findComponent("listComponents");
+            CurrentStudent cs = (CurrentStudent) data.getRowData();
+            FacesContext context = FacesContext.getCurrentInstance();
+            LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+
+            if (selectAll) {
+                for (Lecture lec : lc.getLectureList()) {
+                    lec.getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                    System.out.println(lec.getChecked());
+
+                }
+
+                setSelectAll(true);
+                System.out.println("True ");
+            } else // If the button is unchecked, unselect all the checkboxes
+            {
+                for (Lecture lec : lc.getLectureList()) {
+                    lec.getChecked().put(((CurrentStudent) data.getRowData()).getIdCurrentStudent(), Boolean.FALSE);
+                }
+                System.out.println("False ");
+                setSelectAll(false);
+
+            }
+        }
     }
 
     public void setIdCurrentStudent(Integer idCurrentStudent) {
@@ -200,7 +257,7 @@ public class CurrentStudent implements Serializable {
     }
 
     public void setAcademicYear(Date academicYear) {
-        
+
         this.academicYear = academicYear;
     }
 
@@ -269,5 +326,4 @@ public class CurrentStudent implements Serializable {
     public void setStudentTestList(List<StudentTest> studentTestList) {
         this.studentTestList = studentTestList;
     }
-    
 }
