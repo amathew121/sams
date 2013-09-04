@@ -196,7 +196,25 @@ public class StudentTestController implements Serializable {
 
         return l;
     }
+    public List<CurrentStudent> getTestDetails(FacultySubject facSub) throws Exception {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+        List<CurrentStudent> l = csc.getAttendanceByDiv(facSub);
+        Map<Integer, Short> hm = new HashMap<Integer, Short>();
+        List<StudentTest> t = new ArrayList<StudentTest>();
+        for (CurrentStudent item : l) {
+            StudentTest temp = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 1);
 
+            if (temp != null) {
+                t.add(temp);
+                item.setMarks(temp.getMarks());
+
+            }
+        }
+
+        return l;
+    }
+    
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();

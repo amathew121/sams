@@ -64,11 +64,12 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         q.setParameter("batch", batch);
         q.setParameter("idSubject", idSubject);
         try {
-        return (FacultySubject) q.getSingleResult();
-    
+        List<FacultySubject> l = q.getResultList();
+        return l.get(0);
         }
         catch (Exception e) {
-            return new FacultySubject();
+            e.printStackTrace();
+            return null;
         }
     }
 }

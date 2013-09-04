@@ -100,6 +100,8 @@ public class CurrentStudent implements Serializable {
     @Transient
     private int[] theoryCount = new int[10];
     @Transient
+    private int[] marksAll = new int[10];
+    @Transient
     private int theoryCountTotal;
     @Transient
     private short marks;
@@ -131,6 +133,14 @@ public class CurrentStudent implements Serializable {
 
     public void setMarks(short marks) {
         this.marks = marks;
+    }
+
+    public int[] getMarksAll() {
+        return marksAll;
+    }
+
+    public void setMarksAll(int[] marksAll) {
+        this.marksAll = marksAll;
     }
 
     public int getTheoryCountTotal() {

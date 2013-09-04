@@ -61,7 +61,7 @@ public class AttendanceReportController implements Serializable {
     public void setIdFacSub(int idFacSub) {
         this.idFacSub = idFacSub;
     }
-    
+
     public void prepareListAttendanceReport() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAll.xhtml");
@@ -69,6 +69,7 @@ public class AttendanceReportController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -102,14 +103,13 @@ public class AttendanceReportController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-    
 
     public String prepareViewWithId(int i) {
         idFacSub = i;
         recreateModel();
         return "Student?faces-redirect=true";
     }
-    
+
     public String create() {
         try {
             getFacade().create(current);
@@ -130,41 +130,54 @@ public class AttendanceReportController implements Serializable {
     public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {
         return getFacade().getStudentAttendanceBySubDivSem(course, division, semester, idSubject);
     }
+
     public List<Integer> getStudentAttendanceCountByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {
         return getFacade().getStudentAttendanceCountByFS(course, division, semester, idSubject);
     }
-    
-    public List<CurrentStudent> getStudentAttendanceByFS(int idFacSub)
-    {
+
+    public List<CurrentStudent> getStudentAttendanceByFS(int idFacSub) {
         List<Object[]> l = getFacade().getStudentAttendanceByFS(idFacSub);
         List<AttendanceReport> ls = new ArrayList();
-        for (Object[] c : l)
-        {
+        for (Object[] c : l) {
             ((AttendanceReport) c[0]).setCount(((Number) c[1]).intValue());
             ls.add((AttendanceReport) c[0]);
-            
+
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
-        Map<Integer, Integer> hm = new HashMap<Integer,Integer>();
-        
+        StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
+
+        Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
+        Map<Integer, Short> hn = new HashMap<Integer, Short>();
+
         List<CurrentStudent> lcs = csc.getAttendanceByDiv(fsc.getIdFacSub(idFacSub));
-        for(CurrentStudent item : lcs) {
+        for (CurrentStudent item : lcs) {
             hm.put(item.getIdCurrentStudent(), 0);
+            hn.put(item.getIdCurrentStudent(), (short) 0);
         }
 
         for (AttendanceReport item : ls) {
             hm.put(item.getIdCurrentStudent(), item.getCount());
         }
+        try {
+            List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(idFacSub));
+            for (CurrentStudent item : st) {
+                hn.put(item.getIdCurrentStudent(), item.getMarks());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         for (CurrentStudent item : lcs) {
             item.setCount(hm.get(item.getIdCurrentStudent()));
+            item.setMarks(hn.get(item.getIdCurrentStudent()));
         }
+
         return lcs;
     }
 
-    
     public String update() {
         try {
             getFacade().edit(current);

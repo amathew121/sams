@@ -12,6 +12,10 @@ import entities.Lecture;
 import entities.ProgramCourse;
 import entities.ProgramCoursePK;
 import entities.Subject;
+import entities.TeachingPlan;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,6 +40,10 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
 
 @ManagedBean(name = "currentStudentController")
 @SessionScoped
@@ -244,6 +252,7 @@ public class CurrentStudentController implements Serializable {
         
         FacesContext context = FacesContext.getCurrentInstance();
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
+        FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
 
         List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(course, semester, division);
 
@@ -251,11 +260,15 @@ public class CurrentStudentController implements Serializable {
        for (Subject item : subject) {
             Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
             List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(course, semester, division, item.getIdSubject());
+           Map<Integer, Short> hn = new HashMap<Integer, Short>();
 
-        
+                   StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
+
             
             for (CurrentStudent cs : lcs) {
                 hm.put(cs.getIdCurrentStudent(), 0);
+                               hn.put(cs.getIdCurrentStudent(), (short) 0);
+
             }
 
             for (Object[] ar : arl) {
@@ -269,8 +282,76 @@ public class CurrentStudentController implements Serializable {
                 cs.setCount(hm.get(cs.getIdCurrentStudent()));
             }
 
+
+           try {
+            List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division,(short) 0, item));
+
+               for (CurrentStudent cs : st) {
+                   hn.put(cs.getIdCurrentStudent(), cs.getMarks());
+               }
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           for (CurrentStudent cs : lcs) {
+               int[] marksAll = cs.getMarksAll();
+               
+               marksAll[item.getSubjectSrNo()] = hn.get(cs.getIdCurrentStudent());
+               cs.setMarksAll(marksAll);
+               cs.setMarks(hn.get(cs.getIdCurrentStudent()));
+           }
+
+
         }
         return lcs;
+    }
+    public String attendanceReportXlsExport() {
+        List<CurrentStudent> currentStudent;
+        currentStudent = getAttendanceList();
+        Map beans = new HashMap();
+        beans.put("currentStudent", currentStudent);
+        beans.put("subject", subject);
+        XLSTransformer transformer = new XLSTransformer();
+        try {
+
+            transformer.transformXLS("/home/piit/Documents/Development/piit/web/resources/templateAttendance.xls", beans, "/home/piit/Documents/Development/piit/web/user/Report.xls");
+        } catch (ParsePropertyException ex) {
+            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+
+            return viewReport();
+        }
+    }
+    public String viewReport() {
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.reset();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=Report.xls");
+
+        try {
+            File file = new File("/home/piit/Documents/Development/piit/web/user/Report.xls");
+            FileInputStream fileIn = new FileInputStream(file);
+            ServletOutputStream out = response.getOutputStream();
+
+            byte[] outputByte = new byte[4096];
+            //copy binary contect to output stream
+            while (fileIn.read(outputByte, 0, 4096) != -1) {
+                out.write(outputByte, 0, 4096);
+            }
+            fileIn.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.responseComplete();
+        return null;
     }
 
     public List<CurrentStudent> getAttendanceByDiv() {

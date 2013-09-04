@@ -19,7 +19,7 @@
                 <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowIndexVar="rowIndex" rowKey="#{c.idCurrentStudent}" var="c" >
 
 
-                    <p:column width="5%">
+                    <p:column width="3%">
                         <f:facet name="header">
                             RNo
                         </f:facet>
@@ -39,7 +39,7 @@
                            <p:ajax process="@this" event="slideEnd" listener="#{lectureController.onSlideEnd}" update=":createMultiple:listComponents" />  
                         </p:slider> 
                     </p:column>
-                    <p:columns id="attendanceComponent" width="5%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
+                    <p:columns id="attendanceComponent" width="3%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
                         <f:facet name="header" >
                             <h:outputText value="#{index+1}" />
                             <br />
