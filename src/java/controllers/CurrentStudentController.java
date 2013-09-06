@@ -282,7 +282,9 @@ public class CurrentStudentController implements Serializable {
                 cs.setCount(hm.get(cs.getIdCurrentStudent()));
             }
 
-
+           LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+           item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, (short) 0, item)).size());
+           
            try {
             List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division,(short) 0, item));
 

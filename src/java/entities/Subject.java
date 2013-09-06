@@ -21,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -116,7 +117,18 @@ public class Subject implements Serializable {
     private ProgramCourse programCourse;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSubject")
     private Collection<FacultySubject> facultySubjectCollection;
+    @Transient
+    private int lectureTotal;
 
+    public int getLectureTotal() {
+        return lectureTotal;
+    }
+
+    public void setLectureTotal(int lectureTotal) {
+        this.lectureTotal = lectureTotal;
+    }
+    
+    
     public Subject() {
     }
 

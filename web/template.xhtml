@@ -28,8 +28,8 @@
 
 
             <h:form style="position: relative; float: right; padding-left: 2%;">
-                <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}" value="Manage" >
-                    <p:menuitem  action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
+                <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') ||  facesContext.externalContext.isUserInRole('coordinator')}" value="Manage" >
+                    <p:menuitem  rendered="#{!facesContext.externalContext.isUserInRole('coordinator') }" action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
                     <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
                     <p:menuitem  action="#{attendanceReportController.prepareListAttendanceReport()}" value="Attendance Report" ajax="false" />
                     <p:separator ></p:separator>
