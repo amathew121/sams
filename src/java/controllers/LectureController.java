@@ -353,18 +353,19 @@ public class LectureController implements Serializable {
         UIData data = (UIData) event.getComponent().findComponent("listComponents");
         CurrentStudent cs = (CurrentStudent) data.getRowData();
         short newValue = (short) event.getValue();
+        RandomPermutation r = new RandomPermutation(lectureList.size());
         if (newValue >= 0) {
             cs.setLectureAttended(newValue);
             int i;
             for (i = 0; i < lectureList.size() && i < newValue; i++) {
 
-                lectureList.get(i).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
-                System.out.println(lectureList.get(i).getChecked());
+                lectureList.get(r.next()).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                System.out.println(lectureList.get(i).getChecked(r.next()));
 
             }
             for (int j = i; j < lectureList.size(); j++) {
-                lectureList.get(j).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
-                System.out.println(lectureList.get(j).getChecked());
+                lectureList.get(r.next()).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
+                System.out.println(lectureList.get(r.next()).getChecked());
             }
         }
         FacesMessage msg = new FacesMessage("Slide Ended", "Value: " + event.getValue());
