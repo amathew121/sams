@@ -107,6 +107,8 @@
             <description/>
             <role-name>coordinator</role-name>
             <role-name>superuser</role-name>
+            <role-name>hod</role-name>
+            <role-name>principal</role-name>
         </auth-constraint>
         <user-data-constraint>
             <description/>

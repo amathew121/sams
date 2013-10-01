@@ -76,36 +76,51 @@
                     <f:facet name="header">
                         L.No
                     </f:facet>
-                    #{c.lectureNo}
+                    #{c.t.lectureNo}
                 </p:column>
                 <p:column>
                     <f:facet name="header">
                         M.No
                     </f:facet>
-                    #{c.moduleNo}
+                    #{c.t.moduleNo}
                 </p:column>
 
                 <p:column style="width: 40%; white-space: normal " >
                     <f:facet name="header">
                         Topics Planned
                     </f:facet>
-                    #{c.topicsPlanned}
+                    #{c.t.topicsPlanned}
+
+                </p:column>
+                <p:column style="width: 40%; white-space: normal " >
+                    <f:facet name="header">
+                        Contents Delivered
+                    </f:facet>
+                    #{c.l.contentDelivered}
 
                 </p:column>
                 <p:column >
                     <f:facet name="header">
                         Planned on
                     </f:facet>
-                    <h:outputText value="#{c.plannedDate}">
+                    <h:outputText value="#{c.t.plannedDate}">
+                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                    </h:outputText>
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        Delivered on
+                    </f:facet>
+                    <h:outputText value="#{c.l.lectureDate}">
                         <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                     </h:outputText>
                 </p:column>
                 <p:column style="width:70px">  
 
-                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c)}" >
+                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c.t)}" >
                         <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/editicon.jpg" />  
                     </h:commandLink>
-                    <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c)}" >
+                    <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c.t)}" >
                         <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
                     </h:commandLink>
                 </p:column>  

@@ -359,13 +359,13 @@ public class LectureController implements Serializable {
             int i;
             for (i = 0; i < lectureList.size() && i < newValue; i++) {
 
-                lectureList.get(r.next()).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
-                System.out.println(lectureList.get(i).getChecked(r.next()));
+                lectureList.get(r.next()-1).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                System.out.println(lectureList.get(i).getChecked());
 
             }
             for (int j = i; j < lectureList.size(); j++) {
-                lectureList.get(r.next()).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
-                System.out.println(lectureList.get(r.next()).getChecked());
+                lectureList.get(r.next()-1).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
+                System.out.println(lectureList.get(j).getChecked());
             }
         }
         FacesMessage msg = new FacesMessage("Slide Ended", "Value: " + event.getValue());

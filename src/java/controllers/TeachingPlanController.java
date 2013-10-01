@@ -5,6 +5,8 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.TeachingPlanFacade;
 import entities.FacultySubject;
+import entities.Lecture;
+import entities.LectureTPlan;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -319,8 +321,26 @@ public class TeachingPlanController implements Serializable {
     }
 
     public DataModel getItemsUser() {
+        
+        List<TeachingPlan> t = getItemsUserExport();
+        FacesContext context = FacesContext.getCurrentInstance();
+        LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+        List<Lecture> ll = lc.getLectureByFSList(facSub);
+        List<LectureTPlan> lt = new ArrayList();
+        for(int i=0; i < t.size(); i++) {
+            if(i< ll.size() ){
+                LectureTPlan temp = new LectureTPlan(t.get(i),ll.get(i));
+                lt.add(temp);
+            }
+            else {
+                LectureTPlan temp = new LectureTPlan(t.get(i));
+                lt.add(temp);
+            }
 
-        itemsUser = new ListDataModel(getItemsUserExport());
+        }
+        
+        
+        itemsUser = new ListDataModel(lt);
 
         return itemsUser;
     }
@@ -403,3 +423,4 @@ public class TeachingPlanController implements Serializable {
         }
     }
 }
+
