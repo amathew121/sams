@@ -32,6 +32,11 @@
                             <p:ajax />
                         </p:inputText>
                     </p:column>
+                    <p:column headerText="Test 2">
+                        <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks2}" valueChangeListener="#{studentTestController.test2MarksChanged}" >
+                            <p:ajax />
+                        </p:inputText>
+                    </p:column>
                     
 
                 </p:dataTable>

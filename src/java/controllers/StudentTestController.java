@@ -178,6 +178,32 @@ public class StudentTestController implements Serializable {
         }
     }
     
+        public void test2MarksChanged(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 2);
+
+        t.setMarks2(Short.parseShort(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setMarks(t.getMarks2());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setMarks(t.getMarks2());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 2);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+    
     public List<CurrentStudent> getTestDetails() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -190,6 +216,13 @@ public class StudentTestController implements Serializable {
             if (temp != null) {
                 t.add(temp);
                 item.setMarks(temp.getMarks());
+
+            } 
+            StudentTest temp2 = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 2);
+
+            if (temp2 != null) {
+                t.add(temp2);
+                item.setMarks2(temp2.getMarks());
 
             } 
         }
@@ -208,6 +241,13 @@ public class StudentTestController implements Serializable {
             if (temp != null) {
                 t.add(temp);
                 item.setMarks(temp.getMarks());
+
+            }
+            StudentTest temp2 = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 2);
+
+            if (temp2 != null) {
+                t.add(temp2);
+                item.setMarks2(temp2.getMarks());
 
             }
         }

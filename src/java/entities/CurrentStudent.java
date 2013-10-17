@@ -109,7 +109,10 @@ public class CurrentStudent implements Serializable {
     private short lectureAttended;
     @Transient
     private boolean selectAll;
-
+    @Transient
+    private short marks2;
+    
+    
     public short getLectureAttended() {
         return lectureAttended;
     }
@@ -135,6 +138,15 @@ public class CurrentStudent implements Serializable {
         this.marks = marks;
     }
 
+    public short getMarks2() {
+        return marks2;
+    }
+
+    public void setMarks2(short marks2) {
+        this.marks2 = marks2;
+    }
+
+    
     public int[] getMarksAll() {
         return marksAll;
     }

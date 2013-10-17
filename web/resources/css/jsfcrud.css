@@ -83,3 +83,6 @@ tr.jsfcrud_even_row {
     top: 50%;
 }
 
+.colored {
+    background-color: red;
+}

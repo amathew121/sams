@@ -151,11 +151,14 @@ public class AttendanceReportController implements Serializable {
 
         Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
         Map<Integer, Short> hn = new HashMap<Integer, Short>();
+        Map<Integer, Short> hn2 = new HashMap<Integer, Short>();
 
         List<CurrentStudent> lcs = csc.getAttendanceByDiv(fsc.getIdFacSub(idFacSub));
         for (CurrentStudent item : lcs) {
             hm.put(item.getIdCurrentStudent(), 0);
             hn.put(item.getIdCurrentStudent(), (short) 0);
+            hn2.put(item.getIdCurrentStudent(), (short) 0);
+
         }
 
         for (AttendanceReport item : ls) {
@@ -165,6 +168,8 @@ public class AttendanceReportController implements Serializable {
             List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(idFacSub));
             for (CurrentStudent item : st) {
                 hn.put(item.getIdCurrentStudent(), item.getMarks());
+                hn2.put(item.getIdCurrentStudent(), item.getMarks2());
+
             }
 
         } catch (Exception e) {
@@ -173,6 +178,8 @@ public class AttendanceReportController implements Serializable {
         for (CurrentStudent item : lcs) {
             item.setCount(hm.get(item.getIdCurrentStudent()));
             item.setMarks(hn.get(item.getIdCurrentStudent()));
+            item.setMarks2(hn2.get(item.getIdCurrentStudent()));
+
         }
 
         return lcs;

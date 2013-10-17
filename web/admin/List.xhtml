@@ -27,11 +27,16 @@
                 <h:panelGroup style="text-align: center">
                     <p:dataTable value="#{facultySubjectViewController.getListByDept(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" var="item" >   
 
-
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value=""/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProgram}"/>
+                        </p:column>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Semester"/>
+                                <h:outputText value="Sem"/>
                             </f:facet>
                             <h:outputText value="#{item.semester}"/>
                         </p:column>
@@ -39,7 +44,7 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_division}"/>
+                                <h:outputText value="Div"/>
                             </f:facet>
                             <h:outputText value="#{item.division}"/>
                         </p:column>
@@ -51,7 +56,7 @@
                         </p:column>  
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFacultySubjectViewTitle_batch}"/>
+                                <h:outputText value="Batch"/>
                             </f:facet>
                             <h:outputText value="#{item.batch}"/>
                         </p:column>
@@ -64,13 +69,13 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Planned Lectures" styleClass="whitespace:normal"/>
+                                <h:outputText value="Planned" styleClass="whitespace:normal"/>
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size()}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Lectures Delivered" styleClass="whitespace:normal"/>
+                                <h:outputText value="Delivered" styleClass="whitespace:normal"/>
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size()}"/>
                         </p:column>
