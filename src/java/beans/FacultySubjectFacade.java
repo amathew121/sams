@@ -7,6 +7,7 @@ package beans;
 import entities.Faculty;
 import entities.FacultySubject;
 import entities.FacultySubjectView;
+import entities.ProgramCourse;
 import entities.Subject;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -71,5 +72,13 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
             e.printStackTrace();
             return null;
         }
+    }
+        public List<FacultySubject> getFSBySemDivSub(short semester, String division, ProgramCourse programCourse) {
+        Query q = em.createNamedQuery("FacultySubject.findBySemDivPC");
+        q.setParameter("division", division);
+        q.setParameter("semester", semester);
+        q.setParameter("programCourse", programCourse);
+        return q.getResultList();
+   
     }
 }

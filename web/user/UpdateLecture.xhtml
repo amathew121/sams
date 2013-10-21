@@ -15,6 +15,9 @@
 
             <h:form>
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />
+                <p:layout style="min-width:400px;min-height:200px; max-height: 200px;" id="layout"> 
+                    <p:layoutUnit position="west" resizable="true" size="100" minSize="600" maxSize="700">  
+
                 <h:panelGrid columns="2">
                     <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
                     <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
@@ -29,7 +32,36 @@
                         myCalendar.jqEl.datepicker("option", "minDate", -3);
                     });
                 </script> -->
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center" >
+                        <p:scrollPanel mode="native" style="white-space: normal; width: 100%;">
+                            <p:dataTable style="text-align: left;" id="teachPlan" value="#{teachingPlanController.getItemsUserExport(lectureController.facSub)}" var="c" >                
 
+                                <p:column>
+                                    <f:facet name="header">
+                                        No
+                                    </f:facet>
+                                    #{c.lectureNo}
+                                </p:column>
+                                <p:column style="width: 85%; white-space: normal " >
+                                    <f:facet name="header">
+                                        Topics Planned
+                                    </f:facet>
+                                    #{c.topicsPlanned}
+
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        Planned
+                                    </f:facet>
+                                    <h:outputText value="#{c.plannedDate}">
+                                        <f:convertDateTime timeZone="IST" pattern="dd-MM" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:scrollPanel>
+                         </p:layoutUnit>
+                </p:layout>
                 <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
                 <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 

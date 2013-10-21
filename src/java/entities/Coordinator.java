@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Coordinator.findAll", query = "SELECT c FROM Coordinator c"),
+        @NamedQuery(name = "Coordinator.findByFaculty", query = "SELECT c FROM Coordinator c WHERE c.faculty = :faculty"),
+
     @NamedQuery(name = "Coordinator.findByIdFaculty", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idFaculty = :idFaculty"),
     @NamedQuery(name = "Coordinator.findByIdProgram", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idProgram = :idProgram"),
     @NamedQuery(name = "Coordinator.findByIdCourse", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idCourse = :idCourse"),
@@ -111,7 +113,7 @@ public class Coordinator implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Coordinator[ coordinatorPK=" + coordinatorPK + " ]";
+        return coordinatorPK.toString();
     }
     
 }

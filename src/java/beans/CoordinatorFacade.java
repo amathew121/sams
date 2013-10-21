@@ -5,9 +5,11 @@
 package beans;
 
 import entities.Coordinator;
+import entities.Faculty;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +27,16 @@ public class CoordinatorFacade extends AbstractFacade<Coordinator> {
 
     public CoordinatorFacade() {
         super(Coordinator.class);
+    }
+    
+    public Coordinator findByUser(Faculty idFaculty)
+    {
+        Query q = em.createNamedQuery("Coordinator.findByFaculty");
+        q.setParameter("faculty", idFaculty);
+        if(q.getResultList().size() >0)
+        return (Coordinator) q.getResultList().get(0);
+        else
+            return null;
     }
     
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="Student UID for Feedback 2013"></h:outputText>
+        </ui:define>
+        <ui:define name="body"> 
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
+                <p:selectOneMenu value="#{feedback2013StudentController.c}" >
+                    <f:selectItems value="#{coordinatorController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <br />
+                <p:commandButton value="Submit" action="#{feedback2013StudentController.navSame()}" update =":tPlan" />
+            </h:form>
+            <h:form id="tPlan" styleClass="jsfcrud_list_form">
+
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:panelGroup style="text-align: center">
+                    <p:dataTable id="tbl" style="width: 50%;" value="#{feedback2013StudentController.studentList}" var="item" >   
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="User ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.uid}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Password"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pwd}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Login Status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.loginStatus}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGroup>
+                <p:panel style="width: 20%" header="Export All Data">  
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.jpg" style="width: 50px; height: 50px" />  
+                        <p:dataExporter type="xls" target="tbl" fileName="#{'uid-'}#{item.programCourse}#{item.semester}#{item.division}" />  
+                    </h:commandLink>  
+                </p:panel>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

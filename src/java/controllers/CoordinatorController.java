@@ -4,6 +4,7 @@ import entities.Coordinator;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.CoordinatorFacade;
+import entities.Faculty;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -62,6 +63,12 @@ public class CoordinatorController implements Serializable {
         return pagination;
     }
 
+    public Coordinator getLoggedUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacultyController facultyController = (FacultyController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "facultyController");
+        Faculty idFaculty = facultyController.getFaculty(context.getExternalContext().getRemoteUser());
+        return getFacade().findByUser(idFaculty);
+    }
     public String prepareList() {
         recreateModel();
         return "List";

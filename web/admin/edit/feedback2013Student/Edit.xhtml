@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFeedback2013StudentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_uid}" for="uid" />
+                    <h:inputText id="uid" value="#{feedback2013StudentController.selected.uid}" title="#{bundle.EditFeedback2013StudentTitle_uid}" required="true" requiredMessage="#{bundle.EditFeedback2013StudentRequiredMessage_uid}"/>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_pwd}" for="pwd" />
+                    <h:inputText id="pwd" value="#{feedback2013StudentController.selected.pwd}" title="#{bundle.EditFeedback2013StudentTitle_pwd}" required="true" requiredMessage="#{bundle.EditFeedback2013StudentRequiredMessage_pwd}"/>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_semester}" for="semester" />
+                    <h:inputText id="semester" value="#{feedback2013StudentController.selected.semester}" title="#{bundle.EditFeedback2013StudentTitle_semester}" required="true" requiredMessage="#{bundle.EditFeedback2013StudentRequiredMessage_semester}"/>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_division}" for="division" />
+                    <h:inputText id="division" value="#{feedback2013StudentController.selected.division}" title="#{bundle.EditFeedback2013StudentTitle_division}" required="true" requiredMessage="#{bundle.EditFeedback2013StudentRequiredMessage_division}"/>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_batch}" for="batch" />
+                    <h:inputText id="batch" value="#{feedback2013StudentController.selected.batch}" title="#{bundle.EditFeedback2013StudentTitle_batch}" />
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_loginStatus}" for="loginStatus" />
+                    <h:inputText id="loginStatus" value="#{feedback2013StudentController.selected.loginStatus}" title="#{bundle.EditFeedback2013StudentTitle_loginStatus}" />
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_loginTime}" for="loginTime" />
+                    <h:inputText id="loginTime" value="#{feedback2013StudentController.selected.loginTime}" title="#{bundle.EditFeedback2013StudentTitle_loginTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_logoutTime}" for="logoutTime" />
+                    <h:inputText id="logoutTime" value="#{feedback2013StudentController.selected.logoutTime}" title="#{bundle.EditFeedback2013StudentTitle_logoutTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditFeedback2013StudentLabel_ipAddress}" for="ipAddress" />
+                    <h:inputText id="ipAddress" value="#{feedback2013StudentController.selected.ipAddress}" title="#{bundle.EditFeedback2013StudentTitle_ipAddress}" />
+                </h:panelGrid>
+                <h:commandLink action="#{feedback2013StudentController.update}" value="#{bundle.EditFeedback2013StudentSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFeedback2013StudentViewLink}"/>
+                <br />
+                <h:commandLink action="#{feedback2013StudentController.prepareList}" value="#{bundle.EditFeedback2013StudentShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFeedback2013StudentIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFeedback2013StudentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_uid}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.uid}" title="#{bundle.ViewFeedback2013StudentTitle_uid}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_pwd}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.pwd}" title="#{bundle.ViewFeedback2013StudentTitle_pwd}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_semester}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.semester}" title="#{bundle.ViewFeedback2013StudentTitle_semester}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_division}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.division}" title="#{bundle.ViewFeedback2013StudentTitle_division}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_batch}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.batch}" title="#{bundle.ViewFeedback2013StudentTitle_batch}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_loginStatus}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.loginStatus}" title="#{bundle.ViewFeedback2013StudentTitle_loginStatus}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_loginTime}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.loginTime}" title="#{bundle.ViewFeedback2013StudentTitle_loginTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_logoutTime}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.logoutTime}" title="#{bundle.ViewFeedback2013StudentTitle_logoutTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFeedback2013StudentLabel_ipAddress}"/>
+                    <h:outputText value="#{feedback2013StudentController.selected.ipAddress}" title="#{bundle.ViewFeedback2013StudentTitle_ipAddress}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{feedback2013StudentController.destroyAndView}" value="#{bundle.ViewFeedback2013StudentDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFeedback2013StudentEditLink}"/>
+                <br />
+                <h:commandLink action="#{feedback2013StudentController.prepareCreate}" value="#{bundle.ViewFeedback2013StudentCreateLink}" />
+                <br />
+                <h:commandLink action="#{feedback2013StudentController.prepareList}" value="#{bundle.ViewFeedback2013StudentShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFeedback2013StudentIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

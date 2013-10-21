@@ -102,6 +102,8 @@
             <web-resource-name>Manage Faculty</web-resource-name>
             <description/>
             <url-pattern>/faces/admin/ReportAll.xhtml</url-pattern>
+            <url-pattern>/faces/admin/FeedbackUID.xhtml</url-pattern>
+            <url-pattern>/faces/admin/FacultyBatches.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

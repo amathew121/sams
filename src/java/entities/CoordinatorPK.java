@@ -131,7 +131,7 @@ public class CoordinatorPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.CoordinatorPK[ idFaculty=" + idFaculty + ", idProgram=" + idProgram + ", idCourse=" + idCourse + ", semester=" + semester + ", division=" + division + " ]";
+        return idFaculty + ", " + idProgram + ", " + idCourse + ", " + semester + ", " + division;
     }
     
 }

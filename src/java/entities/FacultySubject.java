@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "FacultySubject.findAll", query = "SELECT f FROM FacultySubject f"),
     @NamedQuery(name = "FacultySubject.findBySemDivBatchSub", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division"),
+    @NamedQuery(name = "FacultySubject.findBySemDivPC", query = "SELECT f FROM FacultySubject f WHERE f.idSubject.semester = :semester AND f.division = :division AND f.idSubject.programCourse = :programCourse"),
     @NamedQuery(name = "FacultySubject.findByIdFaculty", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty"),
     @NamedQuery(name = "FacultySubject.findByIdFacultySubject", query = "SELECT f FROM FacultySubject f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
@@ -98,6 +99,13 @@ public class FacultySubject implements Serializable {
 
     public short getBatch() {
         return batch;
+    }
+    
+    public String getBatchDetail() {
+        if (batch == 0)
+            return "Theory";
+        else
+            return "Batch "+batch;
     }
 
     public void setBatch(short batch) {

@@ -33,6 +33,8 @@
                     <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
                     <p:menuitem  action="#{attendanceReportController.prepareListAttendanceReport()}" value="Attendance Report" ajax="false" />
                     <p:separator ></p:separator>
+                    <p:menuitem  action="#{feedback2013StudentController.prepareStudentList()}" value="Student IDs" ajax="false" />
+                    <p:menuitem  action="#{facultySubjectController.prepareBatchesBySemDiv()}" value="Faculty/Batches" ajax="false" />
                     <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />
 
                 </p:menuButton>
