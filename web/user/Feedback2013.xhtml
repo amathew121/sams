@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="Feedback"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:accordionPanel multiple="true"  activeIndex="4">
+                <p:tab title="Feedback Performance Index" >
+                    <h:form styleClass="jsfcrud_list_form">
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <p:dataTable value="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(0))}" var="item" >                      
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Subject"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qid.qtext}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idAnswer}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Division"/>
+                                </f:facet>
+                                <h:outputText value="#{item.uid.division}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Batch"/>
+                                </f:facet>
+                                <h:outputText value="#{item.uid.batch}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item)}" 
+                                                  value="Details" immediate="true"/>
+                                <br />
+                                <p:commandButton 
+                                                 action="#{oldFacultyCommentsController.getFeedbackComments(item)}"
+                                                 value="Comments" immediate="true"/>
+
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>
+                </p:tab>
+                <p:tab title="Performance Index BarGraph"  >
+                <h:graphicImage alt="Feedback Scale" url="/resources/images/pi.jpg" width="100%" />
+                </p:tab>
+            </p:accordionPanel>
+            <br />
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

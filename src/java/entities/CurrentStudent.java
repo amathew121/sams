@@ -7,6 +7,7 @@ package entities;
 import controllers.CurrentStudentController;
 import controllers.LectureController;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.faces.component.UIData;
@@ -100,17 +101,17 @@ public class CurrentStudent implements Serializable {
     @Transient
     private int[] theoryCount = new int[10];
     @Transient
-    private int[] marksAll = new int[10];
+    private BigDecimal[] marksAll = new BigDecimal[10];
     @Transient
     private int theoryCountTotal;
     @Transient
-    private short marks;
+    private BigDecimal marks;
     @Transient
     private short lectureAttended;
     @Transient
     private boolean selectAll;
     @Transient
-    private short marks2;
+    private BigDecimal marks2;
     
     
     public short getLectureAttended() {
@@ -130,29 +131,28 @@ public class CurrentStudent implements Serializable {
         this.selectAll = selectAll;
     }
 
-    public short getMarks() {
-        return marks;
-    }
-
-    public void setMarks(short marks) {
-        this.marks = marks;
-    }
-
-    public short getMarks2() {
-        return marks2;
-    }
-
-    public void setMarks2(short marks2) {
-        this.marks2 = marks2;
-    }
-
-    
-    public int[] getMarksAll() {
+    public BigDecimal[] getMarksAll() {
         return marksAll;
     }
 
-    public void setMarksAll(int[] marksAll) {
+    public void setMarksAll(BigDecimal[] marksAll) {
         this.marksAll = marksAll;
+    }
+
+    public BigDecimal getMarks() {
+        return marks;
+    }
+
+    public void setMarks(BigDecimal marks) {
+        this.marks = marks;
+    }
+
+    public BigDecimal getMarks2() {
+        return marks2;
+    }
+
+    public void setMarks2(BigDecimal marks2) {
+        this.marks2 = marks2;
     }
 
     public int getTheoryCountTotal() {

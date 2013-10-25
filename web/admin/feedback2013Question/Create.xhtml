@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFeedback2013QuestionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFeedback2013QuestionLabel_qid}" for="qid" />
+                    <h:inputText id="qid" value="#{feedback2013QuestionController.selected.qid}" title="#{bundle.CreateFeedback2013QuestionTitle_qid}" required="true" requiredMessage="#{bundle.CreateFeedback2013QuestionRequiredMessage_qid}"/>
+                    <h:outputLabel value="#{bundle.CreateFeedback2013QuestionLabel_qtype}" for="qtype" />
+                    <h:inputText id="qtype" value="#{feedback2013QuestionController.selected.qtype}" title="#{bundle.CreateFeedback2013QuestionTitle_qtype}" />
+                    <h:outputLabel value="#{bundle.CreateFeedback2013QuestionLabel_qno}" for="qno" />
+                    <h:inputText id="qno" value="#{feedback2013QuestionController.selected.qno}" title="#{bundle.CreateFeedback2013QuestionTitle_qno}" />
+                    <h:outputLabel value="#{bundle.CreateFeedback2013QuestionLabel_qtext}" for="qtext" />
+                    <h:inputText id="qtext" value="#{feedback2013QuestionController.selected.qtext}" title="#{bundle.CreateFeedback2013QuestionTitle_qtext}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{feedback2013QuestionController.create}" value="#{bundle.CreateFeedback2013QuestionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{feedback2013QuestionController.prepareList}" value="#{bundle.CreateFeedback2013QuestionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFeedback2013QuestionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

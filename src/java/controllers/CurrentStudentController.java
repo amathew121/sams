@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -260,14 +261,14 @@ public class CurrentStudentController implements Serializable {
        for (Subject item : subject) {
             Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
             List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(course, semester, division, item.getIdSubject());
-           Map<Integer, Short> hn = new HashMap<Integer, Short>();
+           Map<Integer, BigDecimal> hn = new HashMap<Integer, BigDecimal>();
 
                    StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
 
             
             for (CurrentStudent cs : lcs) {
                 hm.put(cs.getIdCurrentStudent(), 0);
-                               hn.put(cs.getIdCurrentStudent(), (short) 0);
+                               hn.put(cs.getIdCurrentStudent(), new BigDecimal(0));
 
             }
 
@@ -296,7 +297,7 @@ public class CurrentStudentController implements Serializable {
                e.printStackTrace();
            }
            for (CurrentStudent cs : lcs) {
-               int[] marksAll = cs.getMarksAll();
+               BigDecimal[] marksAll = cs.getMarksAll();
                
                marksAll[item.getSubjectSrNo()] = hn.get(cs.getIdCurrentStudent());
                cs.setMarksAll(marksAll);
@@ -316,7 +317,7 @@ public class CurrentStudentController implements Serializable {
         XLSTransformer transformer = new XLSTransformer();
         try {
 
-            transformer.transformXLS("/home/piit/Documents/Development/piit/web/resources/templateAttendance.xls", beans, "/home/piit/Documents/Development/piit/web/user/Report.xls");
+            transformer.transformXLS("/home/piit/Documents/Development/sams/web/resources/templateAttendance.xls", beans, "/home/piit/Documents/Development/sams/web/user/Report.xls");
         } catch (ParsePropertyException ex) {
             Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -336,7 +337,7 @@ public class CurrentStudentController implements Serializable {
         response.setHeader("Content-Disposition", "attachment;filename=Report.xls");
 
         try {
-            File file = new File("/home/piit/Documents/Development/piit/web/user/Report.xls");
+            File file = new File("/home/piit/Documents/Development/sams/web/user/Report.xls");
             FileInputStream fileIn = new FileInputStream(file);
             ServletOutputStream out = response.getOutputStream();
 

@@ -5,6 +5,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,11 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StudentTest.findByMarks", query = "SELECT s FROM StudentTest s WHERE s.marks = :marks"),
     @NamedQuery(name = "StudentTest.findByTest", query = "SELECT s FROM StudentTest s WHERE s.studentTestPK.test = :test")})
 public class StudentTest implements Serializable {
+     @Max(value=100)  @Min(value=-1)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "marks")
+    private BigDecimal marks;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected StudentTestPK studentTestPK;
-    @Column(name = "marks")
-    private Short marks;
     @JoinColumn(name = "id_subject", referencedColumnName = "id_subject", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Subject subject;
@@ -59,14 +63,6 @@ public class StudentTest implements Serializable {
 
     public void setStudentTestPK(StudentTestPK studentTestPK) {
         this.studentTestPK = studentTestPK;
-    }
-
-    public Short getMarks() {
-        return marks;
-    }
-
-    public void setMarks(Short marks) {
-        this.marks = marks;
     }
 
     public Subject getSubject() {
@@ -108,6 +104,14 @@ public class StudentTest implements Serializable {
     @Override
     public String toString() {
         return "entities.StudentTest[ studentTestPK=" + studentTestPK + " ]";
+    }
+
+    public BigDecimal getMarks() {
+        return marks;
+    }
+
+    public void setMarks(BigDecimal marks) {
+        this.marks = marks;
     }
     
 }

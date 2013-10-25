@@ -9,6 +9,7 @@ import entities.CurrentStudent;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -150,14 +151,14 @@ public class AttendanceReportController implements Serializable {
         StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
 
         Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
-        Map<Integer, Short> hn = new HashMap<Integer, Short>();
-        Map<Integer, Short> hn2 = new HashMap<Integer, Short>();
+        Map<Integer, BigDecimal> hn = new HashMap<Integer, BigDecimal>();
+        Map<Integer, BigDecimal> hn2 = new HashMap<Integer, BigDecimal>();
 
         List<CurrentStudent> lcs = csc.getAttendanceByDiv(fsc.getIdFacSub(idFacSub));
         for (CurrentStudent item : lcs) {
             hm.put(item.getIdCurrentStudent(), 0);
-            hn.put(item.getIdCurrentStudent(), (short) 0);
-            hn2.put(item.getIdCurrentStudent(), (short) 0);
+            hn.put(item.getIdCurrentStudent(), new BigDecimal(0));
+            hn2.put(item.getIdCurrentStudent(), new BigDecimal(0));
 
         }
 

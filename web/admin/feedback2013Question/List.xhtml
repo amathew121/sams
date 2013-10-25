@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFeedback2013QuestionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListFeedback2013QuestionEmpty}" rendered="#{feedback2013QuestionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{feedback2013QuestionController.items.rowCount > 0}">
+                    <h:outputText value="#{feedback2013QuestionController.pagination.pageFirstItem + 1}..#{feedback2013QuestionController.pagination.pageLastItem + 1}/#{feedback2013QuestionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{feedback2013QuestionController.previous}" value="#{bundle.Previous} #{feedback2013QuestionController.pagination.pageSize}" rendered="#{feedback2013QuestionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{feedback2013QuestionController.next}" value="#{bundle.Next} #{feedback2013QuestionController.pagination.pageSize}" rendered="#{feedback2013QuestionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{feedback2013QuestionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedback2013QuestionTitle_qid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedback2013QuestionTitle_qtype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qtype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedback2013QuestionTitle_qno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qno}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedback2013QuestionTitle_qtext}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qtext}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{feedback2013QuestionController.prepareView}" value="#{bundle.ListFeedback2013QuestionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{feedback2013QuestionController.prepareEdit}" value="#{bundle.ListFeedback2013QuestionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{feedback2013QuestionController.destroy}" value="#{bundle.ListFeedback2013QuestionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{feedback2013QuestionController.prepareCreate}" value="#{bundle.ListFeedback2013QuestionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListFeedback2013QuestionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFeedback2013CommentsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFeedback2013CommentsLabel_id}"/>
+                    <h:outputText value="#{feedback2013CommentsController.selected.id}" title="#{bundle.ViewFeedback2013CommentsTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013CommentsLabel_comments}"/>
+                    <h:outputText value="#{feedback2013CommentsController.selected.comments}" title="#{bundle.ViewFeedback2013CommentsTitle_comments}"/>
+                    <h:outputText value="#{bundle.ViewFeedback2013CommentsLabel_uid}"/>
+                    <h:outputText value="#{feedback2013CommentsController.selected.uid}" title="#{bundle.ViewFeedback2013CommentsTitle_uid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{feedback2013CommentsController.destroyAndView}" value="#{bundle.ViewFeedback2013CommentsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFeedback2013CommentsEditLink}"/>
+                <br />
+                <h:commandLink action="#{feedback2013CommentsController.prepareCreate}" value="#{bundle.ViewFeedback2013CommentsCreateLink}" />
+                <br />
+                <h:commandLink action="#{feedback2013CommentsController.prepareList}" value="#{bundle.ViewFeedback2013CommentsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFeedback2013CommentsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

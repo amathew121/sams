@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -30,6 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ProgramCourse.findByIdProgram", query = "SELECT p FROM ProgramCourse p WHERE p.programCoursePK.idProgram = :idProgram"),
     @NamedQuery(name = "ProgramCourse.findByIdCourse", query = "SELECT p FROM ProgramCourse p WHERE p.programCoursePK.idCourse = :idCourse")})
 public class ProgramCourse implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "programCourse")
+    private List<Feedback2013Student> feedback2013StudentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "programCourse")
     private Collection<Coordinator> coordinatorCollection;
     private static final long serialVersionUID = 1L;
@@ -120,6 +123,15 @@ public class ProgramCourse implements Serializable {
 
     public void setCoordinatorCollection(Collection<Coordinator> coordinatorCollection) {
         this.coordinatorCollection = coordinatorCollection;
+    }
+
+    @XmlTransient
+    public List<Feedback2013Student> getFeedback2013StudentList() {
+        return feedback2013StudentList;
+    }
+
+    public void setFeedback2013StudentList(List<Feedback2013Student> feedback2013StudentList) {
+        this.feedback2013StudentList = feedback2013StudentList;
     }
     
 }

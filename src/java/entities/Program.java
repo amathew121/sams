@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,6 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Program.findByProgramName", query = "SELECT p FROM Program p WHERE p.programName = :programName"),
     @NamedQuery(name = "Program.findByNoOfSemesters", query = "SELECT p FROM Program p WHERE p.noOfSemesters = :noOfSemesters")})
 public class Program implements Serializable {
+    @OneToMany(mappedBy = "idProgram")
+    private List<Feedback2013Question> feedback2013QuestionList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -129,6 +132,15 @@ public class Program implements Serializable {
     @Override
     public String toString() {
         return "entities.Program[ idProgram=" + idProgram + " ]";
+    }
+
+    @XmlTransient
+    public List<Feedback2013Question> getFeedback2013QuestionList() {
+        return feedback2013QuestionList;
+    }
+
+    public void setFeedback2013QuestionList(List<Feedback2013Question> feedback2013QuestionList) {
+        this.feedback2013QuestionList = feedback2013QuestionList;
     }
     
 }

@@ -9,6 +9,7 @@ import entities.FacultySubject;
 import entities.StudentTestPK;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -158,7 +159,7 @@ public class StudentTestController implements Serializable {
         CurrentStudent t = (CurrentStudent) data.getRowData();
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
-        t.setMarks(Short.parseShort(e.getNewValue().toString()));
+        t.setMarks(new BigDecimal(e.getNewValue().toString()));
         if(temp != null) {
         temp.setMarks(t.getMarks());
         current = temp;
@@ -184,7 +185,7 @@ public class StudentTestController implements Serializable {
         CurrentStudent t = (CurrentStudent) data.getRowData();
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 2);
 
-        t.setMarks2(Short.parseShort(e.getNewValue().toString()));
+        t.setMarks2(new BigDecimal(e.getNewValue().toString()));
         if(temp != null) {
         temp.setMarks(t.getMarks2());
         current = temp;
@@ -272,7 +273,7 @@ public class StudentTestController implements Serializable {
                 StudentTest temp = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 1);
                 if (temp != null) {
 
-                    temp.setMarks(((Number) newValue).shortValue());
+                    temp.setMarks((BigDecimal) newValue);
                     getFacade().edit(temp);
                 } else {
                     getFacade().create(temp);

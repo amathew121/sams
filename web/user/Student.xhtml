@@ -13,7 +13,9 @@
                     xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Lecture Details"></h:outputText>
+            <h:outputText rendered="#{facultySubjectController.getIdFacSub(attendanceReportController.idFacSub).batch == 0}" value="Lecture Details"></h:outputText>
+            <h:outputText rendered="#{facultySubjectController.getIdFacSub(attendanceReportController.idFacSub).batch > 0}" value="Practical/Tutorial Details"></h:outputText>
+
         </ui:define>
         <ui:define name="body">
             <h:form>
@@ -38,13 +40,13 @@
                     </p:column>
                     <p:column width="10%">
                         <f:facet name="header">
-                            <h:outputText value="Total Lectures"/>
+                            <h:outputText value="Total #"/>
                         </f:facet>
                         <h:outputText value="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(attendanceReportController.idFacSub)).size()}"/>
                     </p:column>
                     <p:column width="10%">
                         <f:facet name="header">
-                            <h:outputText value="Lectures Attended"/>
+                            <h:outputText value="Attended #"/>
                         </f:facet>
                         <h:outputText value="#{c.count}"/>
                     </p:column>

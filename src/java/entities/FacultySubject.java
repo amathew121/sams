@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubject.findByBatch", query = "SELECT f FROM FacultySubject f WHERE f.batch = :batch")})
 public class FacultySubject implements Serializable {
+    @OneToMany(mappedBy = "idFacultySubject")
+    private List<Feedback2013> feedback2013List;
     @Column(name = "academic_year")
     private Integer academicYear;
     private static final long serialVersionUID = 1L;
@@ -177,6 +180,15 @@ public class FacultySubject implements Serializable {
 
     public void setAcademicYear(Integer academicYear) {
         this.academicYear = academicYear;
+    }
+
+    @XmlTransient
+    public List<Feedback2013> getFeedback2013List() {
+        return feedback2013List;
+    }
+
+    public void setFeedback2013List(List<Feedback2013> feedback2013List) {
+        this.feedback2013List = feedback2013List;
     }
     
 }
