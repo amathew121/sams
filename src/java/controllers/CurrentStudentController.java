@@ -262,6 +262,7 @@ public class CurrentStudentController implements Serializable {
             Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
             List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(course, semester, division, item.getIdSubject());
            Map<Integer, BigDecimal> hn = new HashMap<Integer, BigDecimal>();
+           Map<Integer, BigDecimal> hn2 = new HashMap<Integer, BigDecimal>();
 
                    StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
 
@@ -292,6 +293,9 @@ public class CurrentStudentController implements Serializable {
                for (CurrentStudent cs : st) {
                    hn.put(cs.getIdCurrentStudent(), cs.getMarks());
                }
+               for (CurrentStudent cs : st) {
+                   hn2.put(cs.getIdCurrentStudent(), cs.getMarks2());
+               }
 
            } catch (Exception e) {
                e.printStackTrace();
@@ -302,6 +306,13 @@ public class CurrentStudentController implements Serializable {
                marksAll[item.getSubjectSrNo()] = hn.get(cs.getIdCurrentStudent());
                cs.setMarksAll(marksAll);
                cs.setMarks(hn.get(cs.getIdCurrentStudent()));
+           }
+           for (CurrentStudent cs : lcs) {
+               BigDecimal[] marksAll = cs.getMarksAll2();
+
+               marksAll[item.getSubjectSrNo()] = hn2.get(cs.getIdCurrentStudent());
+               cs.setMarksAll2(marksAll);
+               cs.setMarks2(hn2.get(cs.getIdCurrentStudent()));
            }
 
 

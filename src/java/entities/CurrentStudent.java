@@ -103,6 +103,8 @@ public class CurrentStudent implements Serializable {
     @Transient
     private BigDecimal[] marksAll = new BigDecimal[10];
     @Transient
+    private BigDecimal[] marksAll2 = new BigDecimal[10];
+    @Transient
     private int theoryCountTotal;
     @Transient
     private BigDecimal marks;
@@ -125,6 +127,14 @@ public class CurrentStudent implements Serializable {
     
     public boolean isSelectAll() {
         return selectAll;
+    }
+
+    public BigDecimal[] getMarksAll2() {
+        return marksAll2;
+    }
+
+    public void setMarksAll2(BigDecimal[] marksAll2) {
+        this.marksAll2 = marksAll2;
     }
 
     public void setSelectAll(boolean selectAll) {
