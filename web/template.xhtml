@@ -35,6 +35,7 @@
                     <p:separator ></p:separator>
                     <p:menuitem  action="#{feedback2013StudentController.prepareStudentList()}" value="Student IDs" ajax="false" />
                     <p:menuitem  action="#{facultySubjectController.prepareBatchesBySemDiv()}" value="Faculty/Batches" ajax="false" />
+                    <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}"  action="#{reviewerController.prepareCreateR()}" value="Reviewers" ajax="false" />
                     <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />
 
                 </p:menuButton>

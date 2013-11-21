@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateReviewerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateReviewerLabel_idReviewer}" for="idReviewer" />
+                    <h:inputText id="idReviewer" value="#{reviewerController.selected.idReviewer}" title="#{bundle.CreateReviewerTitle_idReviewer}" required="true" requiredMessage="#{bundle.CreateReviewerRequiredMessage_idReviewer}"/>
+                    <h:outputLabel value="#{bundle.CreateReviewerLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{reviewerController.selected.idSubject}" title="#{bundle.CreateReviewerTitle_idSubject}" required="true" requiredMessage="#{bundle.CreateReviewerRequiredMessage_idSubject}">
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateReviewerLabel_idFaculty}" for="idFaculty" />
+                    <h:selectOneMenu id="idFaculty" value="#{reviewerController.selected.idFaculty}" title="#{bundle.CreateReviewerTitle_idFaculty}" required="true" requiredMessage="#{bundle.CreateReviewerRequiredMessage_idFaculty}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{reviewerController.create}" value="#{bundle.CreateReviewerSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{reviewerController.prepareList}" value="#{bundle.CreateReviewerShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateReviewerIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

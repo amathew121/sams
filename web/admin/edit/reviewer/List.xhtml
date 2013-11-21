@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListReviewerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListReviewerEmpty}" rendered="#{reviewerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{reviewerController.items.rowCount > 0}">
+                    <h:outputText value="#{reviewerController.pagination.pageFirstItem + 1}..#{reviewerController.pagination.pageLastItem + 1}/#{reviewerController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{reviewerController.previous}" value="#{bundle.Previous} #{reviewerController.pagination.pageSize}" rendered="#{reviewerController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{reviewerController.next}" value="#{bundle.Next} #{reviewerController.pagination.pageSize}" rendered="#{reviewerController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{reviewerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewerTitle_idReviewer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idReviewer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewerTitle_idSubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewerTitle_idFaculty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFaculty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{reviewerController.prepareView}" value="#{bundle.ListReviewerViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reviewerController.prepareEdit}" value="#{bundle.ListReviewerEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reviewerController.destroy}" value="#{bundle.ListReviewerDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{reviewerController.prepareCreate}" value="#{bundle.ListReviewerCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListReviewerIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

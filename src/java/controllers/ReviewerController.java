@@ -1,62 +1,52 @@
 package controllers;
 
-import entities.Subject;
+import entities.Reviewer;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.SubjectFacade;
+import beans.ReviewerFacade;
 import entities.ProgramCourse;
+import java.io.IOException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "subjectController")
+@Named("reviewerController")
 @SessionScoped
-public class SubjectController implements Serializable {
+public class ReviewerController implements Serializable {
 
-    private Subject current;
+    private Reviewer current;
     private DataModel items = null;
-    private List<Subject> filteredList ;
     @EJB
-    private beans.SubjectFacade ejbFacade;
+    private beans.ReviewerFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private ProgramCourse pc;
 
-    public SubjectController() {
+    public ReviewerController() {
     }
 
-    public Subject getSelected() {
+    public Reviewer getSelected() {
         if (current == null) {
-            current = new Subject();
+            current = new Reviewer();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    public List<Subject> getFilteredList() {
-        return filteredList;
-    }
-
-    public void setFilteredList(List<Subject> filteredList) {
-        this.filteredList = filteredList;
-    }
-    
-    public List<Subject> getSubjectBySemester(ProgramCourse programCourse, short semester) {
-        return getFacade().findSubjectBySemester(programCourse, semester);
-    }
-
-    private SubjectFacade getFacade() {
+    private ReviewerFacade getFacade() {
         return ejbFacade;
     }
 
@@ -70,7 +60,7 @@ public class SubjectController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findAll());
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -83,23 +73,43 @@ public class SubjectController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Subject) getItems().getRowData();
+        current = (Reviewer) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    public ProgramCourse getPc() {
+        return pc;
+    }
+
+    public void setPc(ProgramCourse pc) {
+        this.pc = pc;
+    }
+
+    public void handleChange(ValueChangeEvent event) {
+        System.out.println("here " + event.getNewValue());
+    }
+
     public String prepareCreate() {
-        prepareList();
-        current = new Subject();
+        current = new Reviewer();
         selectedItemIndex = -1;
         return "Create";
     }
 
-    public String create() {
-        current.setIdSubject(0);
+    public void prepareCreateR() {
+        prepareCreate();
         try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/Review.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String create() {
+        try {
+            current.setIdReviewer(0);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SubjectCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReviewerCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,8 +117,13 @@ public class SubjectController implements Serializable {
         }
     }
 
+    public String createR() {
+        create();
+        return "Review?faces-redirect=true";
+    }
+
     public String prepareEdit() {
-        current = (Subject) getItems().getRowData();
+        current = (Reviewer) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -116,7 +131,7 @@ public class SubjectController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SubjectUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReviewerUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -125,13 +140,21 @@ public class SubjectController implements Serializable {
     }
 
     public String destroy() {
-        current = (Subject) getItems().getRowData();
+        current = (Reviewer) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
     }
+    public String destroy(Reviewer item)
+    {
+        current=item;
+        performDestroy();
+        prepareCreateR();
+        return "Review";
+    }
+    
 
     public String destroyAndView() {
         performDestroy();
@@ -149,7 +172,7 @@ public class SubjectController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SubjectDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReviewerDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -175,6 +198,10 @@ public class SubjectController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+
+    public DataModel getItemsNoPagination() {
+        return new ListDataModel(getFacade().findAll());
     }
 
     private void recreateModel() {
@@ -204,20 +231,22 @@ public class SubjectController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-        public SelectItem[] getItemsAvailableSelectOnePC(ProgramCourse pc) {
-        return JsfUtil.getSelectItems(ejbFacade.findSubjectByPC(pc), true);
+
+    public Reviewer getReviewer(java.lang.Integer id) {
+        return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Subject.class)
-    public static class SubjectControllerConverter implements Converter {
+    @FacesConverter(forClass = Reviewer.class)
+    public static class ReviewerControllerConverter implements Converter {
 
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SubjectController controller = (SubjectController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "subjectController");
-            return controller.ejbFacade.find(getKey(value));
+            ReviewerController controller = (ReviewerController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "reviewerController");
+            return controller.getReviewer(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -227,20 +256,21 @@ public class SubjectController implements Serializable {
         }
 
         String getStringKey(java.lang.Integer value) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Subject) {
-                Subject o = (Subject) object;
-                return getStringKey(o.getIdSubject());
+            if (object instanceof Reviewer) {
+                Reviewer o = (Reviewer) object;
+                return getStringKey(o.getIdReviewer());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Subject.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Reviewer.class.getName());
             }
         }
     }

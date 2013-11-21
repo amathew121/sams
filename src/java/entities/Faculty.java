@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,6 +46,8 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idFaculty")
+    private Reviewer reviewer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFaculty")
     private Collection<Suggesstions> suggesstionsCollection;
     @ManyToMany(mappedBy = "facultyCollection")
@@ -254,6 +257,14 @@ public class Faculty implements Serializable {
 
     public void setSuggesstionsCollection(Collection<Suggesstions> suggesstionsCollection) {
         this.suggesstionsCollection = suggesstionsCollection;
+    }
+
+    public Reviewer getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(Reviewer reviewer) {
+        this.reviewer = reviewer;
     }
     
 }

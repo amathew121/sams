@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditReviewerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditReviewerLabel_idReviewer}" for="idReviewer" />
+                    <h:inputText id="idReviewer" value="#{reviewerController.selected.idReviewer}" title="#{bundle.EditReviewerTitle_idReviewer}" required="true" requiredMessage="#{bundle.EditReviewerRequiredMessage_idReviewer}"/>
+                    <h:outputLabel value="#{bundle.EditReviewerLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{reviewerController.selected.idSubject}" title="#{bundle.EditReviewerTitle_idSubject}" required="true" requiredMessage="#{bundle.EditReviewerRequiredMessage_idSubject}">
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditReviewerLabel_idFaculty}" for="idFaculty" />
+                    <h:selectOneMenu id="idFaculty" value="#{reviewerController.selected.idFaculty}" title="#{bundle.EditReviewerTitle_idFaculty}" required="true" requiredMessage="#{bundle.EditReviewerRequiredMessage_idFaculty}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{reviewerController.update}" value="#{bundle.EditReviewerSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditReviewerViewLink}"/>
+                <br />
+                <h:commandLink action="#{reviewerController.prepareList}" value="#{bundle.EditReviewerShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditReviewerIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

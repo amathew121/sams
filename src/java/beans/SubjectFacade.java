@@ -36,5 +36,10 @@ public class SubjectFacade extends AbstractFacade<Subject> {
         q.setParameter("programCourse", programCourse);
         return q.getResultList();
     }
+    public List<Subject> findSubjectByPC(ProgramCourse programCourse) {
+        Query q = em.createNamedQuery("Subject.findByProgramCourse");
+        q.setParameter("programCourse", programCourse);
+        return q.getResultList();
+    }
     
 }
