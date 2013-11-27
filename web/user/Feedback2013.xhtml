@@ -11,59 +11,49 @@
 
             <h:outputText value="Feedback"></h:outputText>
         </ui:define>
+        
         <ui:define name="body">
-            <p:accordionPanel multiple="true"  activeIndex="4">
-                <p:tab title="Feedback Performance Index" >
+            <h:outputText value="You have to enable popups for this site to view details and comments"></h:outputText>
+
                     <h:form styleClass="jsfcrud_list_form">
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>
-                        <p:dataTable value="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(0))}" var="item" >                      
+                        <p:dataTable value="#{facultySubjectViewController.modelByUserName}" var="item" >                      
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Subject"/>
                                 </f:facet>
-                                <h:outputText value="#{item.qid.qtext}"/>
+                                <h:outputText value="#{item.subjectCode}"/>
                             </p:column>
 
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Type"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idAnswer}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
                                     <h:outputText value="Division"/>
                                 </f:facet>
-                                <h:outputText value="#{item.uid.division}"/>
+                                <h:outputText value="#{item.division}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Batch"/>
                                 </f:facet>
-                                <h:outputText value="#{item.uid.batch}"/>
+                                <h:outputText value="#{item.batch}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton  action="#{oldFbPiDetailsController.getFeedbackDetails(item)}" 
-                                                  value="Details" immediate="true"/>
+                                <p:commandButton  action="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}" 
+                                                  value="Details" immediate="true" oncomplete="window.open('Feedback2013Details.xhtml')"/>
                                 <br />
-                                <p:commandButton 
-                                                 action="#{oldFacultyCommentsController.getFeedbackComments(item)}"
-                                                 value="Comments" immediate="true"/>
+                                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}"
+                                                 action="#{feedback2013CommentsController.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}"
+                                                 value="Comments" immediate="true" oncomplete="window.open('Feedback2013Comments.xhtml')"/>
 
                             </p:column>
                         </p:dataTable>
 
                     </h:form>
-                </p:tab>
-                <p:tab title="Performance Index BarGraph"  >
-                <h:graphicImage alt="Feedback Scale" url="/resources/images/pi.jpg" width="100%" />
-                </p:tab>
-            </p:accordionPanel>
             <br />
 
 

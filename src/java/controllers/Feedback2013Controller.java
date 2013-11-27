@@ -7,7 +7,10 @@ import beans.Feedback2013Facade;
 import entities.FacultySubject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -20,6 +23,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+
 @Named("feedback2013Controller")
 @SessionScoped
 public class Feedback2013Controller implements Serializable {
@@ -30,6 +34,10 @@ public class Feedback2013Controller implements Serializable {
     private beans.Feedback2013Facade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int ra[] = new int[6];
+    private double performanceIndex;
+    private List<Feedback2013> feedback2013List;
+    private FacultySubject idFacultySubject;
 
     public Feedback2013Controller() {
     }
@@ -80,9 +88,112 @@ public class Feedback2013Controller implements Serializable {
         return "Create";
     }
 
-    public List<Feedback2013> getByUserName(FacultySubject idFacultySubject) {
-        return getFacade().getByUserName(idFacultySubject);
+    public double getPerformanceIndex() {
+        return performanceIndex;
     }
+
+    public void setPerformanceIndex(double performanceIndex) {
+        this.performanceIndex = performanceIndex;
+    }
+
+    public int[] getRa() {
+        return ra;
+    }
+
+    public void setRa(int[] ra) {
+        this.ra = ra;
+    }
+
+    public List<Feedback2013> getFeedback2013List() {
+        return feedback2013List;
+    }
+
+    public void setFeedback2013List(List<Feedback2013> feedback2013List) {
+        this.feedback2013List = feedback2013List;
+    }
+
+    public FacultySubject getIdFacultySubject() {
+        return idFacultySubject;
+    }
+
+    public String getByUserName(FacultySubject idFacultySubject) {
+        
+        this.idFacultySubject = idFacultySubject;
+        
+        List<Feedback2013> temp = getFacade().getByUserName(idFacultySubject);
+        Map<Integer, Short> ra0 = new HashMap<Integer, Short>();
+        Map<Integer, Short> ra1 = new HashMap<Integer, Short>();
+        Map<Integer, Short> ra2 = new HashMap<Integer, Short>();
+        Map<Integer, Short> ra3 = new HashMap<Integer, Short>();
+        Map<Integer, Short> ra4 = new HashMap<Integer, Short>();
+        Map<Integer, Short> ra5 = new HashMap<Integer, Short>();
+        feedback2013List = getFacade().getRating(idFacultySubject);
+        for (Feedback2013 item : feedback2013List) {
+            ra0.put(item.getQid().getQid(), (short) 0);
+            ra1.put(item.getQid().getQid(), (short) 0);
+            ra2.put(item.getQid().getQid(), (short) 0);
+            ra3.put(item.getQid().getQid(), (short) 0);
+            ra4.put(item.getQid().getQid(), (short) 0);
+            ra5.put(item.getQid().getQid(), (short) 0);
+
+        }
+        ra[0]=ra[1]=ra[2]=ra[3]=ra[4]=ra[5] =0;
+
+        for (Feedback2013 item : temp) {
+            //System.out.println(item.getQid().getQtext() + " " + item.getIdAnswer());
+
+            if (item.getIdAnswer() == 5) {
+                ra5.put(item.getQid().getQid(), (short) (ra5.get(item.getQid().getQid()) + 1));
+            } else if (item.getIdAnswer() == 4) {
+                ra4.put(item.getQid().getQid(), (short) (ra4.get(item.getQid().getQid()) + 1));
+            } else if (item.getIdAnswer() == 3) {
+                ra3.put(item.getQid().getQid(), (short) (ra3.get(item.getQid().getQid()) + 1));
+            } else if (item.getIdAnswer() == 1) {
+                ra1.put(item.getQid().getQid(), (short) (ra1.get(item.getQid().getQid()) + 1));
+            } else if (item.getIdAnswer() == 2) {
+                ra2.put(item.getQid().getQid(), (short) (ra2.get(item.getQid().getQid()) + 1));
+            } else {
+                ra0.put(item.getQid().getQid(), (short) (ra0.get(item.getQid().getQid()) + 1));
+
+            }
+
+
+
+        }
+
+        for (Feedback2013 item : feedback2013List) {
+            int x = ra0.get(item.getQid().getQid());
+            item.setRa0(x);
+            ra[0]= ra[0]+x;
+            
+            x = ra1.get(item.getQid().getQid());
+            item.setRa1(x);
+            ra[1]= ra[1]+x;
+            
+            x = ra2.get(item.getQid().getQid());
+            item.setRa2(x);
+            ra[2]= ra[2]+x;
+
+            x = ra3.get(item.getQid().getQid());
+            item.setRa3(x);
+            ra[3]= ra[3]+x;
+
+            x = ra4.get(item.getQid().getQid());
+            item.setRa4(x);
+            ra[4]= ra[4]+x;
+
+            x = ra5.get(item.getQid().getQid());
+            item.setRa5(x);
+            ra[5]= ra[5]+x;
+
+        }
+        
+        performanceIndex = (5.0*ra[5]+3.0*ra[4]+1.0*ra[3]-3.0*ra[2]-5.0*ra[1])/(ra[0]+ra[1]+ra[2]+ra[3]+ra[4]+ra[5]);
+
+        //return "Feedback2013Details?faces-redirect=true";
+        return null;
+    }
+
     public String create() {
         try {
             getFacade().create(current);
@@ -233,5 +344,80 @@ public class Feedback2013Controller implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Feedback2013.class.getName());
             }
         }
+    }
+}
+class FeedbackDetail {
+
+    private int qid;
+    private String qtext;
+    private Long r5;
+    private int r4;
+    private int r3;
+    private int r2;
+    private int r1;
+
+    public FeedbackDetail() {
+    }
+
+    public FeedbackDetail(int qid, String qtext, Long r5) {
+        this.qid = qid;
+        this.qtext = qtext;
+        this.r5 = r5;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
+    }
+
+    public String getQtext() {
+        return qtext;
+    }
+
+    public void setQtext(String qtext) {
+        this.qtext = qtext;
+    }
+
+    public Long getR5() {
+        return r5;
+    }
+
+    public void setR5(Long r5) {
+        this.r5 = r5;
+    }
+
+    public int getR4() {
+        return r4;
+    }
+
+    public void setR4(int r4) {
+        this.r4 = r4;
+    }
+
+    public int getR3() {
+        return r3;
+    }
+
+    public void setR3(int r3) {
+        this.r3 = r3;
+    }
+
+    public int getR2() {
+        return r2;
+    }
+
+    public void setR2(int r2) {
+        this.r2 = r2;
+    }
+
+    public int getR1() {
+        return r1;
+    }
+
+    public void setR1(int r1) {
+        this.r1 = r1;
     }
 }

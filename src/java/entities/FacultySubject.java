@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FacultySubject.findByBatch", query = "SELECT f FROM FacultySubject f WHERE f.batch = :batch")})
 public class FacultySubject implements Serializable {
     @OneToMany(mappedBy = "idFacultySubject")
+    private List<Feedback2013Comments> feedback2013CommentsList;
+    @OneToMany(mappedBy = "idFacultySubject")
     private List<Feedback2013> feedback2013List;
     @Column(name = "academic_year")
     private Integer academicYear;
@@ -189,6 +191,15 @@ public class FacultySubject implements Serializable {
 
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
         this.feedback2013List = feedback2013List;
+    }
+
+    @XmlTransient
+    public List<Feedback2013Comments> getFeedback2013CommentsList() {
+        return feedback2013CommentsList;
+    }
+
+    public void setFeedback2013CommentsList(List<Feedback2013Comments> feedback2013CommentsList) {
+        this.feedback2013CommentsList = feedback2013CommentsList;
     }
     
 }

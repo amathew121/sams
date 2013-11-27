@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Feedback2013.findAll", query = "SELECT f FROM Feedback2013 f"),
     @NamedQuery(name = "Feedback2013.findById", query = "SELECT f FROM Feedback2013 f WHERE f.id = :id"),
     @NamedQuery(name = "Feedback2013.findByIdFacultySubject", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "Feedback2013.findByRating", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject GROUP BY f.qid"),
     @NamedQuery(name = "Feedback2013.findByIdAnswer", query = "SELECT f FROM Feedback2013 f WHERE f.idAnswer = :idAnswer")})
 public class Feedback2013 implements Serializable {
     @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
@@ -49,6 +51,68 @@ public class Feedback2013 implements Serializable {
     @ManyToOne
     private Feedback2013Student uid;
 
+    @Transient
+    private int ra0;
+    @Transient
+    private int ra1;
+    @Transient
+    private int ra2;
+    @Transient
+    private int ra3;
+    @Transient
+    private int ra4;
+    @Transient
+    private int ra5;
+
+    public int getRa0() {
+        return ra0;
+    }
+
+    public void setRa0(int ra0) {
+        this.ra0 = ra0;
+    }
+
+    public int getRa1() {
+        return ra1;
+    }
+
+    public void setRa1(int ra1) {
+        this.ra1 = ra1;
+    }
+
+    public int getRa2() {
+        return ra2;
+    }
+
+    public void setRa2(int ra2) {
+        this.ra2 = ra2;
+    }
+
+    public int getRa3() {
+        return ra3;
+    }
+
+    public void setRa3(int ra3) {
+        this.ra3 = ra3;
+    }
+
+    public int getRa4() {
+        return ra4;
+    }
+
+    public void setRa4(int ra4) {
+        this.ra4 = ra4;
+    }
+
+    public int getRa5() {
+        return ra5;
+    }
+
+    public void setRa5(int ra5) {
+        this.ra5 = ra5;
+    }
+    
+    
     public Feedback2013() {
     }
 

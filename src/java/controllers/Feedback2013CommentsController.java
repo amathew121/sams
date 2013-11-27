@@ -4,8 +4,10 @@ import entities.Feedback2013Comments;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.Feedback2013CommentsFacade;
+import entities.FacultySubject;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,6 +30,8 @@ public class Feedback2013CommentsController implements Serializable {
     private beans.Feedback2013CommentsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List feedback2013CommentsList;
+    private FacultySubject idFacultySubject;
 
     public Feedback2013CommentsController() {
     }
@@ -78,6 +82,21 @@ public class Feedback2013CommentsController implements Serializable {
         return "Create";
     }
 
+    public List<Feedback2013Comments> getFeedback2013CommentsList() {
+        return feedback2013CommentsList;
+    }
+
+    public FacultySubject getIdFacultySubject() {
+        return idFacultySubject;
+    }
+    
+    public String getByUserName(FacultySubject idFacSub) {
+        this.idFacultySubject = idFacSub;
+        feedback2013CommentsList = getFacade().getByUserName(idFacSub);
+        //return "Feedback2013Comments.xhtml?faces-redirect=true";
+        return null;
+    }
+    
     public String create() {
         try {
             getFacade().create(current);

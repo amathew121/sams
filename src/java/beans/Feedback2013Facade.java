@@ -35,4 +35,11 @@ public class Feedback2013Facade extends AbstractFacade<Feedback2013> {
         q.setParameter("idFacultySubject", idFacultySubject);
         return q.getResultList();
     }
+    
+    public List getRating(FacultySubject idFacultySubject) {
+        Query q = em.createNamedQuery("Feedback2013.findByRating");
+        q.setParameter("idFacultySubject", idFacultySubject);
+        List l = q.getResultList();
+        return l;
+    }
 }

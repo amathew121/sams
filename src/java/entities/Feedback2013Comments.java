@@ -29,8 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedback2013Comments.findAll", query = "SELECT f FROM Feedback2013Comments f"),
+    @NamedQuery(name = "Feedback2013Comments.findByIdFacultySubject", query = "SELECT f FROM Feedback2013Comments f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "Feedback2013Comments.findById", query = "SELECT f FROM Feedback2013Comments f WHERE f.id = :id")})
 public class Feedback2013Comments implements Serializable {
+    @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
+    @ManyToOne
+    private FacultySubject idFacultySubject;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +103,14 @@ public class Feedback2013Comments implements Serializable {
     @Override
     public String toString() {
         return "entities.Feedback2013Comments[ id=" + id + " ]";
+    }
+
+    public FacultySubject getIdFacultySubject() {
+        return idFacultySubject;
+    }
+
+    public void setIdFacultySubject(FacultySubject idFacultySubject) {
+        this.idFacultySubject = idFacultySubject;
     }
     
 }

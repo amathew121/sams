@@ -54,7 +54,15 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
 
 
     }
+    
+    public List<FacultySubjectView> getFSViewByIdGroup() {
+        Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyGroup");
+        List<FacultySubjectView> l = q.getResultList();
+        count = l.size();
+        return l;
 
+
+    }
     public List<FacultySubjectView> getFSViewByDept(String s) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdCourse");
         q.setParameter("idCourse", s);

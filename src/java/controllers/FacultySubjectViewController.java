@@ -66,7 +66,16 @@ public class FacultySubjectViewController implements Serializable {
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
     }
+    
+    public DataModel getModelByUserName(String userName) {
+        modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
+        return modelByUserName;
+    }
+    
+    public DataModel getModelByUserNameGroup() {
+        return new ListDataModel(getFacade().getFSViewByIdGroup());
 
+    }
     public List<FacultySubjectView> getListByDept(Faculty fac) {
         Department dept = null;
 
@@ -138,7 +147,7 @@ public class FacultySubjectViewController implements Serializable {
     }
     public void prepareListAdminFeedback() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FeedbackAll.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/Feedback2013All.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

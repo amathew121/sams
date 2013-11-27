@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="Feedback"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form >
+                <p:commandLink value="Click here for previous years feedback" action="#{facesContext.externalContext.redirect('/piit/faces/admin/FeedbackAll.xhtml')}"/>
+            </h:form>
+            <br />
+            <br />
+            <h:form styleClass="jsfcrud_list_form">
+                
+                <h:outputText value="You have to enable popups for this site to view details and comments"></h:outputText>
+
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+                <p:dataTable value="#{facultySubjectViewController.modelByUserNameGroup}" var="fac">
+
+                    <p:subTable value="#{facultySubjectViewController.getModelByUserName(fac.idFaculty)}" var="item" >                      
+                        <f:facet name="header" >
+                                #{fac.facultyFname}#{' '}#{fac.facultyLname}
+                        </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Program"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProgram}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Course"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCourse}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Sem"/>
+                            </f:facet>
+                            <h:outputText value="#{item.semester}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subjectCode}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Division"/>
+                            </f:facet>
+                            <h:outputText value="#{item.division}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Batch"/>
+                            </f:facet>
+                            <h:outputText value="#{item.batch}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <p:commandLink  action="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}" 
+                                              value="Details" immediate="true" oncomplete="window.open('Feedback2013Details.xhtml')"/>
+                            <br />
+                            <p:commandLink rendered="#{facesContext.externalContext.isUserInRole('superuser')}"
+                                             action="#{feedback2013CommentsController.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}"
+                                             value="Comments" immediate="true" oncomplete="window.open('Feedback2013Comments.xhtml')"/>
+
+                        </p:column>
+                    </p:subTable>
+                </p:dataTable>
+            </h:form>
+            <br />
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
