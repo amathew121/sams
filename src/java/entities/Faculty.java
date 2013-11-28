@@ -46,6 +46,8 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @Column(name = "Feedback360_allowed")
+    private Boolean feedback360allowed;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idFaculty")
     private Reviewer reviewer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFaculty")
@@ -265,6 +267,14 @@ public class Faculty implements Serializable {
 
     public void setReviewer(Reviewer reviewer) {
         this.reviewer = reviewer;
+    }
+
+    public Boolean getFeedback360allowed() {
+        return feedback360allowed;
+    }
+
+    public void setFeedback360allowed(Boolean feedback360allowed) {
+        this.feedback360allowed = feedback360allowed;
     }
     
 }

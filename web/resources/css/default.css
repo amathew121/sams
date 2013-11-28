@@ -28,6 +28,17 @@ a:link:hover, a:visited:hover  {
   text-decoration : underline;
 }
 
+a.tag:link, a.tag:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+a.tag:link:hover, a.tag:visited:hover  {
+    color: #045491;
+    font-weight : bold;
+    text-decoration : line-through;
+}
+
 input[type=checkbox]{
     visibility: hidden;
 }

@@ -13,9 +13,9 @@
         </ui:define>
         <ui:define name="body">
 
-            <h:form>
+            <h:form id="form">
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />
-                <p:layout style="min-width:400px;min-height:200px; max-height: 200px;" id="layout"> 
+                <p:layout style="min-width:400px;min-height:300px; max-height: 300px;" id="layout"> 
                     <p:layoutUnit position="west" resizable="true" size="100" minSize="600" maxSize="700">  
 
                 <h:panelGrid columns="2">
@@ -25,6 +25,19 @@
                     <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="60"  pattern="HH:mm" timeOnly="true" required="true" />  
                     <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
                     <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" cols="40"  autoResize="true" />
+                    <p:outputLabel value="Tags" for="tags" />
+                    <p:panel id ="tagPanel">
+                        <ui:repeat value="#{lectureTagsController.getTags(lectureController.selected)}" var="item" >
+                            <h:commandLink styleClass="tag" value="#{item}" action="#{lectureTagsController.destroy(item)}" >
+                                <f:ajax render=":form:layout" />
+                            </h:commandLink>
+
+                        </ui:repeat>
+                    <p:inputText value="#{lectureController.lectureTags}" id ="tags" />
+
+                    </p:panel>
+
+
                 </h:panelGrid>
             <!--    <script type="text/javascript">
                     jQuery(document).ready(function() {

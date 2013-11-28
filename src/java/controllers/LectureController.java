@@ -8,13 +8,13 @@ import entities.Attendance;
 import entities.CurrentStudent;
 import entities.FacultySubject;
 import entities.Subject;
-import entities.TeachingPlan;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -46,6 +46,7 @@ public class LectureController implements Serializable {
     private Date startDate;
     private Date endDate;
     private int startIndex;
+    private String lectureTags;
     private boolean[] selectAll;
 
     public boolean[] getSelectAll() {
@@ -54,6 +55,14 @@ public class LectureController implements Serializable {
 
     public void setSelectAll(boolean[] selectAll) {
         this.selectAll = selectAll;
+    }
+
+    public String getLectureTags() {
+        return lectureTags;
+    }
+
+    public void setLectureTags(String lectureTags) {
+        this.lectureTags = lectureTags;
     }
 
 
@@ -297,17 +306,42 @@ public class LectureController implements Serializable {
     }
 
 
+    /**
+     * Adds new lecture tags. 
+     * Accepts comma separated values. 
+     */
+    private void setTags() 
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        LectureTagsController ltc = (LectureTagsController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureTagsController");
+        StringTokenizer st = new StringTokenizer(lectureTags, ",");
+        while (st.hasMoreTokens()) {
+            ltc.prepareCreate();
+            ltc.getSelected().setLecture(current);
+            String temp = st.nextToken().trim();
+            System.out.println(temp);
+            ltc.getSelected().getLectureTagsPK().setTag(temp);
+            ltc.create();
+        }
+        lectureTags=null;
+        
+    }
+    
+    /**
+     * Creates a new Lecture, and creates lecture tags and attendance also along with it.
+     * @return View.xhtml
+     */
     public String createA() {
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
         try {
             getFacade().create(temp);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureCreated"));
-
+            setTags();
             currentStudentController.setLec(temp);
             recreateModel();
             //  return "CreateAttendance?faces-redirect=true";
-            currentStudentController.createAttendance();
+            currentStudentController.createAttendance();            
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
@@ -470,6 +504,7 @@ public class LectureController implements Serializable {
             currentStudentController.getAttendanceController().createEntry(attendance.get(i));
             currentStudentController.getAttendanceController().destroyA();
         }
+        setTags();
         currentStudentController.createAttendance();
         update();
 

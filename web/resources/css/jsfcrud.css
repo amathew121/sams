@@ -86,3 +86,68 @@ tr.jsfcrud_even_row {
 .colored {
     background-color: red;
 }
+
+a.tag {
+    padding:5px 10px;
+    font-size:12px;
+    -moz-border-radius:0 5px 5px 0;
+    -webkit-border-radius:0 5px 5px 0;
+    float:left;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    position:relative;
+    font-family:verdana;
+    color:#3b3d3c;
+    border:1px solid #d5d5d7;
+    border-left:0;
+    text-decoration: none;
+}
+
+a.tag{
+    background: -moz-linear-gradient( top , #fbfdfc 0%,#f6f5f5 100%);
+    background: -webkit-linear-gradient( top , #fbfdfc 0%,#f6f5f5 100%);  
+}
+
+a.tag:after{
+    content:"";
+    width:18px;
+    height:18px;
+    background: -moz-linear-gradient( left top , #fbfdfc 0%,#f6f5f5 100%);
+    background: -webkit-linear-gradient( left top , #fbfdfc 0%,#f6f5f5 100%);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    display:block;
+    position:absolute;
+    top:3px;
+    left:-10px;
+    z-index:-1;
+    border:1px solid  #d5d5d7;
+}
+
+a.tag:before{
+    content:"";
+    width:8px;
+    height:8px;
+    background:#d5d5d7;
+    position:absolute;
+    top:10px;
+    left:-7px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+}
+
+a.tag:hover{
+    text-decoration: line-through;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+a.tag:after{
+    width:16px;
+     height:16px;
+    top:3px;
+    left:-9px;
+}
+a.tag:before{
+    top:9px;
+    left:-5px;
+}
+}

@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,6 +34,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,6 +52,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lecture.findByLectureDateRangeStart", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecture")
+    private List<LectureTags> lectureTagsList;
     @Lob
     @Size(max = 16777215)
     @Column(name = "content_delivered")
@@ -231,6 +236,15 @@ public class Lecture implements Serializable {
 
     public void setContentDelivered(String contentDelivered) {
         this.contentDelivered = contentDelivered;
+    }
+
+    @XmlTransient
+    public List<LectureTags> getLectureTagsList() {
+        return lectureTagsList;
+    }
+
+    public void setLectureTagsList(List<LectureTags> lectureTagsList) {
+        this.lectureTagsList = lectureTagsList;
     }
 
 
