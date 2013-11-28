@@ -14,6 +14,9 @@
         </ui:define>
         <ui:define name="body"> 
             <h:form>
+                <p:selectOneMenu value="#{currentStudentController.program}" >
+                    <f:selectItems noSelectionValue="#{programController.getProgram('BE')}" value="#{programController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
                 <p:selectOneMenu value="#{currentStudentController.course}" >
                     <f:selectItems value="#{courseController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>

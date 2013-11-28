@@ -131,7 +131,7 @@ public class Program implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Program[ idProgram=" + idProgram + " ]";
+        return idProgram;
     }
 
     @XmlTransient

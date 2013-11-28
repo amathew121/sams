@@ -6,6 +6,7 @@ import controllers.util.PaginationHelper;
 import beans.AttendanceReportFacade;
 import entities.Course;
 import entities.CurrentStudent;
+import entities.ProgramCourse;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -128,13 +129,13 @@ public class AttendanceReportController implements Serializable {
         return "Edit";
     }
 
-    public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {
-        return getFacade().getStudentAttendanceBySubDivSem(course, division, semester, idSubject);
+    public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(ProgramCourse programCourse, short semester, String division, int idSubject) {
+        return getFacade().getStudentAttendanceBySubDivSem(programCourse, division, semester, idSubject);
     }
 
-    public List<Integer> getStudentAttendanceCountByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {
-        return getFacade().getStudentAttendanceCountByFS(course, division, semester, idSubject);
-    }
+//    public List<Integer> getStudentAttendanceCountByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {
+//        return getFacade().getStudentAttendanceCountByFS(course, division, semester, idSubject);
+//    }
 
     public List<CurrentStudent> getStudentAttendanceByFS(int idFacSub) {
         List<Object[]> l = getFacade().getStudentAttendanceByFS(idFacSub);

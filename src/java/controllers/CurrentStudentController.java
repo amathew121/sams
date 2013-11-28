@@ -9,10 +9,10 @@ import entities.AttendanceReport;
 import entities.Course;
 import entities.FacultySubject;
 import entities.Lecture;
+import entities.Program;
 import entities.ProgramCourse;
 import entities.ProgramCoursePK;
 import entities.Subject;
-import entities.TeachingPlan;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -62,7 +62,8 @@ public class CurrentStudentController implements Serializable {
     private List<CurrentStudent> selectedList = new ArrayList<CurrentStudent>();
     private boolean selectAll;
     private ProgramCourse pc = new ProgramCourse();
-    private Course course = new Course();
+    private Course course;
+    private Program program;
     private short semester;
     private String division;
 
@@ -102,14 +103,6 @@ public class CurrentStudentController implements Serializable {
         this.division = division;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-    
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
@@ -122,7 +115,10 @@ public class CurrentStudentController implements Serializable {
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
 
         ProgramCoursePK pcpk = new ProgramCoursePK();
-        pcpk.setIdProgram("BE");
+        /**
+         * The following area is very susceptible to change :D
+         */
+        pcpk.setIdProgram(program.getIdProgram());
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
         subject = sc.getSubjectBySemester(pc, semester);
@@ -237,13 +233,13 @@ public class CurrentStudentController implements Serializable {
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
-        Course course = f.getIdSubject().getProgramCourse().getCourse();
+        ProgramCourse programCourse = f.getIdSubject().getProgramCourse();
         if (batch == 0) {
-            attendanceByDiv = getFacade().getCurrentStudentByDivTheory(course, semester, div);
+            attendanceByDiv = getFacade().getCurrentStudentByDivTheory(programCourse, semester, div);
             return attendanceByDiv;
         } else {
 
-            attendanceByDiv = getFacade().getCurrentStudentByDiv(course, semester, div, batch);
+            attendanceByDiv = getFacade().getCurrentStudentByDiv(programCourse, semester, div, batch);
             return attendanceByDiv;
         }
     }
@@ -255,12 +251,12 @@ public class CurrentStudentController implements Serializable {
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
 
-        List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(course, semester, division);
+        List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division);
 
 
        for (Subject item : subject) {
             Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
-            List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(course, semester, division, item.getIdSubject());
+            List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(pc, semester, division, item.getIdSubject());
            Map<Integer, BigDecimal> hn = new HashMap<Integer, BigDecimal>();
            Map<Integer, BigDecimal> hn2 = new HashMap<Integer, BigDecimal>();
 
@@ -548,6 +544,22 @@ public class CurrentStudentController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 
     @FacesConverter(forClass = CurrentStudent.class)

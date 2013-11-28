@@ -46,8 +46,6 @@ public class Course implements Serializable {
     private String courseName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private Collection<ProgramCourse> programCourseCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCourse")
-    private Collection<CurrentStudent> currentStudentCollection;
 
     public Course() {
     }
@@ -84,15 +82,6 @@ public class Course implements Serializable {
 
     public void setProgramCourseCollection(Collection<ProgramCourse> programCourseCollection) {
         this.programCourseCollection = programCourseCollection;
-    }
-
-    @XmlTransient
-    public Collection<CurrentStudent> getCurrentStudentCollection() {
-        return currentStudentCollection;
-    }
-
-    public void setCurrentStudentCollection(Collection<CurrentStudent> currentStudentCollection) {
-        this.currentStudentCollection = currentStudentCollection;
     }
 
     @Override

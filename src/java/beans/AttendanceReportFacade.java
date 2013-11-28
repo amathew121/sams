@@ -6,6 +6,7 @@ package beans;
 
 import entities.AttendanceReport;
 import entities.Course;
+import entities.ProgramCourse;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -39,24 +40,25 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
         return l;
     }
 
-    public List<Object[]> getStudentAttendanceBySubDivSem(Course course, String division, short semester, int idSubject) {
+    public List<Object[]> getStudentAttendanceBySubDivSem(ProgramCourse programCourse, String division, short semester, int idSubject) {
         Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
         q.setParameter("idSubject", idSubject);
         q.setParameter("semester", semester);
         q.setParameter("division", division);
-        q.setParameter("idCourse", course.getIdCourse());
+        q.setParameter("idCourse", programCourse.getCourse().getIdCourse());
+        q.setParameter("idProgram", programCourse.getProgram().getIdProgram());
         q.setParameter("fsBatch", 0);
         List<Object[]> l = q.getResultList();
         return l;
     }
 
-    public List<Integer> getStudentAttendanceCountByFS(Course course, String division, short semester, int idSubject) {
-        Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
-        q.setParameter("idSubject", idSubject);
-        q.setParameter("semester", semester);
-        q.setParameter("division", division);
-        q.setParameter("idCourse", course.getIdCourse());
-
-        return q.getResultList();
-    }
+//    public List<Integer> getStudentAttendanceCountByFS(Course course, String division, short semester, int idSubject) {
+//        Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
+//        q.setParameter("idSubject", idSubject);
+//        q.setParameter("semester", semester);
+//        q.setParameter("division", division);
+//        q.setParameter("idCourse", course.getIdCourse());
+//
+//        return q.getResultList();
+//    }
 }
