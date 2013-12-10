@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditReviewCommentsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_idReviewComments}" for="idReviewComments" />
+                    <h:inputText id="idReviewComments" value="#{reviewCommentsController.selected.idReviewComments}" title="#{bundle.EditReviewCommentsTitle_idReviewComments}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_idReviewComments}"/>
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_comment}" for="comment" />
+                    <h:inputTextarea rows="4" cols="30" id="comment" value="#{reviewCommentsController.selected.comment}" title="#{bundle.EditReviewCommentsTitle_comment}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_comment}"/>
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_reviewedOn}" for="reviewedOn" />
+                    <h:inputText id="reviewedOn" value="#{reviewCommentsController.selected.reviewedOn}" title="#{bundle.EditReviewCommentsTitle_reviewedOn}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_reviewedOn}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_reviewType}" for="reviewType" />
+                    <h:inputText id="reviewType" value="#{reviewCommentsController.selected.reviewType}" title="#{bundle.EditReviewCommentsTitle_reviewType}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_reviewType}"/>
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_idFacultySubject}" for="idFacultySubject" />
+                    <h:selectOneMenu id="idFacultySubject" value="#{reviewCommentsController.selected.idFacultySubject}" title="#{bundle.EditReviewCommentsTitle_idFacultySubject}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_idFacultySubject}">
+                        <f:selectItems value="#{facultySubjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditReviewCommentsLabel_reviewedBy}" for="reviewedBy" />
+                    <h:selectOneMenu id="reviewedBy" value="#{reviewCommentsController.selected.reviewedBy}" title="#{bundle.EditReviewCommentsTitle_reviewedBy}" required="true" requiredMessage="#{bundle.EditReviewCommentsRequiredMessage_reviewedBy}">
+                        <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{reviewCommentsController.update}" value="#{bundle.EditReviewCommentsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditReviewCommentsViewLink}"/>
+                <br />
+                <h:commandLink action="#{reviewCommentsController.prepareList}" value="#{bundle.EditReviewCommentsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditReviewCommentsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

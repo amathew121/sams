@@ -76,8 +76,7 @@
                             <p:commandLink  action="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}" 
                                               value="Details" immediate="true" oncomplete="window.open('Feedback2013Details.xhtml')"/>
                             <br />
-                            <p:commandLink rendered="#{facesContext.externalContext.isUserInRole('superuser')}"
-                                             action="#{feedback2013CommentsController.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}"
+                            <p:commandLink action="#{feedback2013CommentsController.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}"
                                              value="Comments" immediate="true" oncomplete="window.open('Feedback2013Comments.xhtml')"/>
 
                         </p:column>

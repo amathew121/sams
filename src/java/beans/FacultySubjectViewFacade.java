@@ -51,25 +51,20 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
         List<FacultySubjectView> l = q.getResultList();
         count = l.size();
         return l;
-
-
     }
-    
+
     public List<FacultySubjectView> getFSViewByIdGroup() {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyGroup");
         List<FacultySubjectView> l = q.getResultList();
         count = l.size();
         return l;
-
-
     }
+
     public List<FacultySubjectView> getFSViewByDept(String s) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdCourse");
         q.setParameter("idCourse", s);
         List<FacultySubjectView> l = q.getResultList();
         return l;
-
-
     }
 
     public List<FacultySubjectView> getFSViewByDeptSub(String sub, String dept) {
@@ -78,12 +73,10 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
         q.setParameter("subjectCode", sub);
         List<FacultySubjectView> l = q.getResultList();
         return l;
-
-
     }
 
     public List<Department> getDepartment() {
-        List<Department> l= new ArrayList();
+        List<Department> l = new ArrayList();
         Query q = em.createNamedQuery("Department.findAll");
         l = q.getResultList();
         return l;

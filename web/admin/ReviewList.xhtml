@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="Faculty Subject Information"></h:outputText>
+        </ui:define>
+        <ui:define name="body"> 
+            <h:form id="tPlan" styleClass="jsfcrud_list_form">
+
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:panelGroup style="text-align: center">
+                    <p:dataTable value="#{facultySubjectController.batchesByReviewer}" var="item" >   
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Faculty Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFaculty.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Course"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject.programCourse.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Semester"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject.semester}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject.subjectCode}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Batch"/>
+                            </f:facet>
+                            <h:outputText value="#{item.batchDetail}"/>
+                        </p:column>
+                        <p:column style="width: 20px;">
+                            <f:facet name="header">
+                                <h:outputText value="Planned" />
+                            </f:facet>
+                            <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size()}"/>
+                        </p:column>
+                        <p:column style="width: 20px;">
+                            <f:facet name="header">
+                                <h:outputText value="Delivered" />
+                            </f:facet>
+                            <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Review"/>
+                            </f:facet>
+                            <p:commandLink value="Review Teaching Plan" 
+                                           rendered="#{item.teachingPlanCollection.size() > 0}"
+                                           action="#{teachingPlanController.prepareListRTP(item)}" />
+                            <br />
+                            <p:commandLink value="Review Lectures" 
+                                           rendered="#{item.lectureCollection.size() > 0}"
+                                           action="#{lectureController.prepareListRLec(item)}" />
+
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

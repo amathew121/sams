@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListReviewCommentsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListReviewCommentsEmpty}" rendered="#{reviewCommentsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{reviewCommentsController.items.rowCount > 0}">
+                    <h:outputText value="#{reviewCommentsController.pagination.pageFirstItem + 1}..#{reviewCommentsController.pagination.pageLastItem + 1}/#{reviewCommentsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{reviewCommentsController.previous}" value="#{bundle.Previous} #{reviewCommentsController.pagination.pageSize}" rendered="#{reviewCommentsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{reviewCommentsController.next}" value="#{bundle.Next} #{reviewCommentsController.pagination.pageSize}" rendered="#{reviewCommentsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{reviewCommentsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_idReviewComments}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idReviewComments}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_comment}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.comment}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_reviewedOn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reviewedOn}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_reviewType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reviewType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_idFacultySubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFacultySubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReviewCommentsTitle_reviewedBy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reviewedBy}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{reviewCommentsController.prepareView}" value="#{bundle.ListReviewCommentsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reviewCommentsController.prepareEdit}" value="#{bundle.ListReviewCommentsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reviewCommentsController.destroy}" value="#{bundle.ListReviewCommentsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{reviewCommentsController.prepareCreate}" value="#{bundle.ListReviewCommentsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListReviewCommentsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

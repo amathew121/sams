@@ -52,6 +52,13 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
 
     }
+    
+    public List<FacultySubject> getFSBySubject(Subject idSubject) {
+        Query q = em.createNamedQuery("FacultySubject.findByIdSubject");
+        q.setParameter("idSubject", idSubject);
+        List<FacultySubject> l = q.getResultList();
+        return l;
+    }
 
     public Faculty getFacById(String idFac) {
         Query q = em.createNamedQuery("Faculty.findByIdFaculty");

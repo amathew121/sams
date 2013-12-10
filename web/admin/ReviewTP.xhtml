@@ -12,29 +12,41 @@
             <h:outputText value="#{'Teaching Plan for '}#{teachingPlanController.facSub.idFaculty.facultyFname}#{' '}#{teachingPlanController.facSub.idFaculty.facultyLname}"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form>
-                <p:panel rendered="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0).size() > 0}" style="width: 60%; position: relative; float: right">
-                    <f:facet name="header" >
-                        <h:outputText value="Reviews" />
-                    </f:facet>
-                    <p:dataTable value="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0)}" rowIndexVar="i" var="item">
-                        <p:column style="width: 5%">
-                            <h:outputText value="#{i + 1}" />
-                        </p:column>
-                        <p:column style="width: 15%">
-                            <h:outputText value="#{item.reviewedOn}" >
-                                <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column style="white-space: normal ">
-                            <h:outputText value="#{item.comment}" />
-                        </p:column>
-                        <p:column style="width: 15%">
-                            <h:outputText value="#{item.reviewedBy}" />
-                        </p:column>
-                    </p:dataTable>
-                </p:panel>
+            <h:form  id="comment" >
+                <p:growl id="messages" showDetail="true"/>  
+
+
+                <p:layout id="reviewPanel" style="min-width:400px;min-height:200px; max-height: 200px;"  >
+                    <p:layoutUnit position="center" >
+                        <p:outputLabel value="Write your review in the following text box" />
+                        <p:inputTextarea rows="5" cols="50" value="#{reviewCommentsController.selected.comment}" ></p:inputTextarea>
+
+                        <br />
+                        <p:commandButton actionListener="#{reviewCommentsController.ajaxCreate(teachingPlanController.facSub, 0)}" update=":comment:messages :comment:reviewPanel" value="Submit" >
+                        </p:commandButton>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east" resizable="true" size="100" minSize="600" maxSize="700">
+                        <p:dataTable value="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0)}" rowIndexVar="i" var="item">
+                            <p:column style="width: 5%">
+                                <h:outputText value="#{i + 1}" />
+                            </p:column>
+                            <p:column style="width: 15%">
+                                <h:outputText value="#{item.reviewedOn}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="white-space: normal ">
+                                <h:outputText value="#{item.comment}" />
+                            </p:column>
+                            <p:column style="width: 15%">
+                                <h:outputText value="#{item.reviewedBy}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:layoutUnit>
+                </p:layout>
             </h:form>
+
             <h:form >
                 <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
 

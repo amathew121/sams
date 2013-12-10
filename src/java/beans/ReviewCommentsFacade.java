@@ -4,8 +4,8 @@
  */
 package beans;
 
-import entities.Faculty;
-import entities.Reviewer;
+import entities.FacultySubject;
+import entities.ReviewComments;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.Query;
  * @author piit
  */
 @Stateless
-public class ReviewerFacade extends AbstractFacade<Reviewer> {
+public class ReviewCommentsFacade extends AbstractFacade<ReviewComments> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
@@ -26,19 +26,16 @@ public class ReviewerFacade extends AbstractFacade<Reviewer> {
         return em;
     }
 
-    public ReviewerFacade() {
-        super(Reviewer.class);
+    public ReviewCommentsFacade() {
+        super(ReviewComments.class);
     }
     
-    public List<Reviewer> getReviewers() {
-        Query q = em.createNamedQuery("Reviewer.findAllGroupByFaculty");
+    public List getByIdFacSubType(FacultySubject idFacSub, short type) {
+        Query q = em.createNamedQuery("ReviewComments.findByIdFacSubType");
+        q.setParameter("reviewType", type);
+        q.setParameter("idFacultySubject", idFacSub);
+        
         return q.getResultList();
-                
     }
-    public List<Reviewer> getItemsByFaculty(Faculty idFaculty) {
-        Query q = em.createNamedQuery("Reviewer.findByFaculty");
-        q.setParameter("idFaculty", idFaculty);
-        return q.getResultList();
-
-    }
+    
 }

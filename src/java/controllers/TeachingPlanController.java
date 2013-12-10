@@ -115,6 +115,12 @@ public class TeachingPlanController implements Serializable {
         recreateModel();
         return "FSTP?faces-redirect=true";
     }
+    
+    public String prepareListRTP(FacultySubject f) {
+        facSub = f;
+        recreateModel();
+        return "ReviewTP?faces-redirect=true";
+    }
 
     public String prepareView() {
         current = (TeachingPlan) getItems().getRowData();

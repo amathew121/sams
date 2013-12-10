@@ -447,6 +447,12 @@ public class LectureController implements Serializable {
         recreateModel();
         return "FSLec?faces-redirect=true";
     }
+    
+    public String prepareListRLec(FacultySubject f) {
+        facSub = f;
+        recreateModel();
+        return "ReviewLec?faces-redirect=true";
+    }
 
     public String update() {
         try {

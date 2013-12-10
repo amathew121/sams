@@ -12,7 +12,7 @@
             <h:outputText value="Faculty Subject Information"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
+            <h:form id="form" rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
                 <p:selectOneMenu value="#{reviewerController.selected.idFaculty}" >
                     <f:selectItems value="#{facultyController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>
@@ -20,23 +20,19 @@
                     <f:selectItems value="#{subjectController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>
                 <br />
-                <p:commandButton value="Submit" action="#{reviewerController.createR()}" />
+                <p:commandButton value="Submit" actionListener="#{reviewerController.createR()}" update=":form2:reviewerTable"/>
             </h:form>
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="form2" styleClass="jsfcrud_list_form">
 
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:panelGroup style="text-align: center">
-                    <p:dataTable value="#{reviewerController.itemsNoPagination}" var="item" >   
-
-                        <p:column>
+                    <p:dataTable id="reviewerTable" style="width: 50%" value="#{reviewerController.itemsGroupByFaculty}" var="fac" >   
+                        <p:subTable value="#{reviewerController.getItemsByFaculty(fac.idFaculty)}" var="item" >
                             <f:facet name="header">
-                                <h:outputText value=""/>
+                                <h:outputText value="#{fac.idFaculty.facultyFname}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idFaculty.toString()}"/>
-                        </p:column>
-
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Subject"/>
@@ -46,10 +42,11 @@
 
                         <p:column>
 
-                            <h:commandLink title="Delete" action="#{reviewerController.destroy(item)}" >
+                            <p:commandLink title="Delete" action="#{reviewerController.destroy(item)}" >
                                 <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
-                            </h:commandLink>
+                            </p:commandLink>
                         </p:column>
+                        </p:subTable>
                     </p:dataTable>
                 </h:panelGroup>
 

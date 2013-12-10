@@ -7,6 +7,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,6 +47,8 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reviewedBy")
+    private List<ReviewComments> reviewCommentsList;
     @Column(name = "Feedback360_allowed")
     private Boolean feedback360allowed;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idFaculty")
@@ -275,6 +278,15 @@ public class Faculty implements Serializable {
 
     public void setFeedback360allowed(Boolean feedback360allowed) {
         this.feedback360allowed = feedback360allowed;
+    }
+
+    @XmlTransient
+    public List<ReviewComments> getReviewCommentsList() {
+        return reviewCommentsList;
+    }
+
+    public void setReviewCommentsList(List<ReviewComments> reviewCommentsList) {
+        this.reviewCommentsList = reviewCommentsList;
     }
     
 }

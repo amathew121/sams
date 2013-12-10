@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reviewer.findAll", query = "SELECT r FROM Reviewer r"),
+    @NamedQuery(name = "Reviewer.findByFaculty", query = "SELECT r FROM Reviewer r WHERE r.idFaculty = :idFaculty"),
+    @NamedQuery(name = "Reviewer.findAllGroupByFaculty", query = "SELECT r FROM Reviewer r GROUP BY r.idFaculty"),
     @NamedQuery(name = "Reviewer.findByIdReviewer", query = "SELECT r FROM Reviewer r WHERE r.idReviewer = :idReviewer")})
 public class Reviewer implements Serializable {
     @JoinColumn(name = "id_subject", referencedColumnName = "id_subject")

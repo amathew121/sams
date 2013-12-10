@@ -21,6 +21,26 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
             </h:form>
             <h:form>
+                <p:panel rendered="#{reviewCommentsController.getComments(lectureController.facSub, 1).size() > 0}" style="width: 60%; position: relative;float: right">
+                    <f:facet name="header" >
+                        <h:outputText value="Reviews" />
+                    </f:facet>
+                    <p:dataTable value="#{reviewCommentsController.getComments(lectureController.facSub, 1)}" rowIndexVar="i" var="item">
+                        <p:column style="width: 5%">
+                            <h:outputText value="#{i + 1}" />
+                        </p:column>
+                        <p:column style="width: 15%">
+                            <h:outputText value="#{item.reviewedOn}" >
+                                <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="white-space: normal ">
+                            <h:outputText value="#{item.comment}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <h:form>
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
                 <p:commandButton onclick="this.style.display='none';" action="#{lectureController.prepareMultipleRange()}" value="Edit Multiple Lectures" immediate="true"/>
 

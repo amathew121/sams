@@ -6,10 +6,12 @@ import controllers.util.PaginationHelper;
 import beans.FacultySubjectFacade;
 import entities.Coordinator;
 import entities.Faculty;
+import entities.Reviewer;
 import entities.Subject;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -100,6 +102,19 @@ public class FacultySubjectController implements Serializable {
         }
     }
     
+    public List<FacultySubject> getBatchesByReviewer() {
+        List<FacultySubject> list = new ArrayList<FacultySubject>();
+        FacesContext context = FacesContext.getCurrentInstance();
+        ReviewerController reviewerController = (ReviewerController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "reviewerController");
+        List<Reviewer> reviewSubjects = reviewerController.getLoggedUser();
+        for(Reviewer item : reviewSubjects){
+            List<FacultySubject> list2 = getFacade().getFSBySubject(item.getIdSubject());
+            list.addAll(list2);
+        };
+        return list;
+        
+    }
+    
     public void prepareBatchesBySemDiv() {
         FacesContext context = FacesContext.getCurrentInstance();
         CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
@@ -110,6 +125,7 @@ public class FacultySubjectController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public List<FacultySubject> getBatchesBySemDiv(){
 
         try {

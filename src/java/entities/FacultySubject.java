@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,10 +38,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FacultySubject.findBySemDivBatchSub", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division"),
     @NamedQuery(name = "FacultySubject.findBySemDivPC", query = "SELECT f FROM FacultySubject f WHERE f.idSubject.semester = :semester AND f.division = :division AND f.idSubject.programCourse = :programCourse"),
     @NamedQuery(name = "FacultySubject.findByIdFaculty", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty"),
+    @NamedQuery(name = "FacultySubject.findByIdSubject", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject"),
     @NamedQuery(name = "FacultySubject.findByIdFacultySubject", query = "SELECT f FROM FacultySubject f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubject.findByBatch", query = "SELECT f FROM FacultySubject f WHERE f.batch = :batch")})
 public class FacultySubject implements Serializable {
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "feedback_review")
+    private String feedbackReview;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultySubject")
+    private List<ReviewComments> reviewCommentsList;
     @OneToMany(mappedBy = "idFacultySubject")
     private List<Feedback2013Comments> feedback2013CommentsList;
     @OneToMany(mappedBy = "idFacultySubject")
@@ -110,7 +118,7 @@ public class FacultySubject implements Serializable {
         if (batch == 0)
             return "Theory";
         else
-            return "Batch "+batch;
+            return "" + batch;
     }
 
     public void setBatch(short batch) {
@@ -200,6 +208,23 @@ public class FacultySubject implements Serializable {
 
     public void setFeedback2013CommentsList(List<Feedback2013Comments> feedback2013CommentsList) {
         this.feedback2013CommentsList = feedback2013CommentsList;
+    }
+
+    public String getFeedbackReview() {
+        return feedbackReview;
+    }
+
+    public void setFeedbackReview(String feedbackReview) {
+        this.feedbackReview = feedbackReview;
+    }
+
+    @XmlTransient
+    public List<ReviewComments> getReviewCommentsList() {
+        return reviewCommentsList;
+    }
+
+    public void setReviewCommentsList(List<ReviewComments> reviewCommentsList) {
+        this.reviewCommentsList = reviewCommentsList;
     }
     
 }
