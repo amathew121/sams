@@ -114,7 +114,7 @@ public class ReviewerController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public String create() {
         try {
             current.setIdReviewer(0);
