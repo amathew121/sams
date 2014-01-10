@@ -46,7 +46,7 @@
                                 <p:commandButton  action="#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}" 
                                                   value="Details" immediate="true" oncomplete="window.open('Feedback2013Details.xhtml')"/>
                                 <br />
-                                <p:commandButton rendered="#{facesContext.externalContext.isUserInRole('superuser')}"
+                                <p:commandButton 
                                                  action="#{feedback2013CommentsController.getByUserName(facultySubjectController.getIdFacSub(item.idFacultySubject))}"
                                                  value="Comments" immediate="true" oncomplete="window.open('Feedback2013Comments.xhtml')"/>
 

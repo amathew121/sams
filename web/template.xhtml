@@ -34,7 +34,7 @@
                     <p:menuitem  action="#{attendanceReportController.prepareListAttendanceReport()}" value="Attendance Report" ajax="false" />
                     <p:menuitem  rendered="#{reviewerController.loggedUser.size() > 0}" action="#{facesContext.externalContext.redirect('/piit/faces/admin/ReviewList.xhtml')}" value="Reviews" ajax="false" />
                     <p:separator ></p:separator>
-                    <p:menuitem  action="#{feedback2013StudentController.prepareStudentList()}" value="Student IDs" ajax="false" />
+                  <!--  <p:menuitem  action="#{feedback2013StudentController.prepareStudentList()}" value="Student IDs" ajax="false" /> -->
                     <p:menuitem  action="#{facultySubjectController.prepareBatchesBySemDiv()}" value="Faculty/Batches" ajax="false" />
                     <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}"  action="#{reviewerController.prepareCreateR()}" value="Reviewers" ajax="false" />
                     <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser')}" disabled="true" value="Subjects" ajax="false" />

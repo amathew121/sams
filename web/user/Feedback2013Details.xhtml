@@ -92,8 +92,17 @@
                 <br />
 
                 <br />
-                <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index:   '}#{feedback2013Controller.performanceIndex}" />
+                <h:outputText value="Performance Index : (5*SA + 3*AA + 1*NN - 3*DD - 5*SD)  /  (NA+SA+AA+NN+DD+SD) " />
+                                <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{feedback2013Controller.performanceIndex}" >
+                                                        <f:convertNumber pattern="#0.00" />
 
+                                </h:outputText>
+
+                <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index:   '}" > 
+                </h:outputText>
+
+                <br />
+                <br />
                 <br />
                 <h:outputText value="Legend" />
                 <br />
