@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="#{'Subject Outcome for '}#{subjectOutcomeController.sub.subjectName}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form id="form">
+                <p:inputTextarea value="#{subjectOutcomeController.selected.outcome}" rows="5" cols="50" />
+                <br />
+                <p:commandButton value="Add Outcome" update=":form2:subjectOutcome" action="#{subjectOutcomeController.createA()}" />
+            </h:form>
+
+            <h:form id="form2">
+
+
+            
+            <p:dataTable id="subjectOutcome" value="#{subjectOutcomeController.itemsUser}" var="item">
+
+                <p:column style="width: 90%; white-space: normal;" headerText="Topic">
+                    <h:outputText value="#{item.outcome}" />
+
+                </p:column>
+                    <p:column style="width:70px">  
+
+                        <p:commandLink title="Delete" action="#{subjectOutcomeController.destroyOutcome(item)}" >
+
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </p:commandLink>
+
+                    </p:column>  
+            </p:dataTable>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

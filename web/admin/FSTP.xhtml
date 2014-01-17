@@ -37,6 +37,10 @@
             </h:form>
             <h:form >
                 <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+            <br />
+            <p:commandLink  value="View Subject Objective" action="#{subjectObjectiveController.prepareSubjectObjective(teachingPlanController.facSub.idSubject)}" />
+            <br />
+            <p:commandLink  value="View Subject Outcome" action="#{subjectOutcomeController.prepareSubjectOutcome(teachingPlanController.facSub.idSubject)}" />
 
             </h:form>
             <h:form styleClass="jsfcrud_list_form">

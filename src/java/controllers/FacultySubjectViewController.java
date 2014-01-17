@@ -82,6 +82,9 @@ public class FacultySubjectViewController implements Serializable {
         return new ListDataModel(getFacade().getFSViewByIdGroup());
 
     }
+    public String oddSem() {
+        return "ListOdd?faces-redirect=true";
+    }
     public List<FacultySubjectView> getListByDept(Faculty fac) {
         Department dept = null;
 

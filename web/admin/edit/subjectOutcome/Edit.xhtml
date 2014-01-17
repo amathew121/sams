@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSubjectOutcomeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSubjectOutcomeLabel_idSubjectOutcome}" for="idSubjectOutcome" />
+                    <h:inputText id="idSubjectOutcome" value="#{subjectOutcomeController.selected.idSubjectOutcome}" title="#{bundle.EditSubjectOutcomeTitle_idSubjectOutcome}" required="true" requiredMessage="#{bundle.EditSubjectOutcomeRequiredMessage_idSubjectOutcome}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectOutcomeLabel_outcome}" for="outcome" />
+                    <h:inputTextarea rows="4" cols="30" id="outcome" value="#{subjectOutcomeController.selected.outcome}" title="#{bundle.EditSubjectOutcomeTitle_outcome}" />
+                    <h:outputLabel value="#{bundle.EditSubjectOutcomeLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{subjectOutcomeController.selected.idSubject}" title="#{bundle.EditSubjectOutcomeTitle_idSubject}" required="true" requiredMessage="#{bundle.EditSubjectOutcomeRequiredMessage_idSubject}">
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{subjectOutcomeController.update}" value="#{bundle.EditSubjectOutcomeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSubjectOutcomeViewLink}"/>
+                <br />
+                <h:commandLink action="#{subjectOutcomeController.prepareList}" value="#{bundle.EditSubjectOutcomeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSubjectOutcomeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

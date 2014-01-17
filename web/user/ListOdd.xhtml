@@ -12,19 +12,13 @@
             <h:outputText value="Welcome #{facesContext.externalContext.remoteUser}"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form>
-                <p:commandLink value ="View all subjects" action="#{facultySubjectViewController.oddSem()}" />
-            </h:form>
-            <br />
-            <br />
             <h:form styleClass="jsfcrud_list_form">
-                
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" rendered="#{facultySubjectViewController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserNameEven.rowCount > 0}" style="text-align: center; font-size: 100%; vertical-align: text-top">
-                    <p:dataTable value="#{facultySubjectViewController.modelByUserNameEven}" var="item" >                      
+                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserName.rowCount > 0}" style="text-align: center; font-size: 100%; vertical-align: text-top">
+                    <p:dataTable value="#{facultySubjectViewController.modelByUserName}" var="item" >                      
                         <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFacultySubjectViewTitle_subjectCode}"/>

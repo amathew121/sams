@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="#{'Subject Objective for '}#{subjectObjectiveController.sub.subjectName}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form id="form">
+                <p:inputTextarea value="#{subjectObjectiveController.selected.objective}" rows="5" cols="50" />
+                
+                <br />
+                <p:commandButton value="Add Objective" update=":form2:subjectObjective" action="#{subjectObjectiveController.createA()}" />
+            </h:form>
+
+            <h:form id="form2">
+                <p:dataTable id="subjectObjective" value="#{subjectObjectiveController.itemsUser}" var="item">
+
+                    <p:column style="width: 90%; white-space: normal;" headerText="Topic">
+                        <h:outputText value="#{item.objective}" />
+
+                    </p:column>
+                    <p:column style="width:70px">  
+
+                        <p:commandLink title="Delete" action="#{subjectObjectiveController.destroyObjective(item)}" >
+
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </p:commandLink>
+
+                    </p:column>  
+                </p:dataTable>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
