@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FacultySubjectView.findAll", query = "SELECT f FROM FacultySubjectView f"),
     @NamedQuery(name = "FacultySubjectView.findByIdFacultySubject", query = "SELECT f FROM FacultySubjectView f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubjectView.findByIdFaculty", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty"),
+    @NamedQuery(name = "FacultySubjectView.findByIdFacultyEven", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty AND MOD(f.semester,2) = 0"),
     @NamedQuery(name = "FacultySubjectView.findByIdFacultyGroup", query = "SELECT f FROM FacultySubjectView f GROUP BY f.idFaculty"),
     @NamedQuery(name = "FacultySubjectView.findByFacultyTitle", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "FacultySubjectView.findByFacultyLname", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyLname = :facultyLname"),

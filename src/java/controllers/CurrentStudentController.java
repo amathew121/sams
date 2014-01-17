@@ -281,10 +281,10 @@ public class CurrentStudentController implements Serializable {
             }
 
            LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
-           item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, (short) 0, item)).size());
+           item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, semester, (short) 0, item)).size());
            
            try {
-            List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division,(short) 0, item));
+            List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division,semester, (short) 0, item));
 
                for (CurrentStudent cs : st) {
                    hn.put(cs.getIdCurrentStudent(), cs.getMarks());

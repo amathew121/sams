@@ -66,6 +66,12 @@ public class FacultySubjectViewController implements Serializable {
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
     }
+        public DataModel getModelByUserNameEven() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        modelByUserName = new ListDataModel(getFacade().getFSViewByIdEven(userName));
+        return modelByUserName;
+    }
     
     public DataModel getModelByUserName(String userName) {
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));

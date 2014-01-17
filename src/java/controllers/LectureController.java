@@ -297,7 +297,7 @@ public class LectureController implements Serializable {
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
         int total = 0;
         for (Subject s : csc.subject) {
-            FacultySubject facsub = fsc.getIdFacSub(csc.getDivision(), (short) 0, s);
+            FacultySubject facsub = fsc.getIdFacSub(csc.getDivision(), s.getSemester(), (short) 0, s);
             total += getFacade().getLectureByIdFaculty(facsub).size();
 
         }

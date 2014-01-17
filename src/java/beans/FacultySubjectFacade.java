@@ -66,8 +66,13 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         return (Faculty) q.getSingleResult();
     }
 
-    public FacultySubject getFSBySemDivBatchSub(String division, short batch, Subject idSubject) {
-        Query q = em.createNamedQuery("FacultySubject.findBySemDivBatchSub");
+    public FacultySubject getFSBySemDivBatchSub(String division, short semester, short batch, Subject idSubject) {
+        Query q;
+        if (semester %2 ==0)
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEven");
+        else
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSub");
+ 
         q.setParameter("division", division);
         q.setParameter("batch", batch);
         q.setParameter("idSubject", idSubject);

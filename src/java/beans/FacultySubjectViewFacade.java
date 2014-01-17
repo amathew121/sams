@@ -45,6 +45,13 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
         super(FacultySubjectView.class);
     }
 
+    public List<FacultySubjectView> getFSViewByIdEven(String s) {
+        Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyEven");
+        q.setParameter("idFaculty", s);
+        List<FacultySubjectView> l = q.getResultList();
+        count = l.size();
+        return l;
+    }
     public List<FacultySubjectView> getFSViewById(String s) {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdFaculty");
         q.setParameter("idFaculty", s);
@@ -52,7 +59,6 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
         count = l.size();
         return l;
     }
-
     public List<FacultySubjectView> getFSViewByIdGroup() {
         Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyGroup");
         List<FacultySubjectView> l = q.getResultList();

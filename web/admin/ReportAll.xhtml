@@ -76,47 +76,47 @@
 
                         </p:row>  
                         <p:row>  
-                            <p:column rendered="#{currentStudentController.subject.size()>0}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(0))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>0}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, currentStudentController.semester, 0, currentStudentController.subject.get(0))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>0}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>0}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>0}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>1}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(1))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>1}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(1))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>1}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>1}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>1}" resizable="true" headerText="T2" />  
 
-                            <p:column rendered="#{currentStudentController.subject.size()>2}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(2))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>2}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(2))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>2}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>2}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>2}" resizable="true" headerText="T2" />  
 
-                            <p:column rendered="#{currentStudentController.subject.size()>3}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(3))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>3}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(3))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>3}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>3}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>3}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>4}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(4))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>4}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(4))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>4}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>4}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>4}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>5}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(5))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>5}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(5))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>5}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>5}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>5}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>6}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(6))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>6}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(6))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>6}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>6}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>6}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>7}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(7))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>7}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(7))).size()}" />  
                             <p:column rendered="#{currentStudentController.subject.size()>7}" resizable="true" headerText="%" />  
                             <p:column rendered="#{currentStudentController.subject.size()>7}" resizable="true" headerText="T" />  
                             <p:column rendered="#{currentStudentController.subject.size()>7}" resizable="true" headerText="T2" />  
                             
-                            <p:column rendered="#{currentStudentController.subject.size()>8}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(8))).size()}" />  
+                            <p:column rendered="#{currentStudentController.subject.size()>8}" resizable="true" headerText="#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(8))).size()}" />  
                              <p:column rendered="#{currentStudentController.subject.size()>8}" resizable="true" headerText="%" />  
                            <p:column rendered="#{currentStudentController.subject.size()>8}" resizable="true" headerText="T" />  
                            <p:column rendered="#{currentStudentController.subject.size()>8}" resizable="true" headerText="T2" />  
@@ -137,7 +137,7 @@
                         <h:outputText value="#{c.theoryCount[1]}" />
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>0}">
-                        <h:outputText value="#{c.theoryCount[1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(0))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(0))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -152,7 +152,7 @@
                         <h:outputText value="#{c.theoryCount[2]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>1}">
-                        <h:outputText value="#{c.theoryCount[2]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(1))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[2]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(1))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -167,7 +167,7 @@
                         <h:outputText value="#{c.theoryCount[3]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>2}">
-                        <h:outputText value="#{c.theoryCount[3]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(2))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[3]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(2))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -182,7 +182,7 @@
                         <h:outputText value="#{c.theoryCount[4]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>3}">
-                        <h:outputText value="#{c.theoryCount[4]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(3))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[4]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(3))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -197,7 +197,7 @@
                         <h:outputText value="#{c.theoryCount[5]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>4}">
-                        <h:outputText value="#{c.theoryCount[5]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(4))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[5]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(4))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -212,7 +212,7 @@
                         <h:outputText value="#{c.theoryCount[6]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>5}">
-                        <h:outputText value="#{c.theoryCount[6]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(5))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[6]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(5))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -227,7 +227,7 @@
                         <h:outputText value="#{c.theoryCount[7]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>6}">
-                        <h:outputText value="#{c.theoryCount[7]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(6))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[7]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(6))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -242,7 +242,7 @@
                         <h:outputText value="#{c.theoryCount[8]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>7}">
-                        <h:outputText value="#{c.theoryCount[8]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(7))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[8]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(7))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -257,7 +257,7 @@
                         <h:outputText value="#{c.theoryCount[9]}"/>
                     </p:column>
                     <p:column rendered="#{currentStudentController.subject.size()>8}">
-                        <h:outputText value="#{c.theoryCount[9]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division, 0, currentStudentController.subject.get(8))).size()*100}" >
+                        <h:outputText value="#{c.theoryCount[9]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, currentStudentController.subject.get(8))).size()*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>

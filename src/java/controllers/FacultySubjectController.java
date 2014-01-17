@@ -260,9 +260,9 @@ public class FacultySubjectController implements Serializable {
         return getFacade().getFSById(idFacSub);
     }
 
-    public FacultySubject getIdFacSub(String division, short batch, Subject idSubject) {
+    public FacultySubject getIdFacSub(String division, short semester, short batch, Subject idSubject) {
 
-        return getFacade().getFSBySemDivBatchSub(division, batch, idSubject);
+        return getFacade().getFSBySemDivBatchSub(division, semester, batch, idSubject);
     }
 
     @FacesConverter(forClass = FacultySubject.class)
