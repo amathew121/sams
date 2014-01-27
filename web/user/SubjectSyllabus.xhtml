@@ -18,6 +18,20 @@
         <ui:define name="body">
 
 
+            <h:form id="form">
+                <p:panelGrid columns="2" >
+                <p:outputLabel value="Module No:" />
+                <p:inputText type ="number" value="#{subjectSyllabusController.selected.moduleNo}" />
+                <p:outputLabel value="No. Of Hours" />
+                <p:inputText type ="number" value="#{subjectSyllabusController.selected.noOfHours}" />
+                <br />
+                <p:inputTextarea value="#{subjectSyllabusController.selected.topics}" rows="5" cols="50" />
+                </p:panelGrid>
+                <p:commandButton value="Add Module" update=":form2:subjectSyllabus" action="#{subjectSyllabusController.createA()}" />
+            </h:form>
+
+            <h:form id="form2">
+
 
             
             <p:dataTable id="subjectSyllabus" value="#{subjectSyllabusController.itemsUser}" var="item">
@@ -34,8 +48,16 @@
                     <h:outputText value="#{item.noOfHours}" />
 
                 </p:column>
+                                    <p:column style="width:70px">  
+
+                        <p:commandLink title="Delete" action="#{subjectSyllabusController.destroyOutcome(item)}" >
+
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </p:commandLink>
+
+                    </p:column>  
             </p:dataTable>
-            
+            </h:form>
 
         </ui:define>
     </ui:composition>

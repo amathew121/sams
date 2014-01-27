@@ -56,7 +56,9 @@
 
                     <p:columnGroup type="header">  
                         <p:row>  
-                            <p:column rowspan="4" headerText="RollNo" />
+                           <p:column rowspan="4" headerText="RNo" />
+
+                            <p:column rowspan="4" headerText="B" />
                             <p:column rowspan="4" headerText="Student Name" />  
                             <p:column colspan="#{(currentStudentController.subject.size())*4}" headerText="Subjects" />  
                             <p:column rowspan="2" colspan="2" headerText="Total" />
@@ -128,6 +130,10 @@
                     </p:columnGroup>
                     <p:column>
                         <h:outputText value="#{c.rollNo}"/>
+
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{c.batch}"/>
 
                     </p:column>
                     <p:column>

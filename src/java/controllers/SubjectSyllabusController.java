@@ -5,6 +5,7 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.SubjectSyllabusFacade;
 import entities.Subject;
+import entities.SubjectOutcome;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -94,7 +95,11 @@ public class SubjectSyllabusController implements Serializable {
             return null;
         }
     }
-
+    public void createA() {
+        current.setIdSubject(sub);
+        current.setIdSubjectSyllabus(0);
+        create();
+    }
     public String prepareEdit() {
         current = (SubjectSyllabus) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -111,7 +116,12 @@ public class SubjectSyllabusController implements Serializable {
             return null;
         }
     }
-
+    public String destroyOutcome(SubjectSyllabus subjectSyllabus) {
+        current = subjectSyllabus;
+        performDestroy();
+        prepareCreate();
+        return "SubjectOutcome?faces-redirect=true";
+    }
     public String destroy() {
         current = (SubjectSyllabus) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
