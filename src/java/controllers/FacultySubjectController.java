@@ -255,6 +255,10 @@ public class FacultySubjectController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.getFSByIdFac(fac), true);
     }
 
+    public List<FacultySubject> getFacultySubjectByFaculty(Faculty fac) {
+        return getFacade().getFSByIdFac(fac);
+    }
+    
     public FacultySubject getIdFacSub(int idFacSub) {
 
         return getFacade().getFSById(idFacSub);

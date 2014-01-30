@@ -4,6 +4,7 @@ import entities.SubjectObjective;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.SubjectObjectiveFacade;
+import entities.FacultySubject;
 import entities.Subject;
 
 import java.io.Serializable;
@@ -174,6 +175,9 @@ public class SubjectObjectiveController implements Serializable {
     }
     public DataModel getItemsUser() {
         return new ListDataModel(getFacade().getByIdSubject(sub));
+    }
+    public DataModel getItemsUser(FacultySubject facSub) {
+        return new ListDataModel(getFacade().getByIdSubject(facSub.getIdSubject()));
     }
     
     public DataModel getItems() {

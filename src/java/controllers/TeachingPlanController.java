@@ -350,6 +350,10 @@ public class TeachingPlanController implements Serializable {
 
         return itemsUser;
     }
+    public DataModel getItemsUser(FacultySubject facSub) {
+        this.facSub = facSub;
+        return getItemsUser();
+    }
 
     public List<TeachingPlan> getItemsUserExport() {
         return getFacade().getTeachingPlanByFS(facSub);

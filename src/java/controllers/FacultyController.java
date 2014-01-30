@@ -6,6 +6,7 @@ import controllers.util.PaginationHelper;
 import beans.FacultyFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -260,6 +261,9 @@ public class FacultyController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public List<Faculty> getAllFaculty(){
+        return getFacade().findAll();
+    }
     public Faculty getFaculty(java.lang.String id) {
         return ejbFacade.find(id);
     }

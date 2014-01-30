@@ -40,6 +40,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Semester"/>
+                            </f:facet>
+                            <h:outputText value="#{item.division}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="Subject"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubject.subjectCode}"/>

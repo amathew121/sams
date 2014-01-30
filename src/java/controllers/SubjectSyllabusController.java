@@ -4,6 +4,7 @@ import entities.SubjectSyllabus;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.SubjectSyllabusFacade;
+import entities.FacultySubject;
 import entities.Subject;
 import entities.SubjectOutcome;
 
@@ -181,6 +182,10 @@ public class SubjectSyllabusController implements Serializable {
     public DataModel getItemsUser() {
         return new ListDataModel(getFacade().getByIdSubject(sub));
     }
+    public DataModel getItemsUser(FacultySubject facSub) {
+        return new ListDataModel(getFacade().getByIdSubject(facSub.getIdSubject()));
+    }
+
 
     private void recreateModel() {
         items = null;
