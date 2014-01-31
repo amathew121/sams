@@ -89,7 +89,20 @@
 
 
                         </p:dataList>                    </p:panel>  
+                    <p:panel  id="cbooks" header="Subject Books">  
+                        <p:dataList value="#{subjectBookController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+                            <h:outputText value="#{item.bookAuthors}#{' - '}"/>
 
+                            <h:outputText style="font-weight: bold" value="#{item.bookTitle}" />
+
+
+                        </p:dataList>                    </p:panel>  
+                    <p:panel  id="cevaluation" header="Evaluation Scheme">  
+                        <p:dataList value="#{subjectEvaluationController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+                            <h:outputText value="#{item.evaluation}" />
+
+
+                        </p:dataList>                    </p:panel>  
                     <p:panel id="coutcome" header="Course Outcome">  
                         <p:dataList value="#{subjectOutcomeController.getItemsUser(dashboardBean.getFacSub())}" var="item">
 

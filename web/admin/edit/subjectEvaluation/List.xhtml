@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSubjectEvaluationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSubjectEvaluationEmpty}" rendered="#{subjectEvaluationController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{subjectEvaluationController.items.rowCount > 0}">
+                    <h:outputText value="#{subjectEvaluationController.pagination.pageFirstItem + 1}..#{subjectEvaluationController.pagination.pageLastItem + 1}/#{subjectEvaluationController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{subjectEvaluationController.previous}" value="#{bundle.Previous} #{subjectEvaluationController.pagination.pageSize}" rendered="#{subjectEvaluationController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{subjectEvaluationController.next}" value="#{bundle.Next} #{subjectEvaluationController.pagination.pageSize}" rendered="#{subjectEvaluationController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{subjectEvaluationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectEvaluationTitle_idSubjectEvaluation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubjectEvaluation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectEvaluationTitle_evaluation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.evaluation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectEvaluationTitle_idSubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{subjectEvaluationController.prepareView}" value="#{bundle.ListSubjectEvaluationViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subjectEvaluationController.prepareEdit}" value="#{bundle.ListSubjectEvaluationEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subjectEvaluationController.destroy}" value="#{bundle.ListSubjectEvaluationDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{subjectEvaluationController.prepareCreate}" value="#{bundle.ListSubjectEvaluationCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSubjectEvaluationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

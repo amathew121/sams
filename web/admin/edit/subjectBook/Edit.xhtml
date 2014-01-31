@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSubjectBookTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_idSubjectBooks}" for="idSubjectBooks" />
+                    <h:inputText id="idSubjectBooks" value="#{subjectBookController.selected.idSubjectBooks}" title="#{bundle.EditSubjectBookTitle_idSubjectBooks}" required="true" requiredMessage="#{bundle.EditSubjectBookRequiredMessage_idSubjectBooks}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_textReference}" for="textReference" />
+                    <h:inputText id="textReference" value="#{subjectBookController.selected.textReference}" title="#{bundle.EditSubjectBookTitle_textReference}" required="true" requiredMessage="#{bundle.EditSubjectBookRequiredMessage_textReference}"/>
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_bookTitle}" for="bookTitle" />
+                    <h:inputText id="bookTitle" value="#{subjectBookController.selected.bookTitle}" title="#{bundle.EditSubjectBookTitle_bookTitle}" />
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_bookAuthors}" for="bookAuthors" />
+                    <h:inputText id="bookAuthors" value="#{subjectBookController.selected.bookAuthors}" title="#{bundle.EditSubjectBookTitle_bookAuthors}" />
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_bookPublisher}" for="bookPublisher" />
+                    <h:inputText id="bookPublisher" value="#{subjectBookController.selected.bookPublisher}" title="#{bundle.EditSubjectBookTitle_bookPublisher}" />
+                    <h:outputLabel value="#{bundle.EditSubjectBookLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{subjectBookController.selected.idSubject}" title="#{bundle.EditSubjectBookTitle_idSubject}" required="true" requiredMessage="#{bundle.EditSubjectBookRequiredMessage_idSubject}">
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{subjectBookController.update}" value="#{bundle.EditSubjectBookSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSubjectBookViewLink}"/>
+                <br />
+                <h:commandLink action="#{subjectBookController.prepareList}" value="#{bundle.EditSubjectBookShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSubjectBookIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

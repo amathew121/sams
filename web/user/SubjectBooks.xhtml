@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="#{'Subject Books for '}#{subjectBookController.sub.subjectName}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form id="form">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Author" />
+                    <p:inputText value="#{subjectBookController.selected.bookAuthors}" />
+                    <p:outputLabel value="Title" />
+                    <p:inputText value="#{subjectBookController.selected.bookTitle}" />
+                    <p:outputLabel value="Publisher" />
+                    <p:inputText value="#{subjectBookController.selected.bookPublisher}"  />
+                </p:panelGrid>
+                <p:commandButton value="Add Book" update=":form2:subjectBook" action="#{subjectBookController.createA()}" />
+            </h:form>
+
+            <h:form id="form2">
+                <p:dataTable id="subjectBook" value="#{subjectBookController.itemsUser}" var="item">
+
+                    <p:column style=" white-space: normal;" headerText="Authors">
+                        <h:outputText value="#{item.bookAuthors}" />
+
+                    </p:column>
+                    <p:column style=" white-space: normal;" headerText="Topic">
+                        <h:outputText value="#{item.bookTitle}" />
+
+                    </p:column>
+                    <p:column style=" white-space: normal;" headerText="Publisher">
+                        <h:outputText value="#{item.bookPublisher}" />
+
+                    </p:column>
+                    <p:column style="width:70px">  
+
+                        <p:commandLink title="Delete" action="#{subjectBookController.destroyObjective(item)}" >
+
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </p:commandLink>
+
+                    </p:column>  
+                </p:dataTable>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

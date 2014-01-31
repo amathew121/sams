@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSubjectBookTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_idSubjectBooks}"/>
+                    <h:outputText value="#{subjectBookController.selected.idSubjectBooks}" title="#{bundle.ViewSubjectBookTitle_idSubjectBooks}"/>
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_textReference}"/>
+                    <h:outputText value="#{subjectBookController.selected.textReference}" title="#{bundle.ViewSubjectBookTitle_textReference}"/>
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_bookTitle}"/>
+                    <h:outputText value="#{subjectBookController.selected.bookTitle}" title="#{bundle.ViewSubjectBookTitle_bookTitle}"/>
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_bookAuthors}"/>
+                    <h:outputText value="#{subjectBookController.selected.bookAuthors}" title="#{bundle.ViewSubjectBookTitle_bookAuthors}"/>
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_bookPublisher}"/>
+                    <h:outputText value="#{subjectBookController.selected.bookPublisher}" title="#{bundle.ViewSubjectBookTitle_bookPublisher}"/>
+                    <h:outputText value="#{bundle.ViewSubjectBookLabel_idSubject}"/>
+                    <h:outputText value="#{subjectBookController.selected.idSubject}" title="#{bundle.ViewSubjectBookTitle_idSubject}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{subjectBookController.destroyAndView}" value="#{bundle.ViewSubjectBookDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSubjectBookEditLink}"/>
+                <br />
+                <h:commandLink action="#{subjectBookController.prepareCreate}" value="#{bundle.ViewSubjectBookCreateLink}" />
+                <br />
+                <h:commandLink action="#{subjectBookController.prepareList}" value="#{bundle.ViewSubjectBookShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSubjectBookIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

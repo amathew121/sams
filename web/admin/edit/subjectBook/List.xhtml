@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSubjectBookTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSubjectBookEmpty}" rendered="#{subjectBookController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{subjectBookController.items.rowCount > 0}">
+                    <h:outputText value="#{subjectBookController.pagination.pageFirstItem + 1}..#{subjectBookController.pagination.pageLastItem + 1}/#{subjectBookController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{subjectBookController.previous}" value="#{bundle.Previous} #{subjectBookController.pagination.pageSize}" rendered="#{subjectBookController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{subjectBookController.next}" value="#{bundle.Next} #{subjectBookController.pagination.pageSize}" rendered="#{subjectBookController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{subjectBookController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_idSubjectBooks}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubjectBooks}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_textReference}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.textReference}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_bookTitle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bookTitle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_bookAuthors}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bookAuthors}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_bookPublisher}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bookPublisher}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectBookTitle_idSubject}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSubject}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{subjectBookController.prepareView}" value="#{bundle.ListSubjectBookViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subjectBookController.prepareEdit}" value="#{bundle.ListSubjectBookEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subjectBookController.destroy}" value="#{bundle.ListSubjectBookDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{subjectBookController.prepareCreate}" value="#{bundle.ListSubjectBookCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSubjectBookIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

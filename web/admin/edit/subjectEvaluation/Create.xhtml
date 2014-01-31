@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSubjectEvaluationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSubjectEvaluationLabel_idSubjectEvaluation}" for="idSubjectEvaluation" />
+                    <h:inputText id="idSubjectEvaluation" value="#{subjectEvaluationController.selected.idSubjectEvaluation}" title="#{bundle.CreateSubjectEvaluationTitle_idSubjectEvaluation}" required="true" requiredMessage="#{bundle.CreateSubjectEvaluationRequiredMessage_idSubjectEvaluation}"/>
+                    <h:outputLabel value="#{bundle.CreateSubjectEvaluationLabel_evaluation}" for="evaluation" />
+                    <h:inputTextarea rows="4" cols="30" id="evaluation" value="#{subjectEvaluationController.selected.evaluation}" title="#{bundle.CreateSubjectEvaluationTitle_evaluation}" />
+                    <h:outputLabel value="#{bundle.CreateSubjectEvaluationLabel_idSubject}" for="idSubject" />
+                    <h:selectOneMenu id="idSubject" value="#{subjectEvaluationController.selected.idSubject}" title="#{bundle.CreateSubjectEvaluationTitle_idSubject}" >
+                        <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{subjectEvaluationController.create}" value="#{bundle.CreateSubjectEvaluationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{subjectEvaluationController.prepareList}" value="#{bundle.CreateSubjectEvaluationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSubjectEvaluationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -62,6 +62,9 @@ public class DashboardBean implements Serializable {
         column3.addWidget("cobjective");
         column3.addWidget("coutcome");
         column3.addWidget("syllabus");
+        column3.addWidget("cbooks");
+        column3.addWidget("cevaluation");
+        
 
 
         model.addColumn(column1);
