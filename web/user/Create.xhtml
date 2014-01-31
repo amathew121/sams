@@ -25,6 +25,8 @@
                             <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="60"  pattern="HH:mm" timeOnly="true" required="true" />  
                             <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
                             <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" cols="40"  autoResize="true" />
+                            <p:outputLabel value="Contents Beyond Syllabus(if any)" for="contentsBeyond" />
+                            <p:inputTextarea value="#{lectureController.selected.contentBeyondSyllabus}" id ="contentsBeyond" cols="40"  autoResize="true" />
                             <p:outputLabel value="Tags" for="tags" />
                             <p:inputText value="#{lectureController.lectureTags}" id ="tags" />
 

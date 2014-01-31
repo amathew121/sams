@@ -52,6 +52,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lecture.findByLectureDateRangeStart", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "content_beyond_syllabus")
+    private String contentBeyondSyllabus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecture")
     private List<LectureTags> lectureTagsList;
     @Lob
@@ -245,6 +249,14 @@ public class Lecture implements Serializable {
 
     public void setLectureTagsList(List<LectureTags> lectureTagsList) {
         this.lectureTagsList = lectureTagsList;
+    }
+
+    public String getContentBeyondSyllabus() {
+        return contentBeyondSyllabus;
+    }
+
+    public void setContentBeyondSyllabus(String contentBeyondSyllabus) {
+        this.contentBeyondSyllabus = contentBeyondSyllabus;
     }
 
 
