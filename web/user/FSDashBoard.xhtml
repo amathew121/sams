@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="#{dashboardBean.facSub.idFaculty.toString()}#{' - '}#{dashboardBean.facSub.toString()}"></h:outputText>
+        </ui:define>
+        <ui:define name="body"> 
+            <h:form id="form">  
+
+                <p:growl id="growl" showDetail="true" />  
+
+                <p:dashboard  id="board" model="#{dashboardBean.model}" >  
+                    <p:ajax event="reorder" listener="#{dashboardBean.handleReorder}" update="growl" />  
+                    <p:panel id="lectures" header="Lectures">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Lectures"/>
+                            <p:commandLink style="float: right;" value="View in Detail" 
+                                           action="#{lectureController.prepareViewWithId(dashboardBean.facSub.idFacultySubject)}" />
+
+                        </f:facet>
+                        <p:lineChart id="category" value="#{dashboardBean.categoryModel}"  zoom="true" 
+                                     title="Attendance Chart" minX="0" minY="0" maxY="100" > 
+                            <p:ajax event="itemSelect" listener="#{dashboardBean.itemSelect}" update="growl" />  
+                        </p:lineChart>
+                        <br/>
+
+                    </p:panel>  
+
+                    <p:panel id="tplan" header="Teaching Plan">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Teaching Plan"/>
+                            <p:commandLink style="float: right;" value="View in Detail" 
+                                           action="#{teachingPlanController.prepareCreateWithId(dashboardBean.facSub.idFacultySubject)}" />
+
+                        </f:facet>
+                        <p:dataTable scrollable="true" scrollHeight="300" value="#{teachingPlanController.getItemsUser(dashboardBean.getFacSub())}" var="c" >   
+
+                            <p:column >
+                                <h:outputText value="#{c.t.lectureNo}" />
+
+                            </p:column>
+                            <p:column style="width: 90%; white-space: normal;" headerText="Topic">
+                                <h:outputText style="font-weight: bold" value="#{c.t.plannedDate}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                                <br />
+                                <h:outputText value="#{c.t.topicsPlanned}" />
+
+                            </p:column>
+
+
+
+                        </p:dataTable>   
+                    </p:panel>  
+                    <p:panel id="contentsDelivered" header="Contents Delivered">  
+
+                        <p:dataTable scrollable="true" scrollHeight="300" style="text-align: left;" value="#{attendanceViewController.getAttendanceByFS(dashboardBean.getFacSub())}" rowIndexVar="i" var="c" >   
+
+                            <p:column >
+                                <h:outputText value="#{i+1}" />
+
+                            </p:column>
+                            <p:column style="width: 90%; white-space: normal;" headerText="Topic">
+                                <h:outputText style="font-weight: bold" value="#{c.lectureDate}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                                <br />
+                                <h:outputText value="#{c.contentDelivered}" />
+
+                            </p:column>
+
+
+
+                        </p:dataTable>   
+                    </p:panel>  
+
+                    <p:panel  id="cobjective" header="Course Objective">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Course Objective"/>
+                            <p:commandLink style="float: right;" value="Add New" 
+                                           action="#{subjectObjectiveController.prepareSubjectObjective(dashboardBean.facSub.idSubject)}" />
+
+                        </f:facet>
+                        <p:dataList value="#{subjectObjectiveController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+
+                            <h:outputText value="#{item.objective}" />
+
+
+                        </p:dataList>                    </p:panel>  
+                    <p:panel  id="cbooks" header="Subject Books">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Subject Books"/>
+                            <p:commandLink style="float: right;" value="Add New" 
+                                           action="#{subjectBookController.prepareSubjectBook(dashboardBean.facSub.idSubject)}" />
+
+                        </f:facet>
+                        <p:dataList value="#{subjectBookController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+                            <h:outputText value="#{item.bookAuthors}#{' - '}"/>
+
+                            <h:outputText style="font-weight: bold" value="#{item.bookTitle}" />
+
+
+                        </p:dataList>                    </p:panel>  
+                    <p:panel  id="cevaluation" header="Evaluation Scheme">
+                        <f:facet name="header">
+                            <p:outputLabel value="Evaluation Scheme"/>
+                            <p:commandLink style="float: right;" value="Add New" 
+                                           action="#{subjectEvaluationController.prepareSubjectEvaluation(dashboardBean.facSub.idSubject)}" />
+
+                        </f:facet>
+                        <p:dataList value="#{subjectEvaluationController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+                            <h:outputText value="#{item.evaluation}" />
+
+
+                        </p:dataList>                    </p:panel>  
+                    <p:panel id="coutcome" header="Course Outcome">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Course Outcome"/>
+                            <p:commandLink style="float: right;" value="Add New" 
+                                           action="#{subjectOutcomeController.prepareSubjectOutcome(dashboardBean.facSub.idSubject)}" />
+
+                        </f:facet>
+                        <p:dataList value="#{subjectOutcomeController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+
+                            <h:outputText value="#{item.outcome}" />
+
+
+                        </p:dataList>                    </p:panel>  
+
+                    <p:panel id="syllabus" header="Syllabus">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Syllabus"/>
+                            <p:commandLink style="float: right;" value="Add New" 
+                                           action="#{subjectSyllabusController.prepareSubjectSyllabus(dashboardBean.facSub.idSubject)}" />
+
+                        </f:facet>
+
+                        <p:dataTable scrollable="true" scrollHeight="300" value="#{subjectSyllabusController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+
+                            <p:column >
+                                <h:outputText value="#{item.moduleNo}" />
+
+                            </p:column>
+                            <p:column style="width: 90%; white-space: normal;" headerText="Topic">
+                                <h:outputText value="#{item.topics}" />
+
+                            </p:column>
+                        </p:dataTable>      
+                    </p:panel>  
+                    <p:panel id="lectureReview" header="Reviews on contents delivered">
+                        <p:dataTable value="#{reviewCommentsController.getComments(dashboardBean.getFacSub(), 1)}" rowIndexVar="i" var="item">
+                            <p:column style="width: 5%">
+                                <h:outputText value="#{i + 1}" />
+                            </p:column>
+                            <p:column style="white-space: normal ">
+                                <h:outputText style="font-weight: bold" value="#{item.reviewedBy}#{' on '}" />
+                                <h:outputText style="font-weight: bold" value="#{item.reviewedOn}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                                <br />
+                                <h:outputText value="#{item.comment}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    <p:panel id="tPlanReview" header="Reviews on teaching plan ">
+                        <p:dataTable value="#{reviewCommentsController.getComments(dashboardBean.getFacSub(), 0)}" rowIndexVar="i" var="item">
+                            <p:column style="width: 5%">
+                                <h:outputText value="#{i + 1}" />
+                            </p:column>
+                            <p:column style="white-space: normal ">
+                                <h:outputText style="font-weight: bold" value="#{item.reviewedBy}#{' on '}" />
+                                <h:outputText style="font-weight: bold" value="#{item.reviewedOn}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                                <br />
+                                <h:outputText value="#{item.comment}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    <p:panel id="lectureSchedule">
+                        <p:schedule id="schedule" rightHeaderTemplate="month" value="#{dashboardBean.eventModel}" />  
+                    </p:panel>
+                </p:dashboard>  
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+
+</html>
