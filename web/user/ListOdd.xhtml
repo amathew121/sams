@@ -43,18 +43,11 @@
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
 
-                            <h:commandLink action="#{teachingPlanController.prepareCreateWithId(item.idFacultySubject)}" title="View Teaching Plan" immediate="true">
-                                <p:graphicImage style="width: 70px; height: 65px" value="/resources/images/lessonplan.jpg" />  
+                            <h:commandLink title="View Dashboard" value="View Subject Dashboard"
+                                           action="#{dashboardBean.prepareDashboard(facultySubjectController.getIdFacSub(item.idFacultySubject))}" > 
+
                             </h:commandLink>
-                            <h:commandLink action="#{lectureController.prepareViewWithId(item.idFacultySubject)}" title="View Lectures" immediate="true">                                                    
-                                <p:graphicImage style="width: 70px; height: 70px" value="/resources/images/Lecture.jpg" />  
-                            </h:commandLink>
-                            <h:commandLink action="#{attendanceReportController.prepareViewWithId(item.idFacultySubject)}" title="View Students" immediate="true">                                                    
-                                <p:graphicImage style="width: 70px; height: 70px" value="/resources/images/student.jpg" />  
-                            </h:commandLink>
-                            <h:commandLink rendered="#{item.batchNo == 0}" action="#{studentTestController.prepareViewWithId(item.idFacultySubject)}" title="Enter Test Details" immediate="true">                                                    
-                                <p:graphicImage style="width: 70px; height: 70px" value="/resources/images/tests-icon.png" />  
-                            </h:commandLink>
+
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
