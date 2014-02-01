@@ -185,7 +185,9 @@
                         </p:dataTable>
                     </p:panel>
                     <p:panel id="lectureSchedule">
-                        <p:schedule id="schedule" rightHeaderTemplate="month" value="#{dashboardBean.eventModel}" />  
+                        <p:schedule id="schedule" rightHeaderTemplate="" value="#{dashboardBean.eventModel}" >
+                            <p:ajax event="dateSelect" listener="#{dashboardBean.onDateSelect}" />  
+                        </p:schedule>
                     </p:panel>
                 </p:dashboard>  
 

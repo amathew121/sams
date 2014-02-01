@@ -207,6 +207,14 @@ public class LectureController implements Serializable {
         prepareCreate();
         return "Create?faces-redirect=true";
     }
+    
+    public String prepareCreateWithDate(Date startDate, FacultySubject facSub) {
+        this.facSub = facSub;
+        prepareCreate();
+        current.setLectureDate(startDate);
+        return "Create?faces-redirect=true";
+    }
+    
 
     public String prepareMultipleRange() throws Exception {
         return "MultipleDateRange?faces-redirect=true";

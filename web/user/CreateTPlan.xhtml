@@ -18,6 +18,8 @@
         <ui:define name="body">
 
             <h:form>        
+                <p:commandButton action="#{dashboardBean.prepareDashboard(teachingPlanController.facSub)}" value="Back to Dashboard" immediate="true" />
+                <br />
                 <p:growl id="growl" autoUpdate="true" showDetail="true" />
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -59,26 +61,6 @@
                 </p:panelGrid>
                 <p:commandButton  value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,lectureNo, messagePanel,:teachPlanForm:teachPlan" action="#{teachingPlanController.createTP()}" />
 
-            </h:form>
-            <h:form>
-                <p:panel rendered="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0).size() > 0}" style="width: 60%; position: relative; float: right">
-                <f:facet name="header" >
-                    <h:outputText value="Reviews" />
-                </f:facet>
-                <p:dataTable value="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0)}" rowIndexVar="i" var="item">
-                            <p:column style="width: 5%">
-                                <h:outputText value="#{i + 1}" />
-                            </p:column>
-                            <p:column style="width: 15%">
-                                <h:outputText value="#{item.reviewedOn}" >
-                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column style="white-space: normal ">
-                                <h:outputText value="#{item.comment}" />
-                            </p:column>
-                        </p:dataTable>
-                </p:panel>
             </h:form>
             <h:form rendered="#{teachingPlanController.itemsUser.rowCount == 0}">
                 <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
@@ -143,12 +125,7 @@
                         <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                     </h:outputText>
                 </p:column>
-                <p:column style="width:70px">  
 
-                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c.t)}" >
-                        <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/editicon.jpg" />  
-                    </h:commandLink>
-                </p:column>
                                 <p:column style="width:70px">  
 
                     <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c.t)}" >
@@ -157,6 +134,12 @@
                     </h:commandLink>
                     
                 </p:column>  
+                <p:column style="width:70px">  
+
+                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c.t)}" >
+                        <p:graphicImage style="width: 30px; height: 30px" value="/resources/images/editicon.jpg" />  
+                    </h:commandLink>
+                </p:column>
           </p:dataTable>
 
             <p:panel header="Export" style="width: 80px;">

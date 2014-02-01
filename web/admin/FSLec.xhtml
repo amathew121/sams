@@ -13,7 +13,7 @@
                     xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Lecture Details"></h:outputText>
+            <h:outputText value="#{'Lecture Details for '}#{lectureController.facSub.idFaculty}#{' '}#{lectureController.facSub}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form>

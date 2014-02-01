@@ -6,23 +6,28 @@ package controllers;
 
 import entities.FacultySubject;
 import entities.Lecture;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.event.ItemSelectEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
@@ -130,8 +135,6 @@ public class DashboardBean implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(lectureDate);
         calendar.set(Calendar.HOUR, startTime.getHours());
-        System.out.println(startTime);
-        System.out.println(calendar.getTime());
         return calendar.getTime();
     }
     public Date getEndTime(Date lectureDate, Date startTime) {
@@ -146,5 +149,22 @@ public class DashboardBean implements Serializable {
                 "Date: " + lec.getLectureDate().toString() + ", \nTime" + lec.getLectureStartTime().getHours() + "\nContents Delivered: " + lec.getContentDelivered());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void onDateSelect(SelectEvent selectEvent) {
+        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        FacesContext context = FacesContext.getCurrentInstance();
+        LectureController lectureController = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+        lectureController.prepareCreateWithDate((Date) selectEvent.getObject(), facSub);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/Create.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }        //return "Create?faces-redirect=true";
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) {
+        ScheduleEvent event = (ScheduleEvent) selectEvent.getObject();
+        System.out.println(selectEvent.getObject().toString());
     }
 }
