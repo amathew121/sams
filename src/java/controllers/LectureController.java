@@ -99,16 +99,7 @@ public class LectureController implements Serializable {
     public void setSelectList(CurrentStudent[] selectList) {
         this.selectList = selectList;
     }
-    @ManagedProperty(value = "#{currentStudentController}")
-    private CurrentStudentController currentStudentController;
 
-    public CurrentStudentController getCurrentStudentController() {
-        return currentStudentController;
-    }
-
-    public void setCurrentStudentController(CurrentStudentController currentStudentController) {
-        this.currentStudentController = currentStudentController;
-    }
     @EJB
     private beans.LectureFacade ejbFacade;
     private PaginationHelper pagination;
@@ -124,11 +115,7 @@ public class LectureController implements Serializable {
         this.facSub = facSub;
     }
 
-    @PostConstruct
-    public void init() {
-        current = new Lecture();
-        facSub = new FacultySubject();
-    }
+
 
     public LectureController() {
     }
@@ -204,7 +191,7 @@ public class LectureController implements Serializable {
     }
 
     public String prepareCreateWithId() {
-        prepareCreate();
+        //prepareCreate();
         return "Create?faces-redirect=true";
     }
     
@@ -221,6 +208,9 @@ public class LectureController implements Serializable {
     }
     
     public String prepareCreateMultipleWithId() throws Exception{
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+        
         lectureList = getLectureByFSList(facSub);
         
         List<Lecture> checkedItems = new ArrayList<Lecture>();
@@ -340,6 +330,9 @@ public class LectureController implements Serializable {
      * @return View.xhtml
      */
     public String createA() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+
         current.setIdFacultySubject(facSub);
         Lecture temp = current;
         try {
@@ -416,6 +409,8 @@ public class LectureController implements Serializable {
     
     
     public String createAll() throws Exception {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
 
         for (Lecture lec : lectureList) {
             List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
@@ -483,6 +478,9 @@ public class LectureController implements Serializable {
     }
 
     public String destroyLectureRestrict(Lecture lec) throws Exception {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+
         List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
         for (int i = 0; i < attendance.size(); i++) {
             currentStudentController.getAttendanceController().createEntry(attendance.get(i));
@@ -497,6 +495,9 @@ public class LectureController implements Serializable {
     }
 
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+
         if (lec != null) {
             current = lec;
             currentStudentController.setLec(lec);
@@ -513,6 +514,9 @@ public class LectureController implements Serializable {
     }
 
     public String updateLectureRestrict() throws Exception {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+
         List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(currentStudentController.getLec());
         for (int i = 0; i < attendance.size(); i++) {
             currentStudentController.getAttendanceController().createEntry(attendance.get(i));

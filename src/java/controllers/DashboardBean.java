@@ -104,8 +104,8 @@ public class DashboardBean implements Serializable {
         categoryModel = new CartesianChartModel();
         FacesContext context = FacesContext.getCurrentInstance();
         AttendanceViewController attendanceViewController = (AttendanceViewController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceViewController");
-        LectureController lectureController = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
-        int total = lectureController.getCurrentStudentController().getAttendanceByDiv(facSub).size();
+        CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
+        int total = currentStudentController.getAttendanceByDiv(facSub).size();
         try {
             lectures = attendanceViewController.getAttendanceByFS(facSub);
         } catch (Exception e) {

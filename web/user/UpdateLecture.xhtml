@@ -78,15 +78,15 @@
                          </p:layoutUnit>
                 </p:layout>
                 <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
-                <p:dataTable id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+                <p:dataTable id="listComponents" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
                     <p:column>
                         <f:facet name="header" >
-                            <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.selectAll}" id="selectAll" valueChangeListener="#{lectureController.currentStudentController.selectAllComponents}" >
+                            <p:selectBooleanCheckbox value="#{currentStudentController.selectAll}" id="selectAll" valueChangeListener="#{currentStudentController.selectAllComponents}" >
                                 <p:ajax update="listComponents" />
                             </p:selectBooleanCheckbox>
                         </f:facet>
-                        <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idCurrentStudent]}" />
+                        <p:selectBooleanCheckbox value="#{currentStudentController.checked[c.idCurrentStudent]}" />
                     </p:column>
 
                     <p:column>

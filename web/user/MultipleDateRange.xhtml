@@ -38,7 +38,7 @@
                 <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" rowKey="#{c.idLecture}" var="c" >
 
                     <p:column>
-                        <p:selectBooleanCheckbox value="#{lectureController.currentStudentController.checked[c.idLecture]}" />
+                        <p:selectBooleanCheckbox value="#{currentStudentController.checked[c.idLecture]}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">

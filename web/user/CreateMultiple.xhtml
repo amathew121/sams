@@ -16,7 +16,7 @@
 
             <h:form onsubmit="document.body.style.cursor='wait'" id="createMultiple">
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />
-                <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{lectureController.currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowIndexVar="rowIndex" rowKey="#{c.idCurrentStudent}" var="c" >
+                <p:dataTable scrollable="true" scrollHeight="500" id="listComponents" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowIndexVar="rowIndex" rowKey="#{c.idCurrentStudent}" var="c" >
 
 
                     <p:column width="3%">
