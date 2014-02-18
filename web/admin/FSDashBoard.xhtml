@@ -79,7 +79,25 @@
 
 
 
-                            </p:dataTable>   
+                            </p:dataTable>  
+                        <p:dataTable  scrollable="true" scrollHeight="100" style="text-align: left;" value="#{attendanceViewController.getAttendanceByFS(dashboardBean.getFacSub())}" rowIndexVar="i" var="c" >   
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column headerText="Beyond Syllabus"></p:column>
+                                </p:row>
+                            </p:columnGroup>
+                            <p:column rendered ="#{c.contentBeyondSyllabus.length() > 0}"  style="width: 90%; white-space: normal;" headerText="Beyond Syllabus">
+                                <h:outputText style="font-weight: bold" value="#{c.lectureDate}" >
+                                    <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                                </h:outputText>
+                                <br />
+                                <h:outputText value="#{c.contentBeyondSyllabus}" />
+
+                            </p:column>
+
+
+
+                        </p:dataTable> 
                     </p:panel>  
 
                     <p:panel  id="cobjective" header="Course Objective">  

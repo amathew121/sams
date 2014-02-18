@@ -73,6 +73,8 @@
                                 </h:outputText>
                                 <br />
                                 <h:outputText value="#{c.contentDelivered}" />
+                                <h:outputText rendered ="#{c.contentBeyondSyllabus.length() > 0}" value =" Beyond Syllabus: " style="font-weight: bold" />
+                                <h:outputText value="#{c.contentBeyondSyllabus}" />
 
                             </p:column>
 
