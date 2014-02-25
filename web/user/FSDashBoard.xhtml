@@ -139,12 +139,16 @@
                     <p:panel id="syllabus" header="Syllabus">  
                         <f:facet name="header">
                             <p:outputLabel value="Syllabus"/>
+                            <h:commandLink  >  
+                                <p:graphicImage value="/resources/images/excel.jpg" style="width: 20px; height: 20px" />  
+                                <p:dataExporter type="xls" target="syllabusDT" fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Syllabus'}" />  
+                            </h:commandLink>  
                             <p:commandLink style="float: right;" value="Add New" 
                                            action="#{subjectSyllabusController.prepareSubjectSyllabus(dashboardBean.facSub.idSubject)}" />
 
                         </f:facet>
 
-                        <p:dataTable scrollable="true" scrollHeight="300" value="#{subjectSyllabusController.getItemsUser(dashboardBean.getFacSub())}" var="item">
+                        <p:dataTable id="syllabusDT" scrollable="true" scrollHeight="300" value="#{subjectSyllabusController.getItemsUser(dashboardBean.getFacSub())}" var="item">
 
                             <p:column >
                                 <h:outputText value="#{item.moduleNo}" />
@@ -218,7 +222,7 @@
                     </p:column>
                     <p:column width="10%">
                         <f:facet name="header">
-                            <h:outputText value="#"/>
+                            <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
                         </f:facet>
                         <h:outputText value="#{c.count}"/>
                     </p:column>

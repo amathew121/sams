@@ -66,7 +66,7 @@ public class AttendanceReportController implements Serializable {
 
     public void prepareListAttendanceReport() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAll.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,6 +131,9 @@ public class AttendanceReportController implements Serializable {
 
     public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(ProgramCourse programCourse, short semester, String division, int idSubject) {
         return getFacade().getStudentAttendanceBySubDivSem(programCourse, division, semester, idSubject);
+    }
+    public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(ProgramCourse programCourse, short semester, String division, int idSubject, short batch) {
+        return getFacade().getStudentAttendanceBySubDivSem(programCourse, division, semester, idSubject, batch);
     }
 
 //    public List<Integer> getStudentAttendanceCountByIdSubjectSemDiv(Course course, short semester, String division, int idSubject) {

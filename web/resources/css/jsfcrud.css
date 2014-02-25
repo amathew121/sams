@@ -152,3 +152,8 @@ a.tag:before{
 }
 }
 .ui-dashboard-column {width:33%;}
+.low-attendance {
+    
+    background-color:maroon;
+    color: white;
+}

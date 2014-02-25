@@ -47,7 +47,18 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
         q.setParameter("division", division);
         q.setParameter("idCourse", programCourse.getCourse().getIdCourse());
         q.setParameter("idProgram", programCourse.getProgram().getIdProgram());
-        q.setParameter("fsBatch", 0);
+        List<Object[]> l = q.getResultList();
+        return l;
+    }
+    
+    public List<Object[]> getStudentAttendanceBySubDivSem(ProgramCourse programCourse, String division, short semester, int idSubject, short batch) {
+        Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
+        q.setParameter("idSubject", idSubject);
+        q.setParameter("semester", semester);
+        q.setParameter("division", division);
+        q.setParameter("idCourse", programCourse.getCourse().getIdCourse());
+        q.setParameter("idProgram", programCourse.getProgram().getIdProgram());
+        q.setParameter("fsBatch", batch);
         List<Object[]> l = q.getResultList();
         return l;
     }

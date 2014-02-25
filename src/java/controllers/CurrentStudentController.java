@@ -66,7 +66,6 @@ public class CurrentStudentController implements Serializable {
     private Program program;
     private short semester;
     private String division;
-
     List<Subject> subject = new ArrayList();
 
     public List<Subject> getSubject() {
@@ -76,8 +75,6 @@ public class CurrentStudentController implements Serializable {
     public void setSubject(List<Subject> subject) {
         this.subject = subject;
     }
-    
-    
 
     public ProgramCourse getPc() {
         return pc;
@@ -122,7 +119,7 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
         subject = sc.getSubjectBySemester(pc, semester);
-        return "ReportAll?faces-redirect=true";
+        return "ReportAllNew?faces-redirect=true";
     }
 
     public CurrentStudentController() {
@@ -203,10 +200,10 @@ public class CurrentStudentController implements Serializable {
         }
 
         List<Attendance> att = new ArrayList<Attendance>();
-    /*    if (checkedItems.isEmpty()) {
-            JsfUtil.addErrorMessage("No Students Selected");
-            throw new NullPointerException();
-        } */
+        /*    if (checkedItems.isEmpty()) {
+         JsfUtil.addErrorMessage("No Students Selected");
+         throw new NullPointerException();
+         } */
         for (int i = 0; i < checkedItems.size(); i++) {
 
             Attendance ae = new Attendance();
@@ -245,8 +242,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     public List<CurrentStudent> getAttendanceList() {
-        
-        
+
+
         FacesContext context = FacesContext.getCurrentInstance();
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
@@ -254,67 +251,79 @@ public class CurrentStudentController implements Serializable {
         List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division);
 
 
-       for (Subject item : subject) {
-            Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
-            List<Object[]> arl = arc.getStudentAttendanceByIdSubjectSemDiv(pc, semester, division, item.getIdSubject());
-           Map<Integer, BigDecimal> hn = new HashMap<Integer, BigDecimal>();
-           Map<Integer, BigDecimal> hn2 = new HashMap<Integer, BigDecimal>();
+        for (Subject item : subject) {
+            Map<Integer, Integer> theory = new HashMap<Integer, Integer>();
+            Map<Integer, Integer> pracs = new HashMap<Integer, Integer>();
 
-                   StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
+            List<Object[]> theoryObj = arc.getStudentAttendanceByIdSubjectSemDiv(pc, semester, division, item.getIdSubject());
+            Map<Integer, BigDecimal> marks = new HashMap<Integer, BigDecimal>();
+            Map<Integer, BigDecimal> marks2 = new HashMap<Integer, BigDecimal>();
 
-            
+            StudentTestController stc = (StudentTestController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "studentTestController");
+
+
             for (CurrentStudent cs : lcs) {
-                hm.put(cs.getIdCurrentStudent(), 0);
-                               hn.put(cs.getIdCurrentStudent(), new BigDecimal(0));
+                theory.put(cs.getIdCurrentStudent(), 0);
+                marks.put(cs.getIdCurrentStudent(), new BigDecimal(0));
 
             }
 
-            for (Object[] ar : arl) {
-                hm.put(((AttendanceReport)ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
+            for (Object[] ar : theoryObj) {
+                if(((AttendanceReport) ar[0]).getFsBatch() == 0)
+                    theory.put(((AttendanceReport) ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
+                else
+                    pracs.put(((AttendanceReport) ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
+
             }
             for (CurrentStudent cs : lcs) {
                 int[] theoryCount = cs.getTheoryCount();
-               
-                theoryCount[item.getSubjectSrNo()] = hm.get(cs.getIdCurrentStudent());
+                int[] pracsCount = cs.getPracsCount();
+
+                theoryCount[item.getSubjectSrNo()] = theory.get(cs.getIdCurrentStudent());
+                if(pracs.get(cs.getIdCurrentStudent()) != null)
+                pracsCount[item.getSubjectSrNo()] = pracs.get(cs.getIdCurrentStudent());
+
                 cs.setTheoryCount(theoryCount);
-                cs.setCount(hm.get(cs.getIdCurrentStudent()));
+                cs.setPracsCount(pracsCount);
+                cs.setCount(theory.get(cs.getIdCurrentStudent()));
             }
 
-           LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
-           item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, semester, (short) 0, item)).size());
-           
-           try {
-            List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division,semester, (short) 0, item));
+            LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
+            item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, semester, (short) 0, item)).size());
 
-               for (CurrentStudent cs : st) {
-                   hn.put(cs.getIdCurrentStudent(), cs.getMarks());
-               }
-               for (CurrentStudent cs : st) {
-                   hn2.put(cs.getIdCurrentStudent(), cs.getMarks2());
-               }
+            try {
+                List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division, semester, (short) 0, item));
 
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-           for (CurrentStudent cs : lcs) {
-               BigDecimal[] marksAll = cs.getMarksAll();
-               
-               marksAll[item.getSubjectSrNo()] = hn.get(cs.getIdCurrentStudent());
-               cs.setMarksAll(marksAll);
-               cs.setMarks(hn.get(cs.getIdCurrentStudent()));
-           }
-           for (CurrentStudent cs : lcs) {
-               BigDecimal[] marksAll = cs.getMarksAll2();
+                for (CurrentStudent cs : st) {
+                    marks.put(cs.getIdCurrentStudent(), cs.getMarks());
+                }
+                for (CurrentStudent cs : st) {
+                    marks2.put(cs.getIdCurrentStudent(), cs.getMarks2());
+                }
 
-               marksAll[item.getSubjectSrNo()] = hn2.get(cs.getIdCurrentStudent());
-               cs.setMarksAll2(marksAll);
-               cs.setMarks2(hn2.get(cs.getIdCurrentStudent()));
-           }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
+            for (CurrentStudent cs : lcs) {
+                BigDecimal[] marksAll = cs.getMarksAll();
+
+                marksAll[item.getSubjectSrNo()] = marks.get(cs.getIdCurrentStudent());
+                cs.setMarksAll(marksAll);
+                cs.setMarks(marks.get(cs.getIdCurrentStudent()));
+            }
+            for (CurrentStudent cs : lcs) {
+                BigDecimal[] marksAll = cs.getMarksAll2();
+
+                marksAll[item.getSubjectSrNo()] = marks2.get(cs.getIdCurrentStudent());
+                cs.setMarksAll2(marksAll);
+                cs.setMarks2(marks2.get(cs.getIdCurrentStudent()));
+            }
 
 
         }
         return lcs;
     }
+
     public String attendanceReportXlsExport() {
         List<CurrentStudent> currentStudent;
         currentStudent = getAttendanceList();
@@ -326,15 +335,16 @@ public class CurrentStudentController implements Serializable {
 
             transformer.transformXLS("/home/piit/Documents/Development/sams/web/resources/templateAttendance.xls", beans, "/home/piit/Documents/Development/sams/web/user/Report.xls");
         } catch (ParsePropertyException ex) {
-            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
 
             return viewReport();
         }
     }
+
     public String viewReport() {
 
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -512,7 +522,7 @@ public class CurrentStudentController implements Serializable {
         }
         return items;
     }
-    
+
     public CurrentStudent getCurrentStudentByID(Integer idCurrentStudent) {
         return getFacade().find(idCurrentStudent);
     }

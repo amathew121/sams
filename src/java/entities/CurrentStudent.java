@@ -104,6 +104,8 @@ public class CurrentStudent implements Serializable {
     @Transient
     private int[] theoryCount = new int[10];
     @Transient
+    private int[] pracsCount = new int[10];
+    @Transient
     private BigDecimal[] marksAll = new BigDecimal[10];
     @Transient
     private BigDecimal[] marksAll2 = new BigDecimal[10];
@@ -117,6 +119,14 @@ public class CurrentStudent implements Serializable {
     private boolean selectAll;
     @Transient
     private BigDecimal marks2;
+
+    public int[] getPracsCount() {
+        return pracsCount;
+    }
+
+    public void setPracsCount(int[] pracsCount) {
+        this.pracsCount = pracsCount;
+    }
     
     
     public short getLectureAttended() {
