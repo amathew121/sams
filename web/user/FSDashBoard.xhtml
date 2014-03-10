@@ -203,6 +203,8 @@
                         <p:graphicImage value="/resources/images/excel.jpg" style="width: 20px; height: 20px" />  
                         <p:dataExporter type="xls" target="tbl" fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
                     </h:commandLink>  
+                            <p:commandLink style="float: right;" value="Add marks" action="#{studentTestController.prepareViewWithId(dashboardBean.getFacSub().idFacultySubject)}" />
+
                         </f:facet>
                         
                         <p:dataTable id="tbl"  scrollable="true" scrollHeight="300" value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
@@ -226,6 +228,12 @@
                         </f:facet>
                         <h:outputText value="#{c.count}"/>
                     </p:column>
+                            <p:column width="10%">
+                                <f:facet name="header">
+                                    <h:outputText value="T1"/>
+                                </f:facet>
+                                <h:outputText value="#{c.marks}"/>
+                            </p:column>
                 </p:dataTable>
                     </p:panel>
                 </p:dashboard>  
