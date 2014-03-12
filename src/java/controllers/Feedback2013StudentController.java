@@ -89,7 +89,7 @@ public class Feedback2013StudentController implements Serializable {
         CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
         c = coordinatorController.getLoggedUser();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FeedbackUID.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/FeedbackUID.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

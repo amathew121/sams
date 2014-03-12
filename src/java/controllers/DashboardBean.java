@@ -34,7 +34,7 @@ import org.primefaces.model.chart.ChartSeries;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @ManagedBean(name = "dashboardBean")
 @SessionScoped
@@ -165,7 +165,7 @@ public class DashboardBean implements Serializable {
         LectureController lectureController = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
         lectureController.prepareCreateWithDate((Date) selectEvent.getObject(), facSub);
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/Create.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/user/Create.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }        //return "Create?faces-redirect=true";

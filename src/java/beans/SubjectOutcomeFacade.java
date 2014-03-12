@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Stateless
 public class SubjectOutcomeFacade extends AbstractFacade<SubjectOutcome> {

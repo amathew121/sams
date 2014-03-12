@@ -120,7 +120,7 @@ public class FacultySubjectController implements Serializable {
         CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
         c = coordinatorController.getLoggedUser();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FacultyBatches.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/FacultyBatches.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

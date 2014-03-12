@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Embeddable
 public class StudentTestPK implements Serializable {

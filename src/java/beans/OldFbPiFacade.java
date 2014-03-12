@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Stateless
 public class OldFbPiFacade extends AbstractFacade<OldFbPi> {

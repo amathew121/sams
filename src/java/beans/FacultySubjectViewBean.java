@@ -29,14 +29,14 @@ import javax.sql.DataSource;
 public class FacultySubjectViewBean implements Serializable{
  
 	//resource injection
-	//@Resource(name="jdbc/piit")
+	//@Resource(name="jdbc/phcoe")
 	private DataSource ds;
  
 	//if resource injection is not support, you still can get it manually.
 /*	public FacultySubjectViewBean(){
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("jdbc:mysql://localhost:3306/piit?zeroDateTimeBehavior=convertToNull");
+			ds = (DataSource)ctx.lookup("jdbc:mysql://localhost:3306/phcoe?zeroDateTimeBehavior=convertToNull");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +58,7 @@ public class FacultySubjectViewBean implements Serializable{
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(FacultySubjectViewBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-                String URL = "jdbc:mysql://localhost:3306/piit";
+                String URL = "jdbc:mysql://localhost:3306/phcoe";
                 String USER = "root";
                 String PASS = "MES_90";
 		Connection con = DriverManager.getConnection(URL,USER,PASS);

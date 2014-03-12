@@ -18,13 +18,13 @@ import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @ManagedBean(name = "fileUploadController")
 @RequestScoped
 public class FileUploadController {
 
-    private String destination = "/home/piit/Desktop/";
+    private String destination = "/home/phcoe/Desktop/";
     private UploadedFile file;  
   
     public UploadedFile getFile() {  

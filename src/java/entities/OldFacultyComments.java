@@ -20,10 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Entity
-@Table(name = "old_faculty_comments", catalog = "piit", schema = "")
+@Table(name = "old_faculty_comments", catalog = "phcoe", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OldFacultyComments.findAll", query = "SELECT o FROM OldFacultyComments o"),

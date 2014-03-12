@@ -141,7 +141,7 @@ public class FacultySubjectViewController implements Serializable {
     public void prepareListUser() {
         recreateModel();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/List.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/user/List.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -149,14 +149,14 @@ public class FacultySubjectViewController implements Serializable {
 
     public void prepareListAdmin() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/List.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/List.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void prepareListAdminFeedback() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/Feedback2013All.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/Feedback2013All.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

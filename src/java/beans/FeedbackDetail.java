@@ -6,7 +6,7 @@ package beans;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 class FeedbackDetail {
     

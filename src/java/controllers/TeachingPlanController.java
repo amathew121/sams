@@ -210,7 +210,7 @@ public class TeachingPlanController implements Serializable {
         XLSTransformer transformer = new XLSTransformer();
         try {
 
-            transformer.transformXLS("/home/piit/Documents/Development/sams/web/resources/template.xls", beans, "/home/piit/Documents/Development/sams/web/user/teachPlan.xls");
+            transformer.transformXLS("/home/phcoe/Documents/Development/sams/web/resources/template.xls", beans, "/home/phcoe/Documents/Development/sams/web/user/teachPlan.xls");
         } catch (ParsePropertyException ex) {
             Logger.getLogger(TeachingPlanController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -232,7 +232,7 @@ public class TeachingPlanController implements Serializable {
         response.setHeader("Content-Disposition", "attachment;filename=teachingPlan.xls");
 
         try {
-            File file = new File("/home/piit/Documents/Development/sams/web/user/teachPlan.xls");
+            File file = new File("/home/phcoe/Documents/Development/sams/web/user/teachPlan.xls");
             FileInputStream fileIn = new FileInputStream(file);
             ServletOutputStream out = response.getOutputStream();
 

@@ -6,7 +6,7 @@ package entities;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 public class LectureTPlan {
 

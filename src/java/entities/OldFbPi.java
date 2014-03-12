@@ -17,10 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Entity
-@Table(name = "old_fb_pi", catalog = "piit", schema = "")
+@Table(name = "old_fb_pi", catalog = "phcoe", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OldFbPi.findAll", query = "SELECT o FROM OldFbPi o"),

@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Stateless
 public class CoordinatorFacade extends AbstractFacade<Coordinator> {

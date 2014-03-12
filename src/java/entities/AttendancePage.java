@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 public class AttendancePage {
     private List<String> id_student;

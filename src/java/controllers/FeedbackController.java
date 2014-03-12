@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @ManagedBean(name = "feedbackController")
 @SessionScoped
@@ -59,7 +59,7 @@ public class FeedbackController implements Serializable {
             //get database connection
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            String URL = "jdbc:mysql://192.168.4.90:3306/piit";
+            String URL = "jdbc:mysql://192.168.4.90:3306/phcoe";
             String USER = "root";
             String PASS = "MES_90";
             con = DriverManager.getConnection(URL, USER, PASS);
@@ -106,7 +106,7 @@ public class FeedbackController implements Serializable {
 
     public void prepareList() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/Feedback2013.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/user/Feedback2013.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

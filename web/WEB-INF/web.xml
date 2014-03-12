@@ -44,7 +44,7 @@
     <security-constraint>
         <display-name>User Pages</display-name>
         <web-resource-collection>
-            <web-resource-name>jdbc/piit</web-resource-name>
+            <web-resource-name>jdbc/phcoe</web-resource-name>
             <description/>
             <url-pattern>/faces/user/*</url-pattern>
             <url-pattern>/index.xhtml</url-pattern>

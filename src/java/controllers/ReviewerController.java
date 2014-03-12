@@ -109,7 +109,7 @@ public class ReviewerController implements Serializable {
     public void prepareCreateR() {
         prepareCreate();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/Reviewer.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/Reviewer.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

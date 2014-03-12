@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author piit
+ * @author phcoe
  */
 @Embeddable
 public class OldFbPiPK implements Serializable {

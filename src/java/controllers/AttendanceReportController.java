@@ -66,7 +66,7 @@ public class AttendanceReportController implements Serializable {
 
     public void prepareListAttendanceReport() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/phcoe/faces/admin/ReportAllNew.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
