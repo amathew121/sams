@@ -46,9 +46,21 @@ public class OldFbPiDetailsPK implements Serializable {
     @Column(name = "qno")
     private short qno;
 
+    /**
+     * Creates OldFbPiDetailsPK Entity
+     */
     public OldFbPiDetailsPK() {
     }
 
+    /**
+     * Creates OldFbPiDetailsPK Entity with the specified fac_id, sub_id, course_id, division, batch and qno
+     * @param facId
+     * @param subId
+     * @param courseId
+     * @param division
+     * @param batch
+     * @param qno
+     */
     public OldFbPiDetailsPK(String facId, String subId, String courseId, String division, short batch, short qno) {
         this.facId = facId;
         this.subId = subId;
@@ -58,50 +70,98 @@ public class OldFbPiDetailsPK implements Serializable {
         this.qno = qno;
     }
 
+    /**
+     * Get fac_id from OldFbPiDetailsPK Entity
+     * @return
+     */
     public String getFacId() {
         return facId;
     }
 
+    /**
+     * Set fac_id for OldFbPiDetailsPK Entity
+     * @param facId
+     */
     public void setFacId(String facId) {
         this.facId = facId;
     }
 
+    /**
+     * Get sub_id from OldFbPiDetailsPK Entity
+     * @return
+     */
     public String getSubId() {
         return subId;
     }
 
+    /**
+     * Set sub_id for OldFbPiDetailsPK Entity
+     * @param subId
+     */
     public void setSubId(String subId) {
         this.subId = subId;
     }
 
+    /**
+     * Get course_id from OldFbPiDetailsPK Entity
+     * @return
+     */
     public String getCourseId() {
         return courseId;
     }
 
+    /**
+     * Set course_id for OldFbPiDetailsPK Entity
+     * @param courseId
+     */
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
+    /**
+     * Get division from OldFbPiDetailsPK Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for OldFbPiDetailsPK Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from OldFbPiDetailsPK Entity
+     * @return
+     */
     public short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for OldFbPiDetailsPK Entity
+     * @param batch
+     */
     public void setBatch(short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get qno from OldFbPiDetailsPK Entity
+     * @return
+     */
     public short getQno() {
         return qno;
     }
 
+    /**
+     * Set qno for OldFbPiDetailsPK Entity
+     * @param qno
+     */
     public void setQno(short qno) {
         this.qno = qno;
     }

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Creates POJO Entity for table 'student'
  * @author Ashish
  */
 @Entity
@@ -91,110 +91,218 @@ public class Student implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "admnNo")
     private CurrentStudent currentStudent;
 
+    /**
+     * Creates Student Entity
+     */
     public Student() {
     }
 
+    /**
+     * Creates Student Entity with the specified 'admnNo'
+     * @param admnNo
+     */
     public Student(String admnNo) {
         this.admnNo = admnNo;
     }
 
+    /**
+     * Creates Student Entity with the specified admnNo and studentName
+     * @param admnNo
+     * @param studentName
+     */
     public Student(String admnNo, String studentName) {
         this.admnNo = admnNo;
         this.studentName = studentName;
     }
 
+    /**
+     * Get AdmnNo from Student Entity
+     * @return
+     */
     public String getAdmnNo() {
         return admnNo;
     }
 
+    /**
+     * Set admnNo for Student Entity
+     * @param admnNo
+     */
     public void setAdmnNo(String admnNo) {
         this.admnNo = admnNo;
     }
 
+    /**
+     * Get student_name from Student Entity
+     * @return
+     */
     public String getStudentName() {
         return studentName;
     }
 
+    /**
+     * Set student_name for Student Entity
+     * @param studentName
+     */
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
 
+    /**
+     * Get gender from Student Entity
+     * @return
+     */
     public Boolean getGender() {
         return gender;
     }
 
+    /**
+     * Set gender for Student Entity
+     * @param gender
+     */
     public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
+    /**
+     * Get dob from Student Entity
+     * @return
+     */
     public Date getDob() {
         return dob;
     }
 
+    /**
+     * Set dob for Student Entity
+     * @param dob
+     */
     public void setDob(Date dob) {
         this.dob = dob;
     }
 
+    /**
+     * Get phone from Student Entity
+     * @return
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Set phone for Student Entity
+     * @param phone
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Get father_name from Student Entity
+     * @return
+     */
     public String getFatherName() {
         return fatherName;
     }
 
+    /**
+     * Set father_name for Student Entity
+     * @param fatherName
+     */
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
     }
 
+    /**
+     * Get mother_name from Student Entity
+     * @return
+     */
     public String getMotherName() {
         return motherName;
     }
 
+    /**
+     * Set mother_name for Student Entity
+     * @param motherName
+     */
     public void setMotherName(String motherName) {
         this.motherName = motherName;
     }
 
+    /**
+     * Get address from Student Entity
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Set address for Student Entity
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Get email from Student Entity
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Set email for Student Entity
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Get cancelled from Student Entity
+     * @return
+     */
     public Boolean getCancelled() {
         return cancelled;
     }
 
+    /**
+     * Set cancelled for Student Entity
+     * @param cancelled
+     */
     public void setCancelled(Boolean cancelled) {
         this.cancelled = cancelled;
     }
 
+    /**
+     * Get id_program from Student Entity
+     * @return
+     */
     public Program getIdProgram() {
         return idProgram;
     }
 
+    /**
+     * Set id_program for Student Entity
+     * @param idProgram
+     */
     public void setIdProgram(Program idProgram) {
         this.idProgram = idProgram;
     }
 
+    /**
+     * Get current_student from Student Entity
+     * @return
+     */
     public CurrentStudent getCurrentStudent() {
         return currentStudent;
     }
 
+    /**
+     * Set current_student for Student Entity
+     * @param currentStudent
+     */
     public void setCurrentStudent(CurrentStudent currentStudent) {
         this.currentStudent = currentStudent;
     }
@@ -224,11 +332,19 @@ public class Student implements Serializable {
         return "entities.Student[ admnNo=" + admnNo + " ]";
     }
 
+    /**
+     * Gets list of CurrentStudent Entities for the Student Entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public List<CurrentStudent> getCurrentStudentList() {
         return currentStudentList;
     }
 
+    /**
+     * Sets list of CurrentStudent Entities for the Student Entity as a foreign key
+     * @param currentStudentList
+     */
     public void setCurrentStudentList(List<CurrentStudent> currentStudentList) {
         this.currentStudentList = currentStudentList;
     }

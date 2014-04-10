@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'user_group'
  * @author Ashish
  */
 @Entity
@@ -33,21 +33,41 @@ public class UserGroup implements Serializable {
     @EmbeddedId
     protected UserGroupPK userGroupPK;
 
+    /**
+     * Creates UserGroup Entity 
+     */
     public UserGroup() {
     }
 
+    /**
+     * Creates UserGroup Entity with the specified userGroupPK 
+     * @param userGroupPK
+     */
     public UserGroup(UserGroupPK userGroupPK) {
         this.userGroupPK = userGroupPK;
     }
 
+    /**
+     * Creates UserGroup Entity with the specified user_name and role_name
+     * @param userName
+     * @param roleName
+     */
     public UserGroup(String userName, String roleName) {
         this.userGroupPK = new UserGroupPK(userName, roleName);
     }
 
+    /**
+     * Get UserGroupPK from the UserGroup Entity
+     * @return
+     */
     public UserGroupPK getUserGroupPK() {
         return userGroupPK;
     }
 
+    /**
+     * Set UserGroupPK for the UserGroup Entity
+     * @param userGroupPK
+     */
     public void setUserGroupPK(UserGroupPK userGroupPK) {
         this.userGroupPK = userGroupPK;
     }
@@ -77,10 +97,18 @@ public class UserGroup implements Serializable {
         return "entities.UserGroup[ userGroupPK=" + userGroupPK + " ]";
     }
 
+    /**
+     * 
+     * @return
+     */
     public Faculty getFaculty() {
         return faculty;
     }
 
+    /**
+     *
+     * @param faculty
+     */
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }

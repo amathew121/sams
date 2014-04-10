@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO entity for table 'feedback2013'
  * @author piit
  */
 @Entity
@@ -64,90 +64,176 @@ public class Feedback2013 implements Serializable {
     @Transient
     private int ra5;
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa0() {
         return ra0;
     }
 
+    /**
+     * TODO:
+     * @param ra0
+     */
     public void setRa0(int ra0) {
         this.ra0 = ra0;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa1() {
         return ra1;
     }
 
+    /**
+     * TODO:
+     * @param ra1
+     */
     public void setRa1(int ra1) {
         this.ra1 = ra1;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa2() {
         return ra2;
     }
 
+    /**
+     * TODO:
+     * @param ra2
+     */
     public void setRa2(int ra2) {
         this.ra2 = ra2;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa3() {
         return ra3;
     }
 
+    /**
+     * TODO:
+     * @param ra3
+     */
     public void setRa3(int ra3) {
         this.ra3 = ra3;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa4() {
         return ra4;
     }
 
+    /**
+     * TODO:
+     * @param ra4
+     */
     public void setRa4(int ra4) {
         this.ra4 = ra4;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getRa5() {
         return ra5;
     }
 
+    /**
+     * TODO:
+     * @param ra5
+     */
     public void setRa5(int ra5) {
         this.ra5 = ra5;
     }
     
-    
+    /**
+     * Creates Feedback2013 Entity
+     */
     public Feedback2013() {
     }
 
+    /**
+     * Creates Feedback2013 Entity with the specified 'id'
+     * @param id
+     */
     public Feedback2013(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get id from Feedback2013 Entity
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Set id for Feedback2013 Entity
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get id_answer from Feedback2013 Entity
+     * @return
+     */
     public Short getIdAnswer() {
         return idAnswer;
     }
 
+    /**
+     * Set id_answer for Feedback2013 Entity
+     * @param idAnswer
+     */
     public void setIdAnswer(Short idAnswer) {
         this.idAnswer = idAnswer;
     }
 
+    /**
+     * Get qid from Feedback2013 Entity
+     * @return
+     */
     public Feedback2013Question getQid() {
         return qid;
     }
 
+    /**
+     * Set qid for Feedback2013 Entity
+     * @param qid
+     */
     public void setQid(Feedback2013Question qid) {
         this.qid = qid;
     }
 
+    /**
+     * Get uid from Feedback2013 Entity
+     * @return
+     */
     public Feedback2013Student getUid() {
         return uid;
     }
 
+    /**
+     * Set uid for Feedback2013 Entity
+     * @param uid
+     */
     public void setUid(Feedback2013Student uid) {
         this.uid = uid;
     }
@@ -177,10 +263,18 @@ public class Feedback2013 implements Serializable {
         return "entities.Feedback2013[ id=" + id + " ]";
     }
 
+    /**
+     * Get id_faculty_subject from Feedback2013 Entity
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject from Feedback2013 Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }

@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'teaching_plan'
  * @author Ashish
  */
 @Entity
@@ -64,54 +64,108 @@ public class TeachingPlan implements Serializable {
     @ManyToOne(optional = false)
     private FacultySubject idFacultySubject;
 
+    /**
+     * Create TeachingPlan Entity
+     */
     public TeachingPlan() {
     }
 
+    /**
+     * Create TeachingPlan Entity with the specified 'id_teaching_plan'
+     * @param idTeachingPlan
+     */
     public TeachingPlan(Integer idTeachingPlan) {
         this.idTeachingPlan = idTeachingPlan;
     }
 
+    /**
+     * Create TeachingPlan Entity with the specified id_teaching_plan,topics_planned and lecture_no
+     * @param idTeachingPlan
+     * @param topicsPlanned
+     * @param lectureNo
+     */
     public TeachingPlan(Integer idTeachingPlan, String topicsPlanned, short lectureNo) {
         this.idTeachingPlan = idTeachingPlan;
         this.topicsPlanned = topicsPlanned;
         this.lectureNo = lectureNo;
     }
 
+    /**
+     * Get id_teaching_plan from TeachingPlan Entity
+     * @return
+     */
     public Integer getIdTeachingPlan() {
         return idTeachingPlan;
     }
 
+    /**
+     * Set id_teaching_plan for TeachingPlan Entity
+     * @param idTeachingPlan
+     */
     public void setIdTeachingPlan(Integer idTeachingPlan) {
         this.idTeachingPlan = idTeachingPlan;
     }
 
+    /**
+     * Get topics_planned from TeachingPlan Entity
+     * @return
+     */
     public String getTopicsPlanned() {
         return topicsPlanned;
     }
 
+    /**
+     * Set topics_planned for TeachingPlan Entity
+     * @param topicsPlanned
+     */
     public void setTopicsPlanned(String topicsPlanned) {
         this.topicsPlanned = topicsPlanned;
     }
 
+    /**
+     * Get planned_date from TeachingPlan Entity
+     * @return
+     */
     public Date getPlannedDate() {
         return plannedDate;
     }
 
+    /**
+     * Set planned_date for TeachingPlan Entity
+     * @param plannedDate
+     */
     public void setPlannedDate(Date plannedDate) {
         this.plannedDate = plannedDate;
     }
+
+    /**
+     * Get lecture_no from TeachingPlan Entity
+     * @return
+     */
     public short getLectureNo() {
         return lectureNo;
     }
 
+    /**
+     * Set lecture_no for TeachingPlan Entity
+     * @param lectureNo
+     */
     public void setLectureNo(short lectureNo) {
         this.lectureNo = lectureNo;
     }
 
+    /**
+     * Get id_faculty_subject from TeachingPlan Entity
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for TeachingPlan Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
@@ -141,10 +195,18 @@ public class TeachingPlan implements Serializable {
         return "entities.TeachingPlan[ idTeachingPlan=" + idTeachingPlan + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public Short getModuleNo() {
         return moduleNo;
     }
 
+    /**
+     *
+     * @param moduleNo
+     */
     public void setModuleNo(Short moduleNo) {
         this.moduleNo = moduleNo;
     }

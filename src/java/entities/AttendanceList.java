@@ -8,18 +8,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
+ * Creates AttendanceList Entity
  * @author Ashish
  */
 public class AttendanceList  {
 
-    public int[] theoryCount;
+    private int[] theoryCount;
     
-
+    /**
+     * TODO:
+     * @return
+     */
     public int[] getTheoryCount() {
         return theoryCount;
     }
 
+    /**
+     * TODO:
+     * @param theoryCount
+     */
     public void setTheoryCount(int[] theoryCount) {
         this.theoryCount = theoryCount;
     }

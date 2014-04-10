@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Creates POJO entity for table 'current_student'
  * @author Ashish
  */
 @Entity
@@ -120,64 +120,122 @@ public class CurrentStudent implements Serializable {
     @Transient
     private BigDecimal marks2;
 
+    /**
+     * TODO:
+     * @return
+     */
     public int[] getPracsCount() {
         return pracsCount;
     }
 
+    /**
+     * TODO:
+     * @param pracsCount
+     */
     public void setPracsCount(int[] pracsCount) {
         this.pracsCount = pracsCount;
     }
     
-    
+    /**
+     * Get lecture_attended from CurrentStudent Entity
+     * @return
+     */
     public short getLectureAttended() {
         return lectureAttended;
     }
 
+    /**
+     * Set lecture_attended for CurrentStudent Entity
+     * @param lectureAttended
+     */
     public void setLectureAttended(short lectureAttended) {
         this.lectureAttended = lectureAttended;
     }
 
-    
+    /**
+     * TODO:
+     * @return
+     */
     public boolean isSelectAll() {
         return selectAll;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public BigDecimal[] getMarksAll2() {
         return marksAll2;
     }
 
+    /**
+     * TODO:
+     * @param marksAll2
+     */
     public void setMarksAll2(BigDecimal[] marksAll2) {
         this.marksAll2 = marksAll2;
     }
 
+    /**
+     * TODO:
+     * @param selectAll
+     */
     public void setSelectAll(boolean selectAll) {
         this.selectAll = selectAll;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public BigDecimal[] getMarksAll() {
         return marksAll;
     }
 
+    /**
+     * TODO:
+     * @param marksAll
+     */
     public void setMarksAll(BigDecimal[] marksAll) {
         this.marksAll = marksAll;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public BigDecimal getMarks() {
         return marks;
     }
 
+    /**
+     * TODO:
+     * @param marks
+     */
     public void setMarks(BigDecimal marks) {
         this.marks = marks;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public BigDecimal getMarks2() {
         return marks2;
     }
 
+    /**
+     * TODO:
+     * @param marks2
+     */
     public void setMarks2(BigDecimal marks2) {
         this.marks2 = marks2;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getTheoryCountTotal() {
         theoryCountTotal = 0;
         for (int t : theoryCount) {
@@ -186,37 +244,76 @@ public class CurrentStudent implements Serializable {
         return theoryCountTotal;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int[] getTheoryCount() {
         return theoryCount;
     }
 
+    /**
+     * TODO:
+     * @param theoryCount
+     */
     public void setTheoryCount(int[] theoryCount) {
         this.theoryCount = theoryCount;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getCount() {
         return count;
     }
 
+    /**
+     * TODO:
+     * @param count
+     */
     public void setCount(int count) {
         this.count = count;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public boolean isSelectedBool() {
         return selectedBool;
     }
 
+    /**
+     * TODO:
+     * @param selectedB
+     */
     public void setSelectedB(boolean selectedB) {
         this.selectedBool = selectedB;
     }
 
+    /**
+     * Creates CurrentStudent Entity
+     */
     public CurrentStudent() {
     }
 
+    /**
+     * Creates CurrentStudent entity with the specified 'id_current_student'
+     * @param idCurrentStudent
+     */
     public CurrentStudent(Integer idCurrentStudent) {
         this.idCurrentStudent = idCurrentStudent;
     }
 
+    /**
+     * Creates CurrentStudent entity with the specified id_current_student, semester, division, provisional and academic_year
+     * @param idCurrentStudent
+     * @param semester
+     * @param division
+     * @param provisional
+     * @param academicYear
+     */
     public CurrentStudent(Integer idCurrentStudent, short semester, String division, boolean provisional, Date academicYear) {
         this.idCurrentStudent = idCurrentStudent;
         this.semester = semester;
@@ -225,10 +322,18 @@ public class CurrentStudent implements Serializable {
         this.academicYear = academicYear;
     }
 
+    /**
+     * Get id_current_student from CurrentStudent Entity
+     * @return
+     */
     public Integer getIdCurrentStudent() {
         return idCurrentStudent;
     }
 
+    /**
+     * TODO:
+     * @param event
+     */
     public void selectAllComponents(ValueChangeEvent event) {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -261,63 +366,123 @@ public class CurrentStudent implements Serializable {
         }
     }
 
+    /**
+     * Set id_current_student for CurrentStudent Entity
+     * @param idCurrentStudent
+     */
     public void setIdCurrentStudent(Integer idCurrentStudent) {
         this.idCurrentStudent = idCurrentStudent;
     }
 
+    /**
+     * Get semester from CurrentStudent Entity
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /** 
+     * Set semester for CurrentStudent Entity
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get division from CurrentStudent Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for CurrentStudent Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from CurrentStudent Entity
+     * @return
+     */
     public Short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for CurrentStudent Entity
+     * @param batch
+     */
     public void setBatch(Short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get provisional from CurrentStudent Entity
+     * @return
+     */
     public boolean getProvisional() {
         return provisional;
     }
 
+    /**
+     * Set provisional for CurrentStudent Entity
+     * @param provisional
+     */
     public void setProvisional(boolean provisional) {
         this.provisional = provisional;
     }
 
+    /**
+     * Get academic_year from CurrentStudent Entity
+     * @return
+     */
     public Date getAcademicYear() {
         return academicYear;
     }
 
+    /**
+     * Set academic_year for CurrentStudent Entity
+     * @param academicYear
+     */
     public void setAcademicYear(Date academicYear) {
 
         this.academicYear = academicYear;
     }
 
+    /** 
+     * Get admn_no from CurrentStudent Entity
+     * @return
+     */
     public Student getAdmnNo() {
         return admnNo;
     }
 
+    /**
+     * Set admn_no for CurrentStudent Entity
+     * @param admnNo
+     */
     public void setAdmnNo(Student admnNo) {
         this.admnNo = admnNo;
     }
 
+    /**
+     * Get attendance from CurrentStudent Entity
+     * @return
+     */
     public Attendance getAttendance() {
         return attendance;
     }
 
+    /**
+     * Set attendance for CurrentStudent Entity
+     * @param attendance
+     */
     public void setAttendance(Attendance attendance) {
         this.attendance = attendance;
     }
@@ -347,27 +512,51 @@ public class CurrentStudent implements Serializable {
         return "entities.CurrentStudent[ idCurrentStudent=" + idCurrentStudent + " ]";
     }
 
+    /**
+     * Get roll_no from CurrentStudent Entity
+     * @return
+     */
     public Integer getRollNo() {
         return rollNo;
     }
 
+    /**
+     * Set roll_no for CurrentStudent Entity
+     * @param rollNo
+     */
     public void setRollNo(Integer rollNo) {
         this.rollNo = rollNo;
     }
 
+    /**
+     * Gets list of StudentTest Entities for a CurrentStudent Entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public List<StudentTest> getStudentTestList() {
         return studentTestList;
     }
 
+    /**
+     * Sets list of StudentTest Entities for a CurrentStudent Entity as a foreign key
+     * @param studentTestList
+     */
     public void setStudentTestList(List<StudentTest> studentTestList) {
         this.studentTestList = studentTestList;
     }
 
+    /**
+     * Get a ProgramCourse Entity for a CurrentStudent Entity as a foreign key
+     * @return
+     */
     public ProgramCourse getProgramCourse() {
         return programCourse;
     }
 
+    /**
+     * Set a ProgramCourse Entity for a CurrentStudent Entity as a foreign key
+     * @param programCourse
+     */
     public void setProgramCourse(ProgramCourse programCourse) {
         this.programCourse = programCourse;
     }

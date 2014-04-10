@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'subject_syllabus'
  * @author piit
  */
 @Entity
@@ -57,55 +57,108 @@ public class SubjectSyllabus implements Serializable {
     @ManyToOne
     private Subject idSubject;
 
+    /**
+     * Creates SubjectSyllabus Entity
+     */
     public SubjectSyllabus() {
     }
 
+    /**
+     * Creates SubjectSyllabus Entity with the specified id_subject_syllabus
+     * @param idSubjectSyllabus
+     */
     public SubjectSyllabus(Integer idSubjectSyllabus) {
         this.idSubjectSyllabus = idSubjectSyllabus;
     }
 
+    /**
+     * Creates SubjectSyllabus Entity with the specified id_subject_syllabus, module_no and topics
+     * @param idSubjectSyllabus
+     * @param moduleNo
+     * @param topics
+     */
     public SubjectSyllabus(Integer idSubjectSyllabus, short moduleNo, String topics) {
         this.idSubjectSyllabus = idSubjectSyllabus;
         this.moduleNo = moduleNo;
         this.topics = topics;
     }
 
+    /**
+     * Get id_subject_syllabus from SubjectSyllabus Entity
+     * @return
+     */
     public Integer getIdSubjectSyllabus() {
         return idSubjectSyllabus;
     }
 
+    /**
+     * Set id_subject_syllabus for SubjectSyllabus Entity
+     * @param idSubjectSyllabus
+     */
     public void setIdSubjectSyllabus(Integer idSubjectSyllabus) {
         this.idSubjectSyllabus = idSubjectSyllabus;
     }
 
+    /**
+     * Get module_no from SubjectSyllabus Entity
+     * @return
+     */
     public short getModuleNo() {
         return moduleNo;
     }
 
+    /**
+     * Set module_no for SubjectSyllabus Entity
+     * @param moduleNo
+     */
     public void setModuleNo(short moduleNo) {
         this.moduleNo = moduleNo;
     }
 
+    /**
+     * Get topics from SubjectSyllabus Entity
+     * @return
+     */
     public String getTopics() {
         return topics;
     }
 
+    /**
+     * Set topics for SubjectSyllabus Entity
+     * @param topics
+     */
     public void setTopics(String topics) {
         this.topics = topics;
     }
 
+    /**
+     * Get no_of_hours from SubjectSyllabus Entity
+     * @return
+     */
     public Short getNoOfHours() {
         return noOfHours;
     }
 
+    /**
+     * Set no_of_hours for SubjectSyllabus Entity
+     * @param noOfHours
+     */
     public void setNoOfHours(Short noOfHours) {
         this.noOfHours = noOfHours;
     }
 
+    /**
+     * Get id_subject from SubjectSyllabus Entity
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for SubjectSyllabus Entity
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }

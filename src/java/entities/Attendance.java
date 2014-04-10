@@ -53,7 +53,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     * Creates Attendance Entity with the specified 'id_attendance'.
+     * Creates Attendance Entity with the specified 'id_attendance'
      * @param idAttendance
      */
     public Attendance(Long idAttendance) {
@@ -61,7 +61,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Get id_attendance from Attendance Entity
      * @return
      */
     public Long getIdAttendance() {
@@ -69,7 +69,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Set id_attendance for Attendance Entity 
      * @param idAttendance
      */
     public void setIdAttendance(Long idAttendance) {
@@ -77,7 +77,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Get id_lecture from Attendance Entity
      * @return
      */
     public Lecture getIdLecture() {
@@ -85,7 +85,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Set id_lecture for attendance Entity
      * @param idLecture
      */
     public void setIdLecture(Lecture idLecture) {
@@ -93,7 +93,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Get id_current_student from Attendance Entity
      * @return
      */
     public CurrentStudent getIdCurrentStudent() {
@@ -101,7 +101,7 @@ public class Attendance implements Serializable {
     }
 
     /**
-     *
+     * Set id_current_student for Attendance Entity
      * @param idCurrentStudent
      */
     public void setIdCurrentStudent(CurrentStudent idCurrentStudent) {

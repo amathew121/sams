@@ -37,9 +37,19 @@ public class OldFbPiPK implements Serializable {
     @Column(name = "batch")
     private short batch;
 
+    /**
+     * Creates OldFbPiPK Entity
+     */
     public OldFbPiPK() {
     }
 
+    /**
+     * Creates OldFbPiPK Entity with the specified faculty_id, subject_id, division and batch
+     * @param facId
+     * @param subId
+     * @param division
+     * @param batch
+     */
     public OldFbPiPK(String facId, String subId, String division, short batch) {
         this.facId = facId;
         this.subId = subId;
@@ -47,34 +57,66 @@ public class OldFbPiPK implements Serializable {
         this.batch = batch;
     }
 
+    /**
+     * Get fac_id from OldFbPiPK Entity
+     * @return
+     */
     public String getFacId() {
         return facId;
     }
 
+    /**
+     * Set fac_id for OldFbPiPK Entity
+     * @param facId
+     */
     public void setFacId(String facId) {
         this.facId = facId;
     }
 
+    /**
+     * Get sub_id from OldFbPiPK Entity
+     * @return
+     */
     public String getSubId() {
         return subId;
     }
 
+    /**
+     * Set sub_id for OldFbPiPK Entity
+     * @param subId
+     */
     public void setSubId(String subId) {
         this.subId = subId;
     }
 
+    /**
+     * Get division from OldFbPiPK Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for OldFbPiPK Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from OldFbPiPK Entity
+     * @return
+     */
     public short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for OldFbPiPK Entity
+     * @param batch
+     */
     public void setBatch(short batch) {
         this.batch = batch;
     }

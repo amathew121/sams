@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'coordinator'
  * @author piit
  */
 @Entity
@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Coordinator.findByAcYear", query = "SELECT c FROM Coordinator c WHERE c.acYear = :acYear")})
 public class Coordinator implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected CoordinatorPK coordinatorPK;
     @Column(name = "ac_year")
@@ -48,45 +49,92 @@ public class Coordinator implements Serializable {
     @ManyToOne(optional = false)
     private Faculty faculty;
 
+    /**
+     * Creates Coordinator Entity
+     */
     public Coordinator() {
     }
 
+    /**
+     * creates Coordinator Entity with the specified coordinatorPK
+     * @param coordinatorPK
+     */
     public Coordinator(CoordinatorPK coordinatorPK) {
         this.coordinatorPK = coordinatorPK;
     }
 
+    /**
+     * creates Coordinator Entity with the specified id_faculty, id_program, id_course, semester and division
+     * @param idFaculty
+     * @param idProgram
+     * @param idCourse
+     * @param semester
+     * @param division
+     */
     public Coordinator(String idFaculty, String idProgram, String idCourse, short semester, String division) {
         this.coordinatorPK = new CoordinatorPK(idFaculty, idProgram, idCourse, semester, division);
     }
 
+    /**
+     * Get coordinatorPK from Coordinator Entity
+     * @return
+     */
     public CoordinatorPK getCoordinatorPK() {
         return coordinatorPK;
     }
 
+    /**
+     * Set coordinatorPK for Coordinator Entity
+     * @param coordinatorPK
+     */
     public void setCoordinatorPK(CoordinatorPK coordinatorPK) {
         this.coordinatorPK = coordinatorPK;
     }
 
+    /**
+     * Get ac_year from Coordinator Entity
+     * @return
+     */
     public Integer getAcYear() {
         return acYear;
     }
 
+    /**
+     * Set ac_year for Coordinator Entity
+     * @param acYear
+     */
     public void setAcYear(Integer acYear) {
         this.acYear = acYear;
     }
 
+    /**
+     * Get program_course from Coordinator Entity
+     * @return
+     */
     public ProgramCourse getProgramCourse() {
         return programCourse;
     }
 
+    /**
+     * Set program_course for Coordinator Entity
+     * @param programCourse
+     */
     public void setProgramCourse(ProgramCourse programCourse) {
         this.programCourse = programCourse;
     }
 
+    /**
+     * Get faculty from Coordinator Entity
+     * @return
+     */
     public Faculty getFaculty() {
         return faculty;
     }
 
+    /**
+     * Set faculty for Coordinator Entity
+     * @param faculty
+     */
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }

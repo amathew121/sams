@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'old_fb_pi_details'
  * @author piit
  */
 @Entity
@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OldFbPiDetails.findByTa1", query = "SELECT o FROM OldFbPiDetails o WHERE o.ta1 = :ta1")})
 public class OldFbPiDetails implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected OldFbPiDetailsPK oldFbPiDetailsPK;
     @Size(max = 100)
@@ -65,93 +66,189 @@ public class OldFbPiDetails implements Serializable {
     @Column(name = "ta1")
     private Integer ta1;
 
+    /**
+     * Creates OldFbPiDetails Entity
+     */
     public OldFbPiDetails() {
     }
 
+    /**
+     * Creates OldFbPiDetails Entity with the specified oldFbPiDetailsPK
+     * @param oldFbPiDetailsPK
+     */
     public OldFbPiDetails(OldFbPiDetailsPK oldFbPiDetailsPK) {
         this.oldFbPiDetailsPK = oldFbPiDetailsPK;
     }
 
+    /**
+     * Creates OldFbPiDetails with the specified fac_id, sub_id, course_id, division, batch and qno
+     * @param facId
+     * @param subId
+     * @param courseId
+     * @param division
+     * @param batch
+     * @param qno
+     */
     public OldFbPiDetails(String facId, String subId, String courseId, String division, short batch, short qno) {
         this.oldFbPiDetailsPK = new OldFbPiDetailsPK(facId, subId, courseId, division, batch, qno);
     }
 
+    /**
+     * Gets OldFbPiDetailsPK from OldFbPiDetails Entity
+     * @return
+     */
     public OldFbPiDetailsPK getOldFbPiDetailsPK() {
         return oldFbPiDetailsPK;
     }
 
+    /**
+     * Sets OldFbPiDetailsPK for OldFbPiDetails Entity
+     * @param oldFbPiDetailsPK
+     */
     public void setOldFbPiDetailsPK(OldFbPiDetailsPK oldFbPiDetailsPK) {
         this.oldFbPiDetailsPK = oldFbPiDetailsPK;
     }
 
+    /**
+     * Get fname from OldFbPiDetails Entity
+     * @return
+     */
     public String getFname() {
         return fname;
     }
 
+    /**
+     * Set fname for OldFbPiDetails Entity
+     * @param fname
+     */
     public void setFname(String fname) {
         this.fname = fname;
     }
 
+    /**
+     * Get lname from OldFbPiDetails Entity
+     * @return
+     */
     public String getLname() {
         return lname;
     }
 
+    /**
+     * Set lname for OldFbPiDetails Entity
+     * @param lname
+     */
     public void setLname(String lname) {
         this.lname = lname;
     }
 
+    /**
+     * Get ftype from OldFbPiDetails Entity
+     * @return
+     */
     public Short getFtype() {
         return ftype;
     }
 
+    /**
+     * Set ftype for OldFbPiDetails Entity
+     * @param ftype
+     */
     public void setFtype(Short ftype) {
         this.ftype = ftype;
     }
 
+    /**
+     * Get qtext from OldFbPiDetails Entity
+     * @return
+     */
     public String getQtext() {
         return qtext;
     }
 
+    /**
+     * Set qtext for OldFbPiDetails Entity
+     * @param qtext
+     */
     public void setQtext(String qtext) {
         this.qtext = qtext;
     }
 
+    /**
+     * Get ta5 from OldFbPiDetails Entity
+     * @return
+     */
     public Integer getTa5() {
         return ta5;
     }
 
+    /**
+     * Set ta5 for OldFbPiDetails Entity
+     * @param ta5
+     */
     public void setTa5(Integer ta5) {
         this.ta5 = ta5;
     }
 
+    /**
+     * Get ta4 from OldFbPiDetails Entity
+     * @return
+     */
     public Integer getTa4() {
         return ta4;
     }
 
+    /**
+     * Set ta4 for OldFbPiDetails Entity
+     * @param ta4
+     */
     public void setTa4(Integer ta4) {
         this.ta4 = ta4;
     }
 
+    /**
+     * Get ta3 from OldFbPiDetails Entity
+     * @return
+     */
     public Integer getTa3() {
         return ta3;
     }
 
+    /**
+     * Set ta3 for OldFbPiDetails Entity
+     * @param ta3
+     */
     public void setTa3(Integer ta3) {
         this.ta3 = ta3;
     }
 
+    /**
+     * Get ta2 from OldFbPiDetails Entity
+     * @return
+     */
     public Integer getTa2() {
         return ta2;
     }
 
+    /**
+     * Set ta2 for OldFbPiDetails Entity
+     * @param ta2
+     */
     public void setTa2(Integer ta2) {
         this.ta2 = ta2;
     }
 
+    /**
+     * Get ta1 from OldFbPiDetails Entity
+     * @return
+     */
     public Integer getTa1() {
         return ta1;
     }
 
+    /**
+     * Set ta1 for OldFbPiDetails Entity
+     * @param ta1
+     */
     public void setTa1(Integer ta1) {
         this.ta1 = ta1;
     }

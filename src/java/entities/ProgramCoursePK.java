@@ -28,26 +28,50 @@ public class ProgramCoursePK implements Serializable {
     @Column(name = "id_course")
     private String idCourse;
 
+    /**
+     * Creates ProgramCoursePK Entity
+     */
     public ProgramCoursePK() {
     }
 
+    /**
+     * Creates ProgramCoursePK Entity with the specified id_program and id_course
+     * @param idProgram
+     * @param idCourse
+     */
     public ProgramCoursePK(String idProgram, String idCourse) {
         this.idProgram = idProgram;
         this.idCourse = idCourse;
     }
 
+    /**
+     * Get id_program from ProgramCoursePK Entity
+     * @return
+     */
     public String getIdProgram() {
         return idProgram;
     }
 
+    /**
+     * Set id_program for ProgramCoursePK Entity
+     * @param idProgram
+     */
     public void setIdProgram(String idProgram) {
         this.idProgram = idProgram;
     }
 
+    /**
+     * Get id_course from ProgramCoursePK Entity
+     * @return
+     */
     public String getIdCourse() {
         return idCourse;
     }
 
+    /**
+     * Set id_course for ProgramCoursePK Entity
+     * @param idCourse
+     */
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
