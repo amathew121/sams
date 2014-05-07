@@ -199,7 +199,7 @@
                     <p:panel id ="students" >
                         <f:facet name="header">
                             <p:outputLabel value="Students"/>
-                    <h:commandLink style="float: right;" >  
+                    <h:commandLink>  
                         <p:graphicImage value="/resources/images/excel.jpg" style="width: 20px; height: 20px" />  
                         <p:dataExporter type="xls" target="tbl" fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
                     </h:commandLink>  
@@ -233,6 +233,12 @@
                                     <h:outputText value="T1"/>
                                 </f:facet>
                                 <h:outputText value="#{c.marks}"/>
+                            </p:column>
+                            <p:column width="10%">
+                                <f:facet name="header">
+                                    <h:outputText value="T2"/>
+                                </f:facet>
+                                <h:outputText value="#{c.marks2}"/>
                             </p:column>
                 </p:dataTable>
                     </p:panel>

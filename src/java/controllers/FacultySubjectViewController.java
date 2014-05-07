@@ -86,24 +86,8 @@ public class FacultySubjectViewController implements Serializable {
         return "ListOdd?faces-redirect=true";
     }
     public List<FacultySubjectView> getListByDept(Faculty fac) {
-        Department dept = null;
+            Department dept = deptSelected;
 
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        if (facesContext.getExternalContext().isUserInRole("superuser")  || facesContext.getExternalContext().isUserInRole("principal")) {
-            dept = deptSelected;
-        } else {
-            List<Department> deptList = getFacade().getDepartment();
-
-            int i = 0;
-            while (i < deptList.size()) {
-                List<Faculty> facList = (List<Faculty>) deptList.get(i).getFacultyCollection();
-                if (facList.contains(fac)) {
-                    dept = deptList.get(i);
-                    break;
-                }
-                i++;
-            }
-        }
         if (dept != null) {
             return getFacade().getFSViewByDept(dept.getIdDepartment());
         } else {
