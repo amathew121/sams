@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFeedbackTypeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListFeedbackTypeEmpty}" rendered="#{feedbackTypeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{feedbackTypeController.items.rowCount > 0}">
+                    <h:outputText value="#{feedbackTypeController.pagination.pageFirstItem + 1}..#{feedbackTypeController.pagination.pageLastItem + 1}/#{feedbackTypeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{feedbackTypeController.previous}" value="#{bundle.Previous} #{feedbackTypeController.pagination.pageSize}" rendered="#{feedbackTypeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{feedbackTypeController.next}" value="#{bundle.Next} #{feedbackTypeController.pagination.pageSize}" rendered="#{feedbackTypeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{feedbackTypeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedbackTypeTitle_idFeedbackType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFeedbackType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedbackTypeTitle_desc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.desc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFeedbackTypeTitle_year}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.year}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{feedbackTypeController.prepareView}" value="#{bundle.ListFeedbackTypeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{feedbackTypeController.prepareEdit}" value="#{bundle.ListFeedbackTypeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{feedbackTypeController.destroy}" value="#{bundle.ListFeedbackTypeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{feedbackTypeController.prepareCreate}" value="#{bundle.ListFeedbackTypeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListFeedbackTypeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

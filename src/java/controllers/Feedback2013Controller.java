@@ -4,7 +4,9 @@ import entities.Feedback2013;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.Feedback2013Facade;
+import entities.Faculty;
 import entities.FacultySubject;
+import entities.FeedbackType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -22,6 +25,10 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
 
 
 @Named("feedback2013Controller")
@@ -38,6 +45,70 @@ public class Feedback2013Controller implements Serializable {
     private double performanceIndex;
     private List<Feedback2013> feedback2013List;
     private FacultySubject idFacultySubject;
+    private DefaultMenuModel model;
+    private Faculty selectedFaculty;
+
+    public Faculty getSelectedFaculty() {
+        return selectedFaculty;
+    }
+
+    public void setSelectedFaculty(Faculty selectedFaculty) {
+        this.selectedFaculty = selectedFaculty;
+    }
+
+    public DefaultMenuModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultMenuModel model) {
+        this.model = model;
+    }
+
+    @PostConstruct
+    public void init() {
+        model = new DefaultMenuModel();
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        
+        FeedbackTypeController ftController = findBean("feedbackTypeController");
+        FacultySubjectController fsController = findBean("facultySubjectController");
+        FacultyController fController = findBean("facultyController");
+        Faculty loggedUser = fController.getFaculty(userName); 
+        for (FeedbackType item : ftController.getItems()) {
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr());
+            for (FacultySubject fs : fsController.getItemsByYear(loggedUser, item.getYr(), item.getEven()) )
+            {
+                DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/"+fs.getDivision() + "/" + fs.getBatchDetail());
+                menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub("+fs.getIdFacultySubject()+"),feedbackTypeController.getFeedbackType("+item.getIdFeedbackType()+"))}");
+                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments");
+                tempSubmenu.addElement(menuItem);
+            }
+            model.addElement(tempSubmenu);
+        }
+    }
+    
+    public void recreateMenuModel() {
+        
+        model = new DefaultMenuModel();
+        FeedbackTypeController ftController = findBean("feedbackTypeController");
+        FacultySubjectController fsController = findBean("facultySubjectController");
+        Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
+        if(feedback2013List != null) feedback2013List.clear();
+        if(fcController.getFeedback2013CommentsList() != null) fcController.getFeedback2013CommentsList().clear();
+        performanceIndex = 0;
+        for (FeedbackType item : ftController.getItems()) {
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr());
+            for (FacultySubject fs : fsController.getItemsByYear(selectedFaculty, item.getYr(), item.getEven()) )
+            {
+                DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/"+fs.getDivision() + "/" + fs.getBatchDetail());
+                menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub("+fs.getIdFacultySubject()+"),feedbackTypeController.getFeedbackType("+item.getIdFeedbackType()+"))}");
+                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments");
+                tempSubmenu.addElement(menuItem);
+            }
+            model.addElement(tempSubmenu);
+        }
+    }
 
     public Feedback2013Controller() {
     }
@@ -116,11 +187,11 @@ public class Feedback2013Controller implements Serializable {
         return idFacultySubject;
     }
 
-    public String getByUserName(FacultySubject idFacultySubject) {
-        
+    public void getByUserName(FacultySubject idFacultySubject, FeedbackType fType) {
+
         this.idFacultySubject = idFacultySubject;
-        
-        List<Feedback2013> temp = getFacade().getByUserName(idFacultySubject);
+
+        List<Feedback2013> temp = getFacade().getByUserName(idFacultySubject, fType);
         Map<Integer, Short> ra0 = new HashMap<Integer, Short>();
         Map<Integer, Short> ra1 = new HashMap<Integer, Short>();
         Map<Integer, Short> ra2 = new HashMap<Integer, Short>();
@@ -137,7 +208,7 @@ public class Feedback2013Controller implements Serializable {
             ra5.put(item.getQid().getQid(), (short) 0);
 
         }
-        ra[0]=ra[1]=ra[2]=ra[3]=ra[4]=ra[5] =0;
+        ra[0] = ra[1] = ra[2] = ra[3] = ra[4] = ra[5] = 0;
 
         for (Feedback2013 item : temp) {
             //System.out.println(item.getQid().getQtext() + " " + item.getIdAnswer());
@@ -164,34 +235,35 @@ public class Feedback2013Controller implements Serializable {
         for (Feedback2013 item : feedback2013List) {
             int x = ra0.get(item.getQid().getQid());
             item.setRa0(x);
-            ra[0]= ra[0]+x;
-            
+            ra[0] = ra[0] + x;
+
             x = ra1.get(item.getQid().getQid());
             item.setRa1(x);
-            ra[1]= ra[1]+x;
-            
+            ra[1] = ra[1] + x;
+
             x = ra2.get(item.getQid().getQid());
             item.setRa2(x);
-            ra[2]= ra[2]+x;
+            ra[2] = ra[2] + x;
 
             x = ra3.get(item.getQid().getQid());
             item.setRa3(x);
-            ra[3]= ra[3]+x;
+            ra[3] = ra[3] + x;
 
             x = ra4.get(item.getQid().getQid());
             item.setRa4(x);
-            ra[4]= ra[4]+x;
+            ra[4] = ra[4] + x;
 
             x = ra5.get(item.getQid().getQid());
             item.setRa5(x);
-            ra[5]= ra[5]+x;
+            ra[5] = ra[5] + x;
 
         }
-        
-        performanceIndex = (5.0*ra[5]+3.0*ra[4]+1.0*ra[3]-3.0*ra[2]-5.0*ra[1])/(ra[0]+ra[1]+ra[2]+ra[3]+ra[4]+ra[5]);
 
-        //return "Feedback2013Details?faces-redirect=true";
-        return null;
+        performanceIndex = (5.0 * ra[5] + 3.0 * ra[4] + 1.0 * ra[3] - 3.0 * ra[2] - 5.0 * ra[1]) / (ra[0] + ra[1] + ra[2] + ra[3] + ra[4] + ra[5]);
+
+        Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
+        fcController.getByUserName(idFacultySubject, fType);
+                
     }
 
     public String create() {
@@ -305,6 +377,12 @@ public class Feedback2013Controller implements Serializable {
 
     public Feedback2013 getFeedback2013(java.lang.Long id) {
         return ejbFacade.find(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T findBean(String beanName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
     }
 
     @FacesConverter(forClass = Feedback2013.class)

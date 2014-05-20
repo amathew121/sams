@@ -6,6 +6,7 @@ package beans;
 
 import entities.FacultySubject;
 import entities.Feedback2013;
+import entities.FeedbackType;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,9 +31,10 @@ public class Feedback2013Facade extends AbstractFacade<Feedback2013> {
         super(Feedback2013.class);
     }
     
-    public List<Feedback2013> getByUserName(FacultySubject idFacultySubject) {
+    public List<Feedback2013> getByUserName(FacultySubject idFacultySubject, FeedbackType fType) {
         Query q = em.createNamedQuery("Feedback2013.findByIdFacultySubject");
         q.setParameter("idFacultySubject", idFacultySubject);
+        q.setParameter("fType", fType);
         return q.getResultList();
     }
     

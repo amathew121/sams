@@ -29,9 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedback2013Comments.findAll", query = "SELECT f FROM Feedback2013Comments f"),
-    @NamedQuery(name = "Feedback2013Comments.findByIdFacultySubject", query = "SELECT f FROM Feedback2013Comments f WHERE f.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "Feedback2013Comments.findByIdFacultySubject", query = "SELECT f FROM Feedback2013Comments f WHERE f.idFacultySubject = :idFacultySubject AND f.idFeedbackType =:fType"),
     @NamedQuery(name = "Feedback2013Comments.findById", query = "SELECT f FROM Feedback2013Comments f WHERE f.id = :id")})
 public class Feedback2013Comments implements Serializable {
+    @JoinColumn(name = "id_feedback_type", referencedColumnName = "id_feedback_type")
+    @ManyToOne
+    private FeedbackType idFeedbackType;
     @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
     @ManyToOne
     private FacultySubject idFacultySubject;
@@ -111,6 +114,14 @@ public class Feedback2013Comments implements Serializable {
 
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
+    }
+
+    public FeedbackType getIdFeedbackType() {
+        return idFeedbackType;
+    }
+
+    public void setIdFeedbackType(FeedbackType idFeedbackType) {
+        this.idFeedbackType = idFeedbackType;
     }
     
 }

@@ -29,10 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Feedback2013.findAll", query = "SELECT f FROM Feedback2013 f"),
     @NamedQuery(name = "Feedback2013.findById", query = "SELECT f FROM Feedback2013 f WHERE f.id = :id"),
-    @NamedQuery(name = "Feedback2013.findByIdFacultySubject", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "Feedback2013.findByIdFacultySubject", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject AND f.idFeedbackType = :fType"),
     @NamedQuery(name = "Feedback2013.findByRating", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject GROUP BY f.qid"),
     @NamedQuery(name = "Feedback2013.findByIdAnswer", query = "SELECT f FROM Feedback2013 f WHERE f.idAnswer = :idAnswer")})
 public class Feedback2013 implements Serializable {
+    @JoinColumn(name = "id_feedback_type", referencedColumnName = "id_feedback_type")
+    @ManyToOne(optional = false)
+    private FeedbackType idFeedbackType;
     @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
     @ManyToOne
     private FacultySubject idFacultySubject;
@@ -183,6 +186,14 @@ public class Feedback2013 implements Serializable {
 
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
+    }
+
+    public FeedbackType getIdFeedbackType() {
+        return idFeedbackType;
+    }
+
+    public void setIdFeedbackType(FeedbackType idFeedbackType) {
+        this.idFeedbackType = idFeedbackType;
     }
     
 }

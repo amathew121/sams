@@ -1,11 +1,9 @@
 package controllers;
 
-import entities.Feedback2013Comments;
+import entities.FeedbackType;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
-import beans.Feedback2013CommentsFacade;
-import entities.FacultySubject;
-import entities.FeedbackType;
+import beans.FeedbackTypeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,31 +19,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("feedback2013CommentsController")
+@Named("feedbackTypeController")
 @SessionScoped
-public class Feedback2013CommentsController implements Serializable {
+public class FeedbackTypeController implements Serializable {
 
-    private Feedback2013Comments current;
+    private FeedbackType current;
     private DataModel items = null;
     @EJB
-    private beans.Feedback2013CommentsFacade ejbFacade;
+    private beans.FeedbackTypeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private List feedback2013CommentsList;
-    private FacultySubject idFacultySubject;
 
-    public Feedback2013CommentsController() {
+    public FeedbackTypeController() {
     }
 
-    public Feedback2013Comments getSelected() {
+    public FeedbackType getSelected() {
         if (current == null) {
-            current = new Feedback2013Comments();
+            current = new FeedbackType();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private Feedback2013CommentsFacade getFacade() {
+    private FeedbackTypeFacade getFacade() {
         return ejbFacade;
     }
 
@@ -71,37 +67,17 @@ public class Feedback2013CommentsController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
-        current = (Feedback2013Comments) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
 
     public String prepareCreate() {
-        current = new Feedback2013Comments();
+        current = new FeedbackType();
         selectedItemIndex = -1;
         return "Create";
     }
 
-    public List<Feedback2013Comments> getFeedback2013CommentsList() {
-        return feedback2013CommentsList;
-    }
-
-    public FacultySubject getIdFacultySubject() {
-        return idFacultySubject;
-    }
-    
-    public String getByUserName(FacultySubject idFacSub, FeedbackType fType) {
-        this.idFacultySubject = idFacSub;
-        feedback2013CommentsList = getFacade().getByUserName(idFacSub, fType);
-        //return "Feedback2013Comments.xhtml?faces-redirect=true";
-        return null;
-    }
-    
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Feedback2013CommentsCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FeedbackTypeCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -109,16 +85,10 @@ public class Feedback2013CommentsController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
-        current = (Feedback2013Comments) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
-    }
-
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Feedback2013CommentsUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FeedbackTypeUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -126,14 +96,6 @@ public class Feedback2013CommentsController implements Serializable {
         }
     }
 
-    public String destroy() {
-        current = (Feedback2013Comments) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
-    }
 
     public String destroyAndView() {
         performDestroy();
@@ -151,7 +113,7 @@ public class Feedback2013CommentsController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Feedback2013CommentsDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FeedbackTypeDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -172,11 +134,8 @@ public class Feedback2013CommentsController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
+    public List<FeedbackType> getItems() {
+        return getFacade().findAll();
     }
 
     private void recreateModel() {
@@ -207,21 +166,21 @@ public class Feedback2013CommentsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Feedback2013Comments getFeedback2013Comments(java.lang.Integer id) {
+    public FeedbackType getFeedbackType(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Feedback2013Comments.class)
-    public static class Feedback2013CommentsControllerConverter implements Converter {
+    @FacesConverter(forClass = FeedbackType.class)
+    public static class FeedbackTypeControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            Feedback2013CommentsController controller = (Feedback2013CommentsController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "feedback2013CommentsController");
-            return controller.getFeedback2013Comments(getKey(value));
+            FeedbackTypeController controller = (FeedbackTypeController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "feedbackTypeController");
+            return controller.getFeedbackType(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -241,11 +200,11 @@ public class Feedback2013CommentsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Feedback2013Comments) {
-                Feedback2013Comments o = (Feedback2013Comments) object;
-                return getStringKey(o.getId());
+            if (object instanceof FeedbackType) {
+                FeedbackType o = (FeedbackType) object;
+                return getStringKey(o.getIdFeedbackType());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Feedback2013Comments.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + FeedbackType.class.getName());
             }
         }
     }

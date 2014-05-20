@@ -106,7 +106,7 @@ public class FeedbackController implements Serializable {
 
     public void prepareList() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/Feedback2013.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/FeedbackBoard.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

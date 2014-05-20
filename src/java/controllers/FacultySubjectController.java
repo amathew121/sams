@@ -148,7 +148,10 @@ public class FacultySubjectController implements Serializable {
     public void setC(Coordinator c) {
         this.c = c;
     }
-        
+    
+    public List<FacultySubject> getItemsByYear(Faculty idFaculty, int year, boolean even){
+        return getFacade().getFSByYear(idFaculty, year, even);
+    }
         
     public String prepareEdit() {
         current = (FacultySubject) getItems().getRowData();

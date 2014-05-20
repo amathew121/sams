@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFeedbackTypeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFeedbackTypeLabel_idFeedbackType}"/>
+                    <h:outputText value="#{feedbackTypeController.selected.idFeedbackType}" title="#{bundle.ViewFeedbackTypeTitle_idFeedbackType}"/>
+                    <h:outputText value="#{bundle.ViewFeedbackTypeLabel_desc}"/>
+                    <h:outputText value="#{feedbackTypeController.selected.desc}" title="#{bundle.ViewFeedbackTypeTitle_desc}"/>
+                    <h:outputText value="#{bundle.ViewFeedbackTypeLabel_year}"/>
+                    <h:outputText value="#{feedbackTypeController.selected.year}" title="#{bundle.ViewFeedbackTypeTitle_year}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{feedbackTypeController.destroyAndView}" value="#{bundle.ViewFeedbackTypeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFeedbackTypeEditLink}"/>
+                <br />
+                <h:commandLink action="#{feedbackTypeController.prepareCreate}" value="#{bundle.ViewFeedbackTypeCreateLink}" />
+                <br />
+                <h:commandLink action="#{feedbackTypeController.prepareList}" value="#{bundle.ViewFeedbackTypeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFeedbackTypeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

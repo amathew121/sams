@@ -47,6 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Feedback2013Student.findByLogoutTime", query = "SELECT f FROM Feedback2013Student f WHERE f.logoutTime = :logoutTime"),
     @NamedQuery(name = "Feedback2013Student.findByIpAddress", query = "SELECT f FROM Feedback2013Student f WHERE f.ipAddress = :ipAddress")})
 public class Feedback2013Student implements Serializable {
+    @Column(name = "elective")
+    private Integer elective;
     @OneToMany(mappedBy = "uid")
     private List<Feedback2013> feedback2013List;
     @OneToMany(mappedBy = "uid")
@@ -226,6 +228,14 @@ public class Feedback2013Student implements Serializable {
 
     public void setFeedback2013CommentsList(List<Feedback2013Comments> feedback2013CommentsList) {
         this.feedback2013CommentsList = feedback2013CommentsList;
+    }
+
+    public Integer getElective() {
+        return elective;
+    }
+
+    public void setElective(Integer elective) {
+        this.elective = elective;
     }
     
 }

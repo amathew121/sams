@@ -140,7 +140,7 @@ public class FacultySubjectViewController implements Serializable {
     }
     public void prepareListAdminFeedback() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/Feedback2013All.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FeedbackBoard.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

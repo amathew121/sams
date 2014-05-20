@@ -65,6 +65,19 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         q.setParameter("idFaculty", idFac);
         return (Faculty) q.getSingleResult();
     }
+    
+    public  List<FacultySubject> getFSByYear(Faculty idFaculty,int yr, boolean even) {
+        Query q;
+        if (even) {
+            q = em.createNamedQuery("FacultySubject.findByYearEven");
+        }
+        else {
+            q = em.createNamedQuery("FacultySubject.findByYearOdd");
+        }
+        q.setParameter("yr", yr);
+        q.setParameter("idFaculty", idFaculty);
+        return q.getResultList();
+    }
 
     public FacultySubject getFSBySemDivBatchSub(String division, short semester, short batch, Subject idSubject) {
         Query q;
