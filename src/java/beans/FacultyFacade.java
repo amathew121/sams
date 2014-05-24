@@ -8,6 +8,7 @@ import entities.Faculty;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +26,15 @@ public class FacultyFacade extends AbstractFacade<Faculty> {
 
     public FacultyFacade() {
         super(Faculty.class);
+    }
+    
+    public Faculty findFacultyByToken(String token){
+        Query q = em.createNamedQuery("Faculty.findByToken");
+        q.setParameter("token", token);
+        if(q.getResultList().size()>0)
+            return (Faculty)q.getResultList().get(0);
+        else
+            return null;
     }
     
 }

@@ -45,8 +45,15 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "Faculty.findByFacultyDepartment", query = "SELECT f FROM Faculty f WHERE f.facultyDepartment = :facultyDepartment"),
     @NamedQuery(name = "Faculty.findByFacultyLastLogin", query = "SELECT f FROM Faculty f WHERE f.facultyLastLogin = :facultyLastLogin"),
     @NamedQuery(name = "Faculty.findByFacultyTitle", query = "SELECT f FROM Faculty f WHERE f.facultyTitle = :facultyTitle"),
+    @NamedQuery(name = "Faculty.findByToken", query = "SELECT f FROM Faculty f WHERE f.oauthToken = :token"),
     @NamedQuery(name = "Faculty.findByFacultyShowFeedback", query = "SELECT f FROM Faculty f WHERE f.facultyShowFeedback = :facultyShowFeedback")})
 public class Faculty implements Serializable {
+    @Size(max = 255)
+    @Column(name = "oauth_code")
+    private String oauthCode;
+    @Size(max = 255)
+    @Column(name = "oauth_token")
+    private String oauthToken;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reviewedBy")
     private List<ReviewComments> reviewCommentsList;
     @Column(name = "Feedback360_allowed")
@@ -287,6 +294,22 @@ public class Faculty implements Serializable {
 
     public void setReviewCommentsList(List<ReviewComments> reviewCommentsList) {
         this.reviewCommentsList = reviewCommentsList;
+    }
+
+    public String getOauthToken() {
+        return oauthToken;
+    }
+
+    public void setOauthToken(String oauthToken) {
+        this.oauthToken = oauthToken;
+    }
+
+    public String getOauthCode() {
+        return oauthCode;
+    }
+
+    public void setOauthCode(String oauthCode) {
+        this.oauthCode = oauthCode;
     }
     
 }

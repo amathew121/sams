@@ -7,8 +7,17 @@
         <title>Login Form</title>
     </h:head>
     <h:body>
-       <p:panel header="Login Error">
-           Sorry, you made an Error. Please try again: <a href="faces/index.xhtml" >Login</a>
-       </p:panel>
-   </h:body>
+        <div style=" height: 90px; background-size: 100% 90px; background-image: url('/piit/resources/images/PIITBanner.png'); background-repeat: no-repeat" >
+        </div>
+        <p:panel style="text-align: center" header="Login Error">
+                <h2>
+                Sorry, you made an Error. Please try again: <a href="faces/index.xhtml" >Login</a>
+                <br />
+                Details are here: -
+                </h2>
+            <h:form>
+            <p:messages autoUpdate="true" />
+            </h:form>
+            </p:panel>
+    </h:body>
 </html>

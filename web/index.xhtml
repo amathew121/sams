@@ -4,62 +4,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Student Attendance management System</title>
+        <title>PIIT Online</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
-        <f:event type="preRenderView" listener="#{facultySubjectViewController.prepareListUser()}"></f:event>
     </h:head>
     <h:body>
-        Hello there
-
-        <h:link  rendered="#{facesContext.externalContext.isUserInRole('superuser')}" value="Admin Area" outcome="/admin/index.xhtml" />
-        <br />
-        <h:form>
-            <h:commandLink value="User Area" action="#{facultySubjectViewController.prepareListUser()}"></h:commandLink>
-        </h:form>
-        <a href="/piit/">Home</a>
-
-        <br />
-        <h:link outcome="/admin/edit/reviewer/List" value="Show All Reviewer Items"/>
-        <br />
-        <h:link outcome="/admin/edit/lectureTags/List" value="Show All LectureTags Items"/>
-        <br />
-        <h:link outcome="/admin/edit/reviewComments/List" value="Show All ReviewComments Items"/>
-        <br />
-        <h:link outcome="/admin/edit/subjectObjective/List" value="Show All SubjectObjective Items"/>
-        <br />
-        <h:link outcome="/admin/edit/subjectOutcome/List" value="Show All SubjectOutcome Items"/>
-        <br />
-        <h:link outcome="/admin/edit/subjectBook/List" value="Show All SubjectBook Items"/>
-        <br />
-        <h:link outcome="/admin/edit/subjectEvaluation/List" value="Show All SubjectEvaluation Items"/>
-        <br />
-        <h:link outcome="/admin/edit/feedbackType/List" value="Show All FeedbackType Items"/>
-    </h:body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      <div style=" height: 90px; background-size: 100% 90px; background-image: url('/piit/resources/images/PIITBanner.png'); background-repeat: no-repeat" >
+      </div>
+        <h1> PIIT ONLINE </h1>
+      
+    </h:body>        
 </html>
 

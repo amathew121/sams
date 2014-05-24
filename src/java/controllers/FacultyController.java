@@ -108,7 +108,15 @@ public class FacultyController implements Serializable {
             return null;
         }
     }
-
+    
+    public void updateGplus(Faculty f,String email, String token, String code) {
+        current = f;
+        current.setFacultyEmail(email);
+        current.setOauthCode(code);
+        current.setOauthToken(token);
+        update();
+    }
+    
     public String prepareEdit() {
         current = (Faculty) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -226,6 +234,9 @@ public class FacultyController implements Serializable {
         }
     }
 
+    public Faculty getFacultyByToken(String token) {
+        return getFacade().findFacultyByToken(token);
+    }
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();

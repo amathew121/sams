@@ -24,17 +24,19 @@ public class AuthBackingBean {
 
 private static final Logger log = Logger.getLogger(AuthBackingBean.class.getName());
 
-public String logout() {
-String result="/index?faces-redirect=true";
-
 FacesContext context = FacesContext.getCurrentInstance();
 HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
 
+public String logout() {
+String result="/login?faces-redirect=true";
+
+
 try {
 request.logout();
+request.getSession().invalidate();
 } catch (ServletException e) {
 log.log(Level.SEVERE, "Failed to logout user!", e);
-result = "/loginError?faces-redirect=true";
+result = "/error?faces-redirect=true";
 }
 
 return result;

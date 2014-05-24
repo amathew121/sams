@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/user/List.xhtml</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>500</error-code>
@@ -117,12 +117,20 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>Public Pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>Login</web-resource-name>
+            <description/>
+            <url-pattern>/faces/connectg.xhtml</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>piitRealm</realm-name>
         <form-login-config>
-            <form-login-page>/login.xhtml</form-login-page>
-            <form-error-page>/error.xhtml</form-error-page>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
