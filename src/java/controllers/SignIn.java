@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author Ashish
  */
 @ManagedBean(name = "signIn", eager = true)
-@ApplicationScoped
+@SessionScoped
 public class SignIn {
 
     /*
