@@ -36,7 +36,7 @@
                             <p:password value="#{signIn.password}" required="true" requiredMessage="Password cannot be empty"  />
 
                         </p:panelGrid>
-                        <h:commandButton value="Connect" action="#{signIn.normalLogin()}" />
+                        <p:commandButton value="Submit" action="#{signIn.normalLogin()}" />
                     </h:form>
                 </f:view>
                 <br />
@@ -163,7 +163,7 @@
                                 console.log(result);
                                 helper.people();
                                 $('#gConnect').hide();
-                                $('#jlogin').hide();
+                                $('#nlogin').hide();
                                 $('#gForward').show();
                                 //window.location="http://localhost:8080/piit/";
                             },

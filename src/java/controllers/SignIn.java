@@ -13,12 +13,15 @@ import com.google.gson.Gson;
 import controllers.util.JsfUtil;
 import entities.Faculty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -56,15 +59,15 @@ public class SignIn {
     private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
     private String username;
     private String password;
-    private GoogleIdToken idToken;
 
     public String requestLogin() throws IOException {
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String tokenData = (String) request.getSession().getAttribute("token");
-
-        GoogleTokenResponse token = JSON_FACTORY.fromString(tokenData, GoogleTokenResponse.class);
-        idToken = token.parseIdToken();
+        Map<String, Object> requestCookieMap = FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequestCookieMap();
+        Cookie tokenData = (Cookie) requestCookieMap.get("token");
+        GoogleTokenResponse token = JSON_FACTORY.fromString(tokenData.getValue(), GoogleTokenResponse.class);
+        GoogleIdToken idToken = token.parseIdToken();
         String gplusId = idToken.getPayload().getSubject();
         return login(gplusId);
     }
@@ -115,7 +118,12 @@ public class SignIn {
 
     public String connectLogin() throws IOException {
         FacultyController facultyController = findBean("facultyController");
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        Map<String, Object> requestCookieMap = FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequestCookieMap();
+        Cookie tokenData = (Cookie) requestCookieMap.get("token");
+        GoogleTokenResponse token = JSON_FACTORY.fromString(tokenData.getValue(), GoogleTokenResponse.class);
+        GoogleIdToken idToken = token.parseIdToken();
         String gplusId = idToken.getPayload().getSubject();
 
         //Checking if the email id belongs to mes.ac.in domain

@@ -19,8 +19,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,13 +60,13 @@ public class ConnectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("application/json");
+        response.setContentType("application/json");
 
         // Only connect a user that is not already connected.
         String tokenData = (String) request.getSession().getAttribute("token");
         if (tokenData != null) {
-            //response.setStatus(HttpServletResponse.SC_OK);
-            //response.getWriter().print(GSON.toJson("Current user is already connected."));
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().print(GSON.toJson("Current user is already connected."));
             return;
         }
 
@@ -72,7 +74,6 @@ public class ConnectServlet extends HttpServlet {
         getContent(request.getInputStream(), resultStream);
         String code = new String(resultStream.toByteArray(), "UTF-8");
 
-        request.getSession().setAttribute("code", code);
         try {
             // Upgrade the authorization code into an access and refresh token.
             GoogleTokenResponse tokenResponse =
@@ -87,16 +88,17 @@ public class ConnectServlet extends HttpServlet {
             System.out.println("domain : " + idToken.getPayload().getHostedDomain());
             System.out.println("email : " + idToken.getPayload().getEmail());
             // Store the token in the session for later use.
-            request.getSession().setAttribute("token", tokenResponse.toString());
-            //response.setStatus(HttpServletResponse.SC_OK);
-            //response.getWriter().print(GSON.toJson("Successfully connected user."));
+            Cookie token = new Cookie("token", tokenResponse.toString());
+            response.addCookie(token);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().print(GSON.toJson("Successfully connected user."));
         } catch (TokenResponseException e) {
-            //response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            //response.getWriter().print(GSON.toJson("Failed to upgrade the authorization code."));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print(GSON.toJson("Failed to upgrade the authorization code."));
         } catch (IOException e) {
-            //response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            //response.getWriter().print(GSON.toJson("Failed to read token data from Google. "
-            //        + e.getMessage()));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print(GSON.toJson("Failed to read token data from Google. "
+                    + e.getMessage()));
         }
     }
 
