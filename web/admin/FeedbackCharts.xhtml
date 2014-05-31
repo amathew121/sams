@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+            <h:outputText value="Feedback"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>
+                <p:selectOneMenu value="#{feedbackChartController.type}" >
+                    <f:selectItems value="#{feedbackTypeController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <p:selectOneMenu value="#{feedbackChartController.question}" >
+                    <f:selectItems value="#{feedback2013QuestionController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <p:commandButton action="#{feedbackChartController.rereateBarModel()}" update=":qChart" value="Submit" />
+            </h:form>
+
+            <p:chart id="qChart" type="bar" model="#{feedbackChartController.barModel}" style="height: 3200px" />        
+        </ui:define>
+    </ui:composition>
+
+</html>
