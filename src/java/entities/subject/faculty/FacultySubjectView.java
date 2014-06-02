@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO Entity for table 'faculty_subject_view'
  * @author Ashish
  */
 @Entity
@@ -100,108 +100,216 @@ public class FacultySubjectView implements Serializable {
     @Column(name = "batch")
     private short batch;
 
+    /**
+     * Creates FacultySubjectView Entity
+     */
     public FacultySubjectView() {
     }
 
+    /**
+     * Get id_faculty_subject from FacultySubjectView Entity
+     * @return
+     */
     public int getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for FacultySubjectView Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(int idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
 
+    /**
+     * Get id_faculty from FacultySubjectView Entity
+     * @return
+     */
     public String getIdFaculty() {
         return idFaculty;
     }
 
+    /**
+     * Set id_faculty for FacultySubjectView Entity
+     * @param idFaculty
+     */
     public void setIdFaculty(String idFaculty) {
         this.idFaculty = idFaculty;
     }
 
+    /**
+     * Get faculty_title from FacultySubjectView Entity
+     * @return
+     */
     public String getFacultyTitle() {
         return facultyTitle;
     }
 
+    /**
+     * Set faculty_title for FacultySubjectView Entity
+     * @param facultyTitle
+     */
     public void setFacultyTitle(String facultyTitle) {
         this.facultyTitle = facultyTitle;
     }
 
+    /**
+     * Get faculty_lname from FacultySubjectView Entity
+     * @return
+     */
     public String getFacultyLname() {
         return facultyLname;
     }
 
+    /**
+     * Set faculty_lname for FacultySubjectView Entity
+     * @param facultyLname
+     */
     public void setFacultyLname(String facultyLname) {
         this.facultyLname = facultyLname;
     }
 
+    /**
+     * Get faculty_fname from FacultySubjectView Entity
+     * @return
+     */
     public String getFacultyFname() {
         return facultyFname;
     }
 
+    /**
+     * Set faculty_fname for FacultySubjectView Entity
+     * @param facultyFname
+     */
     public void setFacultyFname(String facultyFname) {
         this.facultyFname = facultyFname;
     }
 
+    /**
+     * Get subject_code from FacultySubjectView Entity
+     * @return
+     */
     public String getSubjectCode() {
         return subjectCode;
     }
 
+    /**
+     * Set subject_code for FacultySubjectView Entity
+     * @param subjectCode
+     */
     public void setSubjectCode(String subjectCode) {
         this.subjectCode = subjectCode;
     }
 
+    /**
+     * Get subject_sr_no from FacultySubjectView Entity
+     * @return
+     */
     public Short getSubjectSrNo() {
         return subjectSrNo;
     }
 
+    /**
+     * Set subject_sr_no for FacultySubjectView Entity
+     * @param subjectSrNo
+     */
     public void setSubjectSrNo(Short subjectSrNo) {
         this.subjectSrNo = subjectSrNo;
     }
 
+    /**
+     * Get subject_name from FacultySubjectView Entity
+     * @return
+     */
     public String getSubjectName() {
         return subjectName;
     }
 
+    /**
+     * Set subject_name for FacultySubjectView Entity 
+     * @param subjectName
+     */
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
 
+    /**
+     * Get id_program from FacultySubjectView Entity
+     * @return
+     */
     public String getIdProgram() {
         return idProgram;
     }
 
+    /**
+     * Set id_program for FacultySubjectView Entity
+     * @param idProgram
+     */
     public void setIdProgram(String idProgram) {
         this.idProgram = idProgram;
     }
 
+    /**
+     * Get id_course from FacultySubjectView Entity
+     * @return
+     */
     public String getIdCourse() {
         return idCourse;
     }
 
+    /**
+     * Set id_course for FacultySubjectView Entity
+     * @param idCourse
+     */
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
+    /**
+     * Get semester from FacultySubjectView Entity
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /**
+     * Set semester for FacultySubjectView Entity
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get division from FacultySubjectView Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for FacultySubjectView Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch_no from FacultySubjectView Entity
+     * @return
+     */
     public short getBatchNo() {
         return batch;
     }
+
+    /**
+     * Get batch from FacultySubjectView Entity
+     * @return
+     */
     public String getBatch() {
         String b ;
         if(batch==0)
@@ -212,6 +320,10 @@ public class FacultySubjectView implements Serializable {
             return b;
     }
 
+    /**
+     * Set batch for FacultySubjectView Entity
+     * @param batch
+     */
     public void setBatch(short batch) {
         this.batch = batch;
     }

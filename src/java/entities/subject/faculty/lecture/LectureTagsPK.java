@@ -27,26 +27,50 @@ public class LectureTagsPK implements Serializable {
     @Column(name = "tag")
     private String tag;
 
+    /**
+     * Creates LectureTagsPK Entity
+     */
     public LectureTagsPK() {
     }
 
+    /**
+     * Creates LectureTagsPK Entity with the specified id_lecture and tag
+     * @param idLecture
+     * @param tag
+     */
     public LectureTagsPK(int idLecture, String tag) {
         this.idLecture = idLecture;
         this.tag = tag;
     }
 
+    /**
+     * Get id_lecture from LectureTagsPK Entity
+     * @return
+     */
     public int getIdLecture() {
         return idLecture;
     }
 
+    /**
+     * Set id_lecture for LectureTagsPK Entity
+     * @param idLecture
+     */
     public void setIdLecture(int idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Get tag from LectureTagsPK Entity
+     * @return
+     */
     public String getTag() {
         return tag;
     }
 
+    /**
+     * Set tag for LectureTagsPK Entity
+     * @param tag
+     */
     public void setTag(String tag) {
         this.tag = tag;
     }

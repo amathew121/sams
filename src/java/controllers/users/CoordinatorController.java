@@ -19,6 +19,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ *JSF Backing bean for coordinator Entity
+ * @author Administrator
+ */
 @Named("coordinatorController")
 @SessionScoped
 public class CoordinatorController implements Serializable {
@@ -30,9 +34,16 @@ public class CoordinatorController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * Creates the backing bean
+     */
     public CoordinatorController() {
     }
 
+    /**
+     *Gets the selected coordinator entity
+     * @return
+     */
     public Coordinator getSelected() {
         if (current == null) {
             current = new Coordinator();
@@ -46,6 +57,10 @@ public class CoordinatorController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * Gets Pagination Helper to fetch range of items according to page.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -63,23 +78,40 @@ public class CoordinatorController implements Serializable {
         return pagination;
     }
 
+    /**
+     *
+     * @return
+     */
     public Coordinator getLoggedUser() {
         FacesContext context = FacesContext.getCurrentInstance();
         FacultyController facultyController = (FacultyController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "facultyController");
         Faculty idFaculty = facultyController.getFaculty(context.getExternalContext().getRemoteUser());
         return getFacade().findByUser(idFaculty);
     }
+
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected coordinator Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new Cordinator Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new Coordinator();
         current.setCoordinatorPK(new entities.users.CoordinatorPK());
@@ -87,6 +119,10 @@ public class CoordinatorController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             current.getCoordinatorPK().setIdFaculty(current.getFaculty().getIdFaculty());
@@ -101,12 +137,20 @@ public class CoordinatorController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * @return
+     */
     public String prepareEdit() {
         current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected coordinator entity in the database
+     * @return
+     */
     public String update() {
         try {
             current.getCoordinatorPK().setIdFaculty(current.getFaculty().getIdFaculty());
@@ -121,6 +165,10 @@ public class CoordinatorController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected coordinator entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Coordinator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -130,6 +178,10 @@ public class CoordinatorController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -167,6 +219,10 @@ public class CoordinatorController implements Serializable {
         }
     }
 
+    /**
+     * Gets All coordinator entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -182,22 +238,38 @@ public class CoordinatorController implements Serializable {
         pagination = null;
     }
 
+    /**
+     * Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * Gets list of all coordinator entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * Gets list of all coordinator entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
@@ -206,12 +278,22 @@ public class CoordinatorController implements Serializable {
         return ejbFacade.find(id);
     }
 
+    /**
+     * Converter Class for coordinator Entity
+     */
     @FacesConverter(forClass = Coordinator.class)
     public static class CoordinatorControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -248,6 +330,13 @@ public class CoordinatorController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

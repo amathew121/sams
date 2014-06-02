@@ -32,6 +32,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ * JSF Backing bean for Attendancereport Entity
+ * @author Administrator
+ */
 @Named("attendanceReportController")
 @SessionScoped
 public class AttendanceReportController implements Serializable {
@@ -44,9 +48,16 @@ public class AttendanceReportController implements Serializable {
     private int selectedItemIndex;
     private int idFacSub;
 
+    /**
+     * creates the backing bean
+     */
     public AttendanceReportController() {
     }
 
+    /**
+     * gets the selected attendancereport entity
+     * @return
+     */
     public AttendanceReport getSelected() {
         if (current == null) {
             current = new AttendanceReport();
@@ -59,14 +70,25 @@ public class AttendanceReportController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * gets id_faculty_subject from attendancereport entity
+     * @return
+     */
     public int getIdFacSub() {
         return idFacSub;
     }
 
+    /**
+     * sets id_faculty_subject from attendancereport entity
+     * @param idFacSub
+     */
     public void setIdFacSub(int idFacSub) {
         this.idFacSub = idFacSub;
     }
 
+    /**
+     *
+     */
     public void prepareListAttendanceReport() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
@@ -75,6 +97,11 @@ public class AttendanceReportController implements Serializable {
         }
     }
 
+    /**
+     * Gets Pagination Helper to fetch range of items according to page.
+     * gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -92,29 +119,50 @@ public class AttendanceReportController implements Serializable {
         return pagination;
     }
 
+    /**
+     * resets the list of items and navigates to list
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     * Sets the selected Attendancereport Entity to view more details.Navigation case to View.
+     * @return
+     */
     public String prepareView() {
         current = (AttendanceReport) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     * Navigation case to Create page after initializing a new Attendancereport Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new AttendanceReport();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     * 
+     * @param i
+     * @return
+     */
     public String prepareViewWithId(int i) {
         idFacSub = i;
         recreateModel();
         return "Student?faces-redirect=true";
     }
 
+    /**
+     * Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -126,15 +174,38 @@ public class AttendanceReportController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * navigation case to edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (AttendanceReport) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *
+     * @param programCourse
+     * @param semester
+     * @param division
+     * @param idSubject
+     * @return
+     */
     public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(ProgramCourse programCourse, short semester, String division, int idSubject) {
         return getFacade().getStudentAttendanceBySubDivSem(programCourse, division, semester, idSubject);
     }
+
+    /**
+     *
+     * @param programCourse
+     * @param semester
+     * @param division
+     * @param idSubject
+     * @param batch
+     * @return
+     */
     public List<Object[]> getStudentAttendanceByIdSubjectSemDiv(ProgramCourse programCourse, short semester, String division, int idSubject, short batch) {
         return getFacade().getStudentAttendanceBySubDivSem(programCourse, division, semester, idSubject, batch);
     }
@@ -143,6 +214,12 @@ public class AttendanceReportController implements Serializable {
 //        return getFacade().getStudentAttendanceCountByFS(course, division, semester, idSubject);
 //    }
 
+    /**
+     *
+     * @param idFacSub
+     * @return
+     */
+    
     public List<CurrentStudent> getStudentAttendanceByFS(int idFacSub) {
         List<Object[]> l = getFacade().getStudentAttendanceByFS(idFacSub);
         List<AttendanceReport> ls = new ArrayList();
@@ -193,6 +270,10 @@ public class AttendanceReportController implements Serializable {
         return lcs;
     }
 
+    /**
+     * Updates the selected Attendancereport entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -204,6 +285,10 @@ public class AttendanceReportController implements Serializable {
         }
     }
 
+    /**
+     * Destroys the selected Attendancereport entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (AttendanceReport) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -213,6 +298,10 @@ public class AttendanceReportController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -250,6 +339,10 @@ public class AttendanceReportController implements Serializable {
         }
     }
 
+    /**
+     * Gets All Attendance entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -265,33 +358,64 @@ public class AttendanceReportController implements Serializable {
         pagination = null;
     }
 
+    /**
+     * Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all Attendancereport entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all Attendancereport entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public AttendanceReport getAttendanceReport(long id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     * Converter Class for Attendancereport Entity
+     */
     @FacesConverter(forClass = AttendanceReport.class)
     public static class AttendanceReportControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -314,6 +438,13 @@ public class AttendanceReportController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

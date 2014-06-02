@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'subject_evaluation'
+ * @author piit
  */
 @Entity
 @Table(name = "subject_evaluation")
@@ -46,33 +46,64 @@ public class SubjectEvaluation implements Serializable {
     @ManyToOne
     private Subject idSubject;
 
+    /**
+     * Create SubjectEvaluation Entity
+     */
     public SubjectEvaluation() {
     }
 
+    /**
+     * Create SubjectEvaluation with the specified 'id_subject_evaluation'
+     * @param idSubjectEvaluation
+     */
     public SubjectEvaluation(Integer idSubjectEvaluation) {
         this.idSubjectEvaluation = idSubjectEvaluation;
     }
 
+    /**
+     * Get id_subject_evaluation from SubjectBook Entity
+     * @return
+     */
     public Integer getIdSubjectEvaluation() {
         return idSubjectEvaluation;
     }
 
+    /**
+     * Set id_subject_evaluation for SubjectBook Entity
+     * @param idSubjectEvaluation
+     */
     public void setIdSubjectEvaluation(Integer idSubjectEvaluation) {
         this.idSubjectEvaluation = idSubjectEvaluation;
     }
 
+    /**
+     * Get evaluation from SubjectBook Entity
+     * @return
+     */
     public String getEvaluation() {
         return evaluation;
     }
 
+    /**
+     * Set evaluation for SubjectBook Entity
+     * @param evaluation
+     */
     public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
     }
 
+    /**
+     * Get id_subject from SubjectBook Entity
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for SubjectBook Entity
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }

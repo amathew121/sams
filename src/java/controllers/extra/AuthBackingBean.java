@@ -12,9 +12,8 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
- *
+ * backing bean for authentication
  * @author Ashish
  */
 @Named("authBackingBean")

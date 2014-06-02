@@ -15,19 +15,26 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
- * @author Ashish Mathew
+ * Enterprise JavaBean for Feedback2013comments entity
+ * @author piit
  */
 @Stateless
 public class Feedback2013CommentsFacade extends AbstractFacade<Feedback2013Comments> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     * Gets Entity Manager for the Feedback2013comments EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * create Feedback2013comments entity
+     */
     public Feedback2013CommentsFacade() {
         super(Feedback2013Comments.class);
     }

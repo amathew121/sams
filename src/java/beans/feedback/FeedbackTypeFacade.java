@@ -11,14 +11,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author Ashish Mathew
+ * Enterprise JavaBean for Faculty entity
+ * @author piit
  */
 @Stateless
 public class FeedbackTypeFacade extends AbstractFacade<FeedbackType> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     * Gets Entity Manager for the Faculty EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;

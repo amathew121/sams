@@ -49,53 +49,98 @@ public class LectureController implements Serializable {
     private String lectureTags;
     private boolean[] selectAll;
 
+    /**
+     *
+     * @return
+     */
     public boolean[] getSelectAll() {
         return selectAll;
     }
 
+    /**
+     *
+     * @param selectAll
+     */
     public void setSelectAll(boolean[] selectAll) {
         this.selectAll = selectAll;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLectureTags() {
         return lectureTags;
     }
 
+    /**
+     *
+     * @param lectureTags
+     */
     public void setLectureTags(String lectureTags) {
         this.lectureTags = lectureTags;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public int getStartIndex() {
         return startIndex;
     }
 
+    /**
+     *
+     * @param startIndex
+     */
     public void setStartIndex(int startIndex) {
         this.startIndex = startIndex;
     }
     
+    /**
+     *
+     * @return
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     *
+     * @param startDate
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     *
+     * @param endDate
+     */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public CurrentStudent[] getSelectList() {
         return selectList;
     }
 
+    /**
+     *
+     * @param selectList
+     */
     public void setSelectList(CurrentStudent[] selectList) {
         this.selectList = selectList;
     }
@@ -107,49 +152,90 @@ public class LectureController implements Serializable {
     private int idFacSub;
     private FacultySubject facSub;
 
+    /**
+     *
+     * @return
+     */
     public FacultySubject getFacSub() {
         return facSub;
     }
 
+    /**
+     *
+     * @param facSub
+     */
     public void setFacSub(FacultySubject facSub) {
         this.facSub = facSub;
     }
 
-
-
+    /**
+     * creating a backing bean
+     */
     public LectureController() {
     }
 
+    /**
+     *
+     * @param idLecture
+     * @return
+     */
     public Lecture getLectureByLecID(Integer idLecture) {
         return getFacade().getLectureByIdLecture(idLecture);
     }
 
+    /**
+     *
+     * @return
+     */
     public DataModel getLectureByFS() {
         lectureByFS = new ListDataModel(getFacade().getLectureByIdFaculty(facSub));
         return lectureByFS;
     }
 
+    /**
+     *
+     * @param lectureByFS
+     */
     public void setLectureByFS(DataModel lectureByFS) {
         this.lectureByFS = lectureByFS;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTopicsDelivered() {
         return topicsDelivered;
     }
 
+    /**
+     *
+     * @param topicsDelivered
+     */
     public void setTopicsDelivered(String topicsDelivered) {
         this.topicsDelivered = topicsDelivered;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Lecture> getLectureList() {
         return lectureList;
     }
 
+    /**
+     *
+     * @param lectureList
+     */
     public void setLectureList(List<Lecture> lectureList) {
         this.lectureList = lectureList;
     }
 
-    
+    /**
+     *Gets the selected lecture entity
+     * @return
+     */
     public Lecture getSelected() {
         if (current == null) {
             current = new Lecture();
@@ -162,6 +248,11 @@ public class LectureController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -179,22 +270,40 @@ public class LectureController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected lecture Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareCreateWithId() {
         //prepareCreate();
         return "Create?faces-redirect=true";
     }
     
+    /**
+     *
+     * @param startDate
+     * @param facSub
+     * @return
+     */
     public String prepareCreateWithDate(Date startDate, FacultySubject facSub) {
         this.facSub = facSub;
         prepareCreate();
@@ -202,11 +311,20 @@ public class LectureController implements Serializable {
         return "Create?faces-redirect=true";
     }
     
-
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public String prepareMultipleRange() throws Exception {
         return "MultipleDateRange?faces-redirect=true";
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public String prepareCreateMultipleWithId() throws Exception{
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -250,6 +368,11 @@ public class LectureController implements Serializable {
         return "CreateMultiple?faces-redirect=true";
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public String prepareViewWithId(int i) {
         idFacSub = i;
         getFacSubject(idFacSub);
@@ -257,17 +380,30 @@ public class LectureController implements Serializable {
         return "View?faces-redirect=true";
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public FacultySubject getFacSubject(int i) {
         facSub = getFacade().getFSById(i);
         return facSub;
     }
 
+    /**
+     *Navigation case to Create page after initializing a new lecture Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new Lecture();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -279,16 +415,40 @@ public class LectureController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param facSub
+     * @return
+     */
     public List<Lecture> getLectureByFSList(FacultySubject facSub){
         return getFacade().getLectureByIdFaculty(facSub);
     }
+
+    /**
+     *
+     * @param facSub
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public List<Lecture> getLectureByFSList(FacultySubject facSub, Date startDate, Date endDate) {
         return getFacade().getLectureByIdFacultyDateRange(facSub, startDate, endDate);
     }
+
+    /**
+     *
+     * @param facSub
+     * @param startDate
+     * @return
+     */
     public List<Lecture> getLectureByFSList(FacultySubject facSub, Date startDate) {
         return getFacade().getLectureByIdFacultyDateRange(facSub, startDate);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLectureByFSListTotal(){
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -353,6 +513,11 @@ public class LectureController implements Serializable {
             return "View?faces-redirect=true";
         }
     }
+
+    /**
+     *
+     * @param event
+     */
     public void selectAllComponents(ValueChangeEvent event) {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -383,6 +548,10 @@ public class LectureController implements Serializable {
         }
     }
     
+    /**
+     *
+     * @param event
+     */
     public void onSlideEnd(SlideEndEvent event) {
         
         UIData data = (UIData) event.getComponent().findComponent("listComponents");
@@ -407,7 +576,11 @@ public class LectureController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public String createAll() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -439,24 +612,43 @@ public class LectureController implements Serializable {
 
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *
+     * @param f
+     * @return
+     */
     public String prepareListTP(FacultySubject f) {
         facSub = f;
         recreateModel();
         return "FSLec?faces-redirect=true";
     }
     
+    /**
+     *
+     * @param f
+     * @return
+     */
     public String prepareListRLec(FacultySubject f) {
         facSub = f;
         recreateModel();
         return "ReviewLec?faces-redirect=true";
     }
 
+    /**
+     *Updates the selected lecture entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -468,6 +660,10 @@ public class LectureController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected lecture entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Lecture) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -477,6 +673,12 @@ public class LectureController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @param lec
+     * @return
+     * @throws Exception
+     */
     public String destroyLectureRestrict(Lecture lec) throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -494,6 +696,12 @@ public class LectureController implements Serializable {
         return "View?faces-redirect=true";
     }
 
+    /**
+     *
+     * @param lec
+     * @return
+     * @throws Exception
+     */
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -513,6 +721,11 @@ public class LectureController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public String updateLectureRestrict() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -529,6 +742,10 @@ public class LectureController implements Serializable {
         return "View?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -566,6 +783,10 @@ public class LectureController implements Serializable {
         }
     }
 
+    /**
+     *Gets All lecture entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -583,29 +804,55 @@ public class LectureController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all lecture entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all lecture entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *Converter Class for lecture Entity
+     */
     @FacesConverter(forClass = Lecture.class)
     public static class LectureControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -627,6 +874,13 @@ public class LectureController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

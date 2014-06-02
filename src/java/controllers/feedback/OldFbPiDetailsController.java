@@ -24,6 +24,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ *JSF Backing bean for oldfbpidetails Entity
+ * @author Administrator
+ */
 @Named("oldFbPiDetailsController")
 @SessionScoped
 public class OldFbPiDetailsController implements Serializable {
@@ -42,9 +46,16 @@ public class OldFbPiDetailsController implements Serializable {
     private BigDecimal pi;
     private String userName;
 
+    /**
+     * creates the backing bean
+     */
     public OldFbPiDetailsController() {
     }
 
+    /**
+     *Gets the selected oldfbpidetails entity
+     * @return
+     */
     public OldFbPiDetails getSelected() {
         if (current == null) {
             current = new OldFbPiDetails();
@@ -58,6 +69,11 @@ public class OldFbPiDetailsController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -75,17 +91,29 @@ public class OldFbPiDetailsController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected oldfbpidetails Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (OldFbPiDetails) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new oldfbpidetails Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new OldFbPiDetails();
         current.setOldFbPiDetailsPK(new entities.feedback.OldFbPiDetailsPK());
@@ -93,6 +121,10 @@ public class OldFbPiDetailsController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -104,12 +136,21 @@ public class OldFbPiDetailsController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (OldFbPiDetails) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected oldfbpidetails entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -121,6 +162,10 @@ public class OldFbPiDetailsController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected oldfbpidetails entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (OldFbPiDetails) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -130,6 +175,10 @@ public class OldFbPiDetailsController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -167,6 +216,10 @@ public class OldFbPiDetailsController implements Serializable {
         }
     }
 
+    /**
+     *Gets All oldfbpidetails entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -174,14 +227,27 @@ public class OldFbPiDetailsController implements Serializable {
         return items;
     }
 
+    /**
+     *
+     * @return
+     */
     public BigDecimal getPi() {
         return pi;
     }
 
+    /**
+     *
+     * @param pi
+     */
     public void setPi(BigDecimal pi) {
         this.pi = pi;
     }
 
+    /**
+     *
+     * @param fb
+     * @return
+     */
     public String getFeedbackDetails(OldFbPi fb) {
         this.userName = fb.getOldFbPiPK().getFacId();
         this.pi = fb.getPi();
@@ -193,6 +259,11 @@ public class OldFbPiDetailsController implements Serializable {
         return "FeedbackDetails?faces-redirect=true";
     }
 
+    /**
+     *
+     * @param fb
+     * @return
+     */
     public String getFeedbackDetailsAdmin(OldFbPi fb) {
         this.userName = fb.getOldFbPiPK().getFacId();
         this.pi = fb.getPi();
@@ -204,23 +275,41 @@ public class OldFbPiDetailsController implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSubID() {
         return subID;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getBatch() {
         return batch;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDivision() {
         return div;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
-    
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -228,11 +317,20 @@ public class OldFbPiDetailsController implements Serializable {
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
     }
 
+    /**
+     *
+     * @return
+     */
     public DataModel getDetailsByFS() {
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;
     }
     
+    /**
+     *
+     * @param fb
+     * @return
+     */
     public DataModel getDetailsByFSAdmin(OldFbPi fb) {
         this.userName = fb.getOldFbPiPK().getFacId();
         this.pi = fb.getPi();
@@ -245,10 +343,19 @@ public class OldFbPiDetailsController implements Serializable {
         return detailsByFS;
     }
 
+    /**
+     *
+     * @param detailsByFS
+     */
     public void setDetailsByFS(DataModel detailsByFS) {
         this.detailsByFS = detailsByFS;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int getTotalT1(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
@@ -260,6 +367,11 @@ public class OldFbPiDetailsController implements Serializable {
         return total;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int getTotalT2(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
@@ -271,6 +383,11 @@ public class OldFbPiDetailsController implements Serializable {
         return total;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int getTotalT3(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
@@ -282,6 +399,11 @@ public class OldFbPiDetailsController implements Serializable {
         return total;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int getTotalT4(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) d.getWrappedData();
         int total = 0;
@@ -293,6 +415,11 @@ public class OldFbPiDetailsController implements Serializable {
         return total;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int getTotalT5(DataModel d) {
         List<OldFbPiDetails> l = (List<OldFbPiDetails>) detailsByFS.getWrappedData();
         int total = 0;
@@ -313,22 +440,38 @@ public class OldFbPiDetailsController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all oldfbpidetails entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all oldfbpidetails entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
@@ -337,12 +480,22 @@ public class OldFbPiDetailsController implements Serializable {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for oldfbpidetails Entity
+     */
     @FacesConverter(forClass = OldFbPiDetails.class)
     public static class OldFbPiDetailsControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -382,6 +535,13 @@ public class OldFbPiDetailsController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

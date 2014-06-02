@@ -25,8 +25,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'suggestions'
+ * @author piit
  */
 @Entity
 @Table(name = "suggesstions")
@@ -57,33 +57,64 @@ public class Suggesstions implements Serializable {
     @ManyToOne(optional = false)
     private Faculty idFaculty;
 
+    /**
+     * Creates Suggesstions Entity
+     */
     public Suggesstions() {
     }
 
+    /**
+     * Create Suggesstions Entity with the specified id_suggesstions
+     * @param idSuggesstions
+     */
     public Suggesstions(Integer idSuggesstions) {
         this.idSuggesstions = idSuggesstions;
     }
 
+    /**
+     * Get id_suggesstions from Suggesstions Entity 
+     * @return
+     */
     public Integer getIdSuggesstions() {
         return idSuggesstions;
     }
 
+    /**
+     * Set id_suggesstions for Suggesstions Entity
+     * @param idSuggesstions
+     */
     public void setIdSuggesstions(Integer idSuggesstions) {
         this.idSuggesstions = idSuggesstions;
     }
 
+    /**
+     * Get ss from Suggesstions Entity
+     * @return
+     */
     public String getSs() {
         return ss;
     }
 
+    /**
+     * Set ss for Suggesstions Entity
+     * @param ss
+     */
     public void setSs(String ss) {
         this.ss = ss;
     }
 
+    /**
+     * Get id_faculty from Suggesstions Entity
+     * @return
+     */
     public Faculty getIdFaculty() {
         return idFaculty;
     }
 
+    /**
+     * Set id_faculty for Suggesstions Entity
+     * @param idFaculty
+     */
     public void setIdFaculty(Faculty idFaculty) {
         this.idFaculty = idFaculty;
     }
@@ -113,18 +144,34 @@ public class Suggesstions implements Serializable {
         return "entities.Suggesstions[ idSuggesstions=" + idSuggesstions + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDtTimestamp() {
         return dtTimestamp;
     }
 
+    /**
+     *
+     * @param dtTimestamp
+     */
     public void setDtTimestamp(Date dtTimestamp) {
         this.dtTimestamp = dtTimestamp;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getReply() {
         return reply;
     }
 
+    /**
+     *
+     * @param reply
+     */
     public void setReply(String reply) {
         this.reply = reply;
     }

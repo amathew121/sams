@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'old_fb_pi'
+ * @author piit
  */
 @Entity
 @Table(name = "old_fb_pi", catalog = "piit", schema = "")
@@ -49,45 +49,91 @@ public class OldFbPi implements Serializable {
     @Column(name = "pi")
     private BigDecimal pi;
 
+    /**
+     * Creates OldFbPi Entity
+     */
     public OldFbPi() {
     }
 
+    /**
+     * Creates OldFbPi Entity with the specified oldFbPiPk  
+     * @param oldFbPiPK
+     */
     public OldFbPi(OldFbPiPK oldFbPiPK) {
         this.oldFbPiPK = oldFbPiPK;
     }
 
+    /**
+     * Creates OldFbPi Entity with the specified fac_id, sub_id, division and batch
+     * @param facId
+     * @param subId
+     * @param division
+     * @param batch
+     */
     public OldFbPi(String facId, String subId, String division, short batch) {
         this.oldFbPiPK = new OldFbPiPK(facId, subId, division, batch);
     }
 
+    /**
+     * Get OldFbPiPk from OldFbPi Entity
+     * @return
+     */
     public OldFbPiPK getOldFbPiPK() {
         return oldFbPiPK;
     }
 
+    /**
+     * Set OldFbPiPk for OldFbPi Entity
+     * @param oldFbPiPK
+     */
     public void setOldFbPiPK(OldFbPiPK oldFbPiPK) {
         this.oldFbPiPK = oldFbPiPK;
     }
 
+    /**
+     * Get fname from OldFbPi Entity
+     * @return
+     */
     public String getFname() {
         return fname;
     }
 
+    /**
+     * Set fname for OldFbPi Entity
+     * @param fname
+     */
     public void setFname(String fname) {
         this.fname = fname;
     }
 
+    /**
+     * Get lname from OldFbPi Entity
+     * @return
+     */
     public String getLname() {
         return lname;
     }
 
+    /**
+     * Set lname for OldFbPi Entity
+     * @param lname
+     */
     public void setLname(String lname) {
         this.lname = lname;
     }
 
+    /**
+     * Get ftype from OldFbPi Entity
+     * @return
+     */
     public short getFtype() {
         return ftype;
     }
     
+    /**
+     * TODO:
+     * @return
+     */
     public String getFtypeD() {
         if (ftype == 0)
             return "Theory";
@@ -95,14 +141,26 @@ public class OldFbPi implements Serializable {
             return "Prac/Tut";
     }
 
+    /**
+     * Set ftype from OldFbPi Entity
+     * @param ftype
+     */
     public void setFtype(Short ftype) {
         this.ftype = ftype;
     }
 
+    /**
+     * TODO:
+     * @return
+     */
     public BigDecimal getPi() {
         return pi;
     }
 
+    /**
+     * TODO:
+     * @param pi
+     */
     public void setPi(BigDecimal pi) {
         this.pi = pi;
     }

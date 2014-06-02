@@ -34,7 +34,10 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 
-
+/**
+ *JSF Backing bean for feedback2013 Entity
+ * @author Administrator
+ */
 @Named("feedback2013Controller")
 @SessionScoped
 public class Feedback2013Controller implements Serializable {
@@ -116,9 +119,16 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 
+    /**
+     *creates the backing bean
+     */
     public Feedback2013Controller() {
     }
 
+    /**
+     * Gets the selected feedback2013 entity
+     * @return
+     */
     public Feedback2013 getSelected() {
         if (current == null) {
             current = new Feedback2013();
@@ -131,6 +141,11 @@ public class Feedback2013Controller implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -148,47 +163,87 @@ public class Feedback2013Controller implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected feedback2013 Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Feedback2013) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new feedback2013 Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new Feedback2013();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPerformanceIndex() {
         return performanceIndex;
     }
 
+    /**
+     *
+     * @param performanceIndex
+     */
     public void setPerformanceIndex(double performanceIndex) {
         this.performanceIndex = performanceIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getRa() {
         return ra;
     }
 
+    /**
+     *
+     * @param ra
+     */
     public void setRa(int[] ra) {
         this.ra = ra;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Feedback2013> getFeedback2013List() {
         return feedback2013List;
     }
 
+    /**
+     *
+     * @param feedback2013List
+     */
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
         this.feedback2013List = feedback2013List;
     }
 
+    /**
+     *
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
@@ -272,6 +327,10 @@ public class Feedback2013Controller implements Serializable {
 
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -283,12 +342,21 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (Feedback2013) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected feedback2013 entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -300,6 +368,10 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected feedback2013 entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Feedback2013) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -309,6 +381,10 @@ public class Feedback2013Controller implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -346,6 +422,10 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 
+    /**
+     *Gets All feedback2013 entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -361,26 +441,47 @@ public class Feedback2013Controller implements Serializable {
         pagination = null;
     }
 
+    /**
+     * Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all feedback2013 entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all feedback2013 entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Feedback2013 getFeedback2013(java.lang.Long id) {
         return ejbFacade.find(id);
     }
@@ -394,6 +495,13 @@ public class Feedback2013Controller implements Serializable {
     @FacesConverter(forClass = Feedback2013.class)
     public static class Feedback2013ControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -416,6 +524,13 @@ public class Feedback2013Controller implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

@@ -23,8 +23,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * POJO Entity for table 'attendance_report'
+ * @author piit
  */
 @Entity
 @Table(name = "attendance_report")
@@ -160,206 +160,408 @@ public class AttendanceReport implements Serializable {
     @Transient
     private int count;
 
+    /**
+     * TODO:
+     * @return
+     */
     public int getCount() {
         return count;
     }
 
+    /**
+     * TODO:
+     * @param count
+     */
     public void setCount(int count) {
         this.count = count;
     }
     
-    
+    /**
+     * Creates AttendanceReport Entity
+     */
     public AttendanceReport() {
     }
 
+    /** 
+     * Get id_attendance from AttendanceReport Entity
+     * @return
+     */
     public long getIdAttendance() {
         return idAttendance;
     }
 
+    /**
+     * Set id_attendance for AttendanceReport Entity
+     * @param idAttendance
+     */
     public void setIdAttendance(long idAttendance) {
         this.idAttendance = idAttendance;
     }
 
+    /**
+     * Get id_current_student from AttendanceReport Entity
+     * @return
+     */
     public int getIdCurrentStudent() {
         return idCurrentStudent;
     }
 
+    /**
+     * Set id_current_student for AttendanceReport Entity
+     * @param idCurrentStudent
+     */
     public void setIdCurrentStudent(int idCurrentStudent) {
         this.idCurrentStudent = idCurrentStudent;
     }
 
+    /**
+     * Get id_lecture from AttendanceReport Entity
+     * @return
+     */
     public int getIdLecture() {
         return idLecture;
     }
 
+    /**
+     * Set id_lecture for AttendanceReport Entity
+     * @param idLecture
+     */
     public void setIdLecture(int idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Get student_name from AttendanceReport Entity
+     * @return
+     */
     public String getStudentName() {
         return studentName;
     }
 
+    /**
+     * Set student_name for AttendanceReport Entity
+     * @param studentName
+     */
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
 
+    /**
+     * Get id_program from AttendanceReport Entity
+     * @return
+     */
     public String getIdProgram() {
         return idProgram;
     }
 
+    /**
+     * Set id_program for AttendanceReport Entity
+     * @param idProgram
+     */
     public void setIdProgram(String idProgram) {
         this.idProgram = idProgram;
     }
 
+    /**
+     * Get id_course from AttendanceReport Entity
+     * @return
+     */
     public String getIdCourse() {
         return idCourse;
     }
 
+    /**
+     * Set id_course for AttendanceReport Entity
+     * @param idCourse
+     */
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
+    /**
+     * Get semester from AttendanceReport Entity
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /**
+     * Set semester for AttendanceReport Entity
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get division from AttendanceReport Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for AttendanceReport Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from AttendanceReport Entity
+     * @return
+     */
     public Short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for AttendanceReport Entity
+     * @param batch
+     */
     public void setBatch(Short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get lecture_date from AttendanceReport Entity
+     * @return
+     */
     public Date getLectureDate() {
         return lectureDate;
     }
 
+    /**
+     * Set lecture_date for AttendanceReport Entity
+     * @param lectureDate
+     */
     public void setLectureDate(Date lectureDate) {
         this.lectureDate = lectureDate;
     }
 
+    /**
+     * Get lecture_start_time from AttendanceReport Entity
+     * @return
+     */
     public Date getLectureStartTime() {
         return lectureStartTime;
     }
 
+    /**
+     * Set lecture_start_time for AttendanceReport Entity
+     * @param lectureStartTime
+     */
     public void setLectureStartTime(Date lectureStartTime) {
         this.lectureStartTime = lectureStartTime;
     }
 
+    /**
+     * Get content_delivered from AttendanceReport Entity
+     * @return
+     */
     public String getContentDelivered() {
         return contentDelivered;
     }
 
+    /**
+     * Set content_delivered for AttendanceReport Entity
+     * @param contentDelivered
+     */
     public void setContentDelivered(String contentDelivered) {
         this.contentDelivered = contentDelivered;
     }
 
+    /**
+     * Get faculty_fname from AttendanceReport Entity
+     * @return
+     */
     public String getFacultyFname() {
         return facultyFname;
     }
 
+    /**
+     * Set faculty_fname for AttendanceReport Entity
+     * @param facultyFname
+     */
     public void setFacultyFname(String facultyFname) {
         this.facultyFname = facultyFname;
     }
 
+    /**
+     * Get faculty_lname from AttendanceReport Entity
+     * @return
+     */
     public String getFacultyLname() {
         return facultyLname;
     }
 
+    /**
+     * Set faculty_lname for AttendanceReport Entity
+     * @param facultyLname
+     */
     public void setFacultyLname(String facultyLname) {
         this.facultyLname = facultyLname;
     }
 
+    /**
+     * Get subject_code from AttendanceReport Entity
+     * @return
+     */
     public String getSubjectCode() {
         return subjectCode;
     }
 
+    /**
+     * Set subject_code for AttendanceReport Entity
+     * @param subjectCode
+     */
     public void setSubjectCode(String subjectCode) {
         this.subjectCode = subjectCode;
     }
 
+    /**
+     * Get theory from AttendanceReport Entity
+     * @return
+     */
     public short getTheory() {
         return theory;
     }
 
+    /**
+     * Set theory for AttendanceReport Entity
+     * @param theory
+     */
     public void setTheory(short theory) {
         this.theory = theory;
     }
 
+    /**
+     * Get practical from AttendanceReport Entity
+     * @return
+     */
     public short getPractical() {
         return practical;
     }
 
+    /**
+     * Set practical for AttendanceReport Entity
+     * @param practical
+     */
     public void setPractical(short practical) {
         this.practical = practical;
     }
 
+    /**
+     * Get tutorial from AttendanceReport Entity
+     * @return
+     */
     public short getTutorial() {
         return tutorial;
     }
 
+    /**
+     * Set tutorial for AttendanceReport Entity
+     * @param tutorial
+     */
     public void setTutorial(short tutorial) {
         this.tutorial = tutorial;
     }
 
+    /**
+     * Get elective from AttendanceReport Entity
+     * @return
+     */
     public boolean getElective() {
         return elective;
     }
 
+    /**
+     * Set elective for AttendanceReport Entity
+     * @param elective
+     */
     public void setElective(boolean elective) {
         this.elective = elective;
     }
 
+    /**
+     * Get id_subject from AttendanceReport Entity
+     * @return
+     */
     public int getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for AttendanceReport Entity
+     * @param idSubject
+     */
     public void setIdSubject(int idSubject) {
         this.idSubject = idSubject;
     }
 
+    /**
+     * Get id_faculty from AttendanceReport Entity
+     * @return
+     */
     public String getIdFaculty() {
         return idFaculty;
     }
 
+    /**
+     * Set id_faculty for AttendanceReport Entity
+     * @param idFaculty
+     */
     public void setIdFaculty(String idFaculty) {
         this.idFaculty = idFaculty;
     }
 
+    /**
+     * Get id_faculty_subject from AttendanceReport Entity
+     * @return
+     */
     public int getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for AttendanceReport Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(int idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
 
+    /**
+     * Get fs_batch from AttendanceReport Entity
+     * @return
+     */
     public short getFsBatch() {
         return fsBatch;
     }
 
+    /**
+     * Set fs_batch for AttendanceReport Entity
+     * @param fsBatch
+     */
     public void setFsBatch(short fsBatch) {
         this.fsBatch = fsBatch;
     }
 
+    /**
+     * Get roll_no from AttendanceReport Entity
+     * @return
+     */
     public Integer getRollNo() {
         return rollNo;
     }
 
+    /**
+     * Set roll_no for AttendanceReport Entity
+     * @param rollNo
+     */
     public void setRollNo(Integer rollNo) {
         this.rollNo = rollNo;
     }

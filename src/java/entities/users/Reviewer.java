@@ -19,8 +19,8 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'reviewer' 
+ * @author piit
  */
 @Entity
 @Table(name = "reviewer")
@@ -44,17 +44,32 @@ public class Reviewer implements Serializable {
     @Column(name = "id_reviewer")
     private Integer idReviewer;
 
+    /**
+     * Creates Reviewer Entity
+     */
     public Reviewer() {
     }
 
+    /**
+     * Creates Reviewer Entity with the specified 'id_reviewer'
+     * @param idReviewer
+     */
     public Reviewer(Integer idReviewer) {
         this.idReviewer = idReviewer;
     }
 
+    /**
+     * Get id_reviewer from Reviewer Entity
+     * @return
+     */
     public Integer getIdReviewer() {
         return idReviewer;
     }
 
+    /**
+     * Set id_reviewer for Reviewer Entity
+     * @param idReviewer
+     */
     public void setIdReviewer(Integer idReviewer) {
         this.idReviewer = idReviewer;
     }
@@ -84,18 +99,34 @@ public class Reviewer implements Serializable {
         return "entities.Reviewer[ idReviewer=" + idReviewer + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * 
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Faculty getIdFaculty() {
         return idFaculty;
     }
 
+    /**
+     *
+     * @param idFaculty
+     */
     public void setIdFaculty(Faculty idFaculty) {
         this.idFaculty = idFaculty;
     }

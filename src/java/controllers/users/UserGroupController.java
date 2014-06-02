@@ -28,9 +28,16 @@ public class UserGroupController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * creating a backing bean
+     */
     public UserGroupController() {
     }
 
+    /**
+     *Gets the selected attendance entity
+     * @return
+     */
     public UserGroup getSelected() {
         if (current == null) {
             current = new UserGroup();
@@ -44,6 +51,11 @@ public class UserGroupController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -61,17 +73,29 @@ public class UserGroupController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected usergroup Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (UserGroup) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new usergroup Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new UserGroup();
         current.setUserGroupPK(new entities.users.UserGroupPK());
@@ -79,6 +103,10 @@ public class UserGroupController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             current.getUserGroupPK().setUserName(current.getFaculty().getIdFaculty());
@@ -91,12 +119,21 @@ public class UserGroupController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (UserGroup) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected usergroup entity in the database
+     * @return
+     */
     public String update() {
         try {
             current.getUserGroupPK().setUserName(current.getFaculty().getIdFaculty());
@@ -109,6 +146,10 @@ public class UserGroupController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected usergroup entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (UserGroup) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -118,6 +159,10 @@ public class UserGroupController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -155,6 +200,10 @@ public class UserGroupController implements Serializable {
         }
     }
 
+    /**
+     *Gets All usergroup entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -170,32 +219,58 @@ public class UserGroupController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all usergroup entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all usergroup entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     * Converter Class for usergroup Entity
+     */
     @FacesConverter(forClass = UserGroup.class)
     public static class UserGroupControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -222,6 +297,13 @@ public class UserGroupController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

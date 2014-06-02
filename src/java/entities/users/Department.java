@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Creates POJO entity for table 'department'
  * @author Ashish
  */
 @Entity
@@ -51,30 +51,58 @@ public class Department implements Serializable {
     @Column(name = "department_name")
     private String departmentName;
 
+    /**
+     * Creates Department Entity
+     */
     public Department() {
     }
 
+    /**
+     * Creates Department Entity with the specified 'id_department'
+     * @param idDepartment
+     */
     public Department(String idDepartment) {
         this.idDepartment = idDepartment;
     }
 
+    /**
+     * Creates Department Entity with the specified 'id_department' and 'department_name'
+     * @param idDepartment
+     * @param departmentName
+     */
     public Department(String idDepartment, String departmentName) {
         this.idDepartment = idDepartment;
         this.departmentName = departmentName;
     }
 
+    /**
+     * Get id_department from Department Entity
+     * @return
+     */
     public String getIdDepartment() {
         return idDepartment;
     }
 
+    /**
+     * Set id_department for Department Entity
+     * @param idDepartment
+     */
     public void setIdDepartment(String idDepartment) {
         this.idDepartment = idDepartment;
     }
 
+    /**
+     * Get department_name from Department Entity
+     * @return
+     */
     public String getDepartmentName() {
         return departmentName;
     }
 
+    /**
+     * Set department_name for Department Entity
+     * @param departmentName
+     */
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
@@ -104,11 +132,19 @@ public class Department implements Serializable {
         return departmentName;
     }
 
+    /**
+     * Gets collection of Faculty Entities for the Department Entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public Collection<Faculty> getFacultyCollection() {
         return facultyCollection;
     }
 
+    /**
+     * Sets collection of Faculty Entities for the Department Entity as a foreign key
+     * @param facultyCollection
+     */
     public void setFacultyCollection(Collection<Faculty> facultyCollection) {
         this.facultyCollection = facultyCollection;
     }

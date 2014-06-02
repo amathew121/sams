@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'subject_book'
+ * @author piit
  */
 @Entity
 @Table(name = "subject_book")
@@ -59,62 +59,122 @@ public class SubjectBook implements Serializable {
     @ManyToOne(optional = false)
     private Subject idSubject;
 
+    /**
+     * Creates SubjectBook Entity
+     */
     public SubjectBook() {
     }
 
+    /**
+     * creates SubjectBook Entity with the specified 'id_subject_books'
+     * @param idSubjectBooks
+     */
     public SubjectBook(Integer idSubjectBooks) {
         this.idSubjectBooks = idSubjectBooks;
     }
 
+    /**
+     * Creates SubjectBook Entity with the specific 'id_subject_books' and 'text_reference'
+     * @param idSubjectBooks
+     * @param textReference
+     */
     public SubjectBook(Integer idSubjectBooks, String textReference) {
         this.idSubjectBooks = idSubjectBooks;
         this.textReference = textReference;
     }
 
+    /**
+     * Get id_subject_books from  SubjectBook Entity
+     * @return
+     */
     public Integer getIdSubjectBooks() {
         return idSubjectBooks;
     }
 
+    /**
+     * Set id_subject_books for SubjectBook Entity
+     * @param idSubjectBooks
+     */
     public void setIdSubjectBooks(Integer idSubjectBooks) {
         this.idSubjectBooks = idSubjectBooks;
     }
 
+    /**
+     * Get text_reference from SubjectBook Entity
+     * @return
+     */
     public String getTextReference() {
         return textReference;
     }
 
+    /**
+     * Set text_reference for SubjectBook Entity
+     * @param textReference
+     */
     public void setTextReference(String textReference) {
         this.textReference = textReference;
     }
 
+    /**
+     * Get book_title from SubjectBook Entity
+     * @return
+     */
     public String getBookTitle() {
         return bookTitle;
     }
 
+    /**
+     * Set book_title for SubjectBook Entity
+     * @param bookTitle
+     */
     public void setBookTitle(String bookTitle) {
         this.bookTitle = bookTitle;
     }
 
+    /**
+     * Get book_authors from SubjectBook Entity
+     * @return
+     */
     public String getBookAuthors() {
         return bookAuthors;
     }
 
+    /**
+     * Set book_authors for SubjectBook Entity
+     * @param bookAuthors
+     */
     public void setBookAuthors(String bookAuthors) {
         this.bookAuthors = bookAuthors;
     }
 
+    /**
+     * Get book_publisher from SubjectBook Entity
+     * @return
+     */
     public String getBookPublisher() {
         return bookPublisher;
     }
 
+    /**
+     * Set book_publisher for SubjectBook Entity
+     * @param bookPublisher
+     */
     public void setBookPublisher(String bookPublisher) {
         this.bookPublisher = bookPublisher;
     }
 
+    /**
+     * Get id_subject from SubjectBook Entity
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for SubjectBook Entity
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }

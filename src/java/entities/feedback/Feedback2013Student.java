@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Ashish Mathew
+ * POJO Entity for table 'feedback2013_student'
+ * @author piit
  */
 @Entity
 @Table(name = "feedback2013_student")
@@ -93,14 +93,27 @@ public class Feedback2013Student implements Serializable {
     @ManyToOne(optional = false)
     private ProgramCourse programCourse;
     
-    
+    /**
+     * Creates Feedback2013Student Entity
+     */
     public Feedback2013Student() {
     }
 
+    /**
+     * Creates Feedback2013Student entity with the specified 'uid'
+     * @param uid
+     */
     public Feedback2013Student(Integer uid) {
         this.uid = uid;
     }
 
+    /**
+     * Creates Feedback2013Student entity with the specified uid,pwd,semester and division
+     * @param uid
+     * @param pwd
+     * @param semester
+     * @param division
+     */
     public Feedback2013Student(Integer uid, String pwd, short semester, String division) {
         this.uid = uid;
         this.pwd = pwd;
@@ -108,82 +121,162 @@ public class Feedback2013Student implements Serializable {
         this.division = division;
     }
 
+    /**
+     * Get uid from Feedback2013Student Entity
+     * @return
+     */
     public Integer getUid() {
         return uid;
     }
 
+    /**
+     * Set uid for Feedback2013Student Entity
+     * @param uid
+     */
     public void setUid(Integer uid) {
         this.uid = uid;
     }
 
+    /**
+     * Get pwd from Feedback2013Student Entity
+     * @return
+     */
     public String getPwd() {
         return pwd;
     }
 
+    /**
+     * Set pwd for Feedback2013Student Entity
+     * @param pwd
+     */
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 
+    /**
+     * Get semester from Feedback2013Student Entity
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /**
+     * Set semester for Feedback2013Student Entity
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get division from Feedback2013Student Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for Feedback2013Student Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from Feedback2013Student Entity
+     * @return
+     */
     public Short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for Feedback2013Student Entity
+     * @param batch
+     */
     public void setBatch(Short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get login_status from Feedback2013Student Entity
+     * @return
+     */
     public Boolean getLoginStatus() {
         return loginStatus;
     }
 
+    /**
+     * Set login_status for Feedback2013Student Entity
+     * @param loginStatus
+     */
     public void setLoginStatus(Boolean loginStatus) {
         this.loginStatus = loginStatus;
     }
 
+    /**
+     * Get login_time from Feedback2013Student Entity
+     * @return
+     */
     public Date getLoginTime() {
         return loginTime;
     }
 
+    /**
+     * Set login_time for Feedback2013Student Entity
+     * @param loginTime
+     */
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
     }
 
+    /**
+     * Get logout_time from Feedback2013Student Entity
+     * @return
+     */
     public Date getLogoutTime() {
         return logoutTime;
     }
 
+    /**
+     * Set logout_time for Feedback2013Student Entity
+     * @param logoutTime
+     */
     public void setLogoutTime(Date logoutTime) {
         this.logoutTime = logoutTime;
     }
 
+    /**
+     * Get ip_address from Feedback2013Student Entity
+     * @return
+     */
     public String getIpAddress() {
         return ipAddress;
     }
 
+    /**
+     * Set ip_address for Feedback2013Student Entity
+     * @param ipAddress
+     */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
     
-        public ProgramCourse getProgramCourse() {
+    /**
+     * Get program_course from Feedback2013Student Entity
+     * @return
+     */
+    public ProgramCourse getProgramCourse() {
         return programCourse;
     }
 
+    /**
+     * Set program_course for Feedback2013Student Entity
+     * @param programCourse
+     */
     public void setProgramCourse(ProgramCourse programCourse) {
         this.programCourse = programCourse;
     }
@@ -213,20 +306,36 @@ public class Feedback2013Student implements Serializable {
         return "entities.Feedback2013Student[ uid=" + uid + " ]";
     }
 
+    /**
+     * Gets a list of Feedback2013 Entities for the Feedback2013Student Entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public List<Feedback2013> getFeedback2013List() {
         return feedback2013List;
     }
 
+    /**
+     * Sets a list of Feedback2013 Entities for the Feedback2013Student Entity as a foreign key
+     * @param feedback2013List
+     */
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
         this.feedback2013List = feedback2013List;
     }
 
+    /**
+     * Gets a list of Feedback2013Comments Entities for the Feedback2013Student Entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public List<Feedback2013Comments> getFeedback2013CommentsList() {
         return feedback2013CommentsList;
     }
 
+    /**
+     *  Sets a list of Feedback2013Comments Entities for the Feedback2013Student Entity as a foreign key
+     * @param feedback2013CommentsList
+     */
     public void setFeedback2013CommentsList(List<Feedback2013Comments> feedback2013CommentsList) {
         this.feedback2013CommentsList = feedback2013CommentsList;
     }

@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * POJO Entity for table 'attendance'
  * @author Ashish
  */
 @Entity
@@ -46,33 +46,64 @@ public class Attendance implements Serializable {
     @ManyToOne
     private CurrentStudent idCurrentStudent;
 
+    /**
+     * Creates Attendance Entity.
+     */
     public Attendance() {
     }
 
+    /**
+     * Creates Attendance Entity with the specified 'id_attendance'
+     * @param idAttendance 
+     */
     public Attendance(Long idAttendance) {
         this.idAttendance = idAttendance;
     }
 
+    /**
+     * Get id_attendance from Attendance Entity
+     * @return 
+     */
     public Long getIdAttendance() {
         return idAttendance;
     }
 
+    /**
+     * Set id_attendance for Attendance Entity 
+     * @param idAttendance
+     */
     public void setIdAttendance(Long idAttendance) {
         this.idAttendance = idAttendance;
     }
 
+    /**
+     * Get id_lecture from Attendance Entity
+     * @return
+     */
     public Lecture getIdLecture() {
         return idLecture;
     }
 
+    /**
+     * Set id_lecture for attendance Entity
+     * @param idLecture
+     */
     public void setIdLecture(Lecture idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Get id_current_student from Attendance Entity
+     * @return
+     */
     public CurrentStudent getIdCurrentStudent() {
         return idCurrentStudent;
     }
 
+    /**
+     * Set id_current_student for Attendance Entity
+     * @param idCurrentStudent
+     */
     public void setIdCurrentStudent(CurrentStudent idCurrentStudent) {
         this.idCurrentStudent = idCurrentStudent;
     }

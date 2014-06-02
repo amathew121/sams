@@ -21,8 +21,8 @@ import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Create POJO Entity for table 'student_test'
+ * @author piit
  */
 @Entity
 @Table(name = "student_test")
@@ -39,6 +39,10 @@ public class StudentTest implements Serializable {
     @Column(name = "marks")
     private BigDecimal marks;
     private static final long serialVersionUID = 1L;
+
+    /**
+     *
+     */
     @EmbeddedId
     protected StudentTestPK studentTestPK;
     @JoinColumn(name = "id_subject", referencedColumnName = "id_subject", insertable = false, updatable = false)
@@ -48,37 +52,74 @@ public class StudentTest implements Serializable {
     @ManyToOne(optional = false)
     private CurrentStudent currentStudent;
 
+    /**
+     * Create StudentTest Entity
+     */
     public StudentTest() {
     }
 
+    /**
+     * Create StudentTest Entity with the specified studentTestPK
+     * @param studentTestPK
+     */
     public StudentTest(StudentTestPK studentTestPK) {
         this.studentTestPK = studentTestPK;
     }
 
+    /**
+     * Create StudentTest Entity with the specific id_current_student, id_subject and test
+     * @param idCurrentStudent
+     * @param idSubject
+     * @param test
+     */
     public StudentTest(int idCurrentStudent, int idSubject, short test) {
         this.studentTestPK = new StudentTestPK(idCurrentStudent, idSubject, test);
     }
 
+    /**
+     * Get StudentTestPK from StudentTest Entity
+     * @return
+     */
     public StudentTestPK getStudentTestPK() {
         return studentTestPK;
     }
 
+    /**
+     * Set StudentTestPK for StudentTest Entity
+     * @param studentTestPK
+     */
     public void setStudentTestPK(StudentTestPK studentTestPK) {
         this.studentTestPK = studentTestPK;
     }
 
+    /**
+     * Get subject from StudentTest Entity
+     * @return
+     */
     public Subject getSubject() {
         return subject;
     }
 
+    /**
+     * Set subject for StudentTest Entity
+     * @param subject
+     */
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
 
+    /**
+     * Get current_student from StudentTest Entity
+     * @return
+     */
     public CurrentStudent getCurrentStudent() {
         return currentStudent;
     }
 
+    /**
+     * Set current_student for StudentTest Entity
+     * @param currentStudent
+     */
     public void setCurrentStudent(CurrentStudent currentStudent) {
         this.currentStudent = currentStudent;
     }
@@ -108,10 +149,18 @@ public class StudentTest implements Serializable {
         return "entities.StudentTest[ studentTestPK=" + studentTestPK + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public BigDecimal getMarks() {
         return marks;
     }
 
+    /**
+     *
+     * @param marks
+     */
     public void setMarks(BigDecimal marks) {
         this.marks = marks;
     }

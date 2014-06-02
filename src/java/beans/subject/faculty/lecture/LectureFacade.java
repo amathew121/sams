@@ -30,7 +30,7 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
- *
+ * Enterprise JavaBean for lecture entity
  * @author Ashish
  */
 @Stateless
@@ -38,16 +38,27 @@ public class LectureFacade extends AbstractFacade<Lecture> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
-   
+    /**
+     * Gets Entity Manager for the Lecture EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * creates lecture EJB
+     */
     public LectureFacade() {
         super(Lecture.class);
     }
     
+    /**
+     * get list of lectures taken by the specified faculty subject
+     * @param f
+     * @return
+     */
     public List<Lecture> getLectureByIdFaculty(FacultySubject f) {
         
         
@@ -57,6 +68,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         return l;
     }
     
+    /**
+     * get list of lectures taken by the specified faculty subject between specified start date and end date
+     * @param f
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public List<Lecture> getLectureByIdFacultyDateRange(FacultySubject f, Date startDate, Date endDate) {
 
 
@@ -68,6 +86,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         List<Lecture> l = q.getResultList();
         return l;
     }
+
+    /**
+     * gets a maximum of ten lecture details for the specified faculty subject after the specifed start date
+     * @param f
+     * @param startDate
+     * @return
+     */
     public List<Lecture> getLectureByIdFacultyDateRange(FacultySubject f, Date startDate) {
 
 
@@ -79,8 +104,11 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         return l;
     }
     
-    
-    
+    /**
+     * TODO: Possible duplicate with em.find()
+     * @param idLecture
+     * @return
+     */
     public Lecture getLectureByIdLecture(Integer idLecture) {
 
 
@@ -89,6 +117,12 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         return (Lecture) q.getSingleResult();
     }
         
+    /**
+     * gets faculty subject by id
+     * TODO: Move to faculty subject facade. Possible duplicate 
+     * @param s
+     * @return
+     */
     public FacultySubject getFSById(int s){
             Query q = em.createNamedQuery("FacultySubject.findByIdFacultySubject");
             q.setParameter("idFacultySubject", s);
@@ -100,6 +134,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
             return l;
     }
     
+    /**
+     * gets list of students for the specified batch, semester and division
+     * @param semester
+     * @param div
+     * @param batch
+     * @return
+     */
     public List<CurrentStudent> getCurrentStudentByDiv(short semester, String div, short batch) {
         List <CurrentStudent> l = new ArrayList();
         

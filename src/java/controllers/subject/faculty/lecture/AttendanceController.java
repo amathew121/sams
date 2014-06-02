@@ -32,16 +32,25 @@ public class AttendanceController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * Creates the backing bean
+     */
     public AttendanceController() {
     }
     
-
+    /**
+     * Runs once after the constructor is called at the initialization of the bean
+     */
     @PostConstruct
     public void init()
     {
         current= new Attendance();
     }
 
+    /**
+     * Gets the selected attendance entity
+     * @return
+     */
     public Attendance getSelected() {
         if (current == null) {
             current = new Attendance();
@@ -50,6 +59,11 @@ public class AttendanceController implements Serializable {
         return current;
     }
 
+    /**
+     *
+     * @param c
+     * @throws Exception
+     */
     public void createEntry(Attendance c) throws Exception
     {
         current = new Attendance();
@@ -60,6 +74,11 @@ public class AttendanceController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -77,23 +96,39 @@ public class AttendanceController implements Serializable {
         return pagination;
     }
 
+    /**
+     * Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     * Sets the selected Attendance Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Attendance) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     * Navigation case to Create page after initializing a new Attendance Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new Attendance();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     * Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -105,15 +140,30 @@ public class AttendanceController implements Serializable {
         }
     }
 
+    /**
+     * Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (Attendance) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *
+     * @param lec
+     * @return
+     */
     public List<Attendance> getAttendanceByFSLec(Lecture lec) {
         return getFacade().getAttendanceByFSLec(lec);
     }
+
+    /**
+     * Updates the selected Attendance entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -125,6 +175,10 @@ public class AttendanceController implements Serializable {
         }
     }
 
+    /**
+     * Destroys the selected Attendance entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Attendance) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -134,6 +188,10 @@ public class AttendanceController implements Serializable {
         return "List";
     }
     
+    /**
+     *
+     * @return
+     */
     public String destroyA() {
         performDestroy();
         recreatePagination();
@@ -141,6 +199,10 @@ public class AttendanceController implements Serializable {
         return "List";
     }
 
+    /**
+     * 
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -178,6 +240,10 @@ public class AttendanceController implements Serializable {
         }
     }
 
+    /**
+     * Gets All Attendance entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -193,30 +259,55 @@ public class AttendanceController implements Serializable {
         pagination = null;
     }
 
+    /**
+     * Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * Gets list of all Attendance entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * Gets list of all Attendance entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-
+    /**
+     * Converter Class for Attendance Entity
+     */
     @FacesConverter(forClass = Attendance.class)
     public static class AttendanceControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -238,6 +329,13 @@ public class AttendanceController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

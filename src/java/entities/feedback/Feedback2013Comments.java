@@ -22,8 +22,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'feedback2013_comments'
+ * @author piit
  */
 @Entity
 @Table(name = "feedback2013_comments")
@@ -53,33 +53,64 @@ public class Feedback2013Comments implements Serializable {
     @ManyToOne
     private Feedback2013Student uid;
 
+    /**
+     * Creates Feedback2013Comments Entity
+     */
     public Feedback2013Comments() {
     }
 
+    /**
+     * Creates Feedback2013Comments Entity with the specified 'id'
+     * @param id
+     */
     public Feedback2013Comments(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Get id from Feedback2013Comments Entity
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Set id for Feedback2013Comments Entity
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Get comment from Feedback2013Comments Entity
+     * @return
+     */
     public String getComments() {
         return comments;
     }
 
+    /**
+     * Set comment for Feedback2013Comments Entity
+     * @param comments
+     */
     public void setComments(String comments) {
         this.comments = comments;
     }
 
+    /**
+     * get uid from Feedback2013Comments Entity
+     * @return
+     */
     public Feedback2013Student getUid() {
         return uid;
     }
 
+    /**
+     * Set uid for Feedback2013Comments Entity
+     * @param uid
+     */
     public void setUid(Feedback2013Student uid) {
         this.uid = uid;
     }
@@ -109,10 +140,18 @@ public class Feedback2013Comments implements Serializable {
         return "entities.Feedback2013Comments[ id=" + id + " ]";
     }
 
+    /**
+     * Get id_faculty_subject from Feedback2013Comments Entity
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject from Feedback2013Comments Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }

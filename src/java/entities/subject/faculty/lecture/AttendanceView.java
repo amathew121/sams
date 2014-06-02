@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Creates POJO entity for table 'attendance_view'
  * @author Ashish
  */
 @Entity
@@ -89,110 +89,216 @@ public class AttendanceView implements Serializable {
     @Column(name = "roll_no")
     private String rollNo;
 
-        public AttendanceView() {
+    /**
+     * Creates AttendanceView Entity
+     */
+    public AttendanceView() {
     }
 
+    /**
+     * Get id_lecture from AttendanceView Entity
+     * @return
+     */
     public Integer getIdLecture() {
         return idLecture;
     }
 
+    /**
+     * Set id_lecture for AttendanceView Entity
+     * @param idLecture
+     */
     public void setIdLecture(Integer idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Set id_lecture from AttendanceView Entity
+     * @return
+     */
     public Integer getIdCurrentStudent() {
         return idCurrentStudent;
     }
 
+    /**
+     * Set id_current_student for AttendanceView Entity
+     * @param idCurrentStudent
+     */
     public void setIdCurrentStudent(Integer idCurrentStudent) {
         this.idCurrentStudent = idCurrentStudent;
     }
 
+    /**
+     * Get id_faculty_student from AttendanceView Entity
+     * @return
+     */
     public Integer getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for AttendanceView Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(Integer idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
 
+    /**
+     * Get lecture_date from AttendanceView Entity
+     * @return
+     */
     public Date getLectureDate() {
         return lectureDate;
     }
 
+    /**
+     * Set lecture_date for AttendanceView Entity
+     * @param lectureDate
+     */
     public void setLectureDate(Date lectureDate) {
         this.lectureDate = lectureDate;
     }
 
+    /**
+     * Get id_course from AttendanceView Entity
+     * @return
+     */
     public String getIdCourse() {
         return idCourse;
     }
 
+    /**
+     * Set id_course for AttendanceView Entity
+     * @param idCourse
+     */
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
+    /**
+     * Get admn_no from AttendanceView Entity
+     * @return
+     */
     public String getAdmnNo() {
         return admnNo;
     }
 
+    /**
+     * Set admn_no for AttendanceView Entity
+     * @param admnNo
+     */
     public void setAdmnNo(String admnNo) {
         this.admnNo = admnNo;
     }
 
+    /**
+     * Get semester from AttendanceView Entity
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /**
+     * Set semester for AttendanceView Entity
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get division from AttendanceView Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for AttendanceView Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get batch from AttendanceView Entity
+     * @return
+     */
     public Short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for AttendanceView Entity
+     * @param batch
+     */
     public void setBatch(Short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get roll_no from AttendanceView Entity
+     * @return
+     */
     public String getRollNo() {
         return rollNo;
     }
 
+    /**
+     * Set roll_no for AttendanceView Entity
+     * @param rollNo
+     */
     public void setRollNo(String rollNo) {
         this.rollNo = rollNo;
     }
 
-
+    /**
+     * Get content_delivered from AttendanceView Entity
+     * @return
+     */
     public String getContentDelivered() {
         return contentDelivered;
     }
 
+    /**
+     * Set content_delivered for AttendanceView Entity
+     * @param contentDelivered
+     */
     public void setContentDelivered(String contentDelivered) {
         this.contentDelivered = contentDelivered;
     }
 
+    /**
+     * Get id_attendance from AttendanceView Entity
+     * @return
+     */
     public BigInteger getIdAttendance() {
         return idAttendance;
     }
 
+    /**
+     * Set id_attendance for AttendanceView Entity
+     * @param idAttendance
+     */
     public void setIdAttendance(BigInteger idAttendance) {
         this.idAttendance = idAttendance;
     }
 
+    /**
+     * Get lecture_start_time from AttendanceView Entity
+     * @return
+     */
     public Date getLectureStartTime() {
         return lectureStartTime;
     }
 
+    /**
+     * Set lecture_start_time for AttendanceView Entity
+     * @param lectureStartTime
+     */
     public void setLectureStartTime(Date lectureStartTime) {
         this.lectureStartTime = lectureStartTime;
     }

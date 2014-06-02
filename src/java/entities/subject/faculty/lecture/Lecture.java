@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Creates POJO Entity for table 'lecture'
  * @author Ashish
  */
 @Entity
@@ -92,36 +92,68 @@ public class Lecture implements Serializable {
     @Transient
     private boolean selectAll;
 
+    /**
+     * Get check from Lecture Entity
+     * @return
+     */
     public Boolean getCheck() {
         return check;
     }
 
+    /**
+     * Set check for Lecture Entity
+     * @param check
+     */
     public void setCheck(Boolean check) {
         this.check = check;
     }
     
+    /**
+     * TODO:
+     * @return
+     */
     public Map<Integer, Boolean> getChecked() {
         return checked;
     }
 
+    /**
+     * TODO:
+     * @param checked
+     */
     public void setChecked(Map<Integer, Boolean> checked) {
         this.checked = checked;
     }
 
-
+    /**
+     * TODO:
+     * @return
+     */
     public boolean isSelectAll() {
         return selectAll;
     }
 
+    /**
+     * TODO:
+     * @param selectAll
+     */
     public void setSelectAll(boolean selectAll) {
         this.selectAll = selectAll;
     }
+
+    /**
+     * TODO:
+     * @param event
+     */
     public void checkedControl(ValueChangeEvent event) {
         UIData data = (UIData) event.getComponent().findComponent("listComponents");
         CurrentStudent cs = (CurrentStudent) data.getRowData();
         getChecked().put(cs.getIdCurrentStudent(), true);
     }
     
+    /**
+     * TODO:
+     * @param event
+     */
     public void selectAllComponents(ValueChangeEvent event) {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -138,6 +170,11 @@ public class Lecture implements Serializable {
         }
     }
 
+    /**
+     * TODO:
+     * @param selectedComponentMap
+     * @param blnValue
+     */
     public void changeMap(Map<Integer, Boolean> selectedComponentMap, Boolean blnValue) {
         if (selectedComponentMap != null) {
             /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
@@ -155,57 +192,112 @@ public class Lecture implements Serializable {
         }
     }
     
+    /**
+     * Get attendance_count from Lecture Entity
+     * @return
+     */
     public Long getAttendanceCount() {
         return attendanceCount;
     }
 
+    /**
+     * Set attendance_count for Lecture Entity
+     * @param attendanceCount
+     */
     public void setAttendanceCount(Long attendanceCount) {
         this.attendanceCount = attendanceCount;
     }
     
+    /**
+     * Creates Lecture Entity
+     */
     public Lecture() {
     }
 
+    /**
+     * Creates Lecture Entity with the specified id_lecture
+     * @param idLecture
+     */
     public Lecture(Integer idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Get id_lecture from Lecture entity
+     * @return
+     */
     public Integer getIdLecture() {
         return idLecture;
     }
 
+    /**
+     * Set id_lecture for Lecture entity
+     * @param idLecture
+     */
     public void setIdLecture(Integer idLecture) {
         this.idLecture = idLecture;
     }
 
+    /**
+     * Get lecture_date from Lecture Entity
+     * @return
+     */
     public Date getLectureDate() {
         return lectureDate;
     }
 
+    /**
+     * Set lecture_date for Lecture Entity
+     * @param lectureDate
+     */
     public void setLectureDate(Date lectureDate) {
         this.lectureDate = lectureDate;
     }
 
+    /**
+     * Get lecture_start_time from Lecture Entity
+     * @return
+     */
     public Date getLectureStartTime() {
         return lectureStartTime;
     }
 
+    /**
+     * Set lecture_start_time for Lecture Entity
+     * @param lectureStartTime
+     */
     public void setLectureStartTime(Date lectureStartTime) {
         this.lectureStartTime = lectureStartTime;
     }
 
+    /**
+     * Get id_faculty_subject from Lecture Entity
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for Lecture Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
 
+    /**
+     * Get attendance from Lecture Entity
+     * @return
+     */
     public Attendance getAttendance() {
         return attendance;
     }
 
+    /**
+     * Set attendance for Lecture Entity
+     * @param attendance
+     */
     public void setAttendance(Attendance attendance) {
         this.attendance = attendance;
     }
@@ -235,27 +327,51 @@ public class Lecture implements Serializable {
         return "entities.Lecture[ idLecture=" + idLecture + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContentDelivered() {
         return contentDelivered;
     }
 
+    /**
+     *
+     * @param contentDelivered
+     */
     public void setContentDelivered(String contentDelivered) {
         this.contentDelivered = contentDelivered;
     }
 
+    /**
+     * Gets a list of LectureTags Entities for the Lecture Entity as a foreign key 
+     * @return
+     */
     @XmlTransient
     public List<LectureTags> getLectureTagsList() {
         return lectureTagsList;
     }
 
+    /**
+     * Sets a list of LectureTags Entities for the Lecture Entity as a foreign key
+     * @param lectureTagsList
+     */
     public void setLectureTagsList(List<LectureTags> lectureTagsList) {
         this.lectureTagsList = lectureTagsList;
     }
 
+    /**
+     * Get content_beyond_syllabus from Lecture Entity
+     * @return
+     */
     public String getContentBeyondSyllabus() {
         return contentBeyondSyllabus;
     }
 
+    /**
+     * Set content_beyond_syllabus for Lecture Entity
+     * @param contentBeyondSyllabus
+     */
     public void setContentBeyondSyllabus(String contentBeyondSyllabus) {
         this.contentBeyondSyllabus = contentBeyondSyllabus;
     }

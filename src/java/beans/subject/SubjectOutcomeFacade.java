@@ -14,23 +14,35 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
- * @author Ashish Mathew
+ * Enterprise JavaBean for subjectoutcome entity
+ * @author piit
  */
 @Singleton
 public class SubjectOutcomeFacade extends AbstractFacade<SubjectOutcome> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     * gets entity manager for subjectoutcome EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * creates subjectoutcome EJB
+     */
     public SubjectOutcomeFacade() {
         super(SubjectOutcome.class);
     }
 
+    /**
+     *
+     * @param sub
+     * @return
+     */
     public List getByIdSubject(Subject sub) {
         Query q = em.createNamedQuery("SubjectOutcome.findByIdSubjcet");
         q.setParameter("idSubject", sub);

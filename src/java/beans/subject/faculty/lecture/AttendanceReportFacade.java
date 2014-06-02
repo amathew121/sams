@@ -16,8 +16,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
- * @author Ashish Mathew
+ * Enterprise JavaBean for AttendanceReport entity
+ * @author piit
  */
 @Stateless
 public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
@@ -25,15 +25,27 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     *
+     */
     public AttendanceReportFacade() {
         super(AttendanceReport.class);
     }
 
+    /**
+     * Gets List of CurrentStudent with Attendance Count for the specified FacultySubject Entity
+     * @param idFacSub FacultySubject Entity
+     * @return
+     */
     public List<Object[]> getStudentAttendanceByFS(int idFacSub) {
         Query q = em.createNamedQuery("AttendanceReport.findByIdFacultySubject");
         q.setParameter("idFacultySubject", idFacSub);
@@ -41,6 +53,14 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
         return l;
     }
 
+    /**
+     * Gets List of CurrentStudent with Attendance Count for the specified ProgramCourse, Semester, Division, Subject entites.
+     * @param programCourse
+     * @param division
+     * @param semester
+     * @param idSubject
+     * @return
+     */
     public List<Object[]> getStudentAttendanceBySubDivSem(ProgramCourse programCourse, String division, short semester, int idSubject) {
         Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
         q.setParameter("idSubject", idSubject);
@@ -52,6 +72,15 @@ public class AttendanceReportFacade extends AbstractFacade<AttendanceReport> {
         return l;
     }
     
+    /**
+     *Gets List of CurrentStudent with Attendance Count for the specified ProgramCourse, Semester, Division, batch, Subject entites.
+     * @param programCourse
+     * @param division
+     * @param semester
+     * @param idSubject
+     * @param batch
+     * @return
+     */
     public List<Object[]> getStudentAttendanceBySubDivSem(ProgramCourse programCourse, String division, short semester, int idSubject, short batch) {
         Query q = em.createNamedQuery("AttendanceReport.findByIdSubjectSemesterDivisionCount");
         q.setParameter("idSubject", idSubject);

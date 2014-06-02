@@ -19,8 +19,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'old_faculty_comments'
+ * @author piit
  */
 @Entity
 @Table(name = "old_faculty_comments", catalog = "piit", schema = "")
@@ -68,81 +68,160 @@ public class OldFacultyComments implements Serializable {
     @Column(name = "show_status")
     private String showStatus;
 
+    /**
+     * Creates OldFacultyComments Entity
+     */
     public OldFacultyComments() {
     }
 
+    /**
+     * Creates OldFacultyComments Entity with the specified id
+     * @param id
+     */
     public OldFacultyComments(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Get id from OldFacultyComments Entity
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Set id for OldFacultyComments Entity
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Get fac_id from OldFacultyComments Entity
+     * @return
+     */
     public String getFacId() {
         return facId;
     }
 
+    /**
+     * Set fac_id for OldFacultyComments Entity
+     * @param facId
+     */
     public void setFacId(String facId) {
         this.facId = facId;
     }
 
+    /**
+     * Get fac_name from OldFacultyComments Entity
+     * @return
+     */
     public String getFacName() {
         return facName;
     }
 
+    /**
+     * Set fac_name for OldFacultyComments Entity
+     * @param facName
+     */
     public void setFacName(String facName) {
         this.facName = facName;
     }
 
+    /**
+     * Get sub_id from OldFacultyComments Entity
+     * @return
+     */
     public String getSubId() {
         return subId;
     }
 
+    /**
+     * Set sub_id for OldFacultyComments Entity
+     * @param subId
+     */
     public void setSubId(String subId) {
         this.subId = subId;
     }
 
+    /**
+     * Get division from OldFacultyComments Entity
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set division for OldFacultyComments Entity
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get ftype from OldFacultyComments Entity
+     * @return
+     */
     public Short getFtype() {
         return ftype;
     }
 
+    /**
+     * Set ftype for OldFacultyComments Entity
+     * @param ftype
+     */
     public void setFtype(Short ftype) {
         this.ftype = ftype;
     }
 
+    /**
+     * Get batch from OldFacultyComments Entity
+     * @return
+     */
     public Short getBatch() {
         return batch;
     }
 
+    /**
+     * Set batch for OldFacultyComments Entity
+     * @param batch
+     */
     public void setBatch(Short batch) {
         this.batch = batch;
     }
 
+    /**
+     * Get comments from OldFacultyComments Entity
+     * @return
+     */
     public String getComments() {
         return comments;
     }
 
+    /**
+     * Set comments for OldFacultyComments Entity
+     * @param comments
+     */
     public void setComments(String comments) {
         this.comments = comments;
     }
 
+    /**
+     * Get show_status from OldFacultyComments Entity
+     * @return
+     */
     public String getShowStatus() {
         return showStatus;
     }
 
+    /**
+     * Set show_status for OldFacultyComments Entity
+     * @param showStatus
+     */
     public void setShowStatus(String showStatus) {
         this.showStatus = showStatus;
     }

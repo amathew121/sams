@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * 
  * @author Ashish
  */
 @Embeddable
@@ -28,26 +28,50 @@ public class UserGroupPK implements Serializable {
     @Column(name = "role_name")
     private String roleName;
 
+    /**
+     * Creates UserGroupPK Entity
+     */
     public UserGroupPK() {
     }
 
+    /**
+     * Creates UserGroupPK Entity with the specified user_name and role_name
+     * @param userName
+     * @param roleName
+     */
     public UserGroupPK(String userName, String roleName) {
         this.userName = userName;
         this.roleName = roleName;
     }
 
+    /**
+     * Get user_name from UserGroupPK Entity
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Set user_name for UserGroupPK Entity
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * Get role_name from UserGroupPK Entity
+     * @return
+     */
     public String getRoleName() {
         return roleName;
     }
 
+    /**
+     * Set role_name for UserGroupPK Entity
+     * @param roleName
+     */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }

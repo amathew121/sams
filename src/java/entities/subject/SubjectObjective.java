@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'subject_objective'
+ * @author piit
  */
 @Entity
 @Table(name = "subject_objective")
@@ -46,33 +46,64 @@ public class SubjectObjective implements Serializable {
     @ManyToOne(optional = false)
     private Subject idSubject;
 
+    /**
+     * Creates SubjectObjective Entity
+     */
     public SubjectObjective() {
     }
 
+    /**
+     * Creates SubjectObjective Entity with the specified 'id_subject_objective'
+     * @param idSubjectObjective
+     */
     public SubjectObjective(Integer idSubjectObjective) {
         this.idSubjectObjective = idSubjectObjective;
     }
 
+    /**
+     * Get id_subject_objective from SubjectObjective Entity
+     * @return
+     */
     public Integer getIdSubjectObjective() {
         return idSubjectObjective;
     }
 
+    /**
+     * Set id_subject_objective for SubjectObjective Entity
+     * @param idSubjectObjective
+     */
     public void setIdSubjectObjective(Integer idSubjectObjective) {
         this.idSubjectObjective = idSubjectObjective;
     }
 
+    /**
+     * Get objective from SubjectObjective Entity
+     * @return
+     */
     public String getObjective() {
         return objective;
     }
 
+    /**
+     * Set objective for SubjectObjective Entity
+     * @param objective
+     */
     public void setObjective(String objective) {
         this.objective = objective;
     }
 
+    /**
+     * Get id_subject from SubjectObjective Entity
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for SubjectObjective Entity
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }

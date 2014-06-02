@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Creates POJO entity for table 'course'
  * @author Ashish
  */
 @Entity
@@ -48,39 +48,75 @@ public class Course implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private Collection<ProgramCourse> programCourseCollection;
 
+    /**
+     * Creates Course Entity
+     */
     public Course() {
     }
 
+    /**
+     * Creates Course entity with the specified id_course
+     * @param idCourse
+     */
     public Course(String idCourse) {
         this.idCourse = idCourse;
     }
 
+    /**
+     * Creates Course Entity with the specified id_course and course_name 
+     * @param idCourse
+     * @param courseName
+     */
     public Course(String idCourse, String courseName) {
         this.idCourse = idCourse;
         this.courseName = courseName;
     }
 
+    /**
+     * Get id_course from Course Entity
+     * @return
+     */
     public String getIdCourse() {
         return idCourse;
     }
 
+    /**
+     * Set id_course for Course Entity
+     * @param idCourse
+     */
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
+    /**
+     * Get course_name from Course Entity
+     * @return
+     */
     public String getCourseName() {
         return courseName;
     }
 
+    /**
+     * Set course_name for Course Entity
+     * @param courseName
+     */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 
+    /**
+     * Gets collection of ProgramCourse entities for the course entity as a foreign Key.
+     * @return
+     */
     @XmlTransient
     public Collection<ProgramCourse> getProgramCourseCollection() {
         return programCourseCollection;
     }
 
+    /**
+     * Sets collection of ProgramCourse entities for the course entity as a foreign key.
+     * @param programCourseCollection
+     */
     public void setProgramCourseCollection(Collection<ProgramCourse> programCourseCollection) {
         this.programCourseCollection = programCourseCollection;
     }

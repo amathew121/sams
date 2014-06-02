@@ -27,8 +27,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'review_comments'
+ * @author piit
  */
 @Entity
 @Table(name = "review_comments")
@@ -68,13 +68,27 @@ public class ReviewComments implements Serializable {
     @ManyToOne(optional = false)
     private Faculty reviewedBy;
 
+    /**
+     * Creates ReviewComments Entity
+     */
     public ReviewComments() {
     }
 
+    /**
+     * Creates ReviewComments Entity with the specified 'id_review_comments'
+     * @param idReviewComments
+     */
     public ReviewComments(Integer idReviewComments) {
         this.idReviewComments = idReviewComments;
     }
 
+    /**
+     * Creates ReviewComments Entity with the specified id_review_comments, comment, reviewed_on and review_type 
+     * @param idReviewComments
+     * @param comment
+     * @param reviewedOn
+     * @param reviewType
+     */
     public ReviewComments(Integer idReviewComments, String comment, Date reviewedOn, short reviewType) {
         this.idReviewComments = idReviewComments;
         this.comment = comment;
@@ -82,50 +96,98 @@ public class ReviewComments implements Serializable {
         this.reviewType = reviewType;
     }
 
+    /**
+     * Get id_review_comments from ReviewComments Entity 
+     * @return
+     */
     public Integer getIdReviewComments() {
         return idReviewComments;
     }
 
+    /**
+     * Set id_review_comments for ReviewComments Entity
+     * @param idReviewComments
+     */
     public void setIdReviewComments(Integer idReviewComments) {
         this.idReviewComments = idReviewComments;
     }
 
+    /**
+     * Get comment from ReviewComments Entity 
+     * @return
+     */
     public String getComment() {
         return comment;
     }
 
+    /**
+     * Set comment for ReviewComments Entity
+     * @param comment
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * Get reviewed_on from ReviewComments Entity
+     * @return
+     */
     public Date getReviewedOn() {
         return reviewedOn;
     }
 
+    /**
+     * Set reviewed_on for ReviewComments Entity
+     * @param reviewedOn
+     */
     public void setReviewedOn(Date reviewedOn) {
         this.reviewedOn = reviewedOn;
     }
 
+    /**
+     * Get review_type from ReviewComments Entity
+     * @return
+     */
     public short getReviewType() {
         return reviewType;
     }
 
+    /**
+     * Set review_type for ReviewComments Entity
+     * @param reviewType
+     */
     public void setReviewType(short reviewType) {
         this.reviewType = reviewType;
     }
 
+    /**
+     * Get id_faculty_subject from ReviewComments Entity
+     * @return
+     */
     public FacultySubject getIdFacultySubject() {
         return idFacultySubject;
     }
 
+    /**
+     * Set id_faculty_subject for ReviewComments Entity
+     * @param idFacultySubject
+     */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
         this.idFacultySubject = idFacultySubject;
     }
 
+    /**
+     * Get reviewed_by from ReviewComments Entity
+     * @return
+     */
     public Faculty getReviewedBy() {
         return reviewedBy;
     }
 
+    /**
+     * Set reviewed_by for ReviewComments Entity
+     * @param reviewedBy
+     */
     public void setReviewedBy(Faculty reviewedBy) {
         this.reviewedBy = reviewedBy;
     }

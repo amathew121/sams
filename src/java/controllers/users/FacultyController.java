@@ -33,9 +33,16 @@ public class FacultyController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     *creates the backing bean
+     */
     public FacultyController() {
     }
 
+    /**
+     * Gets the selected faculty entity
+     * @return
+     */
     public Faculty getSelected() {
         if (current == null) {
             current = new Faculty();
@@ -48,6 +55,11 @@ public class FacultyController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -65,39 +77,71 @@ public class FacultyController implements Serializable {
         return pagination;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOldPassword() {
         return oldPassword;
     }
 
+    /**
+     *
+     * @param oldPassword
+     */
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNewPassword() {
         return newPassword;
     }
 
+    /**
+     *
+     * @param newPassword
+     */
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
 
+    /**
+     * Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected Faculty Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Faculty) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     * Navigation case to Create page after initializing a new Faculty Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new Faculty();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -123,6 +167,10 @@ public class FacultyController implements Serializable {
         return "Edit";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareUserDetails() {
         Faculty f = new Faculty();
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -132,6 +180,10 @@ public class FacultyController implements Serializable {
         return "UserDetails?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareUserDetailsEdit() {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -140,7 +192,12 @@ public class FacultyController implements Serializable {
         current = getFacade().find(userName);
         return "UserDetailsEdit?faces-redirect=true";
     }
-        public String prepareUserPasswordChange() {
+
+    /**
+     *
+     * @return
+     */
+    public String prepareUserPasswordChange() {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
@@ -149,6 +206,10 @@ public class FacultyController implements Serializable {
         return "UserPasswordChange?faces-redirect=true";
     }
 
+    /**
+     *Updates the selected faculty entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -159,6 +220,11 @@ public class FacultyController implements Serializable {
             return null;
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public String update1() {
         try {
             getFacade().edit(current);
@@ -169,7 +235,12 @@ public class FacultyController implements Serializable {
             return null;
         }
     }
-        public String update2() {
+
+    /**
+     *
+     * @return
+     */
+    public String update2() {
         try {
             final String hash = DigestUtils.sha256Hex(oldPassword);
             if(hash.equals(current.getFacultyPassword())){
@@ -188,6 +259,10 @@ public class FacultyController implements Serializable {
         }
     }
 
+    /**
+     * Destroys the selected faculty entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Faculty) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -197,6 +272,10 @@ public class FacultyController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -252,36 +331,72 @@ public class FacultyController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all faculty entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all faculty entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Faculty> getAllFaculty(){
         return getFacade().findAll();
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Faculty getFaculty(java.lang.String id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for faculty Entity
+     */
     @FacesConverter(forClass = Faculty.class)
     public static class FacultyControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -304,6 +419,13 @@ public class FacultyController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

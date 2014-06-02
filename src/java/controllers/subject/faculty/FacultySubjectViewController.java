@@ -37,9 +37,16 @@ public class FacultySubjectViewController implements Serializable {
     private int selectedItemIndex;
     private Department deptSelected;
 
+    /**
+     *creates the backing bean
+     */
     public FacultySubjectViewController() {
     }
 
+    /**
+     *Gets the selected facultysubjectview entity
+     * @return
+     */
     public FacultySubjectView getSelected() {
         if (current == null) {
             current = new FacultySubjectView();
@@ -52,39 +59,77 @@ public class FacultySubjectViewController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *
+     * @return
+     */
     public Department getDeptSelected() {
         return deptSelected;
     }
 
+    /**
+     *
+     * @param deptSelected
+     */
     public void setDeptSelected(Department deptSelected) {
         this.deptSelected = deptSelected;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataModel getModelByUserName() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
     }
-        public DataModel getModelByUserNameEven() {
+
+    /**
+     *
+     * @return
+     */
+    public DataModel getModelByUserNameEven() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         modelByUserName = new ListDataModel(getFacade().getFSViewByIdEven(userName));
         return modelByUserName;
     }
     
+    /**
+     *
+     * @param userName
+     * @return
+     */
     public DataModel getModelByUserName(String userName) {
         modelByUserName = new ListDataModel(getFacade().getFSViewById(userName));
         return modelByUserName;
     }
-    
-    public DataModel getModelByUserNameGroup() {
+    //TODO: CHECK USAGES
+
+    /**
+     *
+     * @return
+     */
+        public DataModel getModelByUserNameGroup() {
         return new ListDataModel(getFacade().getFSViewByIdGroup());
 
     }
+
+    /**
+     *
+     * @return
+     */
     public String oddSem() {
         return "ListOdd?faces-redirect=true";
     }
+
+    /**
+     *
+     * @param fac
+     * @return
+     */
     public List<FacultySubjectView> getListByDept(Faculty fac) {
             Department dept = deptSelected;
 
@@ -95,10 +140,20 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param sub
+     * @return
+     */
     public List<FacultySubjectView> getListByDeptSub(String sub) {
         return getFacade().getFSViewByDeptSub(sub, "CS");
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -117,11 +172,18 @@ public class FacultySubjectViewController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *
+     */
     public void prepareListUser() {
         recreateModel();
         try {
@@ -131,6 +193,9 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
 
+    /**
+     *
+     */
     public void prepareListAdmin() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/List.xhtml");
@@ -138,6 +203,10 @@ public class FacultySubjectViewController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     *
+     */
     public void prepareListAdminFeedback() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/FeedbackBoard.xhtml");
@@ -146,25 +215,46 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String navList(){
         return "List?faces-redirect=true";
     }
+
+    /**
+     *
+     * @return
+     */
     public String navReport() {
         return "Report?faces-redirect=true";
     }
 
+    /**
+     * Sets the selected facultysubjectview Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new facultysubjectview Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new FacultySubjectView();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -176,17 +266,30 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdFacSub() {
         current = (FacultySubjectView) getItems().getRowData();
         return current.getIdFacultySubject();
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected facultysubjectview entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -198,6 +301,10 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected facultysubjectview entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (FacultySubjectView) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -207,6 +314,10 @@ public class FacultySubjectViewController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -244,6 +355,10 @@ public class FacultySubjectViewController implements Serializable {
         }
     }
 
+    /**
+     * Gets All facultysubjectview entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -260,35 +375,65 @@ public class FacultySubjectViewController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all facultysubjectview entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all facultysubjectview entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOneByUserName() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         return JsfUtil.getSelectItems(ejbFacade.getFSViewById(userName), true);
     }
 
+    /**
+     * Converter Class for facultysubjectview Entity
+     */
     @FacesConverter(forClass = FacultySubjectView.class)
     public static class FacultySubjectViewControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -310,6 +455,13 @@ public class FacultySubjectViewController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

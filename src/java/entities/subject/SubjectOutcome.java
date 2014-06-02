@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'subject_outcome'
+ * @author piit
  */
 @Entity
 @Table(name = "subject_outcome")
@@ -46,33 +46,64 @@ public class SubjectOutcome implements Serializable {
     @ManyToOne(optional = false)
     private Subject idSubject;
 
+    /**
+     * Creates SubjectOutcome Entity
+     */
     public SubjectOutcome() {
     }
 
+    /**
+     * Creates SubjectOutcome Entity with the specified 'id_subject_outcome'
+     * @param idSubjectOutcome
+     */
     public SubjectOutcome(Integer idSubjectOutcome) {
         this.idSubjectOutcome = idSubjectOutcome;
     }
 
+    /**
+     * Get id_subject_outcome from SubjectOutcome Entity
+     * @return
+     */
     public Integer getIdSubjectOutcome() {
         return idSubjectOutcome;
     }
 
+    /**
+     * Set id_subject_outcome for SubjectOutcome Entity
+     * @param idSubjectOutcome
+     */
     public void setIdSubjectOutcome(Integer idSubjectOutcome) {
         this.idSubjectOutcome = idSubjectOutcome;
     }
 
+    /**
+     * Get outcome from SubjectOutcome Entity
+     * @return
+     */
     public String getOutcome() {
         return outcome;
     }
 
+    /**
+     * Set outcome for SubjectOutcome Entity
+     * @param outcome
+     */
     public void setOutcome(String outcome) {
         this.outcome = outcome;
     }
 
+    /**
+     * Get id_subject from SubjectOutcome Entity
+     * @return
+     */
     public Subject getIdSubject() {
         return idSubject;
     }
 
+    /**
+     * Set id_subject for SubjectOutcome Entity
+     * @param idSubject
+     */
     public void setIdSubject(Subject idSubject) {
         this.idSubject = idSubject;
     }

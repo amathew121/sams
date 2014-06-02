@@ -24,8 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Ashish Mathew
+ * Creates POJO Entity for table 'feedback2013_question'
+ * @author piit
  */
 @Entity
 @Table(name = "feedback2013_question")
@@ -56,50 +56,97 @@ public class Feedback2013Question implements Serializable {
     @OneToMany(mappedBy = "qid")
     private List<Feedback2013> feedback2013List;
 
+    /**
+     * Creates Feedback2013Question Entity
+     */
     public Feedback2013Question() {
     }
 
+    /**
+     * Creates Feedback2013Question Entity with the specified 'qid'
+     * @param qid
+     */
     public Feedback2013Question(Integer qid) {
         this.qid = qid;
     }
 
+    /**
+     * get qid from Feedback2013Question Entity
+     * @return
+     */
     public Integer getQid() {
         return qid;
     }
 
+    /**
+     * Set qid for Feedback2013Question Entity
+     * @param qid
+     */
     public void setQid(Integer qid) {
         this.qid = qid;
     }
 
+    /**
+     * Get qtype from Feedback2013Question Entity
+     * @return
+     */
     public Short getQtype() {
         return qtype;
     }
 
+    /**
+     * Set qtype for Feedback2013Question Entity
+     * @param qtype
+     */
     public void setQtype(Short qtype) {
         this.qtype = qtype;
     }
 
+    /**
+     * Get qno from Feedback2013Question Entity
+     * @return
+     */
     public Integer getQno() {
         return qno;
     }
 
+    /**
+     * Set qno for Feedback2013Question Entity
+     * @param qno
+     */
     public void setQno(Integer qno) {
         this.qno = qno;
     }
 
+    /**
+     * Get qtext from Feedback2013Question Entity
+     * @return
+     */
     public String getQtext() {
         return qtext;
     }
 
+    /**
+     * Set qtext for Feedback2013Question Entity
+     * @param qtext
+     */
     public void setQtext(String qtext) {
         this.qtext = qtext;
     }
 
+    /**
+     * Gets a list of Feedback2013 entities for the Feedback2013Question entity as a foreign key
+     * @return
+     */
     @XmlTransient
     public List<Feedback2013> getFeedback2013List() {
         return feedback2013List;
     }
 
+    /**
+     * Sets a list of Feedback2013 entities for the Feedback2013Question entity as a foreign key
+     * @param feedback2013List
+     */
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
         this.feedback2013List = feedback2013List;
     }
@@ -129,10 +176,18 @@ public class Feedback2013Question implements Serializable {
         return "[" +idProgram+"]"+(qtype==0?"Theory":"Pracs")+" "+qno+"."+qtext;
     }
 
+    /**
+     * Get id_program from Feedback2013Question Entity
+     * @return
+     */
     public Program getIdProgram() {
         return idProgram;
     }
 
+    /**
+     * Set id_program from Feedback2013Question Entity
+     * @param idProgram
+     */
     public void setIdProgram(Program idProgram) {
         this.idProgram = idProgram;
     }
