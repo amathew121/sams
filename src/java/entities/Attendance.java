@@ -54,7 +54,7 @@ public class Attendance implements Serializable {
 
     /**
      * Creates Attendance Entity with the specified 'id_attendance'
-     * @param idAttendance
+     * @param idAttendance 
      */
     public Attendance(Long idAttendance) {
         this.idAttendance = idAttendance;
@@ -62,7 +62,7 @@ public class Attendance implements Serializable {
 
     /**
      * Get id_attendance from Attendance Entity
-     * @return
+     * @return 
      */
     public Long getIdAttendance() {
         return idAttendance;

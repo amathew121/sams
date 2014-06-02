@@ -19,6 +19,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ * JSF Backing bean for oldfacultycomments Entity
+ * @author Administrator
+ */
 @Named("oldFacultyCommentsController")
 @SessionScoped
 public class OldFacultyCommentsController implements Serializable {
@@ -36,9 +40,16 @@ public class OldFacultyCommentsController implements Serializable {
     private short batch;
     private String userName;
 
+    /**
+     * creates the backing bean
+     */
     public OldFacultyCommentsController() {
     }
 
+    /**
+     *Gets the selected oldfacultycomments entity
+     * @return
+     */
     public OldFacultyComments getSelected() {
         if (current == null) {
             current = new OldFacultyComments();
@@ -51,6 +62,11 @@ public class OldFacultyCommentsController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -68,23 +84,39 @@ public class OldFacultyCommentsController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected oldfacultycomments Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new oldfacultycomments Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new OldFacultyComments();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -96,12 +128,21 @@ public class OldFacultyCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected oldfacultycomments entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -113,6 +154,10 @@ public class OldFacultyCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected oldfacultycomments entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (OldFacultyComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -122,6 +167,10 @@ public class OldFacultyCommentsController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -159,6 +208,10 @@ public class OldFacultyCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Gets All oldfacultycomments entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -166,6 +219,11 @@ public class OldFacultyCommentsController implements Serializable {
         return items;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public String getFeedbackComments(OldFbPi item) {
         this.userName = item.getOldFbPiPK().getFacId();
         this.subID = item.getOldFbPiPK().getSubId();
@@ -176,6 +234,12 @@ public class OldFacultyCommentsController implements Serializable {
            return "FeedbackComments?faces-redirect=true";
 
     }
+
+    /**
+     *
+     * @param item
+     * @return
+     */
     public String getFeedbackCommentsAdmin(OldFbPi item) {
         this.userName = item.getOldFbPiPK().getFacId();
         this.subID = item.getOldFbPiPK().getSubId();
@@ -186,24 +250,42 @@ public class OldFacultyCommentsController implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSubID() {
         return subID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDivision() {
         return div;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getBatch() {
         return batch;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public DataModel getDetailsByFS() {
         detailsByFS = new ListDataModel(getFacade().getByFS(userName, div, ftype, batch, subID));
         return detailsByFS;
@@ -218,33 +300,64 @@ public class OldFacultyCommentsController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all oldfacultycomments entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all oldfacultycomments entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public OldFacultyComments getOldFacultyComments(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for oldfacultycomments Entity
+     */
     @FacesConverter(forClass = OldFacultyComments.class)
     public static class OldFacultyCommentsControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -267,6 +380,13 @@ public class OldFacultyCommentsController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

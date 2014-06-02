@@ -22,6 +22,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ * JSF Backing bean for reviewcomments Entity
+ * @author Administrator
+ */
 @Named("reviewCommentsController")
 @SessionScoped
 public class ReviewCommentsController implements Serializable {
@@ -33,9 +37,16 @@ public class ReviewCommentsController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * creating a backing bean
+     */
     public ReviewCommentsController() {
     }
 
+    /**
+     *Gets the selected attendance entity
+     * @return
+     */
     public ReviewComments getSelected() {
         if (current == null) {
             current = new ReviewComments();
@@ -48,6 +59,11 @@ public class ReviewCommentsController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -65,23 +81,40 @@ public class ReviewCommentsController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected reviewcomments Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (ReviewComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new reviewcomments Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new ReviewComments();
         selectedItemIndex = -1;
         return "Create";
     }
     
+    /**
+     *
+     * @param idFacSub
+     * @param type
+     */
     public void ajaxCreate(FacultySubject idFacSub, short type){
         current.setIdFacultySubject(idFacSub);
         FacesContext context = FacesContext.getCurrentInstance();
@@ -94,6 +127,10 @@ public class ReviewCommentsController implements Serializable {
         create();
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -105,12 +142,21 @@ public class ReviewCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (ReviewComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected Attendance entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -122,6 +168,10 @@ public class ReviewCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected Attendance entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (ReviewComments) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -131,6 +181,10 @@ public class ReviewCommentsController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -168,6 +222,10 @@ public class ReviewCommentsController implements Serializable {
         }
     }
 
+    /**
+     *Gets All reviewcomments entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -175,6 +233,12 @@ public class ReviewCommentsController implements Serializable {
         return items;
     }
     
+    /**
+     *
+     * @param idFacSub
+     * @param type
+     * @return
+     */
     public List<ReviewComments> getComments(FacultySubject idFacSub, short type) {
         return getFacade().getByIdFacSubType(idFacSub, type);
     }
@@ -187,33 +251,64 @@ public class ReviewCommentsController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all reviewcomments entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all reviewcomments entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public ReviewComments getReviewComments(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for reviewcomments Entity
+     */
     @FacesConverter(forClass = ReviewComments.class)
     public static class ReviewCommentsControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -236,6 +331,13 @@ public class ReviewCommentsController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

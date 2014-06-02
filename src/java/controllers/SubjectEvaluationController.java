@@ -21,6 +21,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ *JSF Backing bean for subjectevaluation Entity
+ * @author Administrator
+ */
 @Named("subjectEvaluationController")
 @SessionScoped
 public class SubjectEvaluationController implements Serializable {
@@ -33,13 +37,24 @@ public class SubjectEvaluationController implements Serializable {
     private int selectedItemIndex;
     private Subject sub;
 
+    /**
+     * creating a backing bean
+     */
     public SubjectEvaluationController() {
     }
 
+    /**
+     *
+     * @return
+     */
     public Subject getSub() {
         return sub;
     }
 
+    /**
+     *Gets the selected subjectevaluation entity
+     * @return
+     */
     public SubjectEvaluation getSelected() {
         if (current == null) {
             current = new SubjectEvaluation();
@@ -51,13 +66,29 @@ public class SubjectEvaluationController implements Serializable {
     private SubjectEvaluationFacade getFacade() {
         return ejbFacade;
     }
+
+    /**
+     *
+     * @return
+     */
     public DataModel getItemsUser() {
         return new ListDataModel(getFacade().getByIdSubject(sub));
     }
 
+    /**
+     *
+     * @param facSub
+     * @return
+     */
     public DataModel getItemsUser(FacultySubject facSub) {
         return new ListDataModel(getFacade().getByIdSubject(facSub.getIdSubject()));
     }
+
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -74,33 +105,61 @@ public class SubjectEvaluationController implements Serializable {
         }
         return pagination;
     }
+
+    /**
+     *
+     * @param sub
+     * @return
+     */
     public String prepareSubjectEvaluation(Subject sub) {
         this.sub = sub;
         prepareCreate();
 
         return "SubjectEvaluation?faces-redirect=true";
     }
+
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected subjectevaluation Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (SubjectEvaluation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new subjectevaluation Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new SubjectEvaluation();
         selectedItemIndex = -1;
         return "Create";
     }
+
+    /**
+     *
+     */
     public void createA() {
         current.setIdSubject(sub);
         current.setIdSubjectEvaluation(0);
         create();
     }
+
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -112,12 +171,21 @@ public class SubjectEvaluationController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (SubjectEvaluation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected subjectevaluation entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -128,12 +196,23 @@ public class SubjectEvaluationController implements Serializable {
             return null;
         }
     }
+
+    /**
+     *
+     * @param subjectEvaluation
+     * @return
+     */
     public String destroyObjective(SubjectEvaluation subjectEvaluation) {
         current = subjectEvaluation;
         performDestroy();
         prepareCreate();
         return "SubjectEvaluation?faces-redirect=true";
     }
+
+    /**
+     *Destroys the selected subjectevaluation entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (SubjectEvaluation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -143,6 +222,10 @@ public class SubjectEvaluationController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -180,6 +263,10 @@ public class SubjectEvaluationController implements Serializable {
         }
     }
 
+    /**
+     *Gets All subjectevaluation entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -195,33 +282,64 @@ public class SubjectEvaluationController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all subjectevaluation entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all subjectevaluation entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public SubjectEvaluation getSubjectEvaluation(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for subjectevaluation Entity
+     */
     @FacesConverter(forClass = SubjectEvaluation.class)
     public static class SubjectEvaluationControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -244,6 +362,13 @@ public class SubjectEvaluationController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

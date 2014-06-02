@@ -21,6 +21,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+/**
+ *JSF Backing bean for subject Entity
+ * @author Administrator
+ */
 @ManagedBean(name = "subjectController")
 @SessionScoped
 public class SubjectController implements Serializable {
@@ -33,9 +37,16 @@ public class SubjectController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * creating a backing bean
+     */
     public SubjectController() {
     }
 
+    /**
+     *Gets the selected subject entity
+     * @return
+     */
     public Subject getSelected() {
         if (current == null) {
             current = new Subject();
@@ -44,14 +55,28 @@ public class SubjectController implements Serializable {
         return current;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Subject> getFilteredList() {
         return filteredList;
     }
 
+    /**
+     *
+     * @param filteredList
+     */
     public void setFilteredList(List<Subject> filteredList) {
         this.filteredList = filteredList;
     }
     
+    /**
+     *
+     * @param programCourse
+     * @param semester
+     * @return
+     */
     public List<Subject> getSubjectBySemester(ProgramCourse programCourse, short semester) {
         return getFacade().findSubjectBySemester(programCourse, semester);
     }
@@ -60,6 +85,11 @@ public class SubjectController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -77,17 +107,29 @@ public class SubjectController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected subject Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (Subject) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new subject Entity
+     * @return
+     */
     public String prepareCreate() {
         prepareList();
         current = new Subject();
@@ -95,6 +137,10 @@ public class SubjectController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         current.setIdSubject(0);
         try {
@@ -107,12 +153,21 @@ public class SubjectController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (Subject) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected subject entity in the database
+     * @return
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -124,6 +179,10 @@ public class SubjectController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected subject entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (Subject) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -133,6 +192,10 @@ public class SubjectController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -170,6 +233,10 @@ public class SubjectController implements Serializable {
         }
     }
 
+    /**
+     *Gets All subject entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -185,32 +252,64 @@ public class SubjectController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all subject entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all subject entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-        public SelectItem[] getItemsAvailableSelectOnePC(ProgramCourse pc) {
+
+    /**
+     *
+     * @param pc
+     * @return
+     */
+    public SelectItem[] getItemsAvailableSelectOnePC(ProgramCourse pc) {
         return JsfUtil.getSelectItems(ejbFacade.findSubjectByPC(pc), true);
     }
 
+    /**
+     *Converter Class for subject Entity
+     */
     @FacesConverter(forClass = Subject.class)
     public static class SubjectControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -232,6 +331,13 @@ public class SubjectController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

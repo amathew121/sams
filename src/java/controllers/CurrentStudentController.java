@@ -46,6 +46,10 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
+/**
+ *JSF Backing bean for currentstudent Entity
+ * @author Administrator
+ */
 @ManagedBean(name = "currentStudentController")
 @SessionScoped
 public class CurrentStudentController implements Serializable {
@@ -68,43 +72,82 @@ public class CurrentStudentController implements Serializable {
     private String division;
     List<Subject> subject = new ArrayList();
 
+    /**
+     *
+     * @return
+     */
     public List<Subject> getSubject() {
         return subject;
     }
 
+    /**
+     *
+     * @param subject
+     */
     public void setSubject(List<Subject> subject) {
         this.subject = subject;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgramCourse getPc() {
         return pc;
     }
 
+    /**
+     *
+     * @param pc
+     */
     public void setPc(ProgramCourse pc) {
         this.pc = pc;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getSemester() {
         return semester;
     }
 
+    /**
+     *
+     * @param semester
+     */
     public void setSemester(short semester) {
         this.semester = semester;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     *
+     * @param division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     *Runs once after the constructor is called at the initialization of the bean
+     */
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
     }
 
+    /**
+     *
+     * @return
+     */
     public String navList() {
         FacesContext context = FacesContext.getCurrentInstance();
         ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
@@ -122,43 +165,82 @@ public class CurrentStudentController implements Serializable {
         return "ReportAllNew?faces-redirect=true";
     }
 
+    /**
+     * creating a backing bean
+     */
     public CurrentStudentController() {
     }
     @ManagedProperty(value = "#{attendanceController}")
     private AttendanceController attendanceController;
 
+    /**
+     *
+     * @return
+     */
     public AttendanceController getAttendanceController() {
         return attendanceController;
     }
 
+    /**
+     *
+     * @param attendanceController
+     */
     public void setAttendanceController(AttendanceController attendanceController) {
         this.attendanceController = attendanceController;
     }
 
+    /**
+     *
+     * @return
+     */
     public Lecture getLec() {
         return lec;
     }
 
+    /**
+     *
+     * @param lec
+     */
     public void setLec(Lecture lec) {
         this.lec = lec;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Boolean> getChecked() {
         return checked;
     }
 
+    /**
+     *
+     * @param checked
+     */
     public void setChecked(Map<Integer, Boolean> checked) {
         this.checked = checked;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isSelectAll() {
         return selectAll;
     }
 
+    /**
+     *
+     * @param selectAll
+     */
     public void setSelectAll(boolean selectAll) {
         this.selectAll = selectAll;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void selectAllComponents(ValueChangeEvent event) {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -175,6 +257,11 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param selectedComponentMap
+     * @param blnValue
+     */
     public void changeMap(Map<Integer, Boolean> selectedComponentMap, Boolean blnValue) {
         if (selectedComponentMap != null) {
             /* Iterator<Integer> itr = selectedComponentMap.keySet().iterator();
@@ -189,6 +276,10 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String createAttendance() {
 
         List<CurrentStudent> checkedItems = new ArrayList<CurrentStudent>();
@@ -226,6 +317,11 @@ public class CurrentStudentController implements Serializable {
         return "View?faces-redirect=true";
     }
 
+    /**
+     *
+     * @param f
+     * @return
+     */
     public List<CurrentStudent> getAttendanceByDiv(FacultySubject f) {
         String div = f.getDivision();
         short batch = f.getBatch();
@@ -241,6 +337,10 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<CurrentStudent> getAttendanceList() {
 
 
@@ -324,6 +424,10 @@ public class CurrentStudentController implements Serializable {
         return lcs;
     }
 
+    /**
+     *
+     * @return
+     */
     public String attendanceReportXlsExport() {
         List<CurrentStudent> currentStudent;
         currentStudent = getAttendanceList();
@@ -345,6 +449,10 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String viewReport() {
 
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -374,14 +482,26 @@ public class CurrentStudentController implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<CurrentStudent> getAttendanceByDiv() {
         return attendanceByDiv;
     }
 
+    /**
+     *
+     * @param attendanceByDiv
+     */
     public void setAttendanceByDiv(List<CurrentStudent> attendanceByDiv) {
         this.attendanceByDiv = attendanceByDiv;
     }
 
+    /**
+     *Gets the selected currentstudent entity
+     * @return
+     */
     public CurrentStudent getSelected() {
         if (current == null) {
             current = new CurrentStudent();
@@ -394,6 +514,11 @@ public class CurrentStudentController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -411,22 +536,38 @@ public class CurrentStudentController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareListA() {
         recreateModel();
         return "ListA";
     }
 
+    /**
+     *Sets the selected currentstudent Entity to view more details.Navigation case to View
+     * @return
+     */
     public String prepareView() {
         current = (CurrentStudent) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new currentstudent Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new CurrentStudent();
         Date d = new Date();
@@ -438,6 +579,10 @@ public class CurrentStudentController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -449,12 +594,21 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (CurrentStudent) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected currentstudent entity in the database
+     * @return
+     */
     public String update() {
         try {
             Date d = new Date();
@@ -470,6 +624,10 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected currentstudent entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (CurrentStudent) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -479,6 +637,10 @@ public class CurrentStudentController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -516,6 +678,10 @@ public class CurrentStudentController implements Serializable {
         }
     }
 
+    /**
+     *Gets All currentstudent entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -523,6 +689,11 @@ public class CurrentStudentController implements Serializable {
         return items;
     }
 
+    /**
+     *
+     * @param idCurrentStudent
+     * @return
+     */
     public CurrentStudent getCurrentStudentByID(Integer idCurrentStudent) {
         return getFacade().find(idCurrentStudent);
     }
@@ -536,45 +707,87 @@ public class CurrentStudentController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all currentstudent entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all currentstudent entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @return
+     */
     public Course getCourse() {
         return course;
     }
 
+    /**
+     *
+     * @param course
+     */
     public void setCourse(Course course) {
         this.course = course;
     }
 
+    /**
+     *
+     * @return
+     */
     public Program getProgram() {
         return program;
     }
 
+    /**
+     *
+     * @param program
+     */
     public void setProgram(Program program) {
         this.program = program;
     }
 
+    /**
+     *Converter Class for currentstudent Entity
+     */
     @FacesConverter(forClass = CurrentStudent.class)
     public static class CurrentStudentControllerConverter implements Converter {
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -596,6 +809,13 @@ public class CurrentStudentController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

@@ -24,7 +24,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.sql.DataSource;
 
-    @ManagedBean(name="customer")
+/**
+ * THIS CLASS HAS TO BE REFACTORED DELETED or moved to controllers
+ * @author Administrator
+ */
+@ManagedBean(name="customer")
     @SessionScoped
 public class FacultySubjectViewBean implements Serializable{
  
@@ -44,7 +48,13 @@ public class FacultySubjectViewBean implements Serializable{
 	}*/
  
 	//connect to DB and get customer list
-	public List<FacultySubjectViewModel> getCustomerList() throws SQLException{
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    	public List<FacultySubjectViewModel> getCustomerList() throws SQLException{
  
 	/*	if(ds==null)
 			throw new SQLException("Can't get data source");*/

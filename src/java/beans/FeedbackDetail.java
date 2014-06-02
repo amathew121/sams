@@ -5,7 +5,7 @@
 package beans;
 
 /**
- *
+ * TODO: DELETE
  * @author piit
  */
 class FeedbackDetail {

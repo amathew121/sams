@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * Enterprise JavaBean for program entity
  * @author Ashish
  */
 @Stateless
@@ -18,11 +18,18 @@ public class ProgramFacade extends AbstractFacade<Program> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     * Gets Entity Manager for the program EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * creates program EJB
+     */
     public ProgramFacade() {
         super(Program.class);
     }

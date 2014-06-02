@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * Enterprise JavaBean for Feedback entity
  * @author piit
  */
 @Stateless
@@ -21,15 +21,27 @@ public class FeedbackFacade extends AbstractFacade<OldFbPi>  {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
+    /**
+     * Gets Entity Manager for the feedback EJB
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
     
+    /**
+     * creates feedback EJB
+     */
     public FeedbackFacade() {
         super (OldFbPi.class);
     }
 
+    /**
+     * gets feedback ratings for the specified faculty for the year 2012-13
+     * @param user
+     * @return
+     */
     public List<OldFbPi> findByStaff(String user) {
         Query q = em.createNamedQuery("OldFbPi.findByFacId");
         q.setParameter("facId", user);

@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * TODO: FInd usages and delete
  * @author Ashish
  */
 
@@ -26,6 +26,10 @@ public class attendanceStateFacade {
     @Resource
     private javax.transaction.UserTransaction utx;
 
+    /**
+     *
+     * @param object
+     */
     protected void persist(Object object) {
         try {
             Context ctx =

@@ -31,6 +31,10 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.CellEditEvent;
 
+/**
+ *JSF Backing bean for studenttest Entity
+ * @author Administrator
+ */
 @Named("studentTestController")
 @SessionScoped
 public class StudentTestController implements Serializable {
@@ -44,9 +48,16 @@ public class StudentTestController implements Serializable {
     private FacultySubject facSub;
     private int idFacSub;
 
+    /**
+     *creating a backing bean
+     */
     public StudentTestController() {
     }
 
+    /**
+     *
+     * @return
+     */
     public FacultySubject getFacSub() {
         FacesContext context = FacesContext.getCurrentInstance();
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
@@ -54,10 +65,18 @@ public class StudentTestController implements Serializable {
         return facSub;
     }
 
+    /**
+     *
+     * @param facSub
+     */
     public void setFacSub(FacultySubject facSub) {
         this.facSub = facSub;
     }
 
+    /**
+     *Gets the selected attendance entity
+     * @return
+     */
     public StudentTest getSelected() {
         if (current == null) {
             current = new StudentTest();
@@ -71,12 +90,22 @@ public class StudentTestController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public String prepareViewWithId(int i) {
         idFacSub = i;
         recreateModel();
         return "Test?faces-redirect=true";
     }
 
+    /**
+     *Gets Pagination Helper to fetch range of items according to page.
+     * Gets 10 items at a time.
+     * @return
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -94,17 +123,29 @@ public class StudentTestController implements Serializable {
         return pagination;
     }
 
+    /**
+     *Resets the list of items and navigates to List
+     * @return
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     *Sets the selected studenttest Entity to view more details.Navigation case to Vie
+     * @return
+     */
     public String prepareView() {
         current = (StudentTest) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     *Navigation case to Create page after initializing a new studenttest Entity
+     * @return
+     */
     public String prepareCreate() {
         current = new StudentTest();
         current.setStudentTestPK(new entities.StudentTestPK());
@@ -112,6 +153,10 @@ public class StudentTestController implements Serializable {
         return "Create";
     }
 
+    /**
+     *Creates a new recored in the database for the selected entity
+     * @return
+     */
     public String create() {
         try {
             current.getStudentTestPK().setIdSubject(current.getSubject().getIdSubject());
@@ -125,12 +170,21 @@ public class StudentTestController implements Serializable {
         }
     }
 
+    /**
+     *Sets the selected item for editing.
+     * Navigation case to Edit page.
+     * @return
+     */
     public String prepareEdit() {
         current = (StudentTest) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     *Updates the selected studenttest entity in the database
+     * @return
+     */
     public String update() {
         try {
             current.getStudentTestPK().setIdSubject(current.getSubject().getIdSubject());
@@ -144,6 +198,10 @@ public class StudentTestController implements Serializable {
         }
     }
 
+    /**
+     *Destroys the selected studenttest entity, and deletes it from the database
+     * @return
+     */
     public String destroy() {
         current = (StudentTest) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -153,6 +211,10 @@ public class StudentTestController implements Serializable {
         return "List";
     }
 
+    /**
+     *
+     * @param e
+     */
     public void testMarksChanged(ValueChangeEvent e) {
         //assign new value to localeCode
         UIData data = (UIData) e.getComponent().findComponent("test");
@@ -179,7 +241,11 @@ public class StudentTestController implements Serializable {
         }
     }
     
-        public void test2MarksChanged(ValueChangeEvent e) {
+    /**
+     *
+     * @param e
+     */
+    public void test2MarksChanged(ValueChangeEvent e) {
         //assign new value to localeCode
         UIData data = (UIData) e.getComponent().findComponent("test");
         CurrentStudent t = (CurrentStudent) data.getRowData();
@@ -205,6 +271,11 @@ public class StudentTestController implements Serializable {
         }
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public List<CurrentStudent> getTestDetails() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -230,6 +301,13 @@ public class StudentTestController implements Serializable {
 
         return l;
     }
+
+    /**
+     *
+     * @param facSub
+     * @return
+     * @throws Exception
+     */
     public List<CurrentStudent> getTestDetails(FacultySubject facSub) throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -256,6 +334,10 @@ public class StudentTestController implements Serializable {
         return l;
     }
     
+    /**
+     *
+     * @param event
+     */
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
@@ -285,6 +367,10 @@ public class StudentTestController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -322,6 +408,10 @@ public class StudentTestController implements Serializable {
         }
     }
 
+    /**
+     *Gets All studenttest entities as few items one at a time
+     * @return
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -337,36 +427,67 @@ public class StudentTestController implements Serializable {
         pagination = null;
     }
 
+    /**
+     *Navigation case to next page with next items
+     * @return
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Navigation case to previous page with previous items
+     * @return
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     *Gets list of all studenttest entities to be able to select many from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     *Gets list of all studenttest entities to be able to select one from it
+     * @return
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public StudentTest getStudentTest(entities.StudentTestPK id) {
         return ejbFacade.find(id);
     }
 
+    /**
+     *Converter Class for studenttest Entity
+     */
     @FacesConverter(forClass = StudentTest.class)
     public static class StudentTestControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param value
+         * @return
+         */
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -397,6 +518,13 @@ public class StudentTestController implements Serializable {
             return sb.toString();
         }
 
+        /**
+         *
+         * @param facesContext
+         * @param component
+         * @param object
+         * @return
+         */
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {

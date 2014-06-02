@@ -25,7 +25,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
- *
+ *JSF Backing bean for feedback Entity
  * @author piit
  */
 @ManagedBean(name = "feedbackController")
@@ -36,6 +36,9 @@ public class FeedbackController implements Serializable {
     private beans.FeedbackFacade ejbFacade;
     private List<OldFbPi> OldFbPiList;
 
+    /**
+     *Runs once after the constructor is called at the initialization of the bean
+     */
     @PostConstruct
     public void init() {
         OldFbPiList = new ArrayList<OldFbPi>();
@@ -45,6 +48,10 @@ public class FeedbackController implements Serializable {
         return ejbFacade;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<OldFbPi> getFeedbackPIList() {
         FacesContext facesContext = FacesContext.getCurrentInstance() ;
         String userName = facesContext.getExternalContext().getRemoteUser();
@@ -52,7 +59,11 @@ public class FeedbackController implements Serializable {
         return OldFbPiList;
     }
    
-
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<OldFbPi> getFbPiList() throws SQLException {
         
         try {
@@ -101,9 +112,9 @@ public class FeedbackController implements Serializable {
 
     }
     
-    
-    
-
+    /**
+     *Resets the list of items and navigates to List
+     */
     public void prepareList() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/Feedback2013.xhtml");

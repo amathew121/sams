@@ -17,7 +17,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- *
+ *JSF Backing bean for fileupload Entity
  * @author piit
  */
 @ManagedBean(name = "fileUploadController")
@@ -27,14 +27,25 @@ public class FileUploadController {
     private String destination = "/home/piit/Desktop/";
     private UploadedFile file;  
   
+    /**
+     *
+     * @return
+     */
     public UploadedFile getFile() {  
         return file;  
     }  
   
+    /**
+     *
+     * @param file
+     */
     public void setFile(UploadedFile file) {  
         this.file = file;  
     }  
 
+    /**
+     *
+     */
     public void upload() {
         
         if (file != null) {
@@ -49,6 +60,11 @@ public class FileUploadController {
 
     }
 
+    /**
+     *
+     * @param fileName
+     * @param in
+     */
     public void copyFile(String fileName, InputStream in) {
         try {
 
