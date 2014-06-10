@@ -4,10 +4,14 @@
  */
 package controllers.extra;
 
+import controllers.feedback.Feedback2013Controller;
+import controllers.feedback.FeedbackTypeController;
 import controllers.subject.faculty.FacultySubjectViewController;
 import controllers.subject.faculty.lecture.LectureController;
 import controllers.subject.faculty.lecture.AttendanceViewController;
 import controllers.subject.faculty.lecture.CurrentStudentController;
+import entities.feedback.Feedback2013;
+import entities.feedback.FeedbackType;
 import entities.subject.faculty.FacultySubject;
 import entities.subject.faculty.lecture.Lecture;
 import java.io.IOException;
@@ -21,6 +25,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.event.ItemSelectEvent;
@@ -33,6 +38,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
@@ -45,7 +51,8 @@ import org.primefaces.model.chart.ChartSeries;
 public class DashboardBean implements Serializable {
 
     private DashboardModel model;
-    private CartesianChartModel categoryModel;
+    private CartesianChartModel lectureLineModel;
+    private BarChartModel feedbackBarChartModel;
     private ScheduleModel eventModel;
     private FacultySubject facSub;
     private List<Lecture> lectures;
@@ -65,6 +72,7 @@ public class DashboardBean implements Serializable {
         column1.addWidget("tPlanReview");
         column1.addWidget("lectureReview");
 
+        column2.addWidget("feedback");
         column2.addWidget("tplan");
         column2.addWidget("lectureSchedule");
         column2.addWidget("students");
@@ -104,8 +112,8 @@ public class DashboardBean implements Serializable {
         return model;
     }
 
-    public CartesianChartModel getCategoryModel() {
-        categoryModel = new CartesianChartModel();
+    public CartesianChartModel getLectureLineModel() {
+        lectureLineModel = new CartesianChartModel();
         FacesContext context = FacesContext.getCurrentInstance();
         AttendanceViewController attendanceViewController = (AttendanceViewController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceViewController");
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
@@ -123,10 +131,48 @@ public class DashboardBean implements Serializable {
             temp.set(i++ + "", attendanceViewController.getAttendanceCount(facSub, item));
             max.set(i + "", total);
         }
-        categoryModel.addSeries(temp);
-        categoryModel.addSeries(max);
+        lectureLineModel.addSeries(temp);
+        lectureLineModel.addSeries(max);
+        return lectureLineModel;
+    }
+    
+    public BarChartModel getFeedbackBarChartModel() {
+        feedbackBarChartModel = new BarChartModel();
+        feedbackBarChartModel.setTitle("Feedback Chart");
+        feedbackBarChartModel.setLegendPosition("nw");
+        ChartSeries midTerm = new ChartSeries();
+        midTerm.setLabel("Mid Term");
+        ChartSeries endTerm = new ChartSeries();
+        endTerm.setLabel("End Term");
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Feedback2013Controller feedback2013Controller = (Feedback2013Controller) context.getELContext().getELResolver().getValue(context.getELContext(), null, "feedback2013Controller");
+        FeedbackTypeController feedbackTypeController = (FeedbackTypeController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "feedbackTypeController");
+        
+        FeedbackType type = feedbackTypeController.getFeedbackType(2);
+        feedback2013Controller.getByUserName(facSub, type);
+        int[] ra = feedback2013Controller.getRa();
+        
+        midTerm.set("SD", ra[1]);
+        midTerm.set("DD", ra[2]);
+        midTerm.set("NN", ra[3]);
+        midTerm.set("AA", ra[4]);
+        midTerm.set("SA", ra[5]);
+        
+        type = feedbackTypeController.getFeedbackType(3);
+        feedback2013Controller.getByUserName(facSub, type);
+        ra = feedback2013Controller.getRa();
+        
+        endTerm.set("SD", ra[1]);
+        endTerm.set("DD", ra[2]);
+        endTerm.set("NN", ra[3]);
+        endTerm.set("AA", ra[4]);
+        endTerm.set("SA", ra[5]);
 
-        return categoryModel;
+        feedbackBarChartModel.addSeries(midTerm);
+        feedbackBarChartModel.addSeries(endTerm);
+        
+        return feedbackBarChartModel;
     }
 
     public ScheduleModel getEventModel() {

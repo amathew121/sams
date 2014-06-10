@@ -25,7 +25,7 @@
                                            action="#{lectureController.prepareViewWithId(dashboardBean.facSub.idFacultySubject)}" />
 
                         </f:facet>
-                        <p:lineChart id="category" value="#{dashboardBean.categoryModel}"  zoom="true" 
+                        <p:lineChart id="category" value="#{dashboardBean.lectureLineModel}"  zoom="true" 
                                      title="Attendance Chart" minX="0" minY="0" maxY="100" > 
                             <p:ajax event="itemSelect" listener="#{dashboardBean.itemSelect}" update="growl" />  
                         </p:lineChart>
@@ -190,44 +190,44 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
-                    <p:panel id="lectureSchedule">
+                    <p:panel id="lectureSchedule" header="Schedule"  toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
                         <p:schedule id="schedule" rightHeaderTemplate="" value="#{dashboardBean.eventModel}" >
                             <p:ajax event="dateSelect" listener="#{dashboardBean.onDateSelect}" />  
                         </p:schedule>
                     </p:panel>
-                    
+
                     <p:panel id ="students" >
                         <f:facet name="header">
                             <p:outputLabel value="Students"/>
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/images/excel.jpg" style="width: 20px; height: 20px" />  
-                        <p:dataExporter type="xls" target="tbl" fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
-                    </h:commandLink>  
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.jpg" style="width: 20px; height: 20px" />  
+                                <p:dataExporter type="xls" target="tbl" fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
+                            </h:commandLink>  
                             <p:commandLink style="float: right;" value="Add marks" action="#{studentTestController.prepareViewWithId(dashboardBean.getFacSub().idFacultySubject)}" />
 
                         </f:facet>
-                        
+
                         <p:dataTable id="tbl"  scrollable="true" scrollHeight="300" value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
 
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <h:outputText value="No"/>
-                        </f:facet>
-                        <h:outputText value="#{c.rollNo}"/>
+                            <p:column width="10%">
+                                <f:facet name="header">
+                                    <h:outputText value="No"/>
+                                </f:facet>
+                                <h:outputText value="#{c.rollNo}"/>
 
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Student Name"/>
-                        </f:facet>
-                        <h:outputText value="#{c.admnNo.studentName}"/>
-                    </p:column>
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
-                        </f:facet>
-                        <h:outputText value="#{c.count}"/>
-                    </p:column>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Student Name"/>
+                                </f:facet>
+                                <h:outputText value="#{c.admnNo.studentName}"/>
+                            </p:column>
+                            <p:column width="10%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
+                                </f:facet>
+                                <h:outputText value="#{c.count}"/>
+                            </p:column>
                             <p:column width="10%">
                                 <f:facet name="header">
                                     <h:outputText value="T1"/>
@@ -240,7 +240,10 @@
                                 </f:facet>
                                 <h:outputText value="#{c.marks2}"/>
                             </p:column>
-                </p:dataTable>
+                        </p:dataTable>
+                    </p:panel>
+                    <p:panel id="feedback" >
+                        <p:chart type="bar" model="#{dashboardBean.feedbackBarChartModel}" style="height:300px"/>
                     </p:panel>
                 </p:dashboard>  
 

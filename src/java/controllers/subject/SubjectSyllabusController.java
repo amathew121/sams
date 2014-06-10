@@ -9,10 +9,12 @@ import entities.subject.Subject;
 import entities.subject.SubjectOutcome;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -259,8 +261,8 @@ public class SubjectSyllabusController implements Serializable {
      *
      * @return
      */
-    public DataModel getItemsUser() {
-        return new ListDataModel(getFacade().getByIdSubject(sub));
+    public List<SubjectSyllabus> getItemsUser() {
+        return getFacade().getByIdSubject(sub);
     }
 
     /**
