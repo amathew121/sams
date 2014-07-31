@@ -9,7 +9,8 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Welcome #{facesContext.externalContext.remoteUser}"></h:outputText>
+            <h:outputText value="Welcome #{facesContext.externalContext.remoteUser}">
+            </h:outputText>
         </ui:define>
         <ui:define name="body"> 
             <h:form>
@@ -22,9 +23,12 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" rendered="#{facultySubjectViewController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserNameEven.rowCount > 0}" style="text-align: center; font-size: 100%; vertical-align: text-top">
-                    <p:dataTable value="#{facultySubjectViewController.modelByUserNameEven}" var="item" >                      
+                <h:outputText escape="false" value="#{bundle.ListFacultySubjectViewEmpty}" 
+                              rendered="#{facultySubjectViewController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{facultySubjectViewController.modelByUserNameCurrent.rowCount > 0}" 
+                              style="text-align: center; font-size: 100%; vertical-align: text-top">
+                    <p:dataTable value="#{facultySubjectViewController.modelByUserNameCurrent}" 
+                                 var="item" >                      
 
                         <p:column >
                             <f:facet name="header">

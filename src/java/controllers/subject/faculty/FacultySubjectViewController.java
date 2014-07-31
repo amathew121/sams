@@ -36,6 +36,7 @@ public class FacultySubjectViewController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private Department deptSelected;
+    private int academic_year;
 
     /**
      *creates the backing bean
@@ -44,7 +45,7 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Gets the selected facultysubjectview entity
+     *Gets the selected facultySubjectView entity
      * @return
      */
     public FacultySubjectView getSelected() {
@@ -90,10 +91,10 @@ public class FacultySubjectViewController implements Serializable {
      *
      * @return
      */
-    public DataModel getModelByUserNameEven() {
+    public DataModel getModelByUserNameCurrent() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
-        modelByUserName = new ListDataModel(getFacade().getFSViewByIdEven(userName));
+        modelByUserName = new ListDataModel(getFacade().getFSViewByIdCurrent(userName));
         return modelByUserName;
     }
     
@@ -419,6 +420,14 @@ public class FacultySubjectViewController implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String userName = facesContext.getExternalContext().getRemoteUser();
         return JsfUtil.getSelectItems(ejbFacade.getFSViewById(userName), true);
+    }
+
+    public int getAcademic_year() {
+        return academic_year;
+    }
+
+    public void setAcademic_year(int academic_year) {
+        this.academic_year = academic_year;
     }
 
     /**

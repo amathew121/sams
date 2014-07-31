@@ -63,8 +63,8 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
      * @param s
      * @return
      */
-    public List<FacultySubjectView> getFSViewByIdEven(String s) {
-        Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyEven");
+    public List<FacultySubjectView> getFSViewByIdCurrent(String s) {
+        Query q = em.createNamedQuery("FacultySubjectView.findByIdFacultyCurrent");
         q.setParameter("idFaculty", s);
         List<FacultySubjectView> l = q.getResultList();
         count = l.size();

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FacultySubjectView.findAll", query = "SELECT f FROM FacultySubjectView f"),
     @NamedQuery(name = "FacultySubjectView.findByIdFacultySubject", query = "SELECT f FROM FacultySubjectView f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubjectView.findByIdFaculty", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty ORDER BY f.idProgram, f.idCourse, f.semester, f.subjectCode, f.division, f.batch"),
-    @NamedQuery(name = "FacultySubjectView.findByIdFacultyEven", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty AND MOD(f.semester,2) = 0 ORDER BY f.idProgram, f.idCourse, f.semester, f.subjectCode, f.division, f.batch"),
+    @NamedQuery(name = "FacultySubjectView.findByIdFacultyCurrent", query = "SELECT f FROM FacultySubjectView f WHERE f.idFaculty = :idFaculty AND f.academicYear = 2014 AND MOD(f.semester,2) != 0 ORDER BY f.idProgram, f.idCourse, f.semester, f.subjectCode, f.division, f.batch"),
     @NamedQuery(name = "FacultySubjectView.findByIdFacultyGroup", query = "SELECT f FROM FacultySubjectView f GROUP BY f.idFaculty"),
     @NamedQuery(name = "FacultySubjectView.findByFacultyTitle", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyTitle = :facultyTitle"),
     @NamedQuery(name = "FacultySubjectView.findByFacultyLname", query = "SELECT f FROM FacultySubjectView f WHERE f.facultyLname = :facultyLname"),
@@ -41,7 +41,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FacultySubjectView.findBySemester", query = "SELECT f FROM FacultySubjectView f WHERE f.semester = :semester"),
     @NamedQuery(name = "FacultySubjectView.findByDivision", query = "SELECT f FROM FacultySubjectView f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubjectView.findByBatch", query = "SELECT f FROM FacultySubjectView f WHERE f.batch = :batch")})
+
 public class FacultySubjectView implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "academic_year")
+    private int academicYear;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -326,6 +331,14 @@ public class FacultySubjectView implements Serializable {
      */
     public void setBatch(short batch) {
         this.batch = batch;
+    }
+
+    public int getAcademicYear() {
+        return academicYear;
+    }
+
+    public void setAcademicYear(int academicYear) {
+        this.academicYear = academicYear;
     }
     
 }
