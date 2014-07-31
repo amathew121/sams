@@ -31,10 +31,6 @@ public class SubjectController implements Serializable {
     private beans.subject.SubjectFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private ProgramCourse programCourse;
-    private short semester;
-    private int academic_year;
- 
 
     /**
      * creating a backing bean
@@ -79,24 +75,7 @@ public class SubjectController implements Serializable {
     public List<Subject> getSubjectBySemester(ProgramCourse programCourse, short semester) {
         return getFacade().findSubjectBySemester(programCourse, semester);
     }
-    
-    /**
-     *
-     * @return
-     */
-    public List<Subject> getSubjectBySemester() {
-        return getFacade().findSubjectBySemester(programCourse, semester);
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public List<Subject> getAll() {
-        return getFacade().findAll();
-    }
 
-    
     private SubjectFacade getFacade() {
         return ejbFacade;
     }
@@ -312,32 +291,6 @@ public class SubjectController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOnePC(ProgramCourse pc) {
         return JsfUtil.getSelectItems(ejbFacade.findSubjectByPC(pc), true);
     }
-
-    public ProgramCourse getProgramCourse() {
-        return programCourse;
-    }
-
-    public void setProgramCourse(ProgramCourse programCourse) {
-        this.programCourse = programCourse;
-    }
-
-    public short getSemester() {
-        return semester;
-    }
-
-    public void setSemester(short semester) {
-        this.semester = semester;
-    }
-
-    public int getAcademic_year() {
-        return academic_year;
-    }
-
-    public void setAcademic_year(int academic_year) {
-        this.academic_year = academic_year;
-    }
-
-   
 
     /**
      *Converter Class for subject Entity

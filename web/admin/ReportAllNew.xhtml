@@ -13,57 +13,51 @@
             <h:outputText value="Faculty Subject Information"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser')}" >
-                    <p:selectOneMenu value="#{currentStudentController.program}" >
-                        <f:selectItems noSelectionValue="#{programController.getProgram('BE')}" value="#{programController.itemsAvailableSelectOne}" />
-                    </p:selectOneMenu>
-                    <p:selectOneMenu value="#{currentStudentController.course}" >
-                        <f:selectItems value="#{courseController.itemsAvailableSelectOne}" />
-                    </p:selectOneMenu>
-                    <p:selectOneMenu value="#{currentStudentController.semester}" >
-                        <f:selectItem itemLabel="Sem"  />
+            <h:form>
+                <p:selectOneMenu value="#{currentStudentController.program}" >
+                    <f:selectItems noSelectionValue="#{programController.getProgram('BE')}" value="#{programController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <p:selectOneMenu value="#{currentStudentController.course}" >
+                    <f:selectItems value="#{courseController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <p:selectOneMenu value="#{currentStudentController.semester}" >
+                    <f:selectItem itemLabel="Sem"  />
 
-                        <f:selectItem itemLabel="1" itemValue="1" />
-                        <f:selectItem itemLabel="2" itemValue="2" />
-                        <f:selectItem itemLabel="3" itemValue="3" />
-                        <f:selectItem itemLabel="4" itemValue="4" />
-                        <f:selectItem itemLabel="5" itemValue="5" />
-                        <f:selectItem itemLabel="6" itemValue="6" />
-                        <f:selectItem itemLabel="7" itemValue="7" />
-                        <f:selectItem itemLabel="8" itemValue="8" />
-                    </p:selectOneMenu>
-                    <p:selectOneMenu value="#{currentStudentController.division}" >
-                        <f:selectItem itemLabel="Div"  />
+                    <f:selectItem itemLabel="1" itemValue="1" />
+                    <f:selectItem itemLabel="2" itemValue="2" />
+                    <f:selectItem itemLabel="3" itemValue="3" />
+                    <f:selectItem itemLabel="4" itemValue="4" />
+                    <f:selectItem itemLabel="5" itemValue="5" />
+                    <f:selectItem itemLabel="6" itemValue="6" />
+                    <f:selectItem itemLabel="7" itemValue="7" />
+                    <f:selectItem itemLabel="8" itemValue="8" />
+                </p:selectOneMenu>
+                <p:selectOneMenu value="#{currentStudentController.division}" >
+                    <f:selectItem itemLabel="Div"  />
 
-                        <f:selectItem itemLabel="A" itemValue="A" />
-                        <f:selectItem itemLabel="B" itemValue="B" />
-                        <f:selectItem itemLabel="C" itemValue="C" />
-                        <f:selectItem itemLabel="D" itemValue="D" />
-                        <f:selectItem itemLabel="E" itemValue="E" />
-                        <f:selectItem itemLabel="F" itemValue="F" />
-                        <f:selectItem itemLabel="G" itemValue="G" />
-                        <f:selectItem itemLabel="H" itemValue="H" />
-                        <f:selectItem itemLabel="I" itemValue="I" />
-                        <f:selectItem itemLabel="J" itemValue="J" />
-                    </p:selectOneMenu>
-                    <br />
-
-                    <p:commandButton value="Submit" action="#{currentStudentController.navList()}" update=":attendanceList"/>
-            </h:form>
-            <h:form id="coordinators">
-                <p:selectOneMenu value="#{currentStudentController.coordinator}">
-                    <f:selectItems value="#{coordinatorController.itemsAvailableSelectOneForLoggedUser}" />
+                    <f:selectItem itemLabel="A" itemValue="A" />
+                    <f:selectItem itemLabel="B" itemValue="B" />
+                    <f:selectItem itemLabel="C" itemValue="C" />
+                    <f:selectItem itemLabel="D" itemValue="D" />
+                    <f:selectItem itemLabel="E" itemValue="E" />
+                    <f:selectItem itemLabel="F" itemValue="F" />
+                    <f:selectItem itemLabel="G" itemValue="G" />
+                    <f:selectItem itemLabel="H" itemValue="H" />
+                    <f:selectItem itemLabel="I" itemValue="I" />
+                    <f:selectItem itemLabel="J" itemValue="J" />
                 </p:selectOneMenu>
                 <br />
-                <p:commandButton value="Submit" action="#{currentStudentController.navReportCordinator()}" update=":attendanceList" />
+
+                <p:commandButton value="Submit" action="#{currentStudentController.navList()}" update=":attendanceList"/>
+
             </h:form>
 
             <h:form id="attendanceList">
                 <p:dataTable id="tbl" rendered="#{currentStudentController.subject.size()>0}" value="#{currentStudentController.attendanceList}"  var="c">
 
+                    
 
-
-                    <p:column headerText="RNo">
+                    <p:column headerText="No">
                         <h:outputText value="#{c.rollNo}"/>
 
                     </p:column>
@@ -71,11 +65,11 @@
                         <h:outputText value="#{c.batch}"/>
 
                     </p:column>
-                    <p:column width="20%" headerText="Name">
+                    <p:column headerText="Name">
                         <h:outputText value="#{c.admnNo.studentName}"/>
                     </p:column>
-
-                    <p:columns columnIndexVar="i" var="x" value="#{currentStudentController.subject}" >
+                    
+                    <p:columns  columnIndexVar="i" var="x" value="#{currentStudentController.subject}" >
                         <f:facet name="header">
                             #{x.subjectCode}
                             <br/>
@@ -84,7 +78,7 @@
                                 <h:outputText value="PR" />
                                 <h:outputText value="%" />
                                 <h:outputText value="%" />
-
+                                
                             </p:panelGrid>
                             <p:tooltip for="head" >
                                 <p:panelGrid columns="2">
@@ -107,16 +101,16 @@
                         <p:panelGrid columns="2"  
                                      columnClasses="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, x)).size() lt 0.5 ? 'low-attendance' : '' },#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
                                      >
-                            <h:outputText value="#{c.theoryCount[i+1]}" >
-                                <f:convertNumber pattern="#0" />
-                            </h:outputText>
+                        <h:outputText value="#{c.theoryCount[i+1]}" >
+                            <f:convertNumber pattern="#0" />
+                        </h:outputText>
                             <h:outputText value="#{c.pracsCount[i+1]}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
-                            <h:outputText 
-                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
-                                <f:convertNumber pattern="#0" />
-                            </h:outputText>
+                        <h:outputText 
+                            value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
+                            <f:convertNumber pattern="#0" />
+                        </h:outputText>
 
                             <h:outputText 
                                 class="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
@@ -124,7 +118,7 @@
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                         </p:panelGrid>
-
+                        
 
                     </p:columns>
 
@@ -132,13 +126,10 @@
 
 
                     <p:column rendered="#{currentStudentController.subject.size()>0}" headerText="#{lectureController.lectureByFSListTotal}">
-                        <f:facet name="header">
-                            #{currentStudentController.theoryCountTotal}
-                        </f:facet>
                         <h:outputText value="#{c.theoryCountTotal}"/>
                     </p:column>
-                    <p:column headerText="Total %" class="#{c.theoryCountTotal/lectureController.lectureByFSListTotal lt 50 ? 'low-attendance' : '' }" rendered="#{currentStudentController.subject.size()>0}">
-                        <h:outputText value="#{c.theoryCountTotal/currentStudentController.theoryCountTotal*100}" >
+                    <p:column class="#{c.theoryCountTotal/lectureController.lectureByFSListTotal lt 50 ? 'low-attendance' : '' }" rendered="#{currentStudentController.subject.size()>0}">
+                        <h:outputText value="#{c.theoryCountTotal/lectureController.lectureByFSListTotal*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
@@ -150,7 +141,7 @@
                     </h:commandLink>  
                 </p:panel>
 
-            </h:form> 
+           </h:form> 
         </ui:define>
     </ui:composition>
 

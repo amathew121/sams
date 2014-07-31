@@ -6,7 +6,6 @@ import entities.subject.faculty.lecture.CurrentStudent;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.subject.faculty.lecture.CurrentStudentFacade;
-import com.sun.xml.ws.tx.coord.v10.types.CoordinationContext;
 import controllers.subject.faculty.FacultySubjectController;
 import controllers.subject.faculty.StudentTestController;
 import entities.subject.faculty.lecture.Attendance;
@@ -18,7 +17,6 @@ import entities.subject.Program;
 import entities.subject.ProgramCourse;
 import entities.subject.ProgramCoursePK;
 import entities.subject.Subject;
-import entities.users.Coordinator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -71,8 +69,6 @@ public class CurrentStudentController implements Serializable {
     private Program program;
     private short semester;
     private String division;
-    private Coordinator coordinator;
-    private int theoryCountTotal;
     List<Subject> subject = new ArrayList();
 
     @PostConstruct
@@ -97,17 +93,6 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdProgram(program.getIdProgram());
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
-        subject = sc.getSubjectBySemester(pc, semester);
-        return "ReportAllNew?faces-redirect=true";
-    }
-    
-    public String navReportCordinator() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
-        
-        pc = coordinator.getProgramCourse();
-        semester = coordinator.getCoordinatorPK().getSemester();
-        division = coordinator.getCoordinatorPK().getDivision();
         subject = sc.getSubjectBySemester(pc, semester);
         return "ReportAllNew?faces-redirect=true";
     }
@@ -297,7 +282,7 @@ public class CurrentStudentController implements Serializable {
 
         List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division);
 
-        theoryCountTotal = 0;
+
         for (Subject item : subject) {
             Map<Integer, Integer> theory = new HashMap<Integer, Integer>();
             Map<Integer, Integer> pracs = new HashMap<Integer, Integer>();
@@ -337,7 +322,7 @@ public class CurrentStudentController implements Serializable {
 
             LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
             item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, semester, (short) 0, item)).size());
-            theoryCountTotal = theoryCountTotal + item.getLectureTotal();
+
             try {
                 List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division, semester, (short) 0, item));
 
@@ -705,22 +690,6 @@ public class CurrentStudentController implements Serializable {
         this.division = division;
     }
     //</editor-fold>
-
-    public Coordinator getCoordinator() {
-        return coordinator;
-    }
-
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
-    }
-
-    public int getTheoryCountTotal() {
-        return theoryCountTotal;
-    }
-
-    public void setTheoryCountTotal(int theoryCountTotal) {
-        this.theoryCountTotal = theoryCountTotal;
-    }
 
     /**
      *Converter Class for currentstudent Entity
