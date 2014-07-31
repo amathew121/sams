@@ -7,6 +7,7 @@ package beans.users;
 import beans.AbstractFacade;
 import entities.users.Coordinator;
 import entities.users.Faculty;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,6 +51,18 @@ public class CoordinatorFacade extends AbstractFacade<Coordinator> {
         return (Coordinator) q.getResultList().get(0);
         else
             return null;
+    }
+    
+    /**
+     * returns all coordinator entity if the specified faculty is a coordinator
+     *
+     * @param idFaculty
+     * @return
+     */
+    public List<Coordinator> findByUserAll(Faculty idFaculty) {
+        Query q = em.createNamedQuery("Coordinator.findByFaculty");
+        q.setParameter("faculty", idFaculty);
+        return q.getResultList();
     }
     
 }

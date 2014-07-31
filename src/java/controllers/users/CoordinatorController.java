@@ -7,6 +7,7 @@ import beans.users.CoordinatorFacade;
 import entities.users.Faculty;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -33,7 +34,7 @@ public class CoordinatorController implements Serializable {
     private beans.users.CoordinatorFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    
     /**
      * Creates the backing bean
      */
@@ -79,7 +80,7 @@ public class CoordinatorController implements Serializable {
     }
 
     /**
-     *
+     * Gets the coordinator entity Logged in User
      * @return
      */
     public Coordinator getLoggedUser() {
@@ -272,6 +273,16 @@ public class CoordinatorController implements Serializable {
      */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+    
+    public SelectItem[] getItemsAvailableSelectOneForLoggedUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacultyController facultyController = (FacultyController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "facultyController");
+        Faculty idFaculty = facultyController.getFaculty(context.getExternalContext().getRemoteUser());   
+        List<Coordinator> coList = getFacade().findByUserAll(idFaculty);
+        if (coList != null)
+            return JsfUtil.getSelectItems(coList, true);
+        else return null;
     }
 
     public Coordinator getCoordinator(entities.users.CoordinatorPK id) {
