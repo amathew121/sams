@@ -54,6 +54,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 @SessionScoped
 public class CurrentStudentController implements Serializable {
 
+    private Date currentYear;
     private CurrentStudent current;
     private DataModel items = null;
     private List<CurrentStudent> attendanceByDiv;
@@ -74,6 +75,7 @@ public class CurrentStudentController implements Serializable {
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
+        currentYear = new Date(114, 06, 14);
     }
 
     /**
@@ -85,7 +87,7 @@ public class CurrentStudentController implements Serializable {
         ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
         SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
-
+        FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
         ProgramCoursePK pcpk = new ProgramCoursePK();
         /**
          * The following area is very susceptible to change :D
@@ -94,6 +96,23 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
         subject = sc.getSubjectBySemester(pc, semester);
+        
+        Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
+        for (Subject item : subjectList) {
+
+            final FacultySubject facultySubject = fsc.getIdFacSub(division, semester, (short) 0, item);
+            if (facultySubject == null) {
+                continue;
+            }
+            else {
+                int subj_yr;
+                subj_yr = currentYear.getYear()+1900;
+                if (facultySubject.getAcademicYear() != subj_yr){
+                    subject.remove(item);
+                    continue;
+                }
+            }
+        }
         return "ReportAllNew?faces-redirect=true";
     }
 
@@ -238,7 +257,7 @@ public class CurrentStudentController implements Serializable {
             att.add(ae);
             try {
                 attendanceController.createEntry(ae);
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
             }
             attendanceController.create();
@@ -260,11 +279,11 @@ public class CurrentStudentController implements Serializable {
         short semester = f.getIdSubject().getSemester();
         ProgramCourse programCourse = f.getIdSubject().getProgramCourse();
         if (batch == 0) {
-            attendanceByDiv = getFacade().getCurrentStudentByDivTheory(programCourse, semester, div);
+            attendanceByDiv = getFacade().getCurrentStudentByDivTheory(programCourse, semester, div, currentYear);
             return attendanceByDiv;
         } else {
 
-            attendanceByDiv = getFacade().getCurrentStudentByDiv(programCourse, semester, div, batch);
+            attendanceByDiv = getFacade().getCurrentStudentByDiv(programCourse, semester, div, batch, currentYear);
             return attendanceByDiv;
         }
     }
@@ -280,10 +299,15 @@ public class CurrentStudentController implements Serializable {
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
 
-        List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division);
+        List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division, currentYear);
 
+        Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
+        for (Subject item : subjectList) {
 
-        for (Subject item : subject) {
+            final FacultySubject facultySubject = fsc.getIdFacSub(division, semester, (short) 0, item);
+            if (facultySubject == null) {
+                continue;
+            }
             Map<Integer, Integer> theory = new HashMap<Integer, Integer>();
             Map<Integer, Integer> pracs = new HashMap<Integer, Integer>();
 
@@ -301,10 +325,11 @@ public class CurrentStudentController implements Serializable {
             }
 
             for (Object[] ar : theoryObj) {
-                if(((AttendanceReport) ar[0]).getFsBatch() == 0)
+                if (((AttendanceReport) ar[0]).getFsBatch() == 0) {
                     theory.put(((AttendanceReport) ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
-                else
+                } else {
                     pracs.put(((AttendanceReport) ar[0]).getIdCurrentStudent(), ((Number) ar[1]).intValue());
+                }
 
             }
             for (CurrentStudent cs : lcs) {
@@ -312,8 +337,9 @@ public class CurrentStudentController implements Serializable {
                 int[] pracsCount = cs.getPracsCount();
 
                 theoryCount[item.getSubjectSrNo()] = theory.get(cs.getIdCurrentStudent());
-                if(pracs.get(cs.getIdCurrentStudent()) != null)
-                pracsCount[item.getSubjectSrNo()] = pracs.get(cs.getIdCurrentStudent());
+                if (pracs.get(cs.getIdCurrentStudent()) != null) {
+                    pracsCount[item.getSubjectSrNo()] = pracs.get(cs.getIdCurrentStudent());
+                }
 
                 cs.setTheoryCount(theoryCount);
                 cs.setPracsCount(pracsCount);
@@ -321,10 +347,11 @@ public class CurrentStudentController implements Serializable {
             }
 
             LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
-            item.setLectureTotal(lc.getLectureByFSList(fsc.getIdFacSub(division, semester, (short) 0, item)).size());
+
+            item.setLectureTotal(lc.getLectureByFSList(facultySubject).size());
 
             try {
-                List<CurrentStudent> st = stc.getTestDetails(fsc.getIdFacSub(division, semester, (short) 0, item));
+                List<CurrentStudent> st = stc.getTestDetails(facultySubject);
 
                 for (CurrentStudent cs : st) {
                     marks.put(cs.getIdCurrentStudent(), cs.getMarks());
@@ -335,7 +362,7 @@ public class CurrentStudentController implements Serializable {
 
             } catch (Exception e) {
                 e.printStackTrace();
-            } 
+            }
             for (CurrentStudent cs : lcs) {
                 BigDecimal[] marksAll = cs.getMarksAll();
 
@@ -365,14 +392,14 @@ public class CurrentStudentController implements Serializable {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.reset();
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment;filename=Report"+course.getIdCourse()+semester+division+".xls");
+        response.setHeader("Content-Disposition", "attachment;filename=Report" + course.getIdCourse() + semester + division + ".xls");
 
         XLSTransformer transformer = new XLSTransformer();
         try {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             InputStream input = externalContext.getResourceAsStream("/resources/templateAttendance.xls");
             ServletOutputStream out = response.getOutputStream();
-            HSSFWorkbook workbook =  transformer.transformXLS(input, beans);
+            HSSFWorkbook workbook = transformer.transformXLS(input, beans);
             workbook.write(out);
         } catch (ParsePropertyException ex) {
             Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -398,7 +425,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Gets the selected currentstudent entity
+     * Gets the selected currentStudent entity
+     *
      * @return
      */
     public CurrentStudent getSelected() {
@@ -414,8 +442,9 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Gets Pagination Helper to fetch range of items according to page.
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page. Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -436,7 +465,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Resets the list of items and navigates to List
+     * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -454,7 +484,9 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Sets the selected currentstudent Entity to view more details.Navigation case to View
+     * Sets the selected currentStudent Entity to view more details.Navigation
+     * case to View
+     *
      * @return
      */
     public String prepareView() {
@@ -464,7 +496,9 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Navigation case to Create page after initializing a new currentstudent Entity
+     * Navigation case to Create page after initializing a new currentstudent
+     * Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -479,7 +513,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -494,8 +529,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Sets the selected item for editing.
-     * Navigation case to Edit page.
+     * Sets the selected item for editing. Navigation case to Edit page.
+     *
      * @return
      */
     public String prepareEdit() {
@@ -505,7 +540,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Updates the selected currentstudent entity in the database
+     * Updates the selected currentstudent entity in the database
+     *
      * @return
      */
     public String update() {
@@ -524,7 +560,9 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Destroys the selected currentstudent entity, and deletes it from the database
+     * Destroys the selected currentstudent entity, and deletes it from the
+     * database
+     *
      * @return
      */
     public String destroy() {
@@ -578,7 +616,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Gets All currentstudent entities as few items one at a time
+     * Gets All currentstudent entities as few items one at a time
+     *
      * @return
      */
     public DataModel getItems() {
@@ -607,7 +646,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Navigation case to next page with next items
+     * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -617,7 +657,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -627,7 +668,9 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Gets list of all currentstudent entities to be able to select many from it
+     * Gets list of all currentStudent entities to be able to select many from
+     * it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -635,7 +678,8 @@ public class CurrentStudentController implements Serializable {
     }
 
     /**
-     *Gets list of all currentstudent entities to be able to select one from it
+     * Gets list of all currentstudent entities to be able to select one from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -646,53 +690,54 @@ public class CurrentStudentController implements Serializable {
     public Course getCourse() {
         return course;
     }
-    
+
     public void setCourse(Course course) {
         this.course = course;
     }
-    
+
     public Program getProgram() {
         return program;
     }
-    
+
     public void setProgram(Program program) {
         this.program = program;
     }
+
     public List<Subject> getSubject() {
         return subject;
     }
-    
+
     public void setSubject(List<Subject> subject) {
         this.subject = subject;
     }
-    
+
     public ProgramCourse getPc() {
         return pc;
     }
-    
+
     public void setPc(ProgramCourse pc) {
         this.pc = pc;
     }
-    
+
     public short getSemester() {
         return semester;
     }
-    
+
     public void setSemester(short semester) {
         this.semester = semester;
     }
-    
+
     public String getDivision() {
         return division;
     }
-    
+
     public void setDivision(String division) {
         this.division = division;
     }
     //</editor-fold>
 
     /**
-     *Converter Class for currentstudent Entity
+     * Converter Class for currentStudent Entity
      */
     @FacesConverter(forClass = CurrentStudent.class)
     public static class CurrentStudentControllerConverter implements Converter {

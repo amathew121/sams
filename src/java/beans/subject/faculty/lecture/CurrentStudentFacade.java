@@ -43,13 +43,16 @@ public class CurrentStudentFacade extends AbstractFacade<CurrentStudent> {
 
     /**
      * Get a list of CurrentStudent for the specified ProgramCourse, batch, division and semester entities
+     *
      * @param programCourse
      * @param semester
      * @param div
      * @param batch
+     * @param academicYear the value of academicYear
      * @return
      */
-    public List<CurrentStudent> getCurrentStudentByDiv(ProgramCourse programCourse, short semester, String div, short batch) {
+    
+    public List<CurrentStudent> getCurrentStudentByDiv(ProgramCourse programCourse, short semester, String div, short batch, java.util.Date academicYear) {
         List <CurrentStudent> l = new ArrayList();
         
         Query q = em.createNamedQuery("CurrentStudent.findUltimate");
@@ -57,24 +60,29 @@ public class CurrentStudentFacade extends AbstractFacade<CurrentStudent> {
         q.setParameter("batch", batch);
         q.setParameter("division", div);
         q.setParameter("semester", semester);
+        q.setParameter("academicYear", academicYear);
         l = q.getResultList();
         return l;
     }
 
     /**
      * Get a list of CurrentStudent for the specified ProgramCourse, division and semester entities
+     *
      * @param programCourse
      * @param semester
      * @param div
+     * @param academicYear the value of academicYear
      * @return
      */
-    public List<CurrentStudent> getCurrentStudentByDivTheory(ProgramCourse programCourse, short semester, String div) {
+    
+    public List<CurrentStudent> getCurrentStudentByDivTheory(ProgramCourse programCourse, short semester, String div, java.util.Date academicYear) {
         List <CurrentStudent> l = new ArrayList();
         
         Query q = em.createNamedQuery("CurrentStudent.findUltimateTheory");
         q.setParameter("programCourse", programCourse);
         q.setParameter("division", div);
         q.setParameter("semester", semester);
+        q.setParameter("academicYear", academicYear);
         l = q.getResultList();
         return l;
     }

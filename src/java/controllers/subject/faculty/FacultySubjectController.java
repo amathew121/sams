@@ -48,7 +48,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     /**
-     *Gets the selected facultysubject entity
+     *Gets the selected facultySubject entity
      * @return
      */
     public FacultySubject getSelected() {
@@ -203,6 +203,10 @@ public class FacultySubjectController implements Serializable {
     
     public List<FacultySubject> getItemsByYear(Faculty idFaculty, int year, boolean even){
         return getFacade().getFSByYear(idFaculty, year, even);
+    }
+    
+    public int getAcYear(int year, boolean even){
+        return getFacade().getAcYear( year, even);
     }
         
     public String prepareEdit() {
@@ -379,7 +383,7 @@ public class FacultySubjectController implements Serializable {
     }
 
     /**
-     *Converter Class for facultysubject Entity
+     *Converter Class for facultySubject Entity
      */
     @FacesConverter(forClass = FacultySubject.class)
     public static class FacultySubjectControllerConverter implements Converter {

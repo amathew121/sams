@@ -323,22 +323,22 @@
                                 <f:facet name="header">
                                     <h:outputText value="T2"/>
                                 </f:facet>
-                                <h:outputText value="#{c.marks2}"/>
+                                <h:outputText value="#{c.marks2}" />
                             </p:column>
                         </p:dataTable>
                     </p:panel>
-                    <!-- <p:panel id="feedback" 
+                   <p:panel id="feedback" 
                              header="Feedback"  
                              toggleable="true" 
-                             closable="true" 
+                             closable="true"  collapsed="true"
                              toggleSpeed="500" 
                              closeSpeed="500"
-                             rendered="#{facultySubjectViewController.modelByUserNameCurrent}" 
+                             rendered="#{facultySubjectViewController.modelByUserNameCurrent != null}" 
                              >
                         <p:chart type="bar" 
                                  model="#{dashboardBean.feedbackBarChartModel}" 
                                  style="height:300px"/>
-                    </p:panel> -->
+                    </p:panel> 
                 </p:dashboard>  
 
             </h:form>  

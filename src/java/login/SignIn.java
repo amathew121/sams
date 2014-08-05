@@ -76,6 +76,7 @@ public class SignIn implements Serializable {
         Faculty f = facultyController.getFaculty(username);
             if (f != null) {
                 if (f.getFacultyPassword().equals(password) && password != null && f.getFacultyPassword() != null) {
+                    System.out.println(f.getFacultyPassword());
                     if(f.getOauthToken() != null){
                         return login(f.getOauthToken());
                     }

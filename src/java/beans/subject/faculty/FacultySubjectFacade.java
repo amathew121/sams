@@ -107,6 +107,19 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         return q.getResultList();
     }
 
+    public  int getAcYear(int yr, boolean even) {
+        Query q;
+        if (even) {
+            q = em.createNamedQuery("FacultySubject.findByYearEven");
+        }
+        else {
+            q = em.createNamedQuery("FacultySubject.findByYearOdd");
+        }
+        q.setParameter("yr", yr);
+        //q.setParameter("idFaculty", idFaculty);
+        return q.getFirstResult();
+    }
+    
     /**
      * Gets a list of FacultySubject for the specified division, semester, batch and subject entity
      * @param division

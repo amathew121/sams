@@ -90,12 +90,12 @@
                         </f:facet>
                         <h:outputText value="#{c.attendanceCount}"/>
                     </p:column>
-                    <p:column style="width:2%">  
+                    <p:column style="width:25px">  
                         <h:commandLink action="#{lectureController.destroyLectureRestrict(lectureController.getLectureByLecID(c.idLecture))}" title="Delete" >
                             <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
                         </h:commandLink>
                     </p:column>
-                    <p:column style="width:2%">  
+                    <p:column style="width:30px">  
 
                         <h:commandLink action="#{lectureController.prepareUpdateLectureRestrict(lectureController.getLectureByLecID(c.idLecture))}" title="Edit" >
                             <p:graphicImage style="width: 30px; height: 30px" value="/resources/images/editicon.jpg" />  

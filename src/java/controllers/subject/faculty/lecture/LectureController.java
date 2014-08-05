@@ -96,7 +96,7 @@ public class LectureController implements Serializable {
     public void setStartIndex(int startIndex) {
         this.startIndex = startIndex;
     }
-    
+
     /**
      *
      * @return
@@ -128,7 +128,7 @@ public class LectureController implements Serializable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    
+
     /**
      *
      * @return
@@ -144,7 +144,6 @@ public class LectureController implements Serializable {
     public void setSelectList(CurrentStudent[] selectList) {
         this.selectList = selectList;
     }
-
     @EJB
     private beans.subject.faculty.lecture.LectureFacade ejbFacade;
     private PaginationHelper pagination;
@@ -233,7 +232,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Gets the selected lecture entity
+     * Gets the selected lecture entity
+     *
      * @return
      */
     public Lecture getSelected() {
@@ -249,8 +249,9 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Gets Pagination Helper to fetch range of items according to page.
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page. Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -271,7 +272,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Resets the list of items and navigates to List
+     * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -280,7 +282,9 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Sets the selected lecture Entity to view more details.Navigation case to View
+     * Sets the selected lecture Entity to view more details.Navigation case to
+     * View
+     *
      * @return
      */
     public String prepareView() {
@@ -297,7 +301,7 @@ public class LectureController implements Serializable {
         //prepareCreate();
         return "Create?faces-redirect=true";
     }
-    
+
     /**
      *
      * @param startDate
@@ -310,27 +314,25 @@ public class LectureController implements Serializable {
         current.setLectureDate(startDate);
         return "Create?faces-redirect=true";
     }
-    
+
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     public String prepareMultipleRange() throws Exception {
         return "MultipleDateRange?faces-redirect=true";
     }
-    
+
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
-    public String prepareCreateMultipleWithId() throws Exception{
+    public String prepareCreateMultipleWithId() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
-        
+
         lectureList = getLectureByFSList(facSub);
-        
+
         List<Lecture> checkedItems = new ArrayList<Lecture>();
 
         for (Lecture item : lectureList) {
@@ -338,25 +340,22 @@ public class LectureController implements Serializable {
                 checkedItems.add(item);
             }
         }
-        if(!checkedItems.isEmpty() )
+        if (!checkedItems.isEmpty()) {
             lectureList = checkedItems;
-
-        else if(startDate!=null) {
+        } else if (startDate != null) {
             lectureList = getLectureByFSList(facSub, startDate);
-        }
-        else if (startDate!=null && endDate!= null) {
+        } else if (startDate != null && endDate != null) {
             lectureList = getLectureByFSList(facSub, startDate, endDate);
-        }
-        else 
-        {
-            if(startIndex+9 < lectureList.size())
-                lectureList = lectureList.subList(startIndex-1, startIndex+9);
-            else 
-                lectureList = lectureList.subList(startIndex-1, lectureList.size());
+        } else {
+            if (startIndex + 9 < lectureList.size()) {
+                lectureList = lectureList.subList(startIndex - 1, startIndex + 9);
+            } else {
+                lectureList = lectureList.subList(startIndex - 1, lectureList.size());
+            }
 
         }
 
-        for(Lecture lec : lectureList){
+        for (Lecture lec : lectureList) {
             currentStudentController.setLec(lec);
             lec.changeMap(lec.getChecked(), Boolean.FALSE);
             List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
@@ -391,7 +390,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Navigation case to Create page after initializing a new lecture Entity
+     * Navigation case to Create page after initializing a new lecture Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -401,7 +401,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -420,7 +421,7 @@ public class LectureController implements Serializable {
      * @param facSub
      * @return
      */
-    public List<Lecture> getLectureByFSList(FacultySubject facSub){
+    public List<Lecture> getLectureByFSList(FacultySubject facSub) {
         return getFacade().getLectureByIdFaculty(facSub);
     }
 
@@ -449,7 +450,7 @@ public class LectureController implements Serializable {
      *
      * @return
      */
-    public int getLectureByFSListTotal(){
+    public int getLectureByFSListTotal() {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController csc = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
         FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
@@ -463,13 +464,10 @@ public class LectureController implements Serializable {
         return total;
     }
 
-
     /**
-     * Adds new lecture tags. 
-     * Accepts comma separated values. 
+     * Adds new lecture tags. Accepts comma separated values.
      */
-    private void setTags() 
-    {
+    private void setTags() {
         FacesContext context = FacesContext.getCurrentInstance();
         LectureTagsController ltc = (LectureTagsController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureTagsController");
         StringTokenizer st = new StringTokenizer(lectureTags, ",");
@@ -481,12 +479,14 @@ public class LectureController implements Serializable {
             ltc.getSelected().getLectureTagsPK().setTag(temp);
             ltc.create();
         }
-        lectureTags=null;
-        
+        lectureTags = null;
+
     }
-    
+
     /**
-     * Creates a new Lecture, and creates lecture tags and attendance also along with it.
+     * Creates a new Lecture, and creates lecture tags and attendance also along
+     * with it.
+     *
      * @return View.xhtml
      */
     public String createA() {
@@ -502,7 +502,7 @@ public class LectureController implements Serializable {
             currentStudentController.setLec(temp);
             recreateModel();
             //  return "CreateAttendance?faces-redirect=true";
-            currentStudentController.createAttendance();            
+            currentStudentController.createAttendance();
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
@@ -522,38 +522,37 @@ public class LectureController implements Serializable {
         if (event.getPhaseId() != PhaseId.INVOKE_APPLICATION) {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
             event.queue();
-        } 
-        else {
+        } else {
 
-             UIData data = (UIData) event.getComponent().findComponent("listComponents");
-             CurrentStudent cs = (CurrentStudent)data.getRowData();
-             System.out.println("Old:" +event.getOldValue().toString());
-             System.out.println("New:" + event.getNewValue().toString());
-             short newValue = (Short) event.getNewValue();
-             if (newValue > 0) {
-                 cs.setLectureAttended(newValue);
-                 int i;
-                for( i = 0; i < lectureList.size() && i < newValue ; i++) {
-                
+            UIData data = (UIData) event.getComponent().findComponent("listComponents");
+            CurrentStudent cs = (CurrentStudent) data.getRowData();
+            System.out.println("Old:" + event.getOldValue().toString());
+            System.out.println("New:" + event.getNewValue().toString());
+            short newValue = (Short) event.getNewValue();
+            if (newValue > 0) {
+                cs.setLectureAttended(newValue);
+                int i;
+                for (i = 0; i < lectureList.size() && i < newValue; i++) {
+
                     lectureList.get(i).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
                     System.out.println(lectureList.get(i).getChecked());
-                    
+
                 }
-                for(int j = i; j< lectureList.size() ; j++) {
+                for (int j = i; j < lectureList.size(); j++) {
                     lectureList.get(j).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
                     System.out.println(lectureList.get(j).getChecked());
                 }
 
-            } 
+            }
         }
     }
-    
+
     /**
      *
      * @param event
      */
     public void onSlideEnd(SlideEndEvent event) {
-        
+
         UIData data = (UIData) event.getComponent().findComponent("listComponents");
         CurrentStudent cs = (CurrentStudent) data.getRowData();
         short newValue = (short) event.getValue();
@@ -563,23 +562,22 @@ public class LectureController implements Serializable {
             int i;
             for (i = 0; i < lectureList.size() && i < newValue; i++) {
 
-                lectureList.get(r.next()-1).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
+                lectureList.get(r.next() - 1).getChecked().put(cs.getIdCurrentStudent(), Boolean.TRUE);
                 System.out.println(lectureList.get(i).getChecked());
 
             }
             for (int j = i; j < lectureList.size(); j++) {
-                lectureList.get(r.next()-1).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
+                lectureList.get(r.next() - 1).getChecked().put(cs.getIdCurrentStudent(), Boolean.FALSE);
                 System.out.println(lectureList.get(j).getChecked());
             }
         }
         FacesMessage msg = new FacesMessage("Slide Ended", "Value: " + event.getValue());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     public String createAll() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -613,8 +611,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Sets the selected item for editing.
-     * Navigation case to Edit page.
+     * Sets the selected item for editing. Navigation case to Edit page.
+     *
      * @return
      */
     public String prepareEdit() {
@@ -633,7 +631,7 @@ public class LectureController implements Serializable {
         recreateModel();
         return "FSLec?faces-redirect=true";
     }
-    
+
     /**
      *
      * @param f
@@ -646,7 +644,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Updates the selected lecture entity in the database
+     * Updates the selected lecture entity in the database
+     *
      * @return
      */
     public String update() {
@@ -661,7 +660,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Destroys the selected lecture entity, and deletes it from the database
+     * Destroys the selected lecture entity, and deletes it from the database
+     *
      * @return
      */
     public String destroy() {
@@ -683,11 +683,17 @@ public class LectureController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
 
-        List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
-        for (int i = 0; i < attendance.size(); i++) {
-            currentStudentController.getAttendanceController().createEntry(attendance.get(i));
-            currentStudentController.getAttendanceController().destroyA();
+        List<Attendance> attendance;
+        try {
+            attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
+            for (int i = 0; i < attendance.size(); i++) {
+                currentStudentController.getAttendanceController().createEntry(attendance.get(i));
+                currentStudentController.getAttendanceController().destroyA();
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
+
         current = lec;
         performDestroy();
         current = null;
@@ -710,10 +716,15 @@ public class LectureController implements Serializable {
             current = lec;
             currentStudentController.setLec(lec);
             currentStudentController.changeMap(currentStudentController.getChecked(), Boolean.FALSE);
-            List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
-            for (int i = 0; i < attendance.size(); i++) {
-                currentStudentController.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
+            try {
+                List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(lec);
+                for (int i = 0; i < attendance.size(); i++) {
+                    currentStudentController.getChecked().put(attendance.get(i).getIdCurrentStudent().getIdCurrentStudent(), Boolean.TRUE);
+                }
+            } catch (NullPointerException e) {
+                System.out.println(e);
             }
+
 
             return "UpdateLecture?faces-redirect=true";
         } else {
@@ -723,17 +734,20 @@ public class LectureController implements Serializable {
 
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     public String updateLectureRestrict() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
 
-        List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(currentStudentController.getLec());
-        for (int i = 0; i < attendance.size(); i++) {
-            currentStudentController.getAttendanceController().createEntry(attendance.get(i));
-            currentStudentController.getAttendanceController().destroyA();
+        try {
+            List<Attendance> attendance = currentStudentController.getAttendanceController().getAttendanceByFSLec(currentStudentController.getLec());
+            for (int i = 0; i < attendance.size(); i++) {
+                currentStudentController.getAttendanceController().createEntry(attendance.get(i));
+                currentStudentController.getAttendanceController().destroyA();
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
         setTags();
         currentStudentController.createAttendance();
@@ -784,7 +798,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Gets All lecture entities as few items one at a time
+     * Gets All lecture entities as few items one at a time
+     *
      * @return
      */
     public DataModel getItems() {
@@ -805,7 +820,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Navigation case to next page with next items
+     * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -815,7 +831,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -825,7 +842,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Gets list of all lecture entities to be able to select many from it
+     * Gets list of all lecture entities to be able to select many from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -833,7 +851,8 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Gets list of all lecture entities to be able to select one from it
+     * Gets list of all lecture entities to be able to select one from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -841,7 +860,7 @@ public class LectureController implements Serializable {
     }
 
     /**
-     *Converter Class for lecture Entity
+     * Converter Class for lecture Entity
      */
     @FacesConverter(forClass = Lecture.class)
     public static class LectureControllerConverter implements Converter {
