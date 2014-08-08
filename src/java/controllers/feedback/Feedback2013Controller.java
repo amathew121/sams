@@ -35,7 +35,8 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 
 /**
- *JSF Backing bean for feedback2013 Entity
+ * JSF Backing bean for feedback2013 Entity
+ *
  * @author Administrator
  */
 @Named("feedback2013Controller")
@@ -71,6 +72,10 @@ public class Feedback2013Controller implements Serializable {
         this.model = model;
     }
 
+    public String questionGraph() {
+        return "FeedbackCharts?faces-redirect=true";
+    }
+
     @PostConstruct
     public void init() {
         model = new DefaultMenuModel();
@@ -93,7 +98,7 @@ public class Feedback2013Controller implements Serializable {
             model.addElement(tempSubmenu);
         }
     }
-    
+
     public void recreateMenuModel() {
 
         model = new DefaultMenuModel();
@@ -120,13 +125,14 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *creates the backing bean
+     * creates the backing bean
      */
     public Feedback2013Controller() {
     }
 
     /**
      * Gets the selected feedback2013 entity
+     *
      * @return
      */
     public Feedback2013 getSelected() {
@@ -142,8 +148,9 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     * Gets Pagination Helper to fetch range of items according to page.
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page. Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -164,7 +171,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Resets the list of items and navigates to List
+     * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -173,7 +181,9 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Sets the selected feedback2013 Entity to view more details.Navigation case to View
+     * Sets the selected feedback2013 Entity to view more details.Navigation
+     * case to View
+     *
      * @return
      */
     public String prepareView() {
@@ -183,7 +193,9 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Navigation case to Create page after initializing a new feedback2013 Entity
+     * Navigation case to Create page after initializing a new feedback2013
+     * Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -324,11 +336,12 @@ public class Feedback2013Controller implements Serializable {
 
         Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
         fcController.getByUserName(idFacultySubject, fType);
-        
+
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -343,8 +356,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Sets the selected item for editing.
-     * Navigation case to Edit page.
+     * Sets the selected item for editing. Navigation case to Edit page.
+     *
      * @return
      */
     public String prepareEdit() {
@@ -354,7 +367,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Updates the selected feedback2013 entity in the database
+     * Updates the selected feedback2013 entity in the database
+     *
      * @return
      */
     public String update() {
@@ -369,7 +383,9 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Destroys the selected feedback2013 entity, and deletes it from the database
+     * Destroys the selected feedback2013 entity, and deletes it from the
+     * database
+     *
      * @return
      */
     public String destroy() {
@@ -423,7 +439,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Gets All feedback2013 entities as few items one at a time
+     * Gets All feedback2013 entities as few items one at a time
+     *
      * @return
      */
     public DataModel getItems() {
@@ -443,6 +460,7 @@ public class Feedback2013Controller implements Serializable {
 
     /**
      * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -452,7 +470,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -462,7 +481,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Gets list of all feedback2013 entities to be able to select many from it
+     * Gets list of all feedback2013 entities to be able to select many from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -470,7 +490,8 @@ public class Feedback2013Controller implements Serializable {
     }
 
     /**
-     *Gets list of all feedback2013 entities to be able to select one from it
+     * Gets list of all feedback2013 entities to be able to select one from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -545,6 +566,7 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 }
+
 class FeedbackDetail {
 
     private int qid;
