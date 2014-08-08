@@ -4,6 +4,7 @@
  */
 package beans.subject.faculty;
 
+import entities.subject.Program;
 import beans.AbstractFacade;
 import entities.users.Department;
 import entities.users.Faculty;
@@ -17,6 +18,7 @@ import javax.persistence.Query;
 
 /**
  * Enterprise JavaBean for FacultySubjectView Entity
+ *
  * @author Ashish
  */
 @Stateless
@@ -43,7 +45,7 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
     }
 
     /**
-     *  
+     *
      * @return
      */
     @Override
@@ -59,7 +61,9 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
     }
 
     /**
-     * get list of all faculty subject entities taught by the specified faculty in the even semester
+     * get list of all faculty subject entities taught by the specified faculty
+     * in the even semester
+     *
      * @param s
      * @return
      */
@@ -68,11 +72,12 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
         q.setParameter("idFaculty", s);
         List<FacultySubjectView> l = q.getResultList();
         count = l.size();
-        return l; 
+        return l;
     }
 
     /**
-     * get list of all faculty subject entities taught by the specified faculty 
+     * get list of all faculty subject entities taught by the specified faculty
+     *
      * @param s
      * @return
      */
@@ -85,8 +90,9 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
     }
 
     /**
-     * gets list of all the faculty subject entities grouped by faculty
-     * TODO: Find usages
+     * gets list of all the faculty subject entities grouped by faculty TODO:
+     * Find usages
+     *
      * @return
      */
     public List<FacultySubjectView> getFSViewByIdGroup() {
@@ -98,18 +104,24 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
 
     /**
      * get all the faculty subject entities in the specified department
+     *
      * @param s
      * @return
      */
-    public List<FacultySubjectView> getFSViewByDept(String s) {
-        Query q = em.createNamedQuery("FacultySubjectView.findByIdCourse");
+    public List<FacultySubjectView> getFSViewByDept(String s, String program, int ac_yr,int sem) {
+        Query q = em.createNamedQuery("FacultySubjectView.findByIdCourseFinal");
         q.setParameter("idCourse", s);
+        q.setParameter("program", program);
+        q.setParameter("ac_yr", ac_yr);
+        q.setParameter("sem", sem);
         List<FacultySubjectView> l = q.getResultList();
         return l;
     }
 
     /**
-     * get list of faculty teaching for the specified subject in the specified department
+     * get list of faculty teaching for the specified subject in the specified
+     * department
+     *
      * @param sub
      * @param dept
      * @return
@@ -123,8 +135,8 @@ public class FacultySubjectViewFacade extends AbstractFacade<FacultySubjectView>
     }
 
     /**
-     * gets list of department
-     * TODO: refractor to department facade
+     * gets list of department TODO: refractor to department facade
+     *
      * @return
      */
     public List<Department> getDepartment() {

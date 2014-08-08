@@ -5,6 +5,7 @@
 package entities.subject.faculty;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Creates POJO Entity for table 'faculty_subject_view'
+ *
  * @author Ashish
  */
 @Entity
@@ -37,16 +41,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FacultySubjectView.findBySubjectName", query = "SELECT f FROM FacultySubjectView f WHERE f.subjectName = :subjectName"),
     @NamedQuery(name = "FacultySubjectView.findByIdProgram", query = "SELECT f FROM FacultySubjectView f WHERE f.idProgram = :idProgram"),
     @NamedQuery(name = "FacultySubjectView.findByIdCourse", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse ORDER BY f.semester, f.division, f.subjectName, f.batch"),
+    @NamedQuery(name = "FacultySubjectView.findByIdCourseFinal", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse AND f.idProgram = :program AND f.academicYear = :ac_yr AND f.semester=:sem ORDER BY f.semester, f.division, f.subjectName, f.batch"),
     @NamedQuery(name = "FacultySubjectView.findByIdCourseSubject", query = "SELECT f FROM FacultySubjectView f WHERE f.idCourse = :idCourse AND f.subjectCode = :subjectCode"),
     @NamedQuery(name = "FacultySubjectView.findBySemester", query = "SELECT f FROM FacultySubjectView f WHERE f.semester = :semester"),
     @NamedQuery(name = "FacultySubjectView.findByDivision", query = "SELECT f FROM FacultySubjectView f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubjectView.findByBatch", query = "SELECT f FROM FacultySubjectView f WHERE f.batch = :batch")})
-
 public class FacultySubjectView implements Serializable {
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "academic_year")
     private int academicYear;
+    @Column(name = "ac_date")
+    @Temporal(TemporalType.DATE)
+    private Date acDate;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -113,6 +121,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get id_faculty_subject from FacultySubjectView Entity
+     *
      * @return
      */
     public int getIdFacultySubject() {
@@ -121,6 +130,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set id_faculty_subject for FacultySubjectView Entity
+     *
      * @param idFacultySubject
      */
     public void setIdFacultySubject(int idFacultySubject) {
@@ -129,6 +139,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get id_faculty from FacultySubjectView Entity
+     *
      * @return
      */
     public String getIdFaculty() {
@@ -137,6 +148,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set id_faculty for FacultySubjectView Entity
+     *
      * @param idFaculty
      */
     public void setIdFaculty(String idFaculty) {
@@ -145,6 +157,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get faculty_title from FacultySubjectView Entity
+     *
      * @return
      */
     public String getFacultyTitle() {
@@ -153,6 +166,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set faculty_title for FacultySubjectView Entity
+     *
      * @param facultyTitle
      */
     public void setFacultyTitle(String facultyTitle) {
@@ -161,6 +175,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get faculty_lname from FacultySubjectView Entity
+     *
      * @return
      */
     public String getFacultyLname() {
@@ -169,6 +184,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set faculty_lname for FacultySubjectView Entity
+     *
      * @param facultyLname
      */
     public void setFacultyLname(String facultyLname) {
@@ -177,6 +193,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get faculty_fname from FacultySubjectView Entity
+     *
      * @return
      */
     public String getFacultyFname() {
@@ -185,6 +202,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set faculty_fname for FacultySubjectView Entity
+     *
      * @param facultyFname
      */
     public void setFacultyFname(String facultyFname) {
@@ -193,6 +211,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get subject_code from FacultySubjectView Entity
+     *
      * @return
      */
     public String getSubjectCode() {
@@ -201,6 +220,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set subject_code for FacultySubjectView Entity
+     *
      * @param subjectCode
      */
     public void setSubjectCode(String subjectCode) {
@@ -209,6 +229,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get subject_sr_no from FacultySubjectView Entity
+     *
      * @return
      */
     public Short getSubjectSrNo() {
@@ -217,6 +238,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set subject_sr_no for FacultySubjectView Entity
+     *
      * @param subjectSrNo
      */
     public void setSubjectSrNo(Short subjectSrNo) {
@@ -225,6 +247,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get subject_name from FacultySubjectView Entity
+     *
      * @return
      */
     public String getSubjectName() {
@@ -232,7 +255,8 @@ public class FacultySubjectView implements Serializable {
     }
 
     /**
-     * Set subject_name for FacultySubjectView Entity 
+     * Set subject_name for FacultySubjectView Entity
+     *
      * @param subjectName
      */
     public void setSubjectName(String subjectName) {
@@ -241,6 +265,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get id_program from FacultySubjectView Entity
+     *
      * @return
      */
     public String getIdProgram() {
@@ -249,6 +274,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set id_program for FacultySubjectView Entity
+     *
      * @param idProgram
      */
     public void setIdProgram(String idProgram) {
@@ -257,6 +283,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get id_course from FacultySubjectView Entity
+     *
      * @return
      */
     public String getIdCourse() {
@@ -265,6 +292,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set id_course for FacultySubjectView Entity
+     *
      * @param idCourse
      */
     public void setIdCourse(String idCourse) {
@@ -273,6 +301,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get semester from FacultySubjectView Entity
+     *
      * @return
      */
     public short getSemester() {
@@ -281,6 +310,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set semester for FacultySubjectView Entity
+     *
      * @param semester
      */
     public void setSemester(short semester) {
@@ -289,6 +319,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get division from FacultySubjectView Entity
+     *
      * @return
      */
     public String getDivision() {
@@ -297,6 +328,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Set division for FacultySubjectView Entity
+     *
      * @param division
      */
     public void setDivision(String division) {
@@ -305,6 +337,7 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get batch_no from FacultySubjectView Entity
+     *
      * @return
      */
     public short getBatchNo() {
@@ -313,20 +346,22 @@ public class FacultySubjectView implements Serializable {
 
     /**
      * Get batch from FacultySubjectView Entity
+     *
      * @return
      */
     public String getBatch() {
-        String b ;
-        if(batch==0)
+        String b;
+        if (batch == 0) {
             return "Theory";
-        else
-            
-            b="Batch" + batch; 
-            return b;
+        } else {
+            b = "Batch" + batch;
+        }
+        return b;
     }
 
     /**
      * Set batch for FacultySubjectView Entity
+     *
      * @param batch
      */
     public void setBatch(short batch) {
@@ -340,5 +375,12 @@ public class FacultySubjectView implements Serializable {
     public void setAcademicYear(int academicYear) {
         this.academicYear = academicYear;
     }
-    
+
+    public Date getAcDate() {
+        return acDate;
+    }
+
+    public void setAcDate(Date acDate) {
+        this.acDate = acDate;
+    }
 }

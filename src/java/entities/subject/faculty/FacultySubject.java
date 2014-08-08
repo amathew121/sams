@@ -12,6 +12,7 @@ import entities.feedback.Feedback2013Comments;
 import entities.users.Faculty;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,6 +28,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -64,6 +67,11 @@ public class FacultySubject implements Serializable {
     private List<Feedback2013> feedback2013List;
     @Column(name = "academic_year")
     private Integer academicYear;
+    
+    @Column(name = "ac_date")
+    @Temporal(TemporalType.DATE)
+    private Date acDate;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -347,6 +355,14 @@ public class FacultySubject implements Serializable {
      */
     public void setReviewCommentsList(List<ReviewComments> reviewCommentsList) {
         this.reviewCommentsList = reviewCommentsList;
+    }
+
+    public Date getAcDate() {
+        return acDate;
+    }
+
+    public void setAcDate(Date acDate) {
+        this.acDate = acDate;
     }
     
 }

@@ -4,6 +4,7 @@ import entities.subject.faculty.FacultySubjectView;
 import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.subject.faculty.FacultySubjectViewFacade;
+import entities.subject.Program;
 import entities.users.Department;
 import entities.users.Faculty;
 import java.io.IOException;
@@ -37,15 +38,18 @@ public class FacultySubjectViewController implements Serializable {
     private int selectedItemIndex;
     private Department deptSelected;
     private int academic_year;
+    private Program program;
+    private int semester;
 
     /**
-     *creates the backing bean
+     * creates the backing bean
      */
     public FacultySubjectViewController() {
     }
 
     /**
-     *Gets the selected facultySubjectView entity
+     * Gets the selected facultySubjectView entity
+     *
      * @return
      */
     public FacultySubjectView getSelected() {
@@ -97,7 +101,7 @@ public class FacultySubjectViewController implements Serializable {
         modelByUserName = new ListDataModel(getFacade().getFSViewByIdCurrent(userName));
         return modelByUserName;
     }
-    
+
     /**
      *
      * @param userName
@@ -113,7 +117,7 @@ public class FacultySubjectViewController implements Serializable {
      *
      * @return
      */
-        public DataModel getModelByUserNameGroup() {
+    public DataModel getModelByUserNameGroup() {
         return new ListDataModel(getFacade().getFSViewByIdGroup());
 
     }
@@ -132,10 +136,11 @@ public class FacultySubjectViewController implements Serializable {
      * @return
      */
     public List<FacultySubjectView> getListByDept(Faculty fac) {
-            Department dept = deptSelected;
-
+        Department dept = deptSelected;
+        Program prog = program;
+        
         if (dept != null) {
-            return getFacade().getFSViewByDept(dept.getIdDepartment());
+            return getFacade().getFSViewByDept(dept.getIdDepartment(),prog.getIdProgram(),academic_year,semester);
         } else {
             return null;
         }
@@ -151,8 +156,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Gets Pagination Helper to fetch range of items according to page
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -174,7 +180,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Resets the list of items and navigates to List
+     * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -215,12 +222,12 @@ public class FacultySubjectViewController implements Serializable {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public String navList(){
+    public String navList() {
         return "List?faces-redirect=true";
     }
 
@@ -233,7 +240,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     * Sets the selected facultysubjectview Entity to view more details.Navigation case to View
+     * Sets the selected facultysubjectview Entity to view more
+     * details.Navigation case to View
+     *
      * @return
      */
     public String prepareView() {
@@ -243,7 +252,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Navigation case to Create page after initializing a new facultysubjectview Entity
+     * Navigation case to Create page after initializing a new
+     * facultysubjectview Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -253,7 +264,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -277,8 +289,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Sets the selected item for editing.
-     * Navigation case to Edit page.
+     * Sets the selected item for editing. Navigation case to Edit page.
+     *
      * @return
      */
     public String prepareEdit() {
@@ -288,7 +300,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Updates the selected facultysubjectview entity in the database
+     * Updates the selected facultysubjectview entity in the database
+     *
      * @return
      */
     public String update() {
@@ -303,7 +316,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Destroys the selected facultysubjectview entity, and deletes it from the database
+     * Destroys the selected facultysubjectview entity, and deletes it from the
+     * database
+     *
      * @return
      */
     public String destroy() {
@@ -358,6 +373,7 @@ public class FacultySubjectViewController implements Serializable {
 
     /**
      * Gets All facultysubjectview entities as few items one at a time
+     *
      * @return
      */
     public DataModel getItems() {
@@ -377,7 +393,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Navigation case to next page with next items
+     * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -387,7 +404,8 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -397,7 +415,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Gets list of all facultysubjectview entities to be able to select many from it
+     * Gets list of all facultysubjectview entities to be able to select many
+     * from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -405,7 +425,9 @@ public class FacultySubjectViewController implements Serializable {
     }
 
     /**
-     *Gets list of all facultysubjectview entities to be able to select one from it
+     * Gets list of all facultysubjectview entities to be able to select one
+     * from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -430,8 +452,32 @@ public class FacultySubjectViewController implements Serializable {
         this.academic_year = academic_year;
     }
 
+    public FacultySubjectView getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(FacultySubjectView current) {
+        this.current = current;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
     /**
-     * Converter Class for facultysubjectview Entity
+     * Converter Class for facultySubjectView Entity
      */
     @FacesConverter(forClass = FacultySubjectView.class)
     public static class FacultySubjectViewControllerConverter implements Converter {
