@@ -139,7 +139,7 @@ public class FacultySubjectViewController implements Serializable {
         Department dept = deptSelected;
         Program prog = program;
         
-        if (dept != null) {
+        if (dept != null && prog != null ) {
             return getFacade().getFSViewByDept(dept.getIdDepartment(),prog.getIdProgram(),academic_year,semester);
         } else {
             return null;
