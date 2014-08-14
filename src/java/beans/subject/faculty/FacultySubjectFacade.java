@@ -18,6 +18,7 @@ import javax.persistence.Query;
 
 /**
  * Enterprise JavaBean for FacultySubject entity
+ *
  * @author Ashish
  */
 @Stateless
@@ -28,6 +29,7 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
     /**
      * Gets Entity Manager for the FacultySubject EJB
+     *
      * @return
      */
     @Override
@@ -44,6 +46,7 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
     /**
      * Gets FacultySubject for the specified FacultySubject Entity
+     *
      * @param s
      * @return
      */
@@ -59,6 +62,7 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
     /**
      * Gets FacultySubject for the specified Faculty
+     *
      * @param fac
      * @return
      */
@@ -70,9 +74,10 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
 
     }
-    
+
     /**
      * Gets FacultySubject for the specified Subject
+     *
      * @param idSubject
      * @return
      */
@@ -85,6 +90,7 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
 
     /**
      * Gets Faculty for the specified Faculty
+     *
      * @param idFac
      * @return
      */
@@ -93,13 +99,12 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         q.setParameter("idFaculty", idFac);
         return (Faculty) q.getSingleResult();
     }
-    
-    public  List<FacultySubject> getFSByYear(Faculty idFaculty,int yr, boolean even) {
+
+    public List<FacultySubject> getFSByYear(Faculty idFaculty, int yr, boolean even) {
         Query q;
         if (even) {
             q = em.createNamedQuery("FacultySubject.findByYearEven");
-        }
-        else {
+        } else {
             q = em.createNamedQuery("FacultySubject.findByYearOdd");
         }
         q.setParameter("yr", yr);
@@ -107,21 +112,22 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         return q.getResultList();
     }
 
-    public  int getAcYear(int yr, boolean even) {
+    public int getAcYear(int yr, boolean even) {
         Query q;
         if (even) {
             q = em.createNamedQuery("FacultySubject.findByYearEven");
-        }
-        else {
+        } else {
             q = em.createNamedQuery("FacultySubject.findByYearOdd");
         }
         q.setParameter("yr", yr);
         //q.setParameter("idFaculty", idFaculty);
         return q.getFirstResult();
     }
-    
+
     /**
-     * Gets a list of FacultySubject for the specified division, semester, batch and subject entity
+     * Gets a list of FacultySubject for the specified division, semester, batch
+     * and subject entity
+     *
      * @param division
      * @param semester
      * @param batch
@@ -130,26 +136,49 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
      */
     public FacultySubject getFSBySemDivBatchSub(String division, short semester, short batch, Subject idSubject) {
         Query q;
-        if (semester %2 ==0)
+        if (semester % 2 == 0) {
             q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEven");
-        else
+        } else {
             q = em.createNamedQuery("FacultySubject.findBySemDivBatchSub");
- 
+        }
+
         q.setParameter("division", division);
         q.setParameter("batch", batch);
         q.setParameter("idSubject", idSubject);
         try {
-        List<FacultySubject> l = q.getResultList();
-        return l.get(0);
+            List<FacultySubject> l = q.getResultList();
+            return l.get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        catch (Exception e) {
+    }
+
+    public FacultySubject getFSBySemDivBatchSubYr(String division, short semester, short batch, Subject idSubject) {
+        Query q;
+        if (semester % 2 == 0) {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEvenYr");
+        } else {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubYr");
+        }
+        Integer yr = 2014;
+        q.setParameter("division", division);
+        q.setParameter("batch", batch);
+        q.setParameter("idSubject", idSubject);
+        q.setParameter("ac_yr", yr);
+        try {
+            List<FacultySubject> l = q.getResultList();
+            return l.get(0);
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
     /**
-     * Gets a list of FacultySubject for the specified division, semester and programcourse entity
+     * Gets a list of FacultySubject for the specified division, semester and
+     * programcourse entity
+     *
      * @param semester
      * @param division
      * @param programCourse
@@ -161,6 +190,6 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         q.setParameter("semester", semester);
         q.setParameter("programCourse", programCourse);
         return q.getResultList();
-   
+
     }
 }

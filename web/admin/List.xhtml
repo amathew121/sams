@@ -36,6 +36,7 @@
                 <br />
                 <p:commandButton value="Submit" action="#{facultySubjectViewController.navList()}" update =":tPlan" />
             </h:form>
+            <br />
             <h:form id="tPlan" styleClass="jsfcrud_list_form">
 
                 <h:panelGroup id="messagePanel" layout="block">
@@ -44,14 +45,14 @@
                 <h:panelGroup style="text-align: center">
                     <p:dataTable value="#{facultySubjectViewController.getListByDept(facultyController.getFaculty(facesContext.externalContext.remoteUser))}" var="item" >   
 
-                        <p:column>
+                        <p:column width="5%">
                             <f:facet name="header">
-                                <h:outputText value=""/>
+                                <h:outputText value="BE/ME"/>
                             </f:facet>
                             <h:outputText value="#{item.idProgram}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="Sem"/>
                             </f:facet>
@@ -59,44 +60,44 @@
                         </p:column>
 
 
-                        <p:column>
+                        <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="Div"/>
                             </f:facet>
                             <h:outputText value="#{item.division}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="35%">
                             <f:facet name="header">
                                 <h:outputText value="Subject Name"/>
                             </f:facet>
                             <h:outputText value="#{item.subjectName}"/>
                         </p:column>  
-                        <p:column>
+                        <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="Batch"/>
                             </f:facet>
                             <h:outputText value="#{item.batch}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column width="20%">
                             <f:facet name="header">
                                 <h:outputText value="Faculty Name"/>
                             </f:facet>
                             <h:outputText value="#{item.facultyFname}#{' '}#{item.facultyLname}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="7%">
                             <f:facet name="header">
                                 <h:outputText value="Planned" styleClass="whitespace:normal"/>
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size()}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="8%">
                             <f:facet name="header">
                                 <h:outputText value="Delivered" styleClass="whitespace:normal"/>
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size()}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Dashboard"/>
                             </f:facet>

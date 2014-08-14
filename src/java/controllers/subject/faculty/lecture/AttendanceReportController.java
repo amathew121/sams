@@ -271,7 +271,7 @@ public class AttendanceReportController implements Serializable {
     }
 
     /**
-     * Updates the selected Attendancereport entity in the database
+     * Updates the selected AttendanceReport entity in the database
      * @return
      */
     public String update() {

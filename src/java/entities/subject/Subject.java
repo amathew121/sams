@@ -44,6 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findBySubjectName", query = "SELECT s FROM Subject s WHERE s.subjectName = :subjectName"),
     @NamedQuery(name = "Subject.findByProgramCourse", query = "SELECT s FROM Subject s WHERE s.programCourse=:programCourse AND s.theory > 0 ORDER BY s.subjectSrNo"),
     @NamedQuery(name = "Subject.findBySemester", query = "SELECT s FROM Subject s WHERE s.semester = :semester AND s.programCourse=:programCourse ORDER BY s.subjectSrNo " ),
+    @NamedQuery(name = "Subject.findBySemesterHide", query = "SELECT s FROM Subject s WHERE s.semester = :semester AND s.programCourse=:programCourse AND s.subjectHide = :subHide ORDER BY s.subjectSrNo" ),
+
     @NamedQuery(name = "Subject.findByTheory", query = "SELECT s FROM Subject s WHERE s.theory = :theory"),
     @NamedQuery(name = "Subject.findByPractical", query = "SELECT s FROM Subject s WHERE s.practical = :practical"),
     @NamedQuery(name = "Subject.findByTutorial", query = "SELECT s FROM Subject s WHERE s.tutorial = :tutorial"),
@@ -113,6 +115,10 @@ public class Subject implements Serializable {
     @NotNull
     @Column(name = "credit_tutorial")
     private short creditTutorial;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "subject_hide")
+    private boolean subjectHide;
     @JoinColumns({
         @JoinColumn(name = "id_program", referencedColumnName = "id_program"),
         @JoinColumn(name = "id_course", referencedColumnName = "id_course")})
@@ -499,5 +505,13 @@ public class Subject implements Serializable {
      */
     public void setStudentTestList(List<StudentTest> studentTestList) {
         this.studentTestList = studentTestList;
+    }
+
+    public boolean isSubjectHide() {
+        return subjectHide;
+    }
+
+    public void setSubjectHide(boolean subjectHide) {
+        this.subjectHide = subjectHide;
     }
     }

@@ -55,17 +55,20 @@
             <h:form id="attendanceList">
                 <p:dataTable id="tbl" rendered="#{currentStudentController.subject.size()>0}" value="#{currentStudentController.attendanceList}"  var="c">
 
-                    
+                    <p:column headerText="Adm No." width="10%">
+                        <h:outputText value="#{c.admnNo.admnNo}"/>
 
-                    <p:column headerText="No">
+                    </p:column>
+
+                    <p:column headerText="No" width="5%">
                         <h:outputText value="#{c.rollNo}"/>
 
                     </p:column>
-                    <p:column headerText="B">
+                    <p:column headerText="B" width="5%">
                         <h:outputText value="#{c.batch}"/>
 
                     </p:column>
-                    <p:column headerText="Name">
+                    <p:column headerText="Name" width="20%">
                         <h:outputText value="#{c.admnNo.studentName}"/>
                     </p:column>
                     

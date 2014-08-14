@@ -50,6 +50,15 @@ public class SubjectFacade extends AbstractFacade<Subject> {
         q.setParameter("programCourse", programCourse);
         return q.getResultList();
     }
+    
+    public List<Subject> findSubjectBySemesterHide(ProgramCourse programCourse, short semester) {
+        boolean subHide = true;
+        Query q = em.createNamedQuery("Subject.findBySemesterHide");
+        q.setParameter("semester", semester);
+        q.setParameter("programCourse", programCourse);
+        q.setParameter("subHide", subHide);
+        return q.getResultList();
+    }
 
     /**
      * gets the list of subjects for the specified course

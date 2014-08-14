@@ -95,15 +95,15 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdProgram(program.getIdProgram());
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
-        subject = sc.getSubjectBySemester(pc, semester);
+        subject = sc.getSubjectBySemesterHide(pc, semester);
         
         Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
-            final FacultySubject facultySubject = fsc.getIdFacSub(division, semester, (short) 0, item);
+            final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
             if (facultySubject == null) {
                 continue;
-            }
+            }/*
             else {
                 int subj_yr;
                 subj_yr = currentYear.getYear()+1900;
@@ -111,7 +111,7 @@ public class CurrentStudentController implements Serializable {
                     subject.remove(item);
                     continue;
                 }
-            }
+            }*/
         }
         return "ReportAllNew?faces-redirect=true";
     }
@@ -257,7 +257,7 @@ public class CurrentStudentController implements Serializable {
             att.add(ae);
             try {
                 attendanceController.createEntry(ae);
-            } catch (NullPointerException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
             }
             attendanceController.create();
@@ -304,7 +304,7 @@ public class CurrentStudentController implements Serializable {
         Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
-            final FacultySubject facultySubject = fsc.getIdFacSub(division, semester, (short) 0, item);
+            final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
             if (facultySubject == null) {
                 continue;
             }

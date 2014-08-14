@@ -75,6 +75,9 @@ public class SubjectController implements Serializable {
     public List<Subject> getSubjectBySemester(ProgramCourse programCourse, short semester) {
         return getFacade().findSubjectBySemester(programCourse, semester);
     }
+    public List<Subject> getSubjectBySemesterHide(ProgramCourse programCourse, short semester) {
+        return getFacade().findSubjectBySemesterHide(programCourse, semester);
+    }
 
     private SubjectFacade getFacade() {
         return ejbFacade;
