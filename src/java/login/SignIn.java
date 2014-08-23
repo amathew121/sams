@@ -106,7 +106,7 @@ public class SignIn implements Serializable {
                     request.login(user.getIdFaculty(), pass);
                     request.getServletContext().log("successfully logged in " + user.getIdFaculty());
                 } catch (ServletException e) {
-                JsfUtil.addErrorMessage(e,"Login Failed");
+                    JsfUtil.addErrorMessage(e,"Login Failed");
                     return "/error.xhtml";
                 }
             } else {

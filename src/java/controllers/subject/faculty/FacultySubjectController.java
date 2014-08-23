@@ -33,6 +33,7 @@ import javax.inject.Named;
 public class FacultySubjectController implements Serializable {
 
     private FacultySubject current;
+    private Integer ac_yr;
     private DataModel items = null;
     @EJB
     private beans.subject.faculty.FacultySubjectFacade ejbFacade;
@@ -166,10 +167,22 @@ public class FacultySubjectController implements Serializable {
      *
      * @return
      */
-    public List<FacultySubject> getBatchesBySemDiv(){
+    public List<FacultySubject> getBatchesBySemDivOLD(){
 
         try {
         return getFacade().getFSBySemDivSub(c.getCoordinatorPK().getSemester(), c.getCoordinatorPK().getDivision(), c.getProgramCourse());
+        }
+        catch(Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public List<FacultySubject> getBatchesBySemDiv(){
+
+        //ac_yr = ac_year;
+        try {
+        return getFacade().getFSBySemDivSubYr(c.getCoordinatorPK().getSemester(), c.getCoordinatorPK().getDivision(), c.getProgramCourse(),ac_yr);
         }
         catch(Exception e ) {
             e.printStackTrace();
@@ -385,6 +398,14 @@ public class FacultySubjectController implements Serializable {
     public FacultySubject getIdFacSubYr(String division, short semester, short batch, Subject idSubject) {
 
         return getFacade().getFSBySemDivBatchSubYr(division, semester, batch, idSubject);
+    }
+
+    public Integer getAc_yr() {
+        return ac_yr;
+    }
+
+    public void setAc_yr(Integer ac_yr) {
+        this.ac_yr = ac_yr;
     }
 
     /**

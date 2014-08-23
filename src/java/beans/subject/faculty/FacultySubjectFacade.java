@@ -184,6 +184,15 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
      * @param programCourse
      * @return
      */
+    public List<FacultySubject> getFSBySemDivSubYr(short semester, String division, ProgramCourse programCourse, Integer ac_yr) {
+        Query q = em.createNamedQuery("FacultySubject.findBySemDivPCYr");
+        q.setParameter("division", division);
+        q.setParameter("semester", semester);
+        q.setParameter("programCourse", programCourse);
+        q.setParameter("ac_yr", ac_yr);
+        return q.getResultList();
+
+    }
     public List<FacultySubject> getFSBySemDivSub(short semester, String division, ProgramCourse programCourse) {
         Query q = em.createNamedQuery("FacultySubject.findBySemDivPC");
         q.setParameter("division", division);

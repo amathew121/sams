@@ -245,6 +245,8 @@ public class FacultyController implements Serializable {
             final String hash = DigestUtils.sha256Hex(oldPassword);
             if(hash.equals(current.getFacultyPassword())){
                 current.setFacultyPassword(newPassword);
+                String oauthCode = DigestUtils.sha256Hex(current.getFacultyPassword()+DigestUtils.sha256Hex(current.getOauthToken()));
+                current.setOauthCode(oauthCode);
             }
             else{
                 JsfUtil.addErrorMessage("Old Password is wrong");

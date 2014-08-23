@@ -43,6 +43,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -96,22 +97,22 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
         subject = sc.getSubjectBySemesterHide(pc, semester);
-        
-        Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
+
+        Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
             final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
             if (facultySubject == null) {
                 continue;
             }/*
-            else {
-                int subj_yr;
-                subj_yr = currentYear.getYear()+1900;
-                if (facultySubject.getAcademicYear() != subj_yr){
-                    subject.remove(item);
-                    continue;
-                }
-            }*/
+             else {
+             int subj_yr;
+             subj_yr = currentYear.getYear()+1900;
+             if (facultySubject.getAcademicYear() != subj_yr){
+             subject.remove(item);
+             continue;
+             }
+             }*/
         }
         return "ReportAllNew?faces-redirect=true";
     }
@@ -121,7 +122,7 @@ public class CurrentStudentController implements Serializable {
      */
     public CurrentStudentController() {
     }
-    @ManagedProperty(value = "#{attendanceController}")
+    @Inject
     private AttendanceController attendanceController;
 
     /**
@@ -257,10 +258,11 @@ public class CurrentStudentController implements Serializable {
             att.add(ae);
             try {
                 attendanceController.createEntry(ae);
+                attendanceController.create();
             } catch (Exception ex) {
                 Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            attendanceController.create();
+            // attendanceController.create();
 
 
         }
@@ -301,7 +303,7 @@ public class CurrentStudentController implements Serializable {
 
         List<CurrentStudent> lcs = getFacade().getCurrentStudentByDivTheory(pc, semester, division, currentYear);
 
-        Subject[] subjectList =subject.toArray(new Subject[subject.size()]);
+        Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
             final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);

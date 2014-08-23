@@ -28,6 +28,7 @@ import javax.faces.model.SelectItem;
 public class CoordinatorController implements Serializable {
 
     private Coordinator current;
+    private Integer academic_year;
     private DataModel items = null;
     @EJB
     private beans.users.CoordinatorFacade ejbFacade;
@@ -273,9 +274,23 @@ public class CoordinatorController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+    
+    //not working
+    public <List>Coordinator getItemsAvailableSelectOneN() {
+              
+       return ejbFacade.findByUserYr();
+    }
 
     public Coordinator getCoordinator(entities.users.CoordinatorPK id) {
         return ejbFacade.find(id);
+    }
+
+    public Integer getAcademic_year() {
+        return academic_year;
+    }
+
+    public void setAcademic_year(Integer academic_year) {
+        this.academic_year = academic_year;
     }
 
     /**

@@ -706,7 +706,7 @@ public class LectureController implements Serializable {
      *
      * @param lec
      * @return
-     * @throws Exception
+     * @throws Exceptionller) context.getELContext().getELResolver().getValue(context.getELContext(), 
      */
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();

@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Creates POJO Entity for table 'coordinator'
+ *
  * @author piit
  */
 @Entity
@@ -26,8 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Coordinator.findAll", query = "SELECT c FROM Coordinator c"),
-        @NamedQuery(name = "Coordinator.findByFaculty", query = "SELECT c FROM Coordinator c WHERE c.faculty = :faculty"),
-
+    @NamedQuery(name = "Coordinator.findByFaculty", query = "SELECT c FROM Coordinator c WHERE c.faculty = :faculty"),
     @NamedQuery(name = "Coordinator.findByIdFaculty", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idFaculty = :idFaculty"),
     @NamedQuery(name = "Coordinator.findByIdProgram", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idProgram = :idProgram"),
     @NamedQuery(name = "Coordinator.findByIdCourse", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.idCourse = :idCourse"),
@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Coordinator.findByDivision", query = "SELECT c FROM Coordinator c WHERE c.coordinatorPK.division = :division"),
     @NamedQuery(name = "Coordinator.findByAcYear", query = "SELECT c FROM Coordinator c WHERE c.acYear = :acYear")})
 public class Coordinator implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CoordinatorPK coordinatorPK;
     @Column(name = "ac_year")
@@ -58,6 +58,7 @@ public class Coordinator implements Serializable {
 
     /**
      * creates Coordinator Entity with the specified coordinatorPK
+     *
      * @param coordinatorPK
      */
     public Coordinator(CoordinatorPK coordinatorPK) {
@@ -65,7 +66,9 @@ public class Coordinator implements Serializable {
     }
 
     /**
-     * creates Coordinator Entity with the specified id_faculty, id_program, id_course, semester and division
+     * creates Coordinator Entity with the specified id_faculty, id_program,
+     * id_course, semester and division
+     *
      * @param idFaculty
      * @param idProgram
      * @param idCourse
@@ -78,6 +81,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Get coordinatorPK from Coordinator Entity
+     *
      * @return
      */
     public CoordinatorPK getCoordinatorPK() {
@@ -86,6 +90,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Set coordinatorPK for Coordinator Entity
+     *
      * @param coordinatorPK
      */
     public void setCoordinatorPK(CoordinatorPK coordinatorPK) {
@@ -94,6 +99,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Get ac_year from Coordinator Entity
+     *
      * @return
      */
     public Integer getAcYear() {
@@ -102,6 +108,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Set ac_year for Coordinator Entity
+     *
      * @param acYear
      */
     public void setAcYear(Integer acYear) {
@@ -110,6 +117,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Get program_course from Coordinator Entity
+     *
      * @return
      */
     public ProgramCourse getProgramCourse() {
@@ -118,6 +126,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Set program_course for Coordinator Entity
+     *
      * @param programCourse
      */
     public void setProgramCourse(ProgramCourse programCourse) {
@@ -126,6 +135,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Get faculty from Coordinator Entity
+     *
      * @return
      */
     public Faculty getFaculty() {
@@ -134,6 +144,7 @@ public class Coordinator implements Serializable {
 
     /**
      * Set faculty for Coordinator Entity
+     *
      * @param faculty
      */
     public void setFaculty(Faculty faculty) {
@@ -164,5 +175,4 @@ public class Coordinator implements Serializable {
     public String toString() {
         return coordinatorPK.toString();
     }
-    
 }

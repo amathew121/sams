@@ -20,6 +20,7 @@ import javax.persistence.Query;
 public class CoordinatorFacade extends AbstractFacade<Coordinator> {
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
+  
 
     /**
      * Gets Entity Manager for the Coordinator EJB
@@ -48,6 +49,17 @@ public class CoordinatorFacade extends AbstractFacade<Coordinator> {
         q.setParameter("faculty", idFaculty);
         if(q.getResultList().size() >0)
         return (Coordinator) q.getResultList().get(0);
+        else
+            return null;
+    }
+    
+    public <List>Coordinator findByUserYr()
+    {
+        Query q = em.createNamedQuery("Coordinator.findByAcYear");
+        Integer acYear = 2014;
+        q.setParameter("acYear", acYear);
+        if(q.getResultList().size() >0)
+        return (Coordinator) q.getResultList();
         else
             return null;
     }

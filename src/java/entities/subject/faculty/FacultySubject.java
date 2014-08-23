@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Creates POJO Entity for table 'faculty_subject'
+ *
  * @author Ashish
  */
 @Entity
@@ -48,16 +49,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FacultySubject.findBySemDivBatchSubEven", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division AND MOD(f.idSubject.semester,2)=0 "),
     @NamedQuery(name = "FacultySubject.findBySemDivBatchSubYr", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division AND f.academicYear = :ac_yr"),
     @NamedQuery(name = "FacultySubject.findBySemDivBatchSubEvenYr", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject AND f.batch = :batch AND f.division = :division AND MOD(f.idSubject.semester,2)=0 AND f.academicYear = :ac_yr"),
-    
     @NamedQuery(name = "FacultySubject.findByYearEven", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty AND f.academicYear = :yr AND MOD(f.idSubject.semester,2)=0 "),
     @NamedQuery(name = "FacultySubject.findByYearOdd", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty AND f.academicYear = :yr AND MOD(f.idSubject.semester,2)<>0 "),
     @NamedQuery(name = "FacultySubject.findBySemDivPC", query = "SELECT f FROM FacultySubject f WHERE f.idSubject.semester = :semester AND f.division = :division AND f.idSubject.programCourse = :programCourse"),
+    @NamedQuery(name = "FacultySubject.findBySemDivPCYr", query = "SELECT f FROM FacultySubject f WHERE f.idSubject.semester = :semester AND f.division = :division AND f.idSubject.programCourse = :programCourse AND f.academicYear = :ac_yr"),
     @NamedQuery(name = "FacultySubject.findByIdFaculty", query = "SELECT f FROM FacultySubject f WHERE f.idFaculty = :idFaculty"),
     @NamedQuery(name = "FacultySubject.findByIdSubject", query = "SELECT f FROM FacultySubject f WHERE f.idSubject = :idSubject"),
     @NamedQuery(name = "FacultySubject.findByIdFacultySubject", query = "SELECT f FROM FacultySubject f WHERE f.idFacultySubject = :idFacultySubject"),
     @NamedQuery(name = "FacultySubject.findByDivision", query = "SELECT f FROM FacultySubject f WHERE f.division = :division"),
     @NamedQuery(name = "FacultySubject.findByBatch", query = "SELECT f FROM FacultySubject f WHERE f.batch = :batch")})
 public class FacultySubject implements Serializable {
+
     @Lob
     @Size(max = 65535)
     @Column(name = "feedback_review")
@@ -70,11 +72,9 @@ public class FacultySubject implements Serializable {
     private List<Feedback2013> feedback2013List;
     @Column(name = "academic_year")
     private Integer academicYear;
-    
     @Column(name = "ac_date")
     @Temporal(TemporalType.DATE)
     private Date acDate;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +109,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Creates FacultySubject Entity with the specified id_faculty_subject
+     *
      * @param idFacultySubject
      */
     public FacultySubject(Integer idFacultySubject) {
@@ -116,7 +117,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Creates FacultySubject Entity with the specified id_faculty_subject, division and batch
+     * Creates FacultySubject Entity with the specified id_faculty_subject,
+     * division and batch
+     *
      * @param idFacultySubject
      * @param division
      * @param batch
@@ -129,6 +132,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get id_faculty_Subject from FacultySubject Entity
+     *
      * @return
      */
     public Integer getIdFacultySubject() {
@@ -137,6 +141,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set id_faculty_subject for FacultySubject Entity
+     *
      * @param idFacultySubject
      */
     public void setIdFacultySubject(Integer idFacultySubject) {
@@ -145,6 +150,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get division from FacultySubject Entity
+     *
      * @return
      */
     public String getDivision() {
@@ -153,6 +159,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set division for FacultySubject Entity
+     *
      * @param division
      */
     public void setDivision(String division) {
@@ -161,25 +168,29 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get batch from FacultySubject Entity
+     *
      * @return
      */
     public short getBatch() {
         return batch;
     }
-    
+
     /**
      * Get batch_detail from FacultySubject Entity
+     *
      * @return
      */
     public String getBatchDetail() {
-        if (batch == 0)
+        if (batch == 0) {
             return "Theory";
-        else
+        } else {
             return "" + batch;
+        }
     }
 
     /**
      * Set batch for FacultySubject Entity
+     *
      * @param batch
      */
     public void setBatch(short batch) {
@@ -187,7 +198,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Gets collection of Lecture Entities for the FacultySubject Entity as a foreign key
+     * Gets collection of Lecture Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -196,7 +209,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Sets collection of Lecture Entities for the FacultySubject Entity as a foreign key
+     * Sets collection of Lecture Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @param lectureCollection
      */
     public void setLectureCollection(Collection<Lecture> lectureCollection) {
@@ -204,7 +219,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Gets collection of TeachingPlan Entities for the FacultySubject Entity as a foreign key
+     * Gets collection of TeachingPlan Entities for the FacultySubject Entity as
+     * a foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -213,7 +230,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Sets collection of TeachingPlan Entities for the FacultySubject Entity as a foreign key
+     * Sets collection of TeachingPlan Entities for the FacultySubject Entity as
+     * a foreign key
+     *
      * @param teachingPlanCollection
      */
     public void setTeachingPlanCollection(Collection<TeachingPlan> teachingPlanCollection) {
@@ -222,6 +241,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get id_subject from FacultySubject Entity
+     *
      * @return
      */
     public Subject getIdSubject() {
@@ -230,6 +250,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set id_subject for FacultySubject Entity
+     *
      * @param idSubject
      */
     public void setIdSubject(Subject idSubject) {
@@ -238,6 +259,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get id_faculty from FacultySubject Entity
+     *
      * @return
      */
     public Faculty getIdFaculty() {
@@ -246,6 +268,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set id_faculty for FacultySubject Entity
+     *
      * @param idFaculty
      */
     public void setIdFaculty(Faculty idFaculty) {
@@ -274,11 +297,12 @@ public class FacultySubject implements Serializable {
 
     @Override
     public String toString() {
-        return idFaculty.getIdFaculty() +" " +idSubject.toString()+"/"+division+"/"+batch;
+        return idFaculty.getIdFaculty() + " " + idSubject.toString() + "/" + division + "/" + batch;
     }
 
     /**
      * Get academic_year from FacultySubject Entity
+     *
      * @return
      */
     public Integer getAcademicYear() {
@@ -287,6 +311,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set academic_year from FacultySubject Entity
+     *
      * @param academicYear
      */
     public void setAcademicYear(Integer academicYear) {
@@ -294,7 +319,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Gets list of Feedback2013 Entities for the FacultySubject Entity as a foreign key
+     * Gets list of Feedback2013 Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -303,7 +330,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Sets list of Feedback2013 Entities for the FacultySubject Entity as a foreign key
+     * Sets list of Feedback2013 Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @param feedback2013List
      */
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
@@ -311,7 +340,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Gets list of Feedback2013Comments Entities for the FacultySubject Entity as a foreign key
+     * Gets list of Feedback2013Comments Entities for the FacultySubject Entity
+     * as a foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -320,7 +351,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Sets list of Feedback2013Comments Entities for the FacultySubject Entity as a foreign key
+     * Sets list of Feedback2013Comments Entities for the FacultySubject Entity
+     * as a foreign key
+     *
      * @param feedback2013CommentsList
      */
     public void setFeedback2013CommentsList(List<Feedback2013Comments> feedback2013CommentsList) {
@@ -329,6 +362,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Get feedback_review from FacultySubject Entity
+     *
      * @return
      */
     public String getFeedbackReview() {
@@ -337,6 +371,7 @@ public class FacultySubject implements Serializable {
 
     /**
      * Set feedback_review for FacultySubject Entity
+     *
      * @param feedbackReview
      */
     public void setFeedbackReview(String feedbackReview) {
@@ -344,7 +379,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Gets list of ReviewComments Entities for the FacultySubject Entity as a foreign key
+     * Gets list of ReviewComments Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -353,7 +390,9 @@ public class FacultySubject implements Serializable {
     }
 
     /**
-     * Sets list of ReviewComments Entities for the FacultySubject Entity as a foreign key
+     * Sets list of ReviewComments Entities for the FacultySubject Entity as a
+     * foreign key
+     *
      * @param reviewCommentsList
      */
     public void setReviewCommentsList(List<ReviewComments> reviewCommentsList) {
@@ -367,5 +406,4 @@ public class FacultySubject implements Serializable {
     public void setAcDate(Date acDate) {
         this.acDate = acDate;
     }
-    
 }
