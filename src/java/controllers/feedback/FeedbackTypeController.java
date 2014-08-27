@@ -137,6 +137,12 @@ public class FeedbackTypeController implements Serializable {
     public List<FeedbackType> getItems() {
         return getFacade().findAll();
     }
+    
+    public List<FeedbackType> getItemsDesc() {
+        
+        
+        return ejbFacade.findAllDesc();
+    }
 
     private void recreateModel() {
         items = null;

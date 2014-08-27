@@ -28,9 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "FeedbackType.findAll", query = "SELECT f FROM FeedbackType f"),
     @NamedQuery(name = "FeedbackType.findByIdFeedbackType", query = "SELECT f FROM FeedbackType f WHERE f.idFeedbackType = :idFeedbackType"),
+    @NamedQuery(name = "FeedbackType.findByIdFeedbackTypeDesc", query = "SELECT f FROM FeedbackType f ORDER BY f.idFeedbackType DESC"),
     @NamedQuery(name = "FeedbackType.findByDescr", query = "SELECT f FROM FeedbackType f WHERE f.descr = :descr"),
     @NamedQuery(name = "FeedbackType.findByYr", query = "SELECT f FROM FeedbackType f WHERE f.yr = :yr")})
 public class FeedbackType implements Serializable {
+
     @Column(name = "even")
     private Boolean even;
     private static final long serialVersionUID = 1L;
@@ -115,5 +117,4 @@ public class FeedbackType implements Serializable {
     public void setEven(Boolean even) {
         this.even = even;
     }
-    
 }

@@ -319,7 +319,7 @@
                                 </f:facet>
                                 <h:outputText value="#{c.marks}"/>
                             </p:column>
-                            <p:column width="10%">
+                            <p:column width="10%" rendered="false">
                                 <f:facet name="header">
                                     <h:outputText value="T2"/>
                                 </f:facet>
@@ -333,8 +333,9 @@
                              closable="true"  collapsed="true"
                              toggleSpeed="500" 
                              closeSpeed="500"
-                             rendered="#{facultySubjectViewController.modelByUserNameCurrent != null}" 
+                             rendered="false" 
                              >
+                       
                         <p:chart type="bar" 
                                  model="#{dashboardBean.feedbackBarChartModel}" 
                                  style="height:300px"/>

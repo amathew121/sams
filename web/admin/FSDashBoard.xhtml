@@ -176,8 +176,15 @@
                     <p:panel id="lectureSchedule">
                         <p:schedule id="schedule" rightHeaderTemplate="month" value="#{dashboardBean.eventModel}" />  
                     </p:panel>
-                    <p:panel id="feedback" >
-                        <p:chart type="bar" model="#{dashboardBean.feedbackBarChartModel}" style="height:300px"/>
+                    <p:panel id="feedback" 
+                             header="Feedback"  
+                             toggleable="true" 
+                             closable="true"  collapsed="true" rendered="false"
+                             toggleSpeed="500" 
+                             closeSpeed="500">
+                        <p:chart type="bar" 
+                                 model="#{dashboardBean.feedbackBarChartModelNew}" 
+                                 style="height:300px"/>
                     </p:panel>
                 </p:dashboard>  
 

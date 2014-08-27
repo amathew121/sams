@@ -87,8 +87,8 @@ public class Feedback2013Controller implements Serializable {
         FacultySubjectController fsController = findBean("facultySubjectController");
         FacultyController fController = findBean("facultyController");
         Faculty loggedUser = fController.getFaculty(userName);
-        for (FeedbackType item : ftController.getItems()) {
-            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr());
+        for (FeedbackType item : ftController.getItemsDesc()) {
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr()+" "+item.getYr());
             for (FacultySubject fs : fsController.getItemsByYear(loggedUser, item.getYr(), item.getEven())) {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
@@ -112,8 +112,8 @@ public class Feedback2013Controller implements Serializable {
             fcController.getFeedback2013CommentsList().clear();
         }
         performanceIndex = 0;
-        for (FeedbackType item : ftController.getItems()) {
-            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr());
+        for (FeedbackType item : ftController.getItemsDesc()) {
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr()+" "+item.getYr());
             for (FacultySubject fs : fsController.getItemsByYear(selectedFaculty, item.getYr(), item.getEven())) {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
