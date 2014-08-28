@@ -33,62 +33,62 @@
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q1.B">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1b}" valueChangeListener="#{studentTestController.testMarksChangedQ1B}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q1.C">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1c}" valueChangeListener="#{studentTestController.testMarksChangedQ1C}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q1.D">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1d}" valueChangeListener="#{studentTestController.testMarksChangedQ1D}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q1.E">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1e}" valueChangeListener="#{studentTestController.testMarksChangedQ1E}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q1.F">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1f}" valueChangeListener="#{studentTestController.testMarksChangedQ1F}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q2.A">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2a}" valueChangeListener="#{studentTestController.testMarksChangedQ2A}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q2.B">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2b}" valueChangeListener="#{studentTestController.testMarksChangedQ2B}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q3.A">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3a}" valueChangeListener="#{studentTestController.testMarksChangedQ3A}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
+
                         <p:column headerText="Q3.B">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3b}" valueChangeListener="#{studentTestController.testMarksChangedQ3B}" style="width: 50px" >
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
-                        
-                        
+
+
                         <p:column headerText="Total" width="10%">
                             <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks}" valueChangeListener="#{studentTestController.testMarksChanged}" style =" width: 60px">
                                 <p:ajax />
@@ -103,6 +103,16 @@
 
                     </p:dataTable>
                 </h:panelGroup>
+
+                <p:panel header="Export" style="width: 80px;">
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.jpg" 
+                                        style="width: 50px; height: 100%" />  
+                        <p:dataExporter type="xls" target="test" 
+                                        fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'TestReport'}" />  
+                    </h:commandLink>   
+                </p:panel>
+
             </h:form> 
         </ui:define>
     </ui:composition>
