@@ -35,6 +35,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StudentTest.findByMarks", query = "SELECT s FROM StudentTest s WHERE s.marks = :marks"),
     @NamedQuery(name = "StudentTest.findByTest", query = "SELECT s FROM StudentTest s WHERE s.studentTestPK.test = :test")})
 public class StudentTest implements Serializable {
+    @Column(name = "Q1B")
+    private BigDecimal q1b;
+    @Column(name = "Q1C")
+    private BigDecimal q1c;
+    @Column(name = "Q1D")
+    private BigDecimal q1d;
+    @Column(name = "Q1E")
+    private BigDecimal q1e;
+    @Column(name = "Q1F")
+    private BigDecimal q1f;
+    @Column(name = "Q2A")
+    private BigDecimal q2a;
+    @Column(name = "Q2B")
+    private BigDecimal q2b;
+    @Column(name = "Q3A")
+    private BigDecimal q3a;
+    @Column(name = "Q3B")
+    private BigDecimal q3b;
+    @Column(name = "Q1A")
+    private BigDecimal q1a;
      @Max(value=100)  @Min(value=-1)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "marks")
     private BigDecimal marks;
@@ -163,6 +183,86 @@ public class StudentTest implements Serializable {
      */
     public void setMarks(BigDecimal marks) {
         this.marks = marks;
+    }
+
+    public BigDecimal getQ1a() {
+        return q1a;
+    }
+
+    public void setQ1a(BigDecimal q1a) {
+        this.q1a = q1a;
+    }
+
+    public BigDecimal getQ1b() {
+        return q1b;
+    }
+
+    public void setQ1b(BigDecimal q1b) {
+        this.q1b = q1b;
+    }
+
+    public BigDecimal getQ1c() {
+        return q1c;
+    }
+
+    public void setQ1c(BigDecimal q1c) {
+        this.q1c = q1c;
+    }
+
+    public BigDecimal getQ1d() {
+        return q1d;
+    }
+
+    public void setQ1d(BigDecimal q1d) {
+        this.q1d = q1d;
+    }
+
+    public BigDecimal getQ1e() {
+        return q1e;
+    }
+
+    public void setQ1e(BigDecimal q1e) {
+        this.q1e = q1e;
+    }
+
+    public BigDecimal getQ1f() {
+        return q1f;
+    }
+
+    public void setQ1f(BigDecimal q1f) {
+        this.q1f = q1f;
+    }
+
+    public BigDecimal getQ2a() {
+        return q2a;
+    }
+
+    public void setQ2a(BigDecimal q2a) {
+        this.q2a = q2a;
+    }
+
+    public BigDecimal getQ2b() {
+        return q2b;
+    }
+
+    public void setQ2b(BigDecimal q2b) {
+        this.q2b = q2b;
+    }
+
+    public BigDecimal getQ3a() {
+        return q3a;
+    }
+
+    public void setQ3a(BigDecimal q3a) {
+        this.q3a = q3a;
+    }
+
+    public BigDecimal getQ3b() {
+        return q3b;
+    }
+
+    public void setQ3b(BigDecimal q3b) {
+        this.q3b = q3b;
     }
     
 }

@@ -210,11 +210,315 @@ public class StudentTestController implements Serializable {
         recreateModel();
         return "List";
     }
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1A(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1a(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1a(t.getQ1a());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1a(t.getQ1a());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+/**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1B(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1b(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1b(t.getQ1b());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1b(t.getQ1b());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
 
     /**
      *
      * @param e
      */
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1C(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1c(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1c(t.getQ1c());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1c(t.getQ1c());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1D(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1d(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1d(t.getQ1d());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1d(t.getQ1d());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1E(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1e(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1e(t.getQ1e());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1e(t.getQ1e());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ1F(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ1f(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ1f(t.getQ1f());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ1f(t.getQ1f());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ2A(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ2a(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ2a(t.getQ2a());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ2a(t.getQ2a());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ2B(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ2b(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ2b(t.getQ2b());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ2b(t.getQ2b());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ3A(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ3a(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ3a(t.getQ3a());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ3a(t.getQ3a());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
+    /**
+     *
+     * @param e
+     */
+    public void testMarksChangedQ3B(ValueChangeEvent e) {
+        //assign new value to localeCode
+        UIData data = (UIData) e.getComponent().findComponent("test");
+        CurrentStudent t = (CurrentStudent) data.getRowData();
+        StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
+
+        t.setQ3b(new BigDecimal(e.getNewValue().toString()));
+        if(temp != null) {
+        temp.setQ3b(t.getQ3b());
+        current = temp;
+        update();
+              
+        }
+        else {
+            current = new StudentTest();
+            current.setCurrentStudent(t);
+            current.setSubject(facSub.getIdSubject());
+            current.setQ3b(t.getQ3b());
+            StudentTestPK spk = new StudentTestPK();
+            spk.setTest((short) 1);
+            current.setStudentTestPK(spk);
+            create();
+            
+        }
+    }
+
+    
     public void testMarksChanged(ValueChangeEvent e) {
         //assign new value to localeCode
         UIData data = (UIData) e.getComponent().findComponent("test");
@@ -288,7 +592,17 @@ public class StudentTestController implements Serializable {
             if (temp != null) {
                 t.add(temp);
                 item.setMarks(temp.getMarks());
-
+                item.setQ1a(temp.getQ1a());
+                item.setQ1b(temp.getQ1b());
+                item.setQ1c(temp.getQ1c());
+                item.setQ1d(temp.getQ1d());
+                item.setQ1e(temp.getQ1e());
+                item.setQ1f(temp.getQ1f());
+                item.setQ2a(temp.getQ2a());
+                item.setQ2b(temp.getQ2b());
+                item.setQ3a(temp.getQ3a());
+                item.setQ3b(temp.getQ3b());
+               
             } 
             StudentTest temp2 = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 2);
 

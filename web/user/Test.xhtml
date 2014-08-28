@@ -9,37 +9,100 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Enter Test Marks"></h:outputText>
+            <h:outputText value="Enter Marks for TEST 1"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:outputText style="font-size: large;color: red" value="Please enter -1 for absentees"></h:outputText>
+            <h:outputText style="font-size: large;color: red" value="Please enter (-1) for absentees"></h:outputText>
 
             <h:form >
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />
 
             </h:form >
             <h:form id="form">
-                <p:dataTable id="test" value="#{studentTestController.testDetails}" var="c" style="width: 50%" >
-                    
-                    <p:column headerText="Student Name">
-                        <h:outputText value="#{c.rollNo}" />
-                    </p:column>
-                    <p:column headerText="Student Name">
-                        <h:outputText value="#{c.admnNo.studentName}" />
-                    </p:column>
-                    <p:column headerText="Test 1">
-                        <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks}" valueChangeListener="#{studentTestController.testMarksChanged}" >
-                            <p:ajax />
-                        </p:inputText>
-                    </p:column>
-                    <p:column headerText="Test 2">
-                        <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks2}" valueChangeListener="#{studentTestController.test2MarksChanged}" >
-                            <p:ajax />
-                        </p:inputText>
-                    </p:column>
-                    
+                <h:panelGroup style="text-align: center">
+                    <p:dataTable id="test" value="#{studentTestController.testDetails}" var="c" style="width: 95%">
 
-                </p:dataTable>
+                        <p:column headerText="RNo." width="4%">
+                            <h:outputText value="#{c.rollNo}" />
+                        </p:column>
+                        <p:column headerText="Student Name" width="20%">
+                            <h:outputText value="#{c.admnNo.studentName}" />
+                        </p:column>
+                        <p:column headerText="Q1.A">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1a}" valueChangeListener="#{studentTestController.testMarksChangedQ1A}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q1.B">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1b}" valueChangeListener="#{studentTestController.testMarksChangedQ1B}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q1.C">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1c}" valueChangeListener="#{studentTestController.testMarksChangedQ1C}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q1.D">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1d}" valueChangeListener="#{studentTestController.testMarksChangedQ1D}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q1.E">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1e}" valueChangeListener="#{studentTestController.testMarksChangedQ1E}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q1.F">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1f}" valueChangeListener="#{studentTestController.testMarksChangedQ1F}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q2.A">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2a}" valueChangeListener="#{studentTestController.testMarksChangedQ2A}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q2.B">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2b}" valueChangeListener="#{studentTestController.testMarksChangedQ2B}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q3.A">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3a}" valueChangeListener="#{studentTestController.testMarksChangedQ3A}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        <p:column headerText="Q3.B">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3b}" valueChangeListener="#{studentTestController.testMarksChangedQ3B}" style="width: 50px" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        
+                        
+                        <p:column headerText="Total" width="10%">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks}" valueChangeListener="#{studentTestController.testMarksChanged}" style =" width: 60px">
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Test 2" rendered="false">
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.marks2}" valueChangeListener="#{studentTestController.test2MarksChanged}" >
+                                <p:ajax />
+                            </p:inputText>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </h:panelGroup>
             </h:form> 
         </ui:define>
     </ui:composition>

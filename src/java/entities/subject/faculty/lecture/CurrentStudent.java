@@ -122,7 +122,28 @@ public class CurrentStudent implements Serializable {
     private boolean selectAll;
     @Transient
     private BigDecimal marks2;
-
+    
+    @Transient
+    private BigDecimal Q1a;
+    @Transient
+    private BigDecimal Q1b;
+    @Transient
+    private BigDecimal Q1c;
+    @Transient
+    private BigDecimal Q1d;
+    @Transient
+    private BigDecimal Q1e;
+    @Transient
+    private BigDecimal Q1f;
+    @Transient
+    private BigDecimal Q2a;
+    @Transient
+    private BigDecimal Q2b;
+    @Transient
+    private BigDecimal Q3a;
+    @Transient
+    private BigDecimal Q3b;
+   
     /**
      * TODO:
      * @return
@@ -562,5 +583,85 @@ public class CurrentStudent implements Serializable {
      */
     public void setProgramCourse(ProgramCourse programCourse) {
         this.programCourse = programCourse;
+    }
+
+    public BigDecimal getQ1a() {
+        return Q1a;
+    }
+
+    public void setQ1a(BigDecimal Q1a) {
+        this.Q1a = Q1a;
+    }
+
+    public BigDecimal getQ1b() {
+        return Q1b;
+    }
+
+    public void setQ1b(BigDecimal Q1b) {
+        this.Q1b = Q1b;
+    }
+
+    public BigDecimal getQ1c() {
+        return Q1c;
+    }
+
+    public void setQ1c(BigDecimal Q1c) {
+        this.Q1c = Q1c;
+    }
+
+    public BigDecimal getQ1d() {
+        return Q1d;
+    }
+
+    public void setQ1d(BigDecimal Q1d) {
+        this.Q1d = Q1d;
+    }
+
+    public BigDecimal getQ1e() {
+        return Q1e;
+    }
+
+    public void setQ1e(BigDecimal Q1e) {
+        this.Q1e = Q1e;
+    }
+
+    public BigDecimal getQ1f() {
+        return Q1f;
+    }
+
+    public void setQ1f(BigDecimal Q1f) {
+        this.Q1f = Q1f;
+    }
+
+    public BigDecimal getQ2a() {
+        return Q2a;
+    }
+
+    public void setQ2a(BigDecimal Q2a) {
+        this.Q2a = Q2a;
+    }
+
+    public BigDecimal getQ2b() {
+        return Q2b;
+    }
+
+    public void setQ2b(BigDecimal Q2b) {
+        this.Q2b = Q2b;
+    }
+
+    public BigDecimal getQ3a() {
+        return Q3a;
+    }
+
+    public void setQ3a(BigDecimal Q3a) {
+        this.Q3a = Q3a;
+    }
+
+    public BigDecimal getQ3b() {
+        return Q3b;
+    }
+
+    public void setQ3b(BigDecimal Q3b) {
+        this.Q3b = Q3b;
     }
 }
