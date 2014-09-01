@@ -203,7 +203,7 @@
                                      scrollable="true" scrollHeight="300" 
                                      value="#{subjectSyllabusController.getItemsUser(dashboardBean.getFacSub())}" var="item">
 
-                            <p:column >
+                            <p:column headerText="No.">
                                 <h:outputText value="#{item.moduleNo}" />
 
                             </p:column>
@@ -293,21 +293,21 @@
                                      scrollable="true" 
                                      scrollHeight="300" 
                                      value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
-
-                            <p:column width="10%">
+                                     
+                            <p:column  style="width: 20px">
                                 <f:facet name="header">
                                     <h:outputText value="No"/>
                                 </f:facet>
                                 <h:outputText value="#{c.rollNo}"/>
 
-                            </p:column>
-                            <p:column>
+                            </p:column >
+                            <p:column style="width: 220px">
                                 <f:facet name="header">
                                     <h:outputText value="Student Name"/>
                                 </f:facet>
                                 <h:outputText value="#{c.admnNo.studentName}"/>
                             </p:column>
-                            <p:column width="10%">
+                            <p:column style="width: 20px">
                                 <f:facet name="header">
                                     <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
                                 </f:facet>
