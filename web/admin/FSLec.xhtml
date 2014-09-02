@@ -47,7 +47,7 @@
             <h:form>
                 <p:dataTable value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
 
-                    <p:column>
+                    <p:column style="width: 70px">
                         <f:facet name="header">
                             <h:outputText value="Lecture Date"/>
                         </f:facet>
@@ -55,29 +55,29 @@
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column style="width: 50px">
                         <f:facet name="header">
-                            <h:outputText value="Lecture ID"/>
+                            <h:outputText value="Lecture Time"/>
                         </f:facet>
                         <h:outputText value="#{c.lectureStartTime}" >
                             <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="white-space: normal;">
+                    <p:column style="white-space: normal;width: 300px" >
                         <f:facet name="header">
                             <h:outputText value="Contents Delivered"/>
                         </f:facet>
                         <h:outputText value="#{c.contentDelivered}">
                         </h:outputText>
                     </p:column>
-                    <p:column style="white-space: normal;">
+                    <p:column style="white-space: normal; width: 200px">
                         <f:facet name="header">
                             <h:outputText value="Beyond Syllabus"/>
                         </f:facet>
                         <h:outputText value="#{c.contentBeyondSyllabus}">
                         </h:outputText>
                     </p:column>
-                    <p:column style="white-space: normal; width: 30px">
+                    <p:column style="white-space: normal; width: 70px">
                         <f:facet name="header">
                             <h:outputText value="Tags"/>
                         </f:facet>
@@ -87,14 +87,14 @@
                         </ui:repeat>
 
                     </p:column>
-                    <p:column>
+                    <p:column style="width: 50px">
                         <f:facet name="header">
                             <h:outputText value="Student Count"/>
                         </f:facet>
                         <h:outputText value="#{attendanceViewController.getAttendanceCount(lectureController.facSub,lectureController.getLectureByLecID(c.idLecture))}"/>
                     </p:column>
                     <p:ajax event="rowToggle" />  
-                    <p:column style="width:2%">  
+                    <p:column style="width:10px">  
                         <p:rowToggler />  
                     </p:column>  
 

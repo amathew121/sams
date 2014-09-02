@@ -12,7 +12,9 @@
             <h:outputText value="Enter Marks for TEST 1"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:outputText style="font-size: large;color: red" value="Please enter (-1) for absentees"></h:outputText>
+            <h:outputText style="font-size: large;color: red" value="Enter marks for all questions ('0' for Not Attempted Questions) and refresh the page to get the total marks displayed. " escape="false"></h:outputText>
+            <br />
+            <h:outputText style="font-size: large;color: red" value="Please enter (-1) for absentees in Total. " escape="false"></h:outputText>
 
             <h:form >
                 <p:growl id="growl" showDetail="true" autoUpdate="true" />

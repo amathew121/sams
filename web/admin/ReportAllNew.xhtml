@@ -71,7 +71,7 @@
                     <p:column headerText="Name" width="15%">
                         <h:outputText value="#{c.admnNo.studentName}"/>
                     </p:column>
-                    
+
                     <p:columns  columnIndexVar="i" var="x" value="#{currentStudentController.subject}" >
                         <f:facet name="header">
                             #{x.subjectCode}
@@ -81,7 +81,7 @@
                                 <h:outputText value="PR" />
                                 <h:outputText value="%" />
                                 <h:outputText value="%" />
-                                
+
                             </p:panelGrid>
                             <p:tooltip for="head" >
                                 <p:panelGrid columns="2">
@@ -104,16 +104,16 @@
                         <p:panelGrid columns="2"  
                                      columnClasses="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size() lt 0.5 ? 'low-attendance' : '' },#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
                                      >
-                        <h:outputText value="#{c.theoryCount[i+1]}" >
-                            <f:convertNumber pattern="#0" />
-                        </h:outputText>
+                            <h:outputText value="#{c.theoryCount[i+1]}" >
+                                <f:convertNumber pattern="#0" />
+                            </h:outputText>
                             <h:outputText value="#{c.pracsCount[i+1]}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
-                        <h:outputText 
-                            value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
-                            <f:convertNumber pattern="#0" />
-                        </h:outputText>
+                            <h:outputText 
+                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
+                                <f:convertNumber pattern="#0" />
+                            </h:outputText>
 
                             <h:outputText 
                                 class="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
@@ -121,22 +121,20 @@
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                         </p:panelGrid>
-                        
+
 
                     </p:columns>
 
-
-
-
-                    <p:column rendered="#{currentStudentController.subject.size()>0}" headerText="#{lectureController.lectureByFSListTotal}">
+                    <p:column width="5%" rendered="#{currentStudentController.subject.size()>0}" headerText="#{lectureController.lectureByFSListTotal}">
                         <h:outputText value="#{c.theoryCountTotal}"/>
                     </p:column>
-                    <p:column class="#{c.theoryCountTotal/lectureController.lectureByFSListTotal lt 50 ? 'low-attendance' : '' }" rendered="#{currentStudentController.subject.size()>0}" headerText="%">
+                    <p:column width="5%" class="#{c.theoryCountTotal/lectureController.lectureByFSListTotal lt 50 ? 'low-attendance' : '' }" rendered="#{currentStudentController.subject.size()>0}" headerText="%">
                         <h:outputText value="#{c.theoryCountTotal/lectureController.lectureByFSListTotal*100}" >
                             <f:convertNumber pattern="#0" />
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
+                
                 <p:panel header="Export" style="width: 80px;">
                     <h:commandLink action="#{currentStudentController.attendanceReportXlsExport()}">  
                         <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
@@ -144,7 +142,7 @@
                     </h:commandLink>  
                 </p:panel>
 
-           </h:form> 
+            </h:form> 
         </ui:define>
     </ui:composition>
 

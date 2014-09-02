@@ -294,14 +294,14 @@
                                      scrollHeight="300" 
                                      value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
                                      
-                            <p:column  style="width: 20px">
+                            <p:column  style="width: 15px">
                                 <f:facet name="header">
                                     <h:outputText value="No"/>
                                 </f:facet>
                                 <h:outputText value="#{c.rollNo}"/>
 
                             </p:column >
-                            <p:column style="width: 220px">
+                            <p:column style="width: 200px">
                                 <f:facet name="header">
                                     <h:outputText value="Student Name"/>
                                 </f:facet>
@@ -313,13 +313,13 @@
                                 </f:facet>
                                 <h:outputText value="#{c.count}"/>
                             </p:column>
-                            <p:column width="10%">
+                            <p:column style="width: 20px">
                                 <f:facet name="header">
                                     <h:outputText value="T1"/>
                                 </f:facet>
                                 <h:outputText value="#{c.marks}"/>
                             </p:column>
-                            <p:column width="10%" rendered="false">
+                            <p:column style="width: 20px" rendered="false">
                                 <f:facet name="header">
                                     <h:outputText value="T2"/>
                                 </f:facet>

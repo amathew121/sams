@@ -176,6 +176,57 @@
                     <p:panel id="lectureSchedule">
                         <p:schedule id="schedule" rightHeaderTemplate="month" value="#{dashboardBean.eventModel}" />  
                     </p:panel>
+                    
+                     <p:panel id ="students"  >
+                        <f:facet name="header">
+                            <p:outputLabel value="Students"/>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.jpg" 
+                                                style="width: 20px; height: 20px" />  
+                                <p:dataExporter type="xls" target="tbl" 
+                                                fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
+                            </h:commandLink>                         
+                        </f:facet>
+
+                        <p:dataTable id="tbl"  
+                                     scrollable="true" 
+                                     scrollHeight="300" 
+                                     value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
+                                     
+                            <p:column  style="width: 15px">
+                                <f:facet name="header">
+                                    <h:outputText value="No"/>
+                                </f:facet>
+                                <h:outputText value="#{c.rollNo}"/>
+
+                            </p:column >
+                            <p:column style="width: 200px">
+                                <f:facet name="header">
+                                    <h:outputText value="Student Name"/>
+                                </f:facet>
+                                <h:outputText value="#{c.admnNo.studentName}"/>
+                            </p:column>
+                            <p:column style="width: 20px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
+                                </f:facet>
+                                <h:outputText value="#{c.count}"/>
+                            </p:column>
+                            <p:column style="width: 20px">
+                                <f:facet name="header">
+                                    <h:outputText value="T1"/>
+                                </f:facet>
+                                <h:outputText value="#{c.marks}"/>
+                            </p:column>
+                            <p:column style="width: 20px" rendered="false">
+                                <f:facet name="header">
+                                    <h:outputText value="T2"/>
+                                </f:facet>
+                                <h:outputText value="#{c.marks2}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    
                     <p:panel id="feedback" 
                              header="Feedback"  
                              toggleable="true" 
