@@ -12,6 +12,7 @@ import entities.subject.faculty.StudentTestPK;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,8 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.CellEditEvent;
 
 /**
- *JSF Backing bean for studenttest Entity
+ * JSF Backing bean for studenttest Entity
+ *
  * @author Administrator
  */
 @Named("studentTestController")
@@ -49,7 +51,7 @@ public class StudentTestController implements Serializable {
     private int idFacSub;
 
     /**
-     *creating a backing bean
+     * creating a backing bean
      */
     public StudentTestController() {
     }
@@ -74,7 +76,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Gets the selected attendance entity
+     * Gets the selected attendance entity
+     *
      * @return
      */
     public StudentTest getSelected() {
@@ -102,8 +105,9 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Gets Pagination Helper to fetch range of items according to page.
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page. Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -124,7 +128,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Resets the list of items and navigates to List
+     * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -133,7 +138,9 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Sets the selected studenttest Entity to view more details.Navigation case to Vie
+     * Sets the selected studenttest Entity to view more details.Navigation case
+     * to Vie
+     *
      * @return
      */
     public String prepareView() {
@@ -143,7 +150,9 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Navigation case to Create page after initializing a new studenttest Entity
+     * Navigation case to Create page after initializing a new studenttest
+     * Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -154,7 +163,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -171,8 +181,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Sets the selected item for editing.
-     * Navigation case to Edit page.
+     * Sets the selected item for editing. Navigation case to Edit page.
+     *
      * @return
      */
     public String prepareEdit() {
@@ -182,7 +192,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Updates the selected studenttest entity in the database
+     * Updates the selected studenttest entity in the database
+     *
      * @return
      */
     public String update() {
@@ -199,7 +210,9 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Destroys the selected studenttest entity, and deletes it from the database
+     * Destroys the selected studenttest entity, and deletes it from the
+     * database
+     *
      * @return
      */
     public String destroy() {
@@ -210,10 +223,30 @@ public class StudentTestController implements Serializable {
         recreateModel();
         return "List";
     }
+
     /**
      *
      * @param e
      */
+    public BigDecimal testMarksCalc(CurrentStudent item) {
+        double total = 0, minQ1 = 0;
+        if (item.getQ1a() != null && item.getQ1b() != null && item.getQ1c() != null && item.getQ1d() != null && item.getQ1e() != null && item.getQ1f() != null && item.getQ2a() != null && item.getQ2b() != null && item.getQ3a() != null && item.getQ3b() != null) {
+
+            minQ1 = Math.min(Math.min(Math.min(item.getQ1a().doubleValue(), item.getQ1b().doubleValue()), Math.min(item.getQ1c().doubleValue(), item.getQ1d().doubleValue())), Math.min(item.getQ1e().doubleValue(), item.getQ1f().doubleValue()));
+
+            total += item.getQ2a().doubleValue() > item.getQ2b().doubleValue() ? item.getQ2a().doubleValue() : item.getQ2b().doubleValue();
+            total += item.getQ3a().doubleValue() > item.getQ3b().doubleValue() ? item.getQ3a().doubleValue() : item.getQ3b().doubleValue();
+
+            total += item.getQ1a().doubleValue() + item.getQ1b().doubleValue() + item.getQ1c().doubleValue() + item.getQ1d().doubleValue() + item.getQ1e().doubleValue() + item.getQ1f().doubleValue();
+            total -= minQ1;
+
+        }
+
+        BigDecimal Total = new BigDecimal(total);
+        item.setMarks(Total);
+        return Total;
+    }
+
     public void testMarksChangedQ1A(ValueChangeEvent e) {
         //assign new value to localeCode
         UIData data = (UIData) e.getComponent().findComponent("test");
@@ -221,25 +254,28 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1a(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1a(t.getQ1a());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1a(t.getQ1a());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1a(t.getQ1a());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
-/**
+
+    /**
      *
      * @param e
      */
@@ -250,22 +286,24 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1b(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1b(t.getQ1b());
-        current = temp;
-        update();
-              
-        }
-        else {
+          t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1b(t.getQ1b());
+             temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1b(t.getQ1b());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
@@ -284,26 +322,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1c(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1c(t.getQ1c());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1c(t.getQ1c());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1c(t.getQ1c());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     /**
      *
      * @param e
@@ -315,26 +354,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1d(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1d(t.getQ1d());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1d(t.getQ1d());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1d(t.getQ1d());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     /**
      *
      * @param e
@@ -346,26 +386,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1e(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1e(t.getQ1e());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1e(t.getQ1e());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1e(t.getQ1e());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     /**
      *
      * @param e
@@ -377,22 +418,24 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ1f(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ1f(t.getQ1f());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ1f(t.getQ1f());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ1f(t.getQ1f());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
@@ -407,26 +450,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ2a(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ2a(t.getQ2a());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ2a(t.getQ2a());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ2a(t.getQ2a());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     /**
      *
      * @param e
@@ -438,22 +482,24 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ2b(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ2b(t.getQ2b());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ2b(t.getQ2b());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ2b(t.getQ2b());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
@@ -468,26 +514,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ3a(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ3a(t.getQ3a());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ3a(t.getQ3a());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ3a(t.getQ3a());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     /**
      *
      * @param e
@@ -499,26 +546,27 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setQ3b(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setQ3b(t.getQ3b());
-        current = temp;
-        update();
-              
-        }
-        else {
+        t.setMarks(testMarksCalc(t));
+        if (temp != null) {
+            temp.setQ3b(t.getQ3b());
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
             current.setQ3b(t.getQ3b());
+            current.setMarks(t.getMarks());
             StudentTestPK spk = new StudentTestPK();
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
 
-    
     public void testMarksChanged(ValueChangeEvent e) {
         //assign new value to localeCode
         UIData data = (UIData) e.getComponent().findComponent("test");
@@ -526,13 +574,12 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 1);
 
         t.setMarks(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setMarks(t.getMarks());
-        current = temp;
-        update();
-              
-        }
-        else {
+        if (temp != null) {
+            temp.setMarks(t.getMarks());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
@@ -541,10 +588,10 @@ public class StudentTestController implements Serializable {
             spk.setTest((short) 1);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
-    
+
     /**
      *
      * @param e
@@ -556,13 +603,12 @@ public class StudentTestController implements Serializable {
         StudentTest temp = getFacade().getStudentTestMarks(t, facSub.getIdSubject(), (short) 2);
 
         t.setMarks2(new BigDecimal(e.getNewValue().toString()));
-        if(temp != null) {
-        temp.setMarks(t.getMarks2());
-        current = temp;
-        update();
-              
-        }
-        else {
+        if (temp != null) {
+            temp.setMarks(t.getMarks2());
+            current = temp;
+            update();
+
+        } else {
             current = new StudentTest();
             current.setCurrentStudent(t);
             current.setSubject(facSub.getIdSubject());
@@ -571,14 +617,13 @@ public class StudentTestController implements Serializable {
             spk.setTest((short) 2);
             current.setStudentTestPK(spk);
             create();
-            
+
         }
     }
-    
+
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     public List<CurrentStudent> getTestDetails() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -602,15 +647,16 @@ public class StudentTestController implements Serializable {
                 item.setQ2b(temp.getQ2b());
                 item.setQ3a(temp.getQ3a());
                 item.setQ3b(temp.getQ3b());
-               
-            } 
+
+
+            }
             StudentTest temp2 = getFacade().getStudentTestMarks(item, facSub.getIdSubject(), (short) 2);
 
             if (temp2 != null) {
                 t.add(temp2);
                 item.setMarks2(temp2.getMarks());
 
-            } 
+            }
         }
 
         return l;
@@ -647,7 +693,7 @@ public class StudentTestController implements Serializable {
 
         return l;
     }
-    
+
     /**
      *
      * @param event
@@ -723,7 +769,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Gets All studenttest entities as few items one at a time
+     * Gets All studenttest entities as few items one at a time
+     *
      * @return
      */
     public DataModel getItems() {
@@ -742,7 +789,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Navigation case to next page with next items
+     * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -752,7 +800,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -762,7 +811,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Gets list of all studenttest entities to be able to select many from it
+     * Gets list of all studenttest entities to be able to select many from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -770,7 +820,8 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Gets list of all studenttest entities to be able to select one from it
+     * Gets list of all studenttest entities to be able to select one from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -782,7 +833,7 @@ public class StudentTestController implements Serializable {
     }
 
     /**
-     *Converter Class for studenttest Entity
+     * Converter Class for studenttest Entity
      */
     @FacesConverter(forClass = StudentTest.class)
     public static class StudentTestControllerConverter implements Converter {
