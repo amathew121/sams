@@ -399,7 +399,7 @@ public class CurrentStudentController implements Serializable {
         XLSTransformer transformer = new XLSTransformer();
         try {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            InputStream input = externalContext.getResourceAsStream("/resources/templateAttendance_Adm.xls");
+            InputStream input = externalContext.getResourceAsStream("/resources/templateAttendance_Adm_Test.xls");
             ServletOutputStream out = response.getOutputStream();
             HSSFWorkbook workbook = transformer.transformXLS(input, beans);
             workbook.write(out);

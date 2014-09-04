@@ -10,7 +10,7 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Faculty Subject Information"></h:outputText>
+            <h:outputText value=" Attendance Report "></h:outputText>
         </ui:define>
         <ui:define name="body"> 
             <h:form>
@@ -76,12 +76,13 @@
                         <f:facet name="header">
                             #{x.subjectCode}
                             <br/>
-                            <p:panelGrid id="head" columns="2">
+                            <p:panelGrid id="head" columns="3">
                                 <h:outputText value="#{'TH-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size()}" />
                                 <h:outputText value="PR" />
+                                <h:outputText value="T1" />
                                 <h:outputText value="%" />
                                 <h:outputText value="%" />
-
+                                <h:outputText value="%" />
                             </p:panelGrid>
                             <p:tooltip for="head" >
                                 <p:panelGrid columns="2">
@@ -101,13 +102,16 @@
 
 
                         </f:facet>
-                        <p:panelGrid columns="2"  
-                                     columnClasses="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size() lt 0.5 ? 'low-attendance' : '' },#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
+                        <p:panelGrid columns="3"  
+                                     columnClasses="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size() lt 0.5 ? 'low-attendance' : '' },#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSub(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' },#{c.marksAll[i+1]*5 lt 40 ? 'low-attendance' : '' }"
                                      >
                             <h:outputText value="#{c.theoryCount[i+1]}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText value="#{c.pracsCount[i+1]}" >
+                                <f:convertNumber pattern="#0" />
+                            </h:outputText>
+                            <h:outputText value="#{c.marksAll[i+1]}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
@@ -116,8 +120,12 @@
                             </h:outputText>
 
                             <h:outputText 
-                                class="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  c.batch, x)).size() lt 0.5 ? 'low-attendance' : '' }"
                                 value="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester, c.batch , x)).size()*100}" >
+                                <f:convertNumber pattern="#0" />
+                            </h:outputText>
+                            <h:outputText 
+                                class="#{c.marksAll[i+1]*5 lt 40 ? 'low-attendance' : '' }"
+                                value="#{c.marksAll[i+1]*5}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                         </p:panelGrid>
@@ -134,7 +142,7 @@
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
-                
+
                 <p:panel header="Export" style="width: 80px;">
                     <h:commandLink action="#{currentStudentController.attendanceReportXlsExport()}">  
                         <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
