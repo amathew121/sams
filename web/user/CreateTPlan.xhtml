@@ -63,94 +63,94 @@
 
             </h:form>
             <h:form rendered="#{teachingPlanController.itemsUser.rowCount == 0}">
-                <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
+                <p:commandLink  rendered="false" value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
 
             </h:form>
-        <h:form >
-            <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+            <h:form >
+                <p:commandLink  value="View Subject Syllabus" action="#{subjectSyllabusController.prepareSubjectSyllabus(teachingPlanController.facSub.idSubject)}" />
+                <br />
+                <p:commandLink  value="View Subject Objective" action="#{subjectObjectiveController.prepareSubjectObjective(teachingPlanController.facSub.idSubject)}" />
+                <br />
+                <p:commandLink  value="View Subject Outcome" action="#{subjectOutcomeController.prepareSubjectOutcome(teachingPlanController.facSub.idSubject)}" />
+                <br />
+                <p:commandLink  value="View Subject Books" action="#{subjectBookController.prepareSubjectBook(teachingPlanController.facSub.idSubject)}" />
+                <br />
+                <p:commandLink  value="View Subject Evaluation Scheme" action="#{subjectEvaluationController.prepareSubjectEvaluation(teachingPlanController.facSub.idSubject)}" />
+
+            </h:form>
             <br />
-            <p:commandLink  value="View Subject Objective" action="#{subjectObjectiveController.prepareSubjectObjective(teachingPlanController.facSub.idSubject)}" />
-            <br />
-            <p:commandLink  value="View Subject Outcome" action="#{subjectOutcomeController.prepareSubjectOutcome(teachingPlanController.facSub.idSubject)}" />
-            <br />
-            <p:commandLink  value="View Subject Books" action="#{subjectBookController.prepareSubjectBook(teachingPlanController.facSub.idSubject)}" />
-            <br />
-            <p:commandLink  value="View Subject Evaluation Scheme" action="#{subjectEvaluationController.prepareSubjectEvaluation(teachingPlanController.facSub.idSubject)}" />
+            <h:form id ="teachPlanForm">
+                <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 
-        </h:form>
-        <br />
-        <h:form id ="teachPlanForm">
-            <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
+                    <p:column style="width: 20px">
+                        <f:facet name="header">
+                            L.No
+                        </f:facet>
+                        #{c.t.lectureNo}
+                    </p:column>
+                    <p:column style="width: 20px">
+                        <f:facet name="header">
+                            M.No
+                        </f:facet>
+                        #{c.t.moduleNo}
+                    </p:column>
 
-                <p:column>
-                    <f:facet name="header">
-                        L.No
-                    </f:facet>
-                    #{c.t.lectureNo}
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        M.No
-                    </f:facet>
-                    #{c.t.moduleNo}
-                </p:column>
+                    <p:column style="width: 300px; white-space: normal " >
+                        <f:facet name="header">
+                            Topics Planned
+                        </f:facet>
+                        #{c.t.topicsPlanned}
 
-                <p:column style="width: 40%; white-space: normal " >
-                    <f:facet name="header">
-                        Topics Planned
-                    </f:facet>
-                    #{c.t.topicsPlanned}
+                    </p:column>
+                    <p:column style="width: 300px; white-space: normal " >
+                        <f:facet name="header">
+                            Contents Delivered
+                        </f:facet>
+                        #{c.l.contentDelivered}
 
-                </p:column>
-                <p:column style="width: 40%; white-space: normal " >
-                    <f:facet name="header">
-                        Contents Delivered
-                    </f:facet>
-                    #{c.l.contentDelivered}
+                    </p:column>
+                    <p:column style="width: 60px">
+                        <f:facet name="header">
+                            Planned on
+                        </f:facet>
+                        <h:outputText value="#{c.t.plannedDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width: 60px">
+                        <f:facet name="header">
+                            Delivered on
+                        </f:facet>
+                        <h:outputText value="#{c.l.lectureDate}">
+                            <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
+                        </h:outputText>
+                    </p:column >
 
-                </p:column>
-                <p:column >
-                    <f:facet name="header">
-                        Planned on
-                    </f:facet>
-                    <h:outputText value="#{c.t.plannedDate}">
-                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                    </h:outputText>
-                </p:column>
-                <p:column >
-                    <f:facet name="header">
-                        Delivered on
-                    </f:facet>
-                    <h:outputText value="#{c.l.lectureDate}">
-                        <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
-                    </h:outputText>
-                </p:column>
+                    <p:column style="width:15px">  
 
-                                <p:column style="width:70px">  
+                        <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c.t)}" >
 
-                    <h:commandLink title="Delete" action="#{teachingPlanController.destroyTP(c.t)}" >
+                            <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
+                        </h:commandLink>
 
-                        <p:graphicImage style="width: 20px; height: 20px" value="/resources/images/deletebin.jpg" />  
-                    </h:commandLink>
-                    
-                </p:column>  
-                <p:column style="width:70px">  
+                    </p:column>  
+                    <p:column style="width:15px">  
 
-                    <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c.t)}" >
-                        <p:graphicImage style="width: 30px; height: 30px" value="/resources/images/editicon.jpg" />  
-                    </h:commandLink>
-                </p:column>
-          </p:dataTable>
+                        <h:commandLink title="Edit"  action="#{teachingPlanController.prepareUpdateTP(c.t)}" >
+                            <p:graphicImage style="width: 30px; height: 30px" value="/resources/images/editicon.jpg" />  
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
 
-            <p:panel header="Export" style="width: 80px;">
-                <h:commandLink action="#{teachingPlanController.teachingPlanXlsExport()}">  
-                    <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
+                <p:panel header="Export" style="width: 80px;">
+                    <h:commandLink action="#{teachingPlanController.teachingPlanXlsExport()}">  
+                        <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
 
-                </h:commandLink>  
-            </p:panel>
+                    </h:commandLink>  
+                </p:panel>
 
-        </h:form>
-    </ui:define>
-</ui:composition>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 
 </html>
