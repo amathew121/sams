@@ -25,14 +25,13 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 @Named("feedbackChartController")
 @SessionScoped
 public class FeedbackChartController implements Serializable {
-    
+
     @EJB
     private beans.feedback.Feedback2013Facade ejbFacade;
     private HorizontalBarChartModel barModel;
-    
     private FeedbackType feedbackType;
     private Feedback2013Question feedbackQuestion;
-    
+
     @PostConstruct
     public void init() {
         createBarModel();
@@ -54,9 +53,9 @@ public class FeedbackChartController implements Serializable {
     public void setQuestion(Feedback2013Question fQuestion) {
         this.feedbackQuestion = fQuestion;
     }
-    
+
     private void createBarModel() {
-        barModel = initBarModel(130,4);
+        barModel = initBarModel(130, 4);
 
         barModel.setTitle("I would like the teacher to continue for the subject.");
         barModel.setLegendPosition("ne");
@@ -77,8 +76,10 @@ public class FeedbackChartController implements Serializable {
         sd.setLabel("Disagree -> 2*SD + DD");
         ChartSeries sa = new ChartSeries();
         sa.setLabel("Agree -> 2*SA + AA");
+        ChartSeries net = new ChartSeries();
+        net.setLabel("NET -> 2*SA + AA - (2*SD + DD)");
 
-        List<Object[]> l = getFeedbackByQuestion(qid,type);
+        List<Object[]> l = getFeedbackByQuestion(qid, type);
 
         for (Object[] item : l) {
 
@@ -91,6 +92,12 @@ public class FeedbackChartController implements Serializable {
                     }
                     x = x - (2 * (Long) item[3]);
                     sd.set((FacultySubject) item[0], x);
+                    x = (Long) net.getData().get((FacultySubject) item[0]);
+                    if (x == null) {
+                        x = 0l;
+                    }
+                    x = x - (2 * (Long) item[3]);
+                    net.set((FacultySubject) item[0], x);
                     break;
                 case 2:
                     x = (Long) sd.getData().get((FacultySubject) item[0]);
@@ -99,6 +106,12 @@ public class FeedbackChartController implements Serializable {
                     }
                     x = x - (Long) item[3];
                     sd.set((FacultySubject) item[0], x);
+                    x = (Long) net.getData().get((FacultySubject) item[0]);
+                    if (x == null) {
+                        x = 0l;
+                    }
+                    x = x - (Long) item[3];
+                    net.set((FacultySubject) item[0], x);
                     break;
                 case 3:
                     break;
@@ -109,6 +122,12 @@ public class FeedbackChartController implements Serializable {
                     }
                     x = x + (Long) item[3];
                     sa.set((FacultySubject) item[0], x);
+                    x = (Long) net.getData().get((FacultySubject) item[0]);
+                    if (x == null) {
+                        x = 0l;
+                    }
+                    x = x + (Long) item[3];
+                    net.set((FacultySubject) item[0], x);
                     break;
                 case 5:
                     x = (Long) sa.getData().get((FacultySubject) item[0]);
@@ -117,18 +136,24 @@ public class FeedbackChartController implements Serializable {
                     }
                     x = x + (2 * (Long) item[3]);
                     sa.set((FacultySubject) item[0], x);
+                    x = (Long) net.getData().get((FacultySubject) item[0]);
+                    if (x == null) {
+                        x = 0l;
+                    }
+                    x = x + (2 * (Long) item[3]);
+                    net.set((FacultySubject) item[0], x);
                     break;
             }
         }
 
-        model.addSeries(sd);
-        model.addSeries(sa);
-
+        //model.addSeries(sd);
+        //model.addSeries(sa);
+        model.addSeries(net);
 
         return model;
     }
-    
-    public void rereateBarModel(){
+
+    public void rereateBarModel() {
         barModel = initBarModel(feedbackQuestion.getQid(), feedbackType.getIdFeedbackType());
         barModel.setTitle(feedbackQuestion.getQtext());
     }
@@ -136,8 +161,6 @@ public class FeedbackChartController implements Serializable {
     private List<Object[]> getFeedbackByQuestion(int qid, int type) {
         return getFacade().getFeedbackByQuestion(qid, type);
     }
-
-
 
     public HorizontalBarChartModel getBarModel() {
         return barModel;
