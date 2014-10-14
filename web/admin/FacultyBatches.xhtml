@@ -12,13 +12,13 @@
             <h:outputText value="Faculty Assigned to Subjects"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:outputLabel style="font-size: larger; color: red" value="Please review the following information. If there are any changes, send a mail to akharat@mes.ac.in. " />
+            <h:outputLabel style="font-size: larger; color: red" value="Please review the following information. If there are any changes, send a mail to piitonline@mes.ac.in. " />
             <br />
 
             <h:outputLabel style="font-size: larger; color: red" value="Students will be filling the feedback based on the following information" />
             <br />
 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('coordinator')}">
                 <p:selectOneMenu value="#{facultySubjectController.c}" >
                     <f:selectItems value="#{coordinatorController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>

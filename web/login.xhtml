@@ -23,16 +23,18 @@
     <h:body>
         <div style=" height: 90px; background-size: 100% 90px; background-image: url('/piit/resources/images/PIITBanner.png'); background-repeat: no-repeat" >
         </div>
-        <div style="margin-left: 40%; margin-top: 10%; width: 20%; text-align: center; " >
+        <div style="margin-left: 25%; margin-top: 5%; width: 50%; text-align: center; " >
             <div id="jlogin" >
                 <f:view transient="true">
 
-                    <h2>Login Form </h2>
+                    <h1>Student Attendance Management System </h1>
+                    <br />
+                    <h2>Faculty Login</h2>
                     <h:form>
-                        <p:panelGrid columns="2" >
-                            <h:outputLabel value="Username" />
+                        <p:panelGrid columns="2" style="margin-left: 25%">
+                            <h:outputLabel value="Username : " />
                             <p:inputText value="#{signIn.username}" required="true" requiredMessage="Username cannot be empty" />
-                            <h:outputLabel value="Password" />
+                            <h:outputLabel value="Password : " />
                             <p:password value="#{signIn.password}" required="true" requiredMessage="Password cannot be empty"  />
 
                         </p:panelGrid>
@@ -40,7 +42,7 @@
                     </h:form>
                 </f:view>
                 <br />
-                <br />
+                <br /><br /><br />
                 Or login with Google Plus (MES)
             </div>
             <br />

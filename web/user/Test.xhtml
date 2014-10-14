@@ -31,61 +31,71 @@
                             <h:outputText value="#{c.admnNo.studentName}" />
                         </p:column>
                         <p:column headerText="Q1.A">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1a}" valueChangeListener="#{studentTestController.testMarksChangedQ1A}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1a}" valueChangeListener="#{studentTestController.testMarksChangedQ1A}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2" >
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q1.B">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1b}" valueChangeListener="#{studentTestController.testMarksChangedQ1B}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1b}" valueChangeListener="#{studentTestController.testMarksChangedQ1B}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2">
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q1.C">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1c}" valueChangeListener="#{studentTestController.testMarksChangedQ1C}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1c}" valueChangeListener="#{studentTestController.testMarksChangedQ1C}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2">
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q1.D">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1d}" valueChangeListener="#{studentTestController.testMarksChangedQ1D}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1d}" valueChangeListener="#{studentTestController.testMarksChangedQ1D}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2">
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q1.E">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1e}" valueChangeListener="#{studentTestController.testMarksChangedQ1E}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1e}" valueChangeListener="#{studentTestController.testMarksChangedQ1E}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2">
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q1.F">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1f}" valueChangeListener="#{studentTestController.testMarksChangedQ1F}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q1f}" valueChangeListener="#{studentTestController.testMarksChangedQ1F}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 2" >
+                                <f:validateLongRange minimum="0" maximum="2"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q2.A">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2a}" valueChangeListener="#{studentTestController.testMarksChangedQ2A}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2a}" valueChangeListener="#{studentTestController.testMarksChangedQ2A}" style="width: 50px" validatorMessage="Enter Marks only between 0 to 5">
+                                 <f:validateLongRange minimum="0" maximum="5"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q2.B">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2b}" valueChangeListener="#{studentTestController.testMarksChangedQ2B}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q2b}" valueChangeListener="#{studentTestController.testMarksChangedQ2B}" style="width: 50px"  validatorMessage="Enter Marks only between 0 to 5">
+                                 <f:validateLongRange minimum="0" maximum="5"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q3.A">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3a}" valueChangeListener="#{studentTestController.testMarksChangedQ3A}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3a}" valueChangeListener="#{studentTestController.testMarksChangedQ3A}" style="width: 50px"  validatorMessage="Enter Marks only between 0 to 5">
+                                <f:validateLongRange minimum="0" maximum="5"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
 
                         <p:column headerText="Q3.B">
-                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3b}" valueChangeListener="#{studentTestController.testMarksChangedQ3B}" style="width: 50px" >
+                            <p:inputText rendered="#{c.admnNo != null}"  value="#{c.q3b}" valueChangeListener="#{studentTestController.testMarksChangedQ3B}" style="width: 50px"  validatorMessage="Enter Marks only between 0 to 5">
+                                <f:validateLongRange minimum="0" maximum="5"/>
                                 <p:ajax />
                             </p:inputText>
                         </p:column>
