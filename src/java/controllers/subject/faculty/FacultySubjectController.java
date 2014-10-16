@@ -180,7 +180,7 @@ public class FacultySubjectController implements Serializable {
     
     public List<FacultySubject> getBatchesBySemDiv(){
 
-        //ac_yr = ac_year;
+        ac_yr = 2014;
         try {
         return getFacade().getFSBySemDivSubYr(c.getCoordinatorPK().getSemester(), c.getCoordinatorPK().getDivision(), c.getProgramCourse(),ac_yr);
         }

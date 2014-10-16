@@ -18,14 +18,14 @@
             <h:outputLabel style="font-size: larger; color: red" value="Students will be filling the feedback based on the following information" />
             <br />
 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('coordinator')}">
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
                 <p:selectOneMenu value="#{facultySubjectController.c}" >
                     <f:selectItems value="#{coordinatorController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>
-                <p:selectOneMenu value="#{facultySubjectController.ac_yr}" >
+                <!-- <p:selectOneMenu value="#{facultySubjectController.ac_yr}" >
                     <f:selectItem itemLabel="2014" itemValue="2014" />
                     <f:selectItem itemLabel="2013" itemValue="2013" />    
-                </p:selectOneMenu>
+                </p:selectOneMenu> -->
                 <br />
                 <p:commandButton value="Submit" action="#{facultySubjectController.navSame()}" update =":tPlan" />
             </h:form>
