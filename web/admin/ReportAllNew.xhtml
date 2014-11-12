@@ -82,7 +82,7 @@
                                 <h:outputText value="T1" />
                                 <h:outputText value="%" />
                                 <h:outputText value="%" />
-                                <h:outputText value="%" />
+                                <h:outputText value="T2" />
                             </p:panelGrid>
                             <p:tooltip for="head" >
                                 <p:panelGrid columns="2">
@@ -124,8 +124,8 @@
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
-                                class="#{c.marksAll[i+1]*5 lt 40 ? 'low-attendance' : '' }"
-                                value="#{c.marksAll[i+1]*5}" >
+                               
+                                value="#{c.marksAll2[i+1]}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                         </p:panelGrid>
