@@ -279,6 +279,7 @@ public class CurrentStudentController implements Serializable {
         String div = f.getDivision();
         short batch = f.getBatch();
         short semester = f.getIdSubject().getSemester();
+        currentYear = f.getAcDate();
         ProgramCourse programCourse = f.getIdSubject().getProgramCourse();
         if (batch == 0) {
             attendanceByDiv = getFacade().getCurrentStudentByDivTheory(programCourse, semester, div, currentYear);
