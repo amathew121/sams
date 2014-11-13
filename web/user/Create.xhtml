@@ -43,20 +43,20 @@
                         <p:scrollPanel mode="native" style="white-space: normal; width: 100%;">
                             <p:dataTable style="text-align: left;" id="teachPlan" value="#{teachingPlanController.getItemsUserExport(lectureController.facSub)}" var="c" >                
 
-                                <p:column>
+                                <p:column width="6%">
                                     <f:facet name="header">
                                         No
                                     </f:facet>
                                     #{c.lectureNo}
                                 </p:column>
-                                <p:column style="width: 85%; white-space: normal " >
+                                <p:column style="width: 80%; white-space: normal " >
                                     <f:facet name="header">
                                         Topics Planned
                                     </f:facet>
                                     #{c.topicsPlanned}
 
                                 </p:column>
-                                <p:column >
+                                <p:column width="14%">
                                     <f:facet name="header">
                                         Planned
                                     </f:facet>
@@ -69,9 +69,9 @@
                     </p:layoutUnit>
                 </p:layout>
                 <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
-                <p:dataTable id="listComponents" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
+                <p:dataTable id="listComponents" style="width: 40%;text-align: center" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
-                    <p:column>
+                    <p:column width="20%">
                         <f:facet name="header" >
                             <p:selectBooleanCheckbox value="#{currentStudentController.selectAll}" id="selectAll" valueChangeListener="#{currentStudentController.selectAllComponents}" >
                                 <p:ajax update="listComponents" />
@@ -80,13 +80,13 @@
                         <p:selectBooleanCheckbox rendered="#{c.admnNo != null}" value="#{currentStudentController.checked[c.idCurrentStudent]}" />
                     </p:column>
 
-                    <p:column>
+                    <p:column width="20%">
                         <f:facet name="header">
                             Roll No
                         </f:facet>
                         #{c.rollNo}
                     </p:column>
-                    <p:column>
+                    <p:column width="60%">
                         <f:facet name="header">
                             Name
                         </f:facet>

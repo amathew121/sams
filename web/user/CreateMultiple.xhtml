@@ -25,21 +25,21 @@
                         </f:facet>
                         #{c.rollNo}
                     </p:column>
-                    <p:column>
+                    <p:column width="15%">
                         <f:facet name="header">
                             Name
                         </f:facet>
                         #{c.admnNo.studentName}
                     </p:column>
 
-                    <p:column width ="8%">
+                    <p:column width ="6%">
                        <!-- -->
                        <p:inputText id="txt5" rendered="#{c.admnNo !=null}" value="#{c.lectureAttended}" disabled="true" />  
                        <p:slider rendered="#{c.admnNo !=null}" for="txt5" maxValue="#{lectureController.lectureList.size()}">  
                            <p:ajax process="@this" event="slideEnd" listener="#{lectureController.onSlideEnd}" update=":createMultiple:listComponents" />  
                         </p:slider> 
                     </p:column>
-                    <p:columns id="attendanceComponent" width="3%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
+                    <p:columns id="attendanceComponent" width="5%"  columnIndexVar="index" value="#{lectureController.lectureList}" var="column">
                         <f:facet name="header" >
                             <h:outputText value="#{index+1}" />
                             <br />
