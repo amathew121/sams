@@ -37,16 +37,16 @@
 <p:commandButton rendered="false" value="Submit"  action="#{lectureController.prepareCreateMultipleWithId()}" ></p:commandButton>
                 <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" rowKey="#{c.idLecture}" var="c" >
 
-                    <p:column>
+                    <p:column width="5%" style="text-align: center">
                         <p:selectBooleanCheckbox value="#{currentStudentController.checked[c.idLecture]}" />
                     </p:column>
-                    <p:column>
+                    <p:column width="5%" style="text-align: center">
                         <f:facet name="header">
                             <h:outputText value="No"/>
                         </f:facet>
                         <h:outputText value="#{index + 1}" />
                     </p:column>
-                    <p:column>
+                    <p:column width="5%" style="text-align: center">
                         <f:facet name="header">
                             <h:outputText value="Lecture Date"/>
                         </f:facet>
@@ -54,7 +54,7 @@
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column width="5%" style="text-align: center">
                         <f:facet name="header">
                             <h:outputText value="Start Time"/>
                         </f:facet>
@@ -62,21 +62,21 @@
                             <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                         </h:outputText>
                     </p:column>
-                    <p:column rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
+                    <p:column width="5%" style="text-align: center" rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
                         <f:facet name="header">
                             <h:outputText value="Lecture ID"/>
                         </f:facet>
                         <h:outputText value="#{c.idLecture}" >
                         </h:outputText>
                     </p:column>
-                    <p:column style="white-space: normal;">
+                    <p:column width="40%" style="white-space: normal;">
                         <f:facet name="header">
                             <h:outputText value="Contents Delivered"/>
                         </f:facet>
                         <h:outputText value="#{c.contentDelivered}">
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column width="5%" style="text-align: center">
                         <f:facet name="header">
                             <h:outputText value="Student Count"/>
                         </f:facet>
