@@ -18,33 +18,33 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:panelGroup style="text-align: center">
-                    <p:dataTable value="#{facultySubjectController.batchesByReviewer}" var="item" >   
+                    <p:dataTable value="#{facultySubjectController.batchesByReviewer}" var="item" style="width: 950px;">   
 
-                        <p:column>
+                        <p:column style="width:180px">
                             <f:facet name="header">
                                 <h:outputText value="Faculty Name"/>
                             </f:facet>
                             <h:outputText value="#{item.idFaculty.toString()}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:50px">
                             <f:facet name="header">
                                 <h:outputText value="Course"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubject.programCourse.toString()}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:30px">
                             <f:facet name="header">
-                                <h:outputText value="Semester"/>
+                                <h:outputText value="Sem"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubject.semester}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:30px">
                             <f:facet name="header">
-                                <h:outputText value="Semester"/>
+                                <h:outputText value="Div"/>
                             </f:facet>
                             <h:outputText value="#{item.division}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:50px">
                             <f:facet name="header">
                                 <h:outputText value="Subject"/>
                             </f:facet>
@@ -52,25 +52,25 @@
                         </p:column>
 
 
-                        <p:column>
+                        <p:column style="width:35px">
                             <f:facet name="header">
                                 <h:outputText value="Batch"/>
                             </f:facet>
                             <h:outputText value="#{item.batchDetail}"/>
                         </p:column>
-                        <p:column style="width: 20px;">
+                        <p:column style="width: 100px;">
                             <f:facet name="header">
                                 <h:outputText value="Planned" />
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).teachingPlanCollection.size()}"/>
                         </p:column>
-                        <p:column style="width: 20px;">
+                        <p:column style="width: 100px;">
                             <f:facet name="header">
                                 <h:outputText value="Delivered" />
                             </f:facet>
                             <h:outputText value="#{facultySubjectController.getIdFacSub(item.idFacultySubject).lectureCollection.size()}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="Review"/>
                             </f:facet>

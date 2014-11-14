@@ -31,7 +31,7 @@
             </h:form>
                       <h:form style="position: relative; float: right; padding-left: 2%;">
           
-                          <p:commandButton  rendered="#{reviewerController.loggedUser.size() > 0}" action="#{facesContext.externalContext.redirect('/piit/faces/user/ReviewList.xhtml')}" value="Reviews" ajax="false" />
+                          <p:commandButton  rendered="#{reviewerController.loggedUser.size() > 0 || facesContext.externalContext.isUserInRole('superuser')}" action="#{facesContext.externalContext.redirect('/piit/faces/user/ReviewList.xhtml')}" value="Reviews" ajax="false" />
                       </h:form>
 
             <h:form style="position: relative; float: right; padding-left: 2%;">
