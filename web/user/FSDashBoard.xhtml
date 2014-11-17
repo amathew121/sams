@@ -51,27 +51,36 @@
                              >  
                         <f:facet name="header">
                             <p:outputLabel value="Teaching Plan"/>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.jpg" 
+                                                style="width: 20px; height: 20px" />  
+                                <p:dataExporter type="xls" target="tplanX" 
+                                                fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'TPlan'}" />  
+                            </h:commandLink> 
                             <p:commandLink style="float: right;" 
                                            value="View in Detail" 
                                            action="#{teachingPlanController.prepareCreateWithId(dashboardBean.facSub.idFacultySubject)}" />
 
                         </f:facet>
-                        <p:dataTable scrollable="true" 
+                        <p:dataTable scrollable="true"  id="tplanX"
                                      scrollHeight="300" 
                                      value="#{teachingPlanController.getItemsUser(dashboardBean.getFacSub())}" var="c" >   
 
-                            <p:column >
+                            <p:column style="width: 8%; white-space: normal;"
+                                      headerText="No.">
                                 <h:outputText value="#{c.t.lectureNo}" />
 
                             </p:column>
-                            <p:column style="width: 90%; white-space: normal;" 
-                                      headerText="Topic">
+                            <p:column style="width: 25%; white-space: normal;" 
+                                      headerText="Planned On">
                                 <h:outputText style="font-weight: bold" 
                                               value="#{c.t.plannedDate}" >
                                     <f:convertDateTime timeZone="IST" 
                                                        pattern="dd-MM-YYYY" />
                                 </h:outputText>
-                                <br />
+                            </p:column>>
+                            <p:column style="width: 65%; white-space: normal;" 
+                                      headerText="Topic">
                                 <h:outputText value="#{c.t.topicsPlanned}" />
 
                             </p:column>
@@ -260,6 +269,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
+
                     <p:panel id="lectureSchedule" 
                              header="Schedule"  
                              toggleable="true" 
@@ -293,7 +303,7 @@
                                      scrollable="true" 
                                      scrollHeight="300" 
                                      value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
-                                     
+
                             <p:column  style="width: 15px">
                                 <f:facet name="header">
                                     <h:outputText value="No"/>
@@ -327,7 +337,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
-                   <p:panel id="feedback" 
+                    <p:panel id="feedback" 
                              header="Feedback"  
                              toggleable="true" 
                              closable="true"  collapsed="true"
@@ -335,7 +345,7 @@
                              closeSpeed="500"
                              rendered="false" 
                              >
-                       
+
                         <p:chart type="bar" 
                                  model="#{dashboardBean.feedbackBarChartModel}" 
                                  style="height:300px"/>
@@ -343,7 +353,9 @@
                 </p:dashboard>  
 
             </h:form>  
+
         </ui:define>
+
     </ui:composition>
 
 </html>
