@@ -90,11 +90,19 @@
                         </p:dataTable>   
                     </p:panel>  
                     <p:panel id="contentsDelivered" 
-                             header="Contents Delivered"
-                             toggleable="true" 
-                             closable="true" 
+                             toggleable="false" 
+                             closable="false" 
                              toggleSpeed="500" 
                              closeSpeed="500">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Contents Delivered"/>
+
+                            <h:commandLink style="float: right;" 
+                                           value="Att Report" 
+                                           action="#{dashboardBean.downloadPDF}" 
+                                           target="_blank" />
+
+                        </f:facet>
 
                         <p:dataTable scrollable="true" 
                                      scrollHeight="300" style="text-align: left;" 
@@ -269,6 +277,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
+                    
 
                     <p:panel id="lectureSchedule" 
                              header="Schedule"  
@@ -352,7 +361,7 @@
                     </p:panel> 
                 </p:dashboard>  
 
-            </h:form>  
+            </h:form> 
 
         </ui:define>
 

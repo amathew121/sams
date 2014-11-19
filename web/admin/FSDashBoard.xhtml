@@ -61,7 +61,20 @@
 
                             </p:dataTable>   
                     </p:panel>  
-                    <p:panel id="contentsDelivered" header="Contents Delivered">  
+                    <p:panel id="contentsDelivered" 
+                                toggleable="false" 
+                             closable="false" 
+                             toggleSpeed="500" 
+                             closeSpeed="500">  
+                        <f:facet name="header">
+                            <p:outputLabel value="Contents Delivered"/>
+
+                            <h:commandLink style="float: right;" 
+                                           value="Att Report" 
+                                           action="#{dashboardBean.downloadPDF}" 
+                                           target="_blank" />
+
+                        </f:facet>
                             <p:dataTable scrollable="true" scrollHeight="300" style="text-align: left;" value="#{attendanceViewController.getAttendanceByFS(dashboardBean.getFacSub())}" rowIndexVar="i" var="c" >   
 
                                 <p:column >
