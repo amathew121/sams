@@ -190,15 +190,24 @@
                         <p:schedule id="schedule" rightHeaderTemplate="month" value="#{dashboardBean.eventModel}" />  
                     </p:panel>
                     
-                     <p:panel id ="students"  >
+                     <p:panel id ="students"  
+                              closable="true"
+                              closeSpeed="500"
+                              toggleable="true"
+                              toggleSpeed="500"
+                              >
                         <f:facet name="header">
-                            <p:outputLabel value="Students"/>
+                            <p:outputLabel value=""/>
+                            <h:commandLink 
+                                           value="Students " 
+                                           action="#{dashboardBean.downloadPDF}" 
+                                           target="_blank" />
                             <h:commandLink>  
                                 <p:graphicImage value="/resources/images/excel.jpg" 
                                                 style="width: 20px; height: 20px" />  
                                 <p:dataExporter type="xls" target="tbl" 
                                                 fileName="#{facultySubjectController.getIdFacSub(dashboardBean.getFacSub().idFacultySubject)}#{'Report'}" />  
-                            </h:commandLink>                         
+                            </h:commandLink>    
                         </f:facet>
 
                         <p:dataTable id="tbl"  
@@ -206,7 +215,7 @@
                                      scrollHeight="300" 
                                      value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
                                      
-                            <p:column  style="width: 15px">
+                            <p:column  style="width: 15px;text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="No"/>
                                 </f:facet>
@@ -219,19 +228,19 @@
                                 </f:facet>
                                 <h:outputText value="#{c.admnNo.studentName}"/>
                             </p:column>
-                            <p:column style="width: 20px">
+                            <p:column style="width: 20px;text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="#{lectureController.getLectureByFSList(dashboardBean.getFacSub()).size()}"/>
                                 </f:facet>
                                 <h:outputText value="#{c.count}"/>
                             </p:column>
-                            <p:column style="width: 20px">
+                            <p:column style="width: 20px" rendered="#{dashboardBean.facSub.batch==0}">
                                 <f:facet name="header">
                                     <h:outputText value="T1"/>
                                 </f:facet>
                                 <h:outputText value="#{c.marks}"/>
                             </p:column>
-                            <p:column style="width: 20px">
+                            <p:column style="width: 20px" rendered="#{dashboardBean.facSub.batch==0}">
                                 <f:facet name="header">
                                     <h:outputText value="T2"/>
                                 </f:facet>
