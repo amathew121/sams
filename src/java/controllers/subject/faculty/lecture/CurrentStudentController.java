@@ -87,16 +87,60 @@ public class CurrentStudentController implements Serializable {
      * @return
      */
     public void navList() {
-        
-         FacesContext context = FacesContext.getCurrentInstance();
+
+        FacesContext context = FacesContext.getCurrentInstance();
         CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
         c = coordinatorController.getLoggedUser();
-        program=c.getProgramCourse().getProgram();
-        course=c.getProgramCourse().getCourse();
-        semester=c.getCoordinatorPK().getSemester();
-        division=c.getCoordinatorPK().getDivision();
-        
-       // FacesContext context = FacesContext.getCurrentInstance();
+
+        if (c != null) {
+
+            program = c.getProgramCourse().getProgram();
+            course = c.getProgramCourse().getCourse();
+            semester = c.getCoordinatorPK().getSemester();
+            division = c.getCoordinatorPK().getDivision();
+
+            // FacesContext context = FacesContext.getCurrentInstance();
+            ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
+            SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
+            AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
+            FacultySubjectController fsc = (FacultySubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "facultySubjectController");
+            ProgramCoursePK pcpk = new ProgramCoursePK();
+            /**
+             * The following area is very susceptible to change :D
+             */
+            pcpk.setIdProgram(program.getIdProgram());
+            pcpk.setIdCourse(course.getIdCourse());
+            pc = pcll.getProgramCourse(pcpk);
+            subject = sc.getSubjectBySemesterHide(pc, semester);
+
+            Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
+            for (Subject item : subjectList) {
+
+                final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+                if (facultySubject == null) {
+                    continue;
+                }/*
+                 else {
+                 int subj_yr;
+                 subj_yr = currentYear.getYear()+1900;
+                 if (facultySubject.getAcademicYear() != subj_yr){
+                 subject.remove(item);
+                 continue;
+                 }
+                 }*/
+            }
+        }
+        // return "admin?ReportAllNew?faces-redirect=true";
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void navListNew() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
         ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
         SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
@@ -126,7 +170,8 @@ public class CurrentStudentController implements Serializable {
              }
              }*/
         }
-       // return "admin?ReportAllNew?faces-redirect=true";
+
+        // return "admin?ReportAllNew?faces-redirect=true";
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
         } catch (IOException ex) {
@@ -427,25 +472,24 @@ public class CurrentStudentController implements Serializable {
             Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void prepareBatchesBySemDivAttReport() {
         FacesContext context = FacesContext.getCurrentInstance();
         CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
         c = coordinatorController.getLoggedUser();
-        program=c.getProgramCourse().getProgram();
-        course=c.getProgramCourse().getCourse();
-        semester=c.getCoordinatorPK().getSemester();
-        division=c.getCoordinatorPK().getDivision();
-        
-       
-        
+        program = c.getProgramCourse().getProgram();
+        course = c.getProgramCourse().getCourse();
+        semester = c.getCoordinatorPK().getSemester();
+        division = c.getCoordinatorPK().getDivision();
+
+
+
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     /**
      *
