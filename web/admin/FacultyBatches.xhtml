@@ -18,7 +18,7 @@
             <h:outputLabel style="font-size: larger; color: red" value="Students will be filling the feedback based on the following information" />
             <br />
 
-            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')}">
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')|| facesContext.externalContext.isUserInRole('hod')}">
                 <p:selectOneMenu value="#{facultySubjectController.c}" >
                     <f:selectItems value="#{coordinatorController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>

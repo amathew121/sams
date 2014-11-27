@@ -13,7 +13,7 @@
             <h:outputText value=" Attendance Report "></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form>
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')|| facesContext.externalContext.isUserInRole('hod')}">
                 <p:selectOneMenu value="#{currentStudentController.program}" >
                     <f:selectItems noSelectionValue="#{programController.getProgram('BE')}" value="#{programController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>

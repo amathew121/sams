@@ -7,7 +7,9 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.subject.faculty.lecture.CurrentStudentFacade;
 import controllers.subject.faculty.FacultySubjectController;
+import controllers.subject.faculty.FacultySubjectViewController;
 import controllers.subject.faculty.StudentTestController;
+import controllers.users.CoordinatorController;
 import entities.subject.faculty.lecture.Attendance;
 import entities.subject.faculty.lecture.AttendanceReport;
 import entities.subject.Course;
@@ -17,6 +19,7 @@ import entities.subject.Program;
 import entities.subject.ProgramCourse;
 import entities.subject.ProgramCoursePK;
 import entities.subject.Subject;
+import entities.users.Coordinator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -32,7 +35,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -72,6 +74,7 @@ public class CurrentStudentController implements Serializable {
     private short semester;
     private String division;
     List<Subject> subject = new ArrayList();
+    Coordinator c;
 
     @PostConstruct
     public void Init() {
@@ -83,8 +86,17 @@ public class CurrentStudentController implements Serializable {
      *
      * @return
      */
-    public String navList() {
-        FacesContext context = FacesContext.getCurrentInstance();
+    public void navList() {
+        
+         FacesContext context = FacesContext.getCurrentInstance();
+        CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
+        c = coordinatorController.getLoggedUser();
+        program=c.getProgramCourse().getProgram();
+        course=c.getProgramCourse().getCourse();
+        semester=c.getCoordinatorPK().getSemester();
+        division=c.getCoordinatorPK().getDivision();
+        
+       // FacesContext context = FacesContext.getCurrentInstance();
         ProgramCourseController pcll = (ProgramCourseController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "programCourseController");
         SubjectController sc = (SubjectController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "subjectController");
         AttendanceReportController arc = (AttendanceReportController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "attendanceReportController");
@@ -114,7 +126,12 @@ public class CurrentStudentController implements Serializable {
              }
              }*/
         }
-        return "ReportAllNew?faces-redirect=true";
+       // return "admin?ReportAllNew?faces-redirect=true";
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -410,6 +427,25 @@ public class CurrentStudentController implements Serializable {
             Logger.getLogger(CurrentStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void prepareBatchesBySemDivAttReport() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        CoordinatorController coordinatorController = (CoordinatorController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "coordinatorController");
+        c = coordinatorController.getLoggedUser();
+        program=c.getProgramCourse().getProgram();
+        course=c.getProgramCourse().getCourse();
+        semester=c.getCoordinatorPK().getSemester();
+        division=c.getCoordinatorPK().getDivision();
+        
+       
+        
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/ReportAllNew.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     /**
      *
