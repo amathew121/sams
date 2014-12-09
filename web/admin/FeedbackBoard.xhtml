@@ -23,8 +23,8 @@
             </h:form>
 
             <h:form id="layoutPanel">
-                <p:layout style="height: 700px">
-                    <p:layoutUnit position="west" maxSize="200">
+                <p:layout style="height: 1300px">
+                    <p:layoutUnit position="west" minSize="215" maxSize="220">
                         <p:menu model="#{feedback2013Controller.model}" />
                     </p:layoutUnit>
                     <p:layoutUnit position="center" header="Details" minSize="300" >
@@ -36,7 +36,7 @@
                                     </f:facet>
                                     <h:outputText value="#{item.qid.qtext}"/>
                                 </p:column>
-                                <p:column width="10">
+                                <p:column width="10" rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="NA"/>
                                     </f:facet>
@@ -97,16 +97,24 @@
 
                             </h:outputText>
 
-                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index:   '}" > 
+                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index (PI) =  '}" > 
                             </h:outputText>
 
                             <br />
+                            <br />
+                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: medium;" value="#{'PI = (5*SA + 2.5*AA - 2.5*DD - 5*SD ) / (SA + AA + NN + DD + SD) '}" > 
+                            </h:outputText>
+                            <br />
                         </p:panel>
                     </p:layoutUnit>
-                    <p:layoutUnit header="Comments" position="east" minSize="300" maxSize="300">
+                    <p:layoutUnit header="Comments" position="east" minSize="285" maxSize="285">
                         <p:dataList id="fbComments" value="#{feedback2013CommentsController.feedback2013CommentsList}" var="item" >                      
                             <h:outputText value="#{item.comments}"/>
                         </p:dataList>
+                    </p:layoutUnit>
+                    <p:layoutUnit header="Performance Index Graph" position="south" minSize="620">
+                        <h:graphicImage id="fbGraph" alt="Feedback Scale" url="#{feedback2013Controller.fbGraphUrl}" width="100%" />
+
                     </p:layoutUnit>
                 </p:layout>
             </h:form>

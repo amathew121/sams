@@ -55,6 +55,7 @@ public class Feedback2013Controller implements Serializable {
     private FacultySubject idFacultySubject;
     private DefaultMenuModel model;
     private Faculty selectedFaculty;
+    private String fbGraphUrl;
 
     public Faculty getSelectedFaculty() {
         return selectedFaculty;
@@ -88,11 +89,13 @@ public class Feedback2013Controller implements Serializable {
         FacultyController fController = findBean("facultyController");
         Faculty loggedUser = fController.getFaculty(userName);
         for (FeedbackType item : ftController.getItemsDesc()) {
-            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr()+" "+item.getYr());
+
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr() + " " + item.getYr());
             for (FacultySubject fs : fsController.getItemsByYear(loggedUser, item.getYr(), item.getEven())) {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
-                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments");
+                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments  :layoutPanel:fbGraph");
+                
                 tempSubmenu.addElement(menuItem);
             }
             model.addElement(tempSubmenu);
@@ -113,11 +116,12 @@ public class Feedback2013Controller implements Serializable {
         }
         performanceIndex = 0;
         for (FeedbackType item : ftController.getItemsDesc()) {
-            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr()+" "+item.getYr());
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr() + " " + item.getYr());
             for (FacultySubject fs : fsController.getItemsByYear(selectedFaculty, item.getYr(), item.getEven())) {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
-                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments");
+                menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments :layoutPanel:fbGraph");
+               
                 tempSubmenu.addElement(menuItem);
             }
             model.addElement(tempSubmenu);
@@ -336,6 +340,17 @@ public class Feedback2013Controller implements Serializable {
 
         Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
         fcController.getByUserName(idFacultySubject, fType);
+        
+        if(idFacultySubject.getBatch()==0){
+            fbGraphUrl = "/resources/images/fbGraph/piT" + fType.getIdFeedbackType() + ".jpg";
+                // System.out.println("url = " +fbGraphUrl);
+        }
+        else
+        {
+            fbGraphUrl = "/resources/images/fbGraph/piP" + fType.getIdFeedbackType() + ".jpg";
+                // System.out.println("url = " +fbGraphUrl);
+        }
+        
 
     }
 
@@ -511,6 +526,14 @@ public class Feedback2013Controller implements Serializable {
     public static <T> T findBean(String beanName) {
         FacesContext context = FacesContext.getCurrentInstance();
         return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
+    }
+
+    public String getFbGraphUrl() {
+        return fbGraphUrl;
+    }
+
+    public void setFbGraphUrl(String fbGraphUrl) {
+        this.fbGraphUrl = fbGraphUrl;
     }
 
     @FacesConverter(forClass = Feedback2013.class)
