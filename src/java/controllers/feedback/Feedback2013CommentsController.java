@@ -133,6 +133,12 @@ public class Feedback2013CommentsController implements Serializable {
         //return "Feedback2013Comments.xhtml?faces-redirect=true";
         return null;
     }
+    public List<Feedback2013Comments> getByUserNameComments(FacultySubject idFacSub, FeedbackType fType) {
+        this.idFacultySubject = idFacSub;
+        feedback2013CommentsList = getFacade().getByUserName(idFacSub, fType);
+        //return "Feedback2013Comments.xhtml?faces-redirect=true";
+        return feedback2013CommentsList;
+    }
     
     /**
      * Creates a new record in the database for the selected entity

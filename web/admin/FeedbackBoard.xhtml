@@ -94,7 +94,6 @@
                             <br />
                             <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{feedback2013Controller.performanceIndex}" >
                                 <f:convertNumber pattern="#0.00" />
-
                             </h:outputText>
 
                             <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index (PI) =  '}" > 
@@ -105,6 +104,13 @@
                             <h:outputText style=" position: relative; float: right; text-align: right; font-size: medium;" value="#{'PI = (5*SA + 2.5*AA - 2.5*DD - 5*SD ) / (SA + AA + NN + DD + SD) '}" > 
                             </h:outputText>
                             <br />
+                        </p:panel>
+
+                        <p:panel header="Export" style="width: 80px; height: 90px">
+                            <h:commandLink style="position: relative; float: left" action="#{feedback2013Controller.feedbackXLSExport()}">  
+                                <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
+
+                            </h:commandLink> 
                         </p:panel>
                     </p:layoutUnit>
                     <p:layoutUnit header="Comments" position="east" minSize="285" maxSize="285">

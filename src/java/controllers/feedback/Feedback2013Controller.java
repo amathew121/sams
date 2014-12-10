@@ -6,33 +6,41 @@ import controllers.util.JsfUtil;
 import controllers.util.PaginationHelper;
 import beans.feedback.Feedback2013Facade;
 import controllers.subject.faculty.FacultySubjectController;
+import entities.feedback.Feedback2013Comments;
 import entities.users.Faculty;
 import entities.subject.faculty.FacultySubject;
 import entities.feedback.FeedbackType;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.HorizontalBarChartModel;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
+
 
 /**
  * JSF Backing bean for feedback2013 Entity
@@ -56,6 +64,7 @@ public class Feedback2013Controller implements Serializable {
     private DefaultMenuModel model;
     private Faculty selectedFaculty;
     private String fbGraphUrl;
+    private FeedbackType feedbackType;
 
     public Faculty getSelectedFaculty() {
         return selectedFaculty;
@@ -95,7 +104,7 @@ public class Feedback2013Controller implements Serializable {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
                 menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments  :layoutPanel:fbGraph");
-                
+
                 tempSubmenu.addElement(menuItem);
             }
             model.addElement(tempSubmenu);
@@ -121,7 +130,7 @@ public class Feedback2013Controller implements Serializable {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
                 menuItem.setUpdate(":layoutPanel:fbDetails :layoutPanel:fbComments :layoutPanel:fbGraph");
-               
+
                 tempSubmenu.addElement(menuItem);
             }
             model.addElement(tempSubmenu);
@@ -267,6 +276,7 @@ public class Feedback2013Controller implements Serializable {
     public void getByUserName(FacultySubject idFacultySubject, FeedbackType fType) {
 
         this.idFacultySubject = idFacultySubject;
+        this.feedbackType = fType;
 
         List<Feedback2013> temp = getFacade().getByUserName(idFacultySubject, fType);
         Map<Integer, Short> ra0 = new HashMap<Integer, Short>();
@@ -340,18 +350,41 @@ public class Feedback2013Controller implements Serializable {
 
         Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
         fcController.getByUserName(idFacultySubject, fType);
-        
-        if(idFacultySubject.getBatch()==0){
-            fbGraphUrl = "/resources/images/fbGraph/piT" + fType.getIdFeedbackType() + ".jpg";
-                // System.out.println("url = " +fbGraphUrl);
-        }
-        else
-        {
-            fbGraphUrl = "/resources/images/fbGraph/piP" + fType.getIdFeedbackType() + ".jpg";
-                // System.out.println("url = " +fbGraphUrl);
-        }
-        
 
+        if (idFacultySubject.getBatch() == 0) {
+            fbGraphUrl = "/resources/images/fbGraph/piT" + fType.getIdFeedbackType() + ".jpg";
+            // System.out.println("url = " +fbGraphUrl);
+        } else {
+            fbGraphUrl = "/resources/images/fbGraph/piP" + fType.getIdFeedbackType() + ".jpg";
+            // System.out.println("url = " +fbGraphUrl);
+        }
+    }
+
+    public void feedbackXLSExport() {
+        Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
+        List<Feedback2013Comments> fbComments = fcController.getByUserNameComments(idFacultySubject, feedbackType);
+        Map beans = new HashMap();
+        beans.put("feedback2013List", feedback2013List);
+        beans.put("ra", ra);
+        beans.put("performanceIndex", performanceIndex);
+        beans.put("fbComments", fbComments);
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.reset();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=feedback_" + idFacultySubject.toString() +"_" + feedbackType.getDescr().toString() +"_"+feedbackType.getYr().toString()+ ".xls");
+
+        XLSTransformer transformer = new XLSTransformer();
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            InputStream input = externalContext.getResourceAsStream("/resources/feedback.xls");
+            ServletOutputStream out = response.getOutputStream();
+            HSSFWorkbook workbook = transformer.transformXLS(input, beans);
+            workbook.write(out);
+        } catch (ParsePropertyException ex) {
+            Logger.getLogger(Feedback2013Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Feedback2013Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -536,6 +569,14 @@ public class Feedback2013Controller implements Serializable {
         this.fbGraphUrl = fbGraphUrl;
     }
 
+    public FeedbackType getFeedbackType() {
+        return feedbackType;
+    }
+
+    public void setFeedbackType(FeedbackType feedbackType) {
+        this.feedbackType = feedbackType;
+    }
+
     @FacesConverter(forClass = Feedback2013.class)
     public static class Feedback2013ControllerConverter implements Converter {
 
@@ -589,7 +630,6 @@ public class Feedback2013Controller implements Serializable {
         }
     }
 }
-
 class FeedbackDetail {
 
     private int qid;

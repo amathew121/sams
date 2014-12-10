@@ -97,6 +97,12 @@
                             </h:outputText>
                             <br />
                         </p:panel>
+                        <p:panel header="Export" style="width: 80px; height: 90px">
+                            <h:commandLink style="position: relative; float: left" action="#{feedback2013Controller.feedbackXLSExport()}">  
+                                <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
+
+                            </h:commandLink> 
+                        </p:panel>
                     </p:layoutUnit>
                     <p:layoutUnit header="Comments" position="east" minSize="285" maxSize="285">
                         <p:dataList id="fbComments" value="#{feedback2013CommentsController.feedback2013CommentsList}" var="item" >                      
