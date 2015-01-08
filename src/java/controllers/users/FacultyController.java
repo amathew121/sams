@@ -34,13 +34,14 @@ public class FacultyController implements Serializable {
     private int selectedItemIndex;
 
     /**
-     *creates the backing bean
+     * creates the backing bean
      */
     public FacultyController() {
     }
 
     /**
      * Gets the selected faculty entity
+     *
      * @return
      */
     public Faculty getSelected() {
@@ -56,8 +57,9 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Gets Pagination Helper to fetch range of items according to page.
-     * Gets 10 items at a time.
+     * Gets Pagination Helper to fetch range of items according to page. Gets 10
+     * items at a time.
+     *
      * @return
      */
     public PaginationHelper getPagination() {
@@ -111,6 +113,7 @@ public class FacultyController implements Serializable {
 
     /**
      * Resets the list of items and navigates to List
+     *
      * @return
      */
     public String prepareList() {
@@ -119,7 +122,9 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Sets the selected Faculty Entity to view more details.Navigation case to View
+     * Sets the selected Faculty Entity to view more details.Navigation case to
+     * View
+     *
      * @return
      */
     public String prepareView() {
@@ -130,6 +135,7 @@ public class FacultyController implements Serializable {
 
     /**
      * Navigation case to Create page after initializing a new Faculty Entity
+     *
      * @return
      */
     public String prepareCreate() {
@@ -139,7 +145,8 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Creates a new recored in the database for the selected entity
+     * Creates a new recored in the database for the selected entity
+     *
      * @return
      */
     public String create() {
@@ -152,15 +159,15 @@ public class FacultyController implements Serializable {
             return null;
         }
     }
-    
-    public void updateGplus(Faculty f,String email, String token, String code) {
+
+    public void updateGplus(Faculty f, String email, String token, String code) {
         current = f;
         current.setFacultyEmail(email);
         current.setOauthCode(code);
         current.setOauthToken(token);
         update();
     }
-    
+
     public String prepareEdit() {
         current = (Faculty) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -207,11 +214,16 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Updates the selected faculty entity in the database
+     * Updates the selected faculty entity in the database
+     *
      * @return
      */
     public String update() {
         try {
+            if (!(current.getOauthToken().isEmpty())) {
+                String oauthCode = DigestUtils.sha256Hex(current.getFacultyPassword() + DigestUtils.sha256Hex(current.getOauthToken()));
+                current.setOauthCode(oauthCode);
+            }
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FacultyUpdated"));
             return "View";
@@ -243,12 +255,11 @@ public class FacultyController implements Serializable {
     public String update2() {
         try {
             final String hash = DigestUtils.sha256Hex(oldPassword);
-            if(hash.equals(current.getFacultyPassword())){
+            if (hash.equals(current.getFacultyPassword())) {
                 current.setFacultyPassword(newPassword);
-                String oauthCode = DigestUtils.sha256Hex(current.getFacultyPassword()+DigestUtils.sha256Hex(current.getOauthToken()));
+                String oauthCode = DigestUtils.sha256Hex(current.getFacultyPassword() + DigestUtils.sha256Hex(current.getOauthToken()));
                 current.setOauthCode(oauthCode);
-            }
-            else{
+            } else {
                 JsfUtil.addErrorMessage("Old Password is wrong");
                 return null;
             }
@@ -263,6 +274,7 @@ public class FacultyController implements Serializable {
 
     /**
      * Destroys the selected faculty entity, and deletes it from the database
+     *
      * @return
      */
     public String destroy() {
@@ -318,6 +330,7 @@ public class FacultyController implements Serializable {
     public Faculty getFacultyByToken(String token) {
         return getFacade().findFacultyByToken(token);
     }
+
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -334,7 +347,8 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Navigation case to next page with next items
+     * Navigation case to next page with next items
+     *
      * @return
      */
     public String next() {
@@ -344,7 +358,8 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Navigation case to previous page with previous items
+     * Navigation case to previous page with previous items
+     *
      * @return
      */
     public String previous() {
@@ -354,7 +369,8 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Gets list of all faculty entities to be able to select many from it
+     * Gets list of all faculty entities to be able to select many from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -362,7 +378,8 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Gets list of all faculty entities to be able to select one from it
+     * Gets list of all faculty entities to be able to select one from it
+     *
      * @return
      */
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -373,7 +390,7 @@ public class FacultyController implements Serializable {
      *
      * @return
      */
-    public List<Faculty> getAllFaculty(){
+    public List<Faculty> getAllFaculty() {
         return getFacade().findAll();
     }
 
@@ -387,7 +404,7 @@ public class FacultyController implements Serializable {
     }
 
     /**
-     *Converter Class for faculty Entity
+     * Converter Class for faculty Entity
      */
     @FacesConverter(forClass = Faculty.class)
     public static class FacultyControllerConverter implements Converter {

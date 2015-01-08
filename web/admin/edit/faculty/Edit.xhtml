@@ -25,8 +25,16 @@
                     <h:inputText id="facultyMobile" value="#{facultyController.selected.facultyMobile}" title="#{bundle.EditFacultyTitle_facultyMobile}" />
                     <h:outputLabel value="#{bundle.EditFacultyLabel_facultyEmail}" for="facultyEmail" />
                     <h:inputText id="facultyEmail" value="#{facultyController.selected.facultyEmail}" title="#{bundle.EditFacultyTitle_facultyEmail}" />
+
                     <h:outputLabel value="#{bundle.EditFacultyLabel_facultyPassword}" for="facultyPassword" />
-                    <h:inputText id="facultyPassword" value="#{facultyController.selected.facultyPassword}" title="#{bundle.EditFacultyTitle_facultyPassword}" />
+                    <h:inputText id="facultyPassword" value="#{facultyController.selected.facultyPassword}" title="#{bundle.EditFacultyLabel_facultyPassword}" />
+
+                    <h:outputLabel value="OAuthToken" for="oauthToken" />
+                    <h:inputText id="oauthToken" value="#{facultyController.selected.oauthToken}" title="OAuthToken" />
+
+                    <h:outputLabel value="OAuthCode" for="oauthCode" />
+                    <h:inputText id="oauthCode" value="#{facultyController.selected.oauthCode}" title="OAuthCode" />
+
                     <h:outputLabel value="#{bundle.EditFacultyLabel_facultyDepartment}" for="facultyDepartment" />
                     <h:inputText id="facultyDepartment" value="#{facultyController.selected.facultyDepartment}" title="#{bundle.EditFacultyTitle_facultyDepartment}" />
                     <h:outputLabel value="#{bundle.EditFacultyLabel_facultyLastLogin}" for="facultyLastLogin" />
