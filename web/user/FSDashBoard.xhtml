@@ -48,7 +48,7 @@
 
                     <p:panel id="tplan" 
                              header="Teaching Plan"
-                             >  
+                             style="height: 500px">  
                         <f:facet name="header">
                             <p:outputLabel value="Teaching Plan"/>
                             <h:commandLink>  
@@ -63,15 +63,15 @@
 
                         </f:facet>
                         <p:dataTable scrollable="true"  id="tplanX"
-                                     scrollHeight="300" 
+                                     scrollHeight="400" 
                                      value="#{teachingPlanController.getItemsUser(dashboardBean.getFacSub())}" var="c" >   
 
-                            <p:column style="width: 8%; white-space: normal;"
-                                      headerText="No.">
+                            <p:column style="width: 7%; white-space: normal;"
+                                      headerText=" ">
                                 <h:outputText value="#{c.t.lectureNo}" />
 
                             </p:column>
-                            <p:column style="width: 25%; white-space: normal;" 
+                            <p:column style="width: 28%; white-space: normal;" 
                                       headerText="Planned On">
                                 <h:outputText style="font-weight: bold" 
                                               value="#{c.t.plannedDate}" >
@@ -89,7 +89,7 @@
 
                         </p:dataTable>   
                     </p:panel>  
-                    <p:panel id="contentsDelivered" 
+                    <p:panel id="contentsDelivered" style="height: 480px"
                              toggleable="false" 
                              closable="false" 
                              toggleSpeed="500" 
@@ -105,7 +105,7 @@
                         </f:facet>
 
                         <p:dataTable scrollable="true" 
-                                     scrollHeight="300" style="text-align: left;" 
+                                     scrollHeight="400" style="text-align: left;" 
                                      value="#{attendanceViewController.getAttendanceByFS(dashboardBean.getFacSub())}" rowIndexVar="i" var="c" >   
 
                             <p:column >
@@ -231,7 +231,7 @@
                             </p:column>
                         </p:dataTable>      
                     </p:panel>  
-                    <p:panel id="lectureReview" 
+                    <p:panel id="lectureReview" rendered="false"
                              header="Reviews on contents delivered"
                              toggleable="true" 
                              closable="true" 
@@ -254,7 +254,7 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
-                    <p:panel id="tPlanReview" 
+                    <p:panel id="tPlanReview" rendered="false"
                              header="Reviews on teaching plan "
                              toggleable="true" 
                              closable="true" 
@@ -279,7 +279,7 @@
                     </p:panel>
                     
 
-                    <p:panel id="lectureSchedule" 
+                    <p:panel id="lectureSchedule" rendered="false"
                              header="Schedule"  
                              toggleable="true" 
                              closable="true" 
@@ -293,7 +293,7 @@
                         </p:schedule>
                     </p:panel>
 
-                    <p:panel id ="students"  >
+                    <p:panel id ="students" style="height: 480px" >
                         <f:facet name="header">
                             <p:outputLabel value="Students"/>
                             <h:commandLink>  
@@ -312,7 +312,7 @@
 
                         <p:dataTable id="tbl"  
                                      scrollable="true" 
-                                     scrollHeight="300" 
+                                     scrollHeight="400" 
                                      value="#{attendanceReportController.getStudentAttendanceByFS(dashboardBean.getFacSub().idFacultySubject)}" var="c">
 
                             <p:column  style="width: 15px;text-align: center">
