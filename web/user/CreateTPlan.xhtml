@@ -62,8 +62,8 @@
                 <p:commandButton  value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,lectureNo, messagePanel,:teachPlanForm:teachPlan" action="#{teachingPlanController.createTP()}" />
 
             </h:form>
-            <h:form rendered="#{teachingPlanController.itemsUser.rowCount == 0}">
-                <p:commandLink  rendered="false" value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
+            <h:form rendered="false">
+                <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
 
             </h:form>
             <h:form >
@@ -82,34 +82,34 @@
             <h:form id ="teachPlanForm">
                 <p:dataTable style="text-align: left;" rendered="#{teachingPlanController.itemsUser.rowCount > 0}"  id="teachPlan" value="#{teachingPlanController.itemsUser}" var="c" >                
 
-                    <p:column style="width: 20px">
+                    <p:column style="width: 20px;text-align: center">
                         <f:facet name="header">
                             L.No
                         </f:facet>
                         #{c.t.lectureNo}
                     </p:column>
-                    <p:column style="width: 20px">
+                    <p:column style="width: 20px;text-align: center">
                         <f:facet name="header">
                             M.No
                         </f:facet>
                         #{c.t.moduleNo}
                     </p:column>
 
-                    <p:column style="width: 300px; white-space: normal " >
+                    <p:column style="width: 300px; white-space: normal ;text-align: justify" >
                         <f:facet name="header">
                             Topics Planned
                         </f:facet>
                         #{c.t.topicsPlanned}
 
                     </p:column>
-                    <p:column style="width: 300px; white-space: normal " >
+                    <p:column style="width: 300px; white-space: normal ;text-align: justify" >
                         <f:facet name="header">
                             Contents Delivered
                         </f:facet>
                         #{c.l.contentDelivered}
 
                     </p:column>
-                    <p:column style="width: 60px">
+                    <p:column style="width: 60px;text-align: center">
                         <f:facet name="header">
                             Planned on
                         </f:facet>
@@ -117,7 +117,7 @@
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="width: 60px">
+                    <p:column style="width: 60px;text-align: center">
                         <f:facet name="header">
                             Delivered on
                         </f:facet>

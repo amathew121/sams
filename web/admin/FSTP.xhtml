@@ -12,7 +12,7 @@
             <h:outputText value="#{'Teaching Plan for '}#{teachingPlanController.facSub.idFaculty}#{' '}#{teachingPlanController.facSub}"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
-            <h:form>
+            <h:form rendered="false">
                 <p:panel rendered="#{reviewCommentsController.getComments(teachingPlanController.facSub, 0).size() > 0}" style="width: 60%; position: relative; float: right">
                     <f:facet name="header" >
                         <h:outputText value="Reviews" />
@@ -52,34 +52,34 @@
 
                     <p:dataTable style="text-align: left;" value="#{teachingPlanController.itemsUser}" var="c" >   
 
-                        <p:column style="width: 20px">
+                        <p:column style="width: 20px;text-align: center">
                             <f:facet name="header">
                                 L.No
                             </f:facet>
                             #{c.t.lectureNo}
                         </p:column>
-                        <p:column style="width: 20px">
+                        <p:column style="width: 20px;text-align: center">
                             <f:facet name="header">
                                 M.No
                             </f:facet>
                             #{c.t.moduleNo}
                         </p:column>
 
-                        <p:column style="width: 300px; white-space: normal " >
+                        <p:column style="width: 300px; white-space: normal ;text-align: justify" >
                             <f:facet name="header">
                                 Topics Planned
                             </f:facet>
                             #{c.t.topicsPlanned}
 
                         </p:column>
-                        <p:column style="width: 300px; white-space: normal " >
+                        <p:column style="width: 300px; white-space: normal ;text-align: justify" >
                             <f:facet name="header">
                                 Contents Delivered
                             </f:facet>
                             #{c.l.contentDelivered}
 
                         </p:column>
-                        <p:column style="width: 60px">
+                        <p:column style="width: 60px;text-align: center">
                             <f:facet name="header">
                                 Planned on
                             </f:facet>
@@ -87,7 +87,7 @@
                                 <f:convertDateTime timeZone="IST" pattern="dd-MM-YYYY" />
                             </h:outputText>
                         </p:column>
-                        <p:column style="width: 60px">
+                        <p:column style="width: 60px;text-align: center">
                             <f:facet name="header">
                                 Delivered on
                             </f:facet>
