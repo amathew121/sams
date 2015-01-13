@@ -70,6 +70,7 @@
                             <p:outputLabel value="Contents Delivered"/>
 
                             <h:commandLink style="float: right;" 
+                                           rendered="#{dashboardBean.facSub.acDate.date==14 }"
                                            value="Att Report" 
                                            action="#{dashboardBean.downloadPDF}" 
                                            target="_blank" />
@@ -199,11 +200,7 @@
                               toggleSpeed="500"
                               style="height: 480px">
                         <f:facet name="header">
-                            <p:outputLabel value=""/>
-                            <h:commandLink 
-                                           value="Students " 
-                                           action="#{dashboardBean.downloadPDF}" 
-                                           target="_blank" />
+                            <p:outputLabel value="Students"/>
                             <h:commandLink>  
                                 <p:graphicImage value="/resources/images/excel.jpg" 
                                                 style="width: 20px; height: 20px" />  
