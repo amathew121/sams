@@ -29,7 +29,7 @@
                 <p:dataTable id="listComponents" rowIndexVar="index" value="#{attendanceViewController.getAttendanceByFS(lectureController.facSub)}" var="c">
                     <p:ajax event="rowToggle" />  
 
-                    <p:column style="width: 20px">
+                    <p:column style="width: 20px;text-align: center">
                         <f:facet name="header">
                             <h:outputText value="No"/>
                         </f:facet>
@@ -37,7 +37,7 @@
                         <p:rowToggler />  
 
                     </p:column>
-                    <p:column style="width: 75px">
+                    <p:column style="width: 75px;text-align: center">
                         <f:facet name="header">
                             <h:outputText value="Lecture Date"/>
                         </f:facet>
@@ -45,7 +45,7 @@
                             <f:convertDateTime timeZone="IST" pattern="dd-MM-yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="width: 75px">
+                    <p:column style="width: 75px;text-align: center">
                         <f:facet name="header">
                             <h:outputText value="Start Time"/>
                         </f:facet>
@@ -53,7 +53,7 @@
                             <f:convertDateTime timeZone="IST" pattern="hh:mm" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="width: 75px" rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
+                    <p:column style="width: 75px;text-align: center" rendered="#{facesContext.externalContext.isUserInRole('superuser')}">
                         <f:facet name="header">
                             <h:outputText value="Lecture ID"/>
                         </f:facet>
@@ -84,7 +84,7 @@
                         </ui:repeat>
                         
                     </p:column>
-                    <p:column style="width: 50px">
+                    <p:column style="width: 50px;text-align: center">
                         <f:facet name="header">
                             <h:outputText  value="Student Count"/>
                         </f:facet>

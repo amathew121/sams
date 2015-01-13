@@ -245,7 +245,7 @@ public class DashboardBean implements Serializable {
             max.set(i + "", total);
         }
         lectureLineModel.addSeries(temp);
-        lectureLineModel.addSeries(max);
+        // lectureLineModel.addSeries(max);
         return lectureLineModel;
     }
 

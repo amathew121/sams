@@ -29,21 +29,21 @@
 
                 </p:menuButton>
             </h:form>
-                      <h:form style="position: relative; float: right; padding-left: 2%;">
-          
-                          <p:commandButton  rendered="#{reviewerController.loggedUser.size() > 0 || facesContext.externalContext.isUserInRole('superuser')}" action="#{facesContext.externalContext.redirect('/piit/faces/user/ReviewList.xhtml')}" value="Reviews" ajax="false" />
-                      </h:form>
+            <h:form style="position: relative; float: right; padding-left: 2%;">
+
+                <p:commandButton  rendered="false" action="#{facesContext.externalContext.redirect('/piit/faces/user/ReviewList.xhtml')}" value="Reviews" ajax="false" />
+            </h:form>
 
             <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') ||  facesContext.externalContext.isUserInRole('coordinator')}" value="Manage" >
                     <p:menuitem  rendered="#{!facesContext.externalContext.isUserInRole('coordinator') }" action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
                     <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
-                    <p:menuitem  action="#{currentStudentController.navList()}" value="Attendance Report" ajax="false" />
-                    
+
                     <p:separator ></p:separator>
+                    <p:menuitem  action="#{currentStudentController.navList()}" value="Attendance Report" ajax="false" />
                     <p:menuitem  action="#{facultySubjectController.prepareBatchesBySemDiv()}" value="Faculty/Batches" ajax="false" />
-                    <p:menuitem rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('principal')}"  action="#{reviewerController.prepareCreateR()}" value="Reviewers" ajax="false" />
-                    
+                    <p:menuitem rendered="false"  action="#{reviewerController.prepareCreateR()}" value="Reviewers" ajax="false" />
+
 
                 </p:menuButton>
             </h:form>
