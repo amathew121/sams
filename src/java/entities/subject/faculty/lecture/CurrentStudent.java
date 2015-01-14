@@ -105,13 +105,13 @@ public class CurrentStudent implements Serializable {
     @Transient
     private int count;
     @Transient
-    private int[] theoryCount = new int[10];
+    private int[] theoryCount = new int[20];
     @Transient
-    private int[] pracsCount = new int[10];
+    private int[] pracsCount = new int[20];
     @Transient
-    private BigDecimal[] marksAll = new BigDecimal[10];
+    private BigDecimal[] marksAll = new BigDecimal[20];
     @Transient
-    private BigDecimal[] marksAll2 = new BigDecimal[10];
+    private BigDecimal[] marksAll2 = new BigDecimal[20];
     @Transient
     private int theoryCountTotal;
     @Transient
