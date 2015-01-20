@@ -13,6 +13,7 @@ import entities.subject.Subject;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -177,6 +178,27 @@ public class FacultySubjectController implements Serializable {
             return null;
         }
     }
+    
+   /* public List<Date> getFSAcademicYear(){
+
+        try {
+        return getFacade().getFSByAcademicYr();
+        }
+        catch(Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public List<FacultySubject> getFSByAcDate(Date ac_date){
+        try {
+        return getFacade().getFSListByAcademicYr(ac_date);
+        }
+        catch(Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }*/
     
     public List<FacultySubject> getBatchesBySemDiv(){
 
@@ -399,7 +421,15 @@ public class FacultySubjectController implements Serializable {
 
         return getFacade().getFSBySemDivBatchSubYr(division, semester, batch, idSubject);
     }
+    public FacultySubject getIdFacSubYrFINAL(String division, short semester, Subject idSubject) {
 
+        return getFacade().getFSBySemDivBatchSubYrFINAL(division, semester, idSubject);
+    }
+
+   /* public FacultySubject getIdFacSubYrDate(String division, short semester, short batch, Subject idSubject, Date acDate) {
+
+        return getFacade().getFSBySemDivBatchSubYrDate(division, semester, batch, idSubject, acDate);
+    }*/
     public Integer getAc_yr() {
         return ac_yr;
     }

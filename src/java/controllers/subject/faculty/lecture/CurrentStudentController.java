@@ -79,7 +79,7 @@ public class CurrentStudentController implements Serializable {
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
-        currentYear = new Date(114, 06, 14);
+        //currentYear = new Date(114, 06, 14);
     }
 
     /**
@@ -152,6 +152,10 @@ public class CurrentStudentController implements Serializable {
         pcpk.setIdProgram(program.getIdProgram());
         pcpk.setIdCourse(course.getIdCourse());
         pc = pcll.getProgramCourse(pcpk);
+
+        /*  List<FacultySubject> facSubject = new ArrayList();
+         facSubject = fsc.getFSByAcDate(currentYear);
+         */
         subject = sc.getSubjectBySemesterHide(pc, semester);
 
         Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
@@ -369,7 +373,8 @@ public class CurrentStudentController implements Serializable {
         Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
-            final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+           // final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+            final FacultySubject facultySubject = fsc.getIdFacSubYrFINAL(division, semester, item);
             if (facultySubject == null) {
                 continue;
             }
@@ -401,7 +406,9 @@ public class CurrentStudentController implements Serializable {
                 int[] theoryCount = cs.getTheoryCount();
                 int[] pracsCount = cs.getPracsCount();
 
-                theoryCount[item.getSubjectSrNo()] = theory.get(cs.getIdCurrentStudent());
+                if (theory.get(cs.getIdCurrentStudent()) != null) {
+                    theoryCount[item.getSubjectSrNo()] = theory.get(cs.getIdCurrentStudent());
+                }
                 if (pracs.get(cs.getIdCurrentStudent()) != null) {
                     pracsCount[item.getSubjectSrNo()] = pracs.get(cs.getIdCurrentStudent());
                 }
@@ -818,6 +825,14 @@ public class CurrentStudentController implements Serializable {
         this.division = division;
     }
     //</editor-fold>
+
+    public Date getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(Date currentYear) {
+        this.currentYear = currentYear;
+    }
 
     /**
      * Converter Class for currentStudent Entity

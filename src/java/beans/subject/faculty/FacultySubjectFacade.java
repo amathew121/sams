@@ -169,12 +169,39 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         try {
             List<FacultySubject> l = q.getResultList();
             return l.get(0);
+
         } catch (Exception e) {
-            e.printStackTrace();
+
+            //e.printStackTrace();
+            System.out.println("Exception");
             return null;
         }
     }
 
+    public FacultySubject getFSBySemDivBatchSubYrFINAL(String division, short semester, Subject idSubject) {
+        Query q;
+        if (semester % 2 == 0) {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEvenYrFINAL");
+        } else {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubYrFINAL");
+        }
+        Integer yr = 2014;
+        short b1 = 1, b0 = 0;
+        q.setParameter("division", division);
+        q.setParameter("b0", b0);
+        q.setParameter("b1", b1);
+        q.setParameter("idSubject", idSubject);
+        q.setParameter("ac_yr", yr);
+        try {
+            List<FacultySubject> l = q.getResultList();
+            return l.get(0);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * Gets a list of FacultySubject for the specified division, semester and
      * programcourse entity
@@ -193,6 +220,7 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         return q.getResultList();
 
     }
+
     public List<FacultySubject> getFSBySemDivSub(short semester, String division, ProgramCourse programCourse) {
         Query q = em.createNamedQuery("FacultySubject.findBySemDivPC");
         q.setParameter("division", division);
