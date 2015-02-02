@@ -6,17 +6,23 @@ import controllers.util.PaginationHelper;
 import beans.subject.faculty.lecture.LectureFacade;
 import controllers.subject.faculty.FacultySubjectController;
 import controllers.extra.RandomPermutation;
+import controllers.subject.faculty.FacultySubjectViewController;
 import entities.subject.faculty.lecture.Attendance;
 import entities.subject.faculty.lecture.CurrentStudent;
 import entities.subject.faculty.FacultySubject;
 import entities.subject.Subject;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -47,7 +53,9 @@ public class LectureController implements Serializable {
     private Date endDate;
     private int startIndex;
     private String lectureTags;
+    private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
     private boolean[] selectAll;
+    private String message;
 
     /**
      *
@@ -323,6 +331,15 @@ public class LectureController implements Serializable {
         return "MultipleDateRange?faces-redirect=true";
     }
 
+    public void prepareBlockedLectures() {
+        lectureList = getLectureBlocked();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/BlockedLectures.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      *
      * @return @throws Exception
@@ -425,6 +442,10 @@ public class LectureController implements Serializable {
         return getFacade().getLectureByIdFaculty(facSub);
     }
 
+    public List<Lecture> getLectureBlocked() {
+        return getFacade().getLectureBlocked();
+    }
+
     /**
      *
      * @param facSub
@@ -499,10 +520,33 @@ public class LectureController implements Serializable {
             getFacade().create(temp);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureCreated"));
             setTags();
-            currentStudentController.setLec(temp);
-            recreateModel();
-            //  return "CreateAttendance?faces-redirect=true";
-            currentStudentController.createAttendance();
+
+            // Date validation new Date(temp.getLectureDate().getDate()-2, temp.getLectureDate().getMonth(),temp.getLectureDate().getYear())
+            Date chkDate = new Date();
+            //System.out.println("Chk date = "+chkDate+"\nLecture date = "+temp.getLectureDate());
+            int cd, cm, cy, ld, lm, ly;
+            cd = chkDate.getDate();
+            cm = chkDate.getMonth();
+            cy = chkDate.getYear();
+            ld = temp.getLectureDate().getDate();
+            lm = temp.getLectureDate().getMonth();
+            ly = temp.getLectureDate().getYear();
+            if ((ly == cy) && (lm == cm) && (ld == cd)) {
+                currentStudentController.setLec(temp);
+                recreateModel();
+                //  return "CreateAttendance?faces-redirect=true";
+                currentStudentController.createAttendance();
+            } else {
+                current.setBlocked(true);
+                update();
+                //System.out.println("Lecture Blocked");
+                JsfUtil.addErrorMessage("Attendance NOT recorded.. Request permission from your HOD");
+
+                message="Attendance NOT recorded.. Request permission from your HOD";
+                context.addMessage(null, new FacesMessage("BLOCKED", message));
+
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
@@ -512,6 +556,29 @@ public class LectureController implements Serializable {
             prepareCreate();
             return "View?faces-redirect=true";
         }
+    }
+
+    public void unblockLecture() {
+        lectureList = getLectureBlocked();
+
+        List<Lecture> checkedItems = new ArrayList<Lecture>();
+
+        for (Lecture item : lectureList) {
+            if (checked.get(item.getIdLecture())) {
+                checkedItems.add(item);
+            }
+        }
+
+        for (Lecture lec : checkedItems) {
+            current = lec;
+            current.setBlocked(Boolean.FALSE);
+            update();
+            //checked.changeMap(lec.getChecked(), Boolean.FALSE);
+
+        }
+
+        prepareBlockedLectures();
+        //return "BlockedLectures?faces-redirect=true";
     }
 
     /**
@@ -706,13 +773,14 @@ public class LectureController implements Serializable {
      *
      * @param lec
      * @return
-     * @throws Exceptionller) context.getELContext().getELResolver().getValue(context.getELContext(), 
+     * @throws Exceptionller)
+     * context.getELContext().getELResolver().getValue(context.getELContext(),
      */
     public String prepareUpdateLectureRestrict(Lecture lec) throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         CurrentStudentController currentStudentController = (CurrentStudentController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "currentStudentController");
 
-        if (lec != null) {
+        if (lec != null && !lec.isBlocked()) {
             current = lec;
             currentStudentController.setLec(lec);
             currentStudentController.changeMap(currentStudentController.getChecked(), Boolean.FALSE);
@@ -857,6 +925,30 @@ public class LectureController implements Serializable {
      */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public Map<Integer, Boolean> getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Map<Integer, Boolean> checked) {
+        this.checked = checked;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getIdFacSub() {
+        return idFacSub;
+    }
+
+    public void setIdFacSub(int idFacSub) {
+        this.idFacSub = idFacSub;
     }
 
     /**

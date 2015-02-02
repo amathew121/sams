@@ -54,6 +54,14 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         super(Lecture.class);
     }
     
+    public List<Lecture> getLectureBlocked() {
+        
+        boolean blk = true;
+        Query q = em.createNamedQuery("Lecture.findByBlocked");
+        q.setParameter("blk", blk);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
     /**
      * get list of lectures taken by the specified faculty subject
      * @param f

@@ -14,13 +14,15 @@
         <ui:define name="body">
 
             <h:form>
-                <p:growl id="growl" showDetail="true" autoUpdate="true" />
+                <p:growl id="growl" showDetail="true" sticky="true" />
                 <p:layout style="min-width:400px;min-height:200px; max-height: 200px;" id="layout"> 
                     <p:layoutUnit position="west" resizable="true" size="100" minSize="600" maxSize="700">  
 
                         <h:panelGrid columns="2">
                             <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
-                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
+                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" 
+                                        widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"
+                                        />
                             <p:outputLabel value="Start Time" for="startTime" />
                             <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="60"  pattern="HH:mm" timeOnly="true" required="true" />  
                             <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
@@ -68,7 +70,9 @@
                         </p:scrollPanel>
                     </p:layoutUnit>
                 </p:layout>
-                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
+                <p:commandButton value="Submit"  action="#{lectureController.createA()}" update="growl"></p:commandButton>
+                <h:outputText style="color: red;font-size: large" value=" **Student Attendance will be recorded for lectures entered on the SAME day only **"></h:outputText>
+                   
                 <p:dataTable id="listComponents" style="width: 40%;text-align: center" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 
                     <p:column width="20%">
@@ -95,8 +99,9 @@
 
 
                 </p:dataTable>
-                <p:commandButton value="Submit"  action="#{lectureController.createA()}" ></p:commandButton>
-
+                <p:commandButton value="Submit"  action="#{lectureController.createA()}" update="growl" ></p:commandButton>
+              
+               
             </h:form> 
         </ui:define>
     </ui:composition>

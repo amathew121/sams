@@ -33,12 +33,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Creates POJO Entity for table 'lecture'
+ *
  * @author Ashish
  */
 @Entity
@@ -48,11 +50,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lecture.findAll", query = "SELECT l FROM Lecture l"),
     @NamedQuery(name = "Lecture.findByIdLecture", query = "SELECT l FROM Lecture l WHERE l.idLecture = :idLecture"),
     @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject ORDER BY l.lectureDate,l.lectureStartTime"),
+    @NamedQuery(name = "Lecture.findByBlocked", query = "SELECT l FROM Lecture l WHERE l.blocked = :blk ORDER BY l.lectureDate,l.lectureStartTime "),
     @NamedQuery(name = "Lecture.findByLectureDate", query = "SELECT l FROM Lecture l WHERE l.lectureDate = :lectureDate"),
     @NamedQuery(name = "Lecture.findByLectureDateRange", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate AND l.lectureDate <= :endDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureDateRangeStart", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureStartTime", query = "SELECT l FROM Lecture l WHERE l.lectureStartTime = :lectureStartTime")})
 public class Lecture implements Serializable {
+
     @Lob
     @Size(max = 16777215)
     @Column(name = "content_beyond_syllabus")
@@ -78,22 +82,24 @@ public class Lecture implements Serializable {
     @JoinColumn(name = "id_faculty_subject", referencedColumnName = "id_faculty_subject")
     @ManyToOne
     private FacultySubject idFacultySubject;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "blocked")
+    private boolean blocked;
     @OneToOne(mappedBy = "idLecture")
     private Attendance attendance;
-
     @Transient
     private Long attendanceCount;
     @Transient
     private Boolean check;
-    
     @Transient
     private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
-
     @Transient
     private boolean selectAll;
 
     /**
      * Get check from Lecture Entity
+     *
      * @return
      */
     public Boolean getCheck() {
@@ -102,14 +108,16 @@ public class Lecture implements Serializable {
 
     /**
      * Set check for Lecture Entity
+     *
      * @param check
      */
     public void setCheck(Boolean check) {
         this.check = check;
     }
-    
+
     /**
      * TODO:
+     *
      * @return
      */
     public Map<Integer, Boolean> getChecked() {
@@ -118,6 +126,7 @@ public class Lecture implements Serializable {
 
     /**
      * TODO:
+     *
      * @param checked
      */
     public void setChecked(Map<Integer, Boolean> checked) {
@@ -126,6 +135,7 @@ public class Lecture implements Serializable {
 
     /**
      * TODO:
+     *
      * @return
      */
     public boolean isSelectAll() {
@@ -134,6 +144,7 @@ public class Lecture implements Serializable {
 
     /**
      * TODO:
+     *
      * @param selectAll
      */
     public void setSelectAll(boolean selectAll) {
@@ -142,6 +153,7 @@ public class Lecture implements Serializable {
 
     /**
      * TODO:
+     *
      * @param event
      */
     public void checkedControl(ValueChangeEvent event) {
@@ -149,9 +161,10 @@ public class Lecture implements Serializable {
         CurrentStudent cs = (CurrentStudent) data.getRowData();
         getChecked().put(cs.getIdCurrentStudent(), true);
     }
-    
+
     /**
      * TODO:
+     *
      * @param event
      */
     public void selectAllComponents(ValueChangeEvent event) {
@@ -172,6 +185,7 @@ public class Lecture implements Serializable {
 
     /**
      * TODO:
+     *
      * @param selectedComponentMap
      * @param blnValue
      */
@@ -191,9 +205,10 @@ public class Lecture implements Serializable {
             setChecked(selectedComponentMap);
         }
     }
-    
+
     /**
      * Get attendance_count from Lecture Entity
+     *
      * @return
      */
     public Long getAttendanceCount() {
@@ -202,12 +217,13 @@ public class Lecture implements Serializable {
 
     /**
      * Set attendance_count for Lecture Entity
+     *
      * @param attendanceCount
      */
     public void setAttendanceCount(Long attendanceCount) {
         this.attendanceCount = attendanceCount;
     }
-    
+
     /**
      * Creates Lecture Entity
      */
@@ -216,6 +232,7 @@ public class Lecture implements Serializable {
 
     /**
      * Creates Lecture Entity with the specified id_lecture
+     *
      * @param idLecture
      */
     public Lecture(Integer idLecture) {
@@ -224,6 +241,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get id_lecture from Lecture entity
+     *
      * @return
      */
     public Integer getIdLecture() {
@@ -232,6 +250,7 @@ public class Lecture implements Serializable {
 
     /**
      * Set id_lecture for Lecture entity
+     *
      * @param idLecture
      */
     public void setIdLecture(Integer idLecture) {
@@ -240,6 +259,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get lecture_date from Lecture Entity
+     *
      * @return
      */
     public Date getLectureDate() {
@@ -248,6 +268,7 @@ public class Lecture implements Serializable {
 
     /**
      * Set lecture_date for Lecture Entity
+     *
      * @param lectureDate
      */
     public void setLectureDate(Date lectureDate) {
@@ -256,6 +277,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get lecture_start_time from Lecture Entity
+     *
      * @return
      */
     public Date getLectureStartTime() {
@@ -264,6 +286,7 @@ public class Lecture implements Serializable {
 
     /**
      * Set lecture_start_time for Lecture Entity
+     *
      * @param lectureStartTime
      */
     public void setLectureStartTime(Date lectureStartTime) {
@@ -272,6 +295,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get id_faculty_subject from Lecture Entity
+     *
      * @return
      */
     public FacultySubject getIdFacultySubject() {
@@ -280,6 +304,7 @@ public class Lecture implements Serializable {
 
     /**
      * Set id_faculty_subject for Lecture Entity
+     *
      * @param idFacultySubject
      */
     public void setIdFacultySubject(FacultySubject idFacultySubject) {
@@ -288,6 +313,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get attendance from Lecture Entity
+     *
      * @return
      */
     public Attendance getAttendance() {
@@ -296,6 +322,7 @@ public class Lecture implements Serializable {
 
     /**
      * Set attendance for Lecture Entity
+     *
      * @param attendance
      */
     public void setAttendance(Attendance attendance) {
@@ -344,7 +371,9 @@ public class Lecture implements Serializable {
     }
 
     /**
-     * Gets a list of LectureTags Entities for the Lecture Entity as a foreign key 
+     * Gets a list of LectureTags Entities for the Lecture Entity as a foreign
+     * key
+     *
      * @return
      */
     @XmlTransient
@@ -353,7 +382,9 @@ public class Lecture implements Serializable {
     }
 
     /**
-     * Sets a list of LectureTags Entities for the Lecture Entity as a foreign key
+     * Sets a list of LectureTags Entities for the Lecture Entity as a foreign
+     * key
+     *
      * @param lectureTagsList
      */
     public void setLectureTagsList(List<LectureTags> lectureTagsList) {
@@ -362,6 +393,7 @@ public class Lecture implements Serializable {
 
     /**
      * Get content_beyond_syllabus from Lecture Entity
+     *
      * @return
      */
     public String getContentBeyondSyllabus() {
@@ -370,11 +402,18 @@ public class Lecture implements Serializable {
 
     /**
      * Set content_beyond_syllabus for Lecture Entity
+     *
      * @param contentBeyondSyllabus
      */
     public void setContentBeyondSyllabus(String contentBeyondSyllabus) {
         this.contentBeyondSyllabus = contentBeyondSyllabus;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
 
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
 }
