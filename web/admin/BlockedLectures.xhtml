@@ -14,11 +14,25 @@
         </ui:define>
         <ui:define name="body">
 
-            <h:form>
+            <h:form rendered="#{facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal')|| facesContext.externalContext.isUserInRole('hod')}">
+                <p:selectOneMenu value="#{lectureController.program}" >
+                    <f:selectItems noSelectionValue="#{programController.getProgram('BE')}" value="#{programController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                <p:selectOneMenu value="#{lectureController.course}" >
+                    <f:selectItems value="#{courseController.itemsAvailableSelectOne}" />
+                </p:selectOneMenu>
+                
+                <br />
+
+                <p:commandButton value="Submit" action="#{lectureController.navList()}" update=":blockedLectures"/>
+
+            </h:form>
+            <h:form id="blockedLectures">
 
                 <br />
 
-                <p:dataTable id="blockedLectures" rowIndexVar="index" value="#{lectureController.lectureList}" rowKey="#{c.idLecture}" var="c" >
+                <p:dataTable id="blockedLectures" rowIndexVar="index" value="#{lectureController.lectureList}" 
+                             rowKey="#{c.idLecture}" var="c" >
 
                     <p:column  style="text-align: center;width: 10px" >
                         <p:selectBooleanCheckbox value="#{lectureController.checked[c.idLecture]}" />

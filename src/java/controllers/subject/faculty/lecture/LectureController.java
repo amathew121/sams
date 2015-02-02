@@ -7,6 +7,8 @@ import beans.subject.faculty.lecture.LectureFacade;
 import controllers.subject.faculty.FacultySubjectController;
 import controllers.extra.RandomPermutation;
 import controllers.subject.faculty.FacultySubjectViewController;
+import entities.subject.Course;
+import entities.subject.Program;
 import entities.subject.faculty.lecture.Attendance;
 import entities.subject.faculty.lecture.CurrentStudent;
 import entities.subject.faculty.FacultySubject;
@@ -56,6 +58,8 @@ public class LectureController implements Serializable {
     private Map<Integer, Boolean> checked = new HashMap<Integer, Boolean>();
     private boolean[] selectAll;
     private String message;
+    private Program program;
+    private Course course;
 
     /**
      *
@@ -332,7 +336,8 @@ public class LectureController implements Serializable {
     }
 
     public void prepareBlockedLectures() {
-        lectureList = getLectureBlocked();
+       
+           
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/BlockedLectures.xhtml");
         } catch (IOException ex) {
@@ -340,6 +345,12 @@ public class LectureController implements Serializable {
         }
     }
 
+    public String navList() {
+         if(program!=null && course!=null){
+             lectureList = getLectureBlocked();
+        }
+        return "BlockedLectures?faces-redirect=true";
+    }
     /**
      *
      * @return @throws Exception
@@ -443,7 +454,7 @@ public class LectureController implements Serializable {
     }
 
     public List<Lecture> getLectureBlocked() {
-        return getFacade().getLectureBlocked();
+        return getFacade().getLectureBlocked(program,course);
     }
 
     /**
@@ -558,7 +569,7 @@ public class LectureController implements Serializable {
         }
     }
 
-    public void unblockLecture() {
+    public String unblockLecture() {
         lectureList = getLectureBlocked();
 
         List<Lecture> checkedItems = new ArrayList<Lecture>();
@@ -577,8 +588,9 @@ public class LectureController implements Serializable {
 
         }
 
-        prepareBlockedLectures();
-        //return "BlockedLectures?faces-redirect=true";
+        //prepareBlockedLectures();
+        lectureList = getLectureBlocked();
+        return "BlockedLectures?faces-redirect=true";
     }
 
     /**
@@ -949,6 +961,22 @@ public class LectureController implements Serializable {
 
     public void setIdFacSub(int idFacSub) {
         this.idFacSub = idFacSub;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     /**

@@ -5,6 +5,8 @@
 package beans.subject.faculty.lecture;
 
 import beans.AbstractFacade;
+import entities.subject.Course;
+import entities.subject.Program;
 import entities.subject.faculty.lecture.Attendance;
 import entities.subject.faculty.lecture.CurrentStudent;
 import entities.subject.faculty.FacultySubject;
@@ -54,11 +56,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         super(Lecture.class);
     }
     
-    public List<Lecture> getLectureBlocked() {
+    public List<Lecture> getLectureBlocked( Program program, Course course) {
         
         boolean blk = true;
         Query q = em.createNamedQuery("Lecture.findByBlocked");
         q.setParameter("blk", blk);
+        q.setParameter("program", program.getIdProgram());
+        q.setParameter("course", course.getIdCourse());
         List<Lecture> l = q.getResultList();
         return l;
     }
