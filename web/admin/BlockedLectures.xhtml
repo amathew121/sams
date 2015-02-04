@@ -42,7 +42,7 @@
                         <f:facet name="header">
                             <h:outputText value="Faculty"/>
                         </f:facet>
-                        <h:outputText value="#{c.idFacultySubject.idFaculty.facultyFname} #{c.idFacultySubject.idFaculty.facultyLname}">
+                        <h:outputText value="#{c.idFacultySubject.idFaculty.facultyFname}#{' '}#{c.idFacultySubject.idFaculty.facultyLname}">
                             
                         </h:outputText>
                     </p:column>
@@ -58,7 +58,7 @@
                         <f:facet name="header">
                             <h:outputText value="Program"/>
                         </f:facet>
-                        <h:outputText value="#{c.idFacultySubject.idSubject.programCourse}/#{c.idFacultySubject.idSubject.semester}/#{c.idFacultySubject.division}">
+                        <h:outputText value="#{c.idFacultySubject.idSubject.programCourse}#{' / '}#{c.idFacultySubject.idSubject.semester}#{' / '}#{c.idFacultySubject.division}">
                             
                         </h:outputText>
                     </p:column>
