@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lecture.findAll", query = "SELECT l FROM Lecture l"),
     @NamedQuery(name = "Lecture.findByIdLecture", query = "SELECT l FROM Lecture l WHERE l.idLecture = :idLecture"),
     @NamedQuery(name = "Lecture.findByIdFacultySubject", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject ORDER BY l.lectureDate,l.lectureStartTime"),
-    @NamedQuery(name = "Lecture.findByBlocked", query = "SELECT l FROM Lecture l, FacultySubjectView fsv WHERE l.blocked = :blk AND fsv.idProgram = :program AND fsv.idCourse = :course AND l.idFacultySubject.idFacultySubject = fsv.idFacultySubject ORDER BY l.idFacultySubject.idFaculty.facultyFname, l.lectureDate, l.lectureStartTime "),
+    @NamedQuery(name = "Lecture.findByBlocked", query = "SELECT l FROM Lecture l, FacultySubjectView fsv WHERE l.blocked = :blk AND fsv.idProgram = :program AND fsv.idCourse = :course AND l.idFacultySubject.idFacultySubject = fsv.idFacultySubject AND fsv.acDate=:acYr ORDER BY l.idFacultySubject.idFaculty.facultyFname, l.lectureDate, l.lectureStartTime "),
     @NamedQuery(name = "Lecture.findByLectureDate", query = "SELECT l FROM Lecture l WHERE l.lectureDate = :lectureDate"),
     @NamedQuery(name = "Lecture.findByLectureDateRange", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate AND l.lectureDate <= :endDate ORDER BY l.lectureDate,l.lectureStartTime"),
     @NamedQuery(name = "Lecture.findByLectureDateRangeStart", query = "SELECT l FROM Lecture l WHERE l.idFacultySubject = :idFacultySubject AND l.lectureDate >= :startDate ORDER BY l.lectureDate,l.lectureStartTime"),

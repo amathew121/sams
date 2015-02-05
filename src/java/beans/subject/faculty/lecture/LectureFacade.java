@@ -57,12 +57,13 @@ public class LectureFacade extends AbstractFacade<Lecture> {
     }
     
     public List<Lecture> getLectureBlocked( Program program, Course course) {
-        
+        Date acYr = new Date(115, 0, 5);
         boolean blk = true;
         Query q = em.createNamedQuery("Lecture.findByBlocked");
         q.setParameter("blk", blk);
         q.setParameter("program", program.getIdProgram());
         q.setParameter("course", course.getIdCourse());
+        q.setParameter("acYr", acYr);
         List<Lecture> l = q.getResultList();
         return l;
     }
