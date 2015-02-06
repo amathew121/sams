@@ -8,8 +8,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-
-            <h:outputText value="#{bundle.CreateLectureTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateLectureTitle}#{' - '}#{dashboardBean.facSub.toString()}"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
