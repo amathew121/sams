@@ -39,6 +39,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SlideEndEvent;
 
 @Named("lectureController")
@@ -336,8 +337,8 @@ public class LectureController implements Serializable {
     }
 
     public void prepareBlockedLectures() {
-       
-           
+
+
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/admin/BlockedLectures.xhtml");
         } catch (IOException ex) {
@@ -346,11 +347,12 @@ public class LectureController implements Serializable {
     }
 
     public String navList() {
-         if(program!=null && course!=null){
-             lectureList = getLectureBlocked();
+        if (program != null && course != null) {
+            lectureList = getLectureBlocked();
         }
         return "BlockedLectures?faces-redirect=true";
     }
+
     /**
      *
      * @return @throws Exception
@@ -454,7 +456,7 @@ public class LectureController implements Serializable {
     }
 
     public List<Lecture> getLectureBlocked() {
-        return getFacade().getLectureBlocked(program,course);
+        return getFacade().getLectureBlocked(program, course);
     }
 
     /**
@@ -529,7 +531,7 @@ public class LectureController implements Serializable {
         Lecture temp = current;
         try {
             getFacade().create(temp);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureCreated"));
+            context.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Lecture Created", "New lecture was created successfully."));
             setTags();
 
             // Date validation new Date(temp.getLectureDate().getDate()-2, temp.getLectureDate().getMonth(),temp.getLectureDate().getYear())
@@ -548,24 +550,23 @@ public class LectureController implements Serializable {
                 //  return "CreateAttendance?faces-redirect=true";
                 currentStudentController.createAttendance();
             } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BLOCKED", "Attendance NOT recorded.. Request permission from your HOD");
+                  RequestContext.getCurrentInstance().showMessageInDialog(message); 
+                
+              
                 current.setBlocked(true);
                 update();
                 //System.out.println("Lecture Blocked");
-                JsfUtil.addErrorMessage("Attendance NOT recorded.. Request permission from your HOD");
-
-                message="Attendance NOT recorded.. Request permission from your HOD";
-                context.addMessage(null, new FacesMessage("BLOCKED", message));
-
-
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
-            JsfUtil.addErrorMessage("No Students Selected! Lecture Not created");
+            
 
         } finally {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AttendanceCreated"));
+            
             prepareCreate();
-            return "View?faces-redirect=true";
+            return null;
         }
     }
 
@@ -730,7 +731,7 @@ public class LectureController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureUpdated"));
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LectureUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
