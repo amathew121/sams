@@ -76,7 +76,7 @@
                 <br /> <br />
                 <h:outputText style="color: red;font-size: large" value=" **Student Attendance will be recorded for lectures entered on the SAME day only **"></h:outputText>
                 <br /> <br />
-                <h:outputText style="color: red;font-size: large" value=" **NO Attendance will be recorded for previous day/s unless AUTHORISED **"></h:outputText>
+                <h:outputText style="color: red;font-size: large" value=" **Attendance cannot be recorded for previous day/s unless AUTHORISED **"></h:outputText>
                 <br /> <br />
                 <p:dataTable id="listComponents" style="width: 40%;text-align: center" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
 

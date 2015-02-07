@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -333,7 +334,10 @@ public class CurrentStudentController implements Serializable {
 
 
         }
-        JsfUtil.addSuccessMessage("Attendance Successfully Created");
+        //JsfUtil.addSuccessMessage("Attendance Successfully Created");
+       FacesContext context = FacesContext.getCurrentInstance();
+       context.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Student Attendance was added successfully."));
+           
         return "View?faces-redirect=true";
     }
 
