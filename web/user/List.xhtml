@@ -75,14 +75,16 @@
 
             </h:form>
 
-            <h:form rendered="false">
+            <h:form>
                 <p:panel id="upload"
                          closable="true"
                          closeSpeed="500"
                          toggleSpeed="500"
                          toggleable="true"
                          collapsed="false"
-                         style=" width:39%; float: right;position: relative;">
+                         style=" width:39%; float: right;position: relative;"
+                         rendered="false">
+                    
                     <f:facet name="header">
                         <p:outputLabel value="Upload Attendance Report" />
                     </f:facet>
