@@ -13,7 +13,9 @@
         <ui:define name="body">
 
             <h:form>
-                <p:commandButton value="Back"  action="#{lectureController.prepareViewWithId(dashboardBean.facSub.idFacultySubject)}" ></p:commandButton>
+                <p:commandButton value="Back"  
+                                 action="#{lectureController.prepareViewWithId(dashboardBean.facSub.idFacultySubject)}" >
+                </p:commandButton>
             </h:form>
             <h:form>
                 <p:growl id="growl" showDetail="true" sticky="true" />
