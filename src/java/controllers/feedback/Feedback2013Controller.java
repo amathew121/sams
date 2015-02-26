@@ -346,7 +346,7 @@ public class Feedback2013Controller implements Serializable {
 
         }
 
-        performanceIndex = (5.0 * ra[5] + 2.5 * ra[4] + 0.0 * ra[3] - 2.5 * ra[2] - 5.0 * ra[1]) / (ra[0] + ra[1] + ra[2] + ra[3] + ra[4] + ra[5]);
+        performanceIndex = (5.0 * ra[5] + 2.5 * ra[4] + 0.0 * ra[3] - 2.5 * ra[2] - 5.0 * ra[1]) / ( ra[1] + ra[2] + ra[3] + ra[4] + ra[5]);
 
         Feedback2013CommentsController fcController = findBean("feedback2013CommentsController");
         fcController.getByUserName(idFacultySubject, fType);

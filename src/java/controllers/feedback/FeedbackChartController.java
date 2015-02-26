@@ -55,9 +55,9 @@ public class FeedbackChartController implements Serializable {
     }
 
     private void createBarModel() {
-        barModel = initBarModel(130, 5);
+        barModel = initBarModel(130, 6);
 
-        barModel.setTitle("I would like to have the teacher for any advanced course.");
+        barModel.setTitle("I would like the teacher to continue for the subject.");
         barModel.setLegendPosition("ne");
         barModel.setStacked(false);
 
