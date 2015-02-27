@@ -18,35 +18,36 @@
                 <p:layout style="min-width:400px;min-height:300px; max-height: 300px;" id="layout"> 
                     <p:layoutUnit position="west" resizable="true" size="100" minSize="600" maxSize="700">  
 
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
-                    <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" required="true" pattern="dd/MM/yyyy"/>
-                    <p:outputLabel value="Start Time" for="startTime" />
-                    <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="60"  pattern="HH:mm" timeOnly="true" required="true" />  
-                    <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
-                    <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" cols="40"  autoResize="true" />
-                    <p:outputLabel value="Contents Beyond Syllabus(if any)" for="contentsBeyond" />
-                    <p:inputTextarea value="#{lectureController.selected.contentBeyondSyllabus}" id ="contentsBeyond" cols="40"  autoResize="true" />
-                    <p:outputLabel value="Tags" for="tags" />
-                    <p:panel id ="tagPanel">
-                        <ui:repeat value="#{lectureTagsController.getTags(lectureController.selected)}" var="item" >
-                            <h:commandLink styleClass="tag" value="#{item}" action="#{lectureTagsController.destroy(item)}" >
-                                <f:ajax render=":form:layout" />
-                            </h:commandLink>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="#{bundle.CreateLectureLabel_lectureDate}" for="lectureDate" />
+                            <p:calendar value="#{lectureController.selected.lectureDate}" id="lectureDate" widgetVar="myCalendar" 
+                                        required="true" pattern="dd/MM/yyyy" disabled="true"/> 
+                            <p:outputLabel value="Start Time" for="startTime" />
+                            <p:calendar id="startTime" value="#{lectureController.selected.lectureStartTime}" maxHour="18" minHour="8" stepMinute="60"  pattern="HH:mm" timeOnly="true" required="true" />  
+                            <p:outputLabel value="Contents Delivered" for="topicsDelivered" />
+                            <p:inputTextarea value="#{lectureController.selected.contentDelivered}" id ="topicsDelivered" cols="40"  autoResize="true" />
+                            <p:outputLabel value="Contents Beyond Syllabus(if any)" for="contentsBeyond" />
+                            <p:inputTextarea value="#{lectureController.selected.contentBeyondSyllabus}" id ="contentsBeyond" cols="40"  autoResize="true" />
+                            <p:outputLabel value="Tags" for="tags" />
+                            <p:panel id ="tagPanel">
+                                <ui:repeat value="#{lectureTagsController.getTags(lectureController.selected)}" var="item" >
+                                    <h:commandLink styleClass="tag" value="#{item}" action="#{lectureTagsController.destroy(item)}" >
+                                        <f:ajax render=":form:layout" />
+                                    </h:commandLink>
 
-                        </ui:repeat>
-                    <p:inputText value="#{lectureController.lectureTags}" id ="tags" />
+                                </ui:repeat>
+                                <p:inputText value="#{lectureController.lectureTags}" id ="tags" />
 
-                    </p:panel>
+                            </p:panel>
 
 
-                </h:panelGrid>
-            <!--    <script type="text/javascript">
-                    jQuery(document).ready(function() {
-                        myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
-                        myCalendar.jqEl.datepicker("option", "minDate", -3);
-                    });
-                </script> -->
+                        </h:panelGrid>
+                        <!--    <script type="text/javascript">
+                                jQuery(document).ready(function() {
+                                    myCalendar.jqEl.datepicker("option", "maxDate", +0);//set maxDate to today
+                                    myCalendar.jqEl.datepicker("option", "minDate", -3);
+                                });
+                            </script> -->
                     </p:layoutUnit>
                     <p:layoutUnit position="center" >
                         <p:scrollPanel mode="native" style="white-space: normal; width: 100%;">
@@ -75,7 +76,7 @@
                                 </p:column>
                             </p:dataTable>
                         </p:scrollPanel>
-                         </p:layoutUnit>
+                    </p:layoutUnit>
                 </p:layout>
                 <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
                 <p:dataTable id="listComponents"  style="width: 40%;text-align: center" value="#{currentStudentController.getAttendanceByDiv(lectureController.facSub)}" rowKey="#{c.idCurrentStudent}" var="c" >
@@ -93,15 +94,15 @@
                         <f:facet name="header">
                             Roll No
                         </f:facet>
-                            #{c.rollNo}
+                        #{c.rollNo}
                     </p:column>
                     <p:column width="60%">
                         <f:facet name="header">
                             Name
                         </f:facet>
-                            #{c.admnNo.studentName}
+                        #{c.admnNo.studentName}
                     </p:column>
-                    
+
 
                 </p:dataTable>
                 <p:commandButton value="Submit"  action="#{lectureController.updateLectureRestrict()}" ></p:commandButton>
