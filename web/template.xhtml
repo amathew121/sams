@@ -21,10 +21,14 @@
             </p:dialog>
             <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
+                    <p:menuitem value="Pending Lectures" action="#{viewLectureNotTakenController.prepareViewLNTUser()}" ajax="false"/>
+                    
                     <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
-                    <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
                     <p:separator ></p:separator>
+                    <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
+                   
                     <p:menuitem value="Suggestions" action="#{suggesstionsController.prepareCreateUser()}" ajax="false" />
+                     <p:separator ></p:separator>
                     <p:menuitem action="#{authBackingBean.logout()}" value="Logout" ajax="false" />
 
                 </p:menuButton>
@@ -33,26 +37,26 @@
 
                 <p:commandButton  rendered="false" action="#{facesContext.externalContext.redirect('/piit/faces/user/ReviewList.xhtml')}" value="Reviews" ajax="false" />
             </h:form>
-            <h:form style="position: relative; float: right; padding-left: 2%;">
 
-                <p:commandButton  rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') }" 
-                                  action="#{lectureController.prepareBlockedLectures()}" value="Blocked Lectures" ajax="false" />
-            </h:form>
 
             <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') ||  facesContext.externalContext.isUserInRole('coordinator')}" value="Manage" >
                     <p:menuitem  rendered="#{!facesContext.externalContext.isUserInRole('coordinator') }" action="#{facultySubjectViewController.prepareListAdmin()}" value="Faculty Subject" ajax="false"/>
                     <p:menuitem  action="#{facultySubjectViewController.prepareListAdminFeedback()}" value="Feedback" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('principal') || facesContext.externalContext.isUserInRole('superuser')}"/>
-
                     <p:separator ></p:separator>
                     <p:menuitem  action="#{currentStudentController.navList()}" value="Attendance Report" ajax="false" />
                     <p:menuitem  action="#{facultySubjectController.prepareBatchesBySemDiv()}" value="Faculty/Batches" ajax="false" />
                     <p:menuitem rendered="false"  action="#{reviewerController.prepareCreateR()}" value="Reviewers" ajax="false" />
+                </p:menuButton>
+            </h:form>
+            <h:form style="position: relative; float: right; padding-left: 2%;">
 
+                <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') }" value="Lectures" >
+                    <p:menuitem  action="#{lectureController.prepareBlockedLectures()}" value="Blocked Lectures" ajax="false" />
+                    <p:menuitem  action="#{viewLectureNotTakenController.prepareViewLNT()}" value="Lectures Not Taken" ajax="false" />
 
                 </p:menuButton>
             </h:form>
-
             <h:form style="position: relative; float: right; padding-left: 2%;">
                 <p:commandButton value="Home" action="#{facultySubjectViewController.prepareListUser()}"></p:commandButton>
             </h:form>
