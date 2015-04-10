@@ -80,6 +80,24 @@ public class LectureFacade extends AbstractFacade<Lecture> {
         List<Lecture> l = q.getResultList();
         return l;
     }
+    public List<Lecture> getLectureByIdFacultyTheory(FacultySubject f) {
+        
+        
+        Query q = em.createNamedQuery("Lecture.findByIdFacultySubjectTheory");
+        q.setParameter("idFacultySubject", f);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
+    
+    public List<Lecture> getLectureByIdFacultyPracs(FacultySubject f, Short batch) {
+        
+        
+        Query q = em.createNamedQuery("Lecture.findByIdFacultySubjectPracs");
+        q.setParameter("idFacultySubject", f);
+        q.setParameter("batch", batch);
+        List<Lecture> l = q.getResultList();
+        return l;
+    }
     
     /**
      * get list of lectures taken by the specified faculty subject between specified start date and end date

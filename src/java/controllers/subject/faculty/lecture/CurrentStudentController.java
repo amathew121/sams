@@ -80,7 +80,7 @@ public class CurrentStudentController implements Serializable {
     @PostConstruct
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
-       // currentYear = new Date(114, 06, 14);
+        // currentYear = new Date(114, 06, 14);
         currentYear = new Date(115, 00, 05);
     }
 
@@ -335,9 +335,9 @@ public class CurrentStudentController implements Serializable {
 
         }
         //JsfUtil.addSuccessMessage("Attendance Successfully Created");
-       FacesContext context = FacesContext.getCurrentInstance();
-       context.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Student Attendance was added successfully."));
-           
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Student Attendance was added successfully."));
+
         return "View?faces-redirect=true";
     }
 
@@ -378,7 +378,7 @@ public class CurrentStudentController implements Serializable {
         Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
-           // final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+            // final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
             final FacultySubject facultySubject = fsc.getIdFacSubYrFINAL(division, semester, item);
             if (facultySubject == null) {
                 continue;
@@ -425,8 +425,14 @@ public class CurrentStudentController implements Serializable {
 
             LectureController lc = (LectureController) context.getELContext().getELResolver().getValue(context.getELContext(), null, "lectureController");
 
-            item.setLectureTotal(lc.getLectureByFSList(facultySubject).size());
+            //item.setLectureTotal(lc.getLectureByFSList(facultySubject).size());
+            item.setLectureTotal(lc.getLectureByFSListTheory(facultySubject).size());
 
+            int[] pracsTotal = item.getPracsTotal();
+            for (int b = 1; b <= 4; b++) {
+                pracsTotal[b]=lc.getLectureByFSListPracs(facultySubject, (short)b).size();
+            }
+            item.setPracsTotal(pracsTotal);
             try {
                 List<CurrentStudent> st = stc.getTestDetails(facultySubject);
 

@@ -455,6 +455,14 @@ public class LectureController implements Serializable {
         return getFacade().getLectureByIdFaculty(facSub);
     }
 
+    public List<Lecture> getLectureByFSListTheory(FacultySubject facSub) {
+        return getFacade().getLectureByIdFacultyTheory(facSub);
+    }
+
+    public List<Lecture> getLectureByFSListPracs(FacultySubject facSub, Short batch) {
+        return getFacade().getLectureByIdFacultyPracs(facSub, batch);
+    }
+
     public List<Lecture> getLectureBlocked() {
         return getFacade().getLectureBlocked(program, course);
     }
@@ -551,20 +559,20 @@ public class LectureController implements Serializable {
                 currentStudentController.createAttendance();
             } else {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BLOCKED", "Attendance NOT recorded.. Request permission from your HOD");
-                  RequestContext.getCurrentInstance().showMessageInDialog(message); 
-                
-              
+                RequestContext.getCurrentInstance().showMessageInDialog(message);
+
+
                 current.setBlocked(true);
                 update();
                 //System.out.println("Lecture Blocked");
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
 
         } finally {
-            
+
             prepareCreate();
             return null;
         }

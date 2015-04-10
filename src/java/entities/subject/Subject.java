@@ -128,6 +128,16 @@ public class Subject implements Serializable {
     private Collection<FacultySubject> facultySubjectCollection;
     @Transient
     private int lectureTotal;
+    @Transient
+    private int[] pracsTotal = new int[5];
+
+    public int[] getPracsTotal() {
+        return pracsTotal;
+    }
+
+    public void setPracsTotal(int[] pracsTotal) {
+        this.pracsTotal = pracsTotal;
+    }
 
     /**
      * Get lecture_total from Subject Entity
@@ -514,4 +524,6 @@ public class Subject implements Serializable {
     public void setSubjectHide(boolean subjectHide) {
         this.subjectHide = subjectHide;
     }
+
+    
     }
