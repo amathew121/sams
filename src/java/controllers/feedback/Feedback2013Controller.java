@@ -285,7 +285,10 @@ public class Feedback2013Controller implements Serializable {
         Map<Integer, Short> ra3 = new HashMap<Integer, Short>();
         Map<Integer, Short> ra4 = new HashMap<Integer, Short>();
         Map<Integer, Short> ra5 = new HashMap<Integer, Short>();
-        feedback2013List = getFacade().getRating(idFacultySubject);
+        Short qver = 2;
+        if(fType.getIdFeedbackType() < 7)
+            qver = 1;
+        feedback2013List = getFacade().getRatingQVer(idFacultySubject,qver);
         for (Feedback2013 item : feedback2013List) {
             ra0.put(item.getQid().getQid(), (short) 0);
             ra1.put(item.getQid().getQid(), (short) 0);

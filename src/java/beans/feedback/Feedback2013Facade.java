@@ -16,15 +16,18 @@ import javax.persistence.Query;
 
 /**
  * Enterprise JavaBean for feedback2013 entity
+ *
  * @author piit
  */
 @Stateless
 public class Feedback2013Facade extends AbstractFacade<Feedback2013> {
+
     @PersistenceContext(unitName = "SamJPAPU")
     private EntityManager em;
 
     /**
      * Gets Entity Manager for the feedback2013 EJB
+     *
      * @return
      */
     @Override
@@ -38,16 +41,17 @@ public class Feedback2013Facade extends AbstractFacade<Feedback2013> {
     public Feedback2013Facade() {
         super(Feedback2013.class);
     }
-    
+
     public List<Feedback2013> getByUserName(FacultySubject idFacultySubject, FeedbackType fType) {
         Query q = em.createNamedQuery("Feedback2013.findByIdFacultySubject");
         q.setParameter("idFacultySubject", idFacultySubject);
         q.setParameter("fType", fType);
         return q.getResultList();
     }
-    
+
     /**
      * gets feedback rating for the specifed faculty subject group by question
+     *
      * @param idFacultySubject
      * @return
      */
@@ -58,6 +62,14 @@ public class Feedback2013Facade extends AbstractFacade<Feedback2013> {
         return l;
     }
     
+    public List getRatingQVer(FacultySubject idFacultySubject, Short qVer) {
+        Query q = em.createNamedQuery("Feedback2013.findByRatingQVersion");
+        q.setParameter("idFacultySubject", idFacultySubject);
+        q.setParameter("qVer", qVer);
+        List l = q.getResultList();
+        return l;
+    }
+
     public List getFeedbackByQuestion(int qid, int type) {
         Query q = em.createNamedQuery("Feedback2013.findByQuestion");
         q.setParameter("qid", qid);

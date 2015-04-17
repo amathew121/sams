@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Feedback2013.findById", query = "SELECT f FROM Feedback2013 f WHERE f.id = :id"),
     @NamedQuery(name = "Feedback2013.findByIdFacultySubject", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject AND f.idFeedbackType = :fType"),
     @NamedQuery(name = "Feedback2013.findByRating", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject GROUP BY f.qid"),
+    @NamedQuery(name = "Feedback2013.findByRatingQVersion", query = "SELECT f FROM Feedback2013 f WHERE f.idFacultySubject = :idFacultySubject  and f.qid.qversion = :qVer GROUP BY f.qid"),
+    
     @NamedQuery(name = "Feedback2013.findByIdAnswer", query = "SELECT f FROM Feedback2013 f WHERE f.idAnswer = :idAnswer")})
 public class Feedback2013 implements Serializable {
     @JoinColumn(name = "id_feedback_type", referencedColumnName = "id_feedback_type")

@@ -56,6 +56,8 @@ public class Feedback2013Question implements Serializable {
     @OneToMany(mappedBy = "qid")
     private List<Feedback2013> feedback2013List;
 
+    @Column(name = "qversion")
+    private Short qversion;
     /**
      * Creates Feedback2013Question Entity
      */
@@ -190,6 +192,14 @@ public class Feedback2013Question implements Serializable {
      */
     public void setIdProgram(Program idProgram) {
         this.idProgram = idProgram;
+    }
+
+    public Short getQversion() {
+        return qversion;
+    }
+
+    public void setQversion(Short qversion) {
+        this.qversion = qversion;
     }
     
 }
