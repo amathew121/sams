@@ -288,6 +288,8 @@ public class Feedback2013Controller implements Serializable {
         Short qver = 2;
         if(fType.getIdFeedbackType() < 7)
             qver = 1;
+        if(idFacultySubject.getIdSubject().getProgramCourse().getProgram().getIdProgram().equalsIgnoreCase("ME") && fType.getIdFeedbackType()==6)
+            qver = 2;
         feedback2013List = getFacade().getRatingQVer(idFacultySubject,qver);
         for (Feedback2013 item : feedback2013List) {
             ra0.put(item.getQid().getQid(), (short) 0);
