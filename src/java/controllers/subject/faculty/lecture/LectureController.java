@@ -552,21 +552,21 @@ public class LectureController implements Serializable {
             ld = temp.getLectureDate().getDate();
             lm = temp.getLectureDate().getMonth();
             ly = temp.getLectureDate().getYear();
-            if ((ly == cy) && (lm == cm) && (ld == cd)) {
+         //   if ((ly == cy) && (lm == cm) && (ld == cd)) {
                 currentStudentController.setLec(temp);
                 recreateModel();
                 //  return "CreateAttendance?faces-redirect=true";
                 currentStudentController.createAttendance();
-            } else {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BLOCKED", "Attendance NOT recorded.. Request permission from your HOD");
-                RequestContext.getCurrentInstance().showMessageInDialog(message);
+         //   } else {
+           //     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BLOCKED", "Attendance NOT recorded.. Request permission from your HOD");
+            //    RequestContext.getCurrentInstance().showMessageInDialog(message);
 
 
-                current.setBlocked(true);
+           //     current.setBlocked(true);
                 update();
                 //System.out.println("Lecture Blocked");
 
-            }
+           // }
         } catch (Exception e) {
             e.printStackTrace();
 
