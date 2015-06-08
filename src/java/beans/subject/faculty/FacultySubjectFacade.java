@@ -154,7 +154,30 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         }
     }
 
-    public FacultySubject getFSBySemDivBatchSubYr(String division, short semester, short batch, Subject idSubject) {
+    public FacultySubject getFSBySemDivBatchSubYr(String division, short semester, short batch, Subject idSubject, Integer yr) {
+        Query q;
+        if (semester % 2 == 0) {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEvenYr");
+        } else {
+            q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubYr");
+        }
+        //Integer yr = 2014;
+        q.setParameter("division", division);
+        q.setParameter("batch", batch);
+        q.setParameter("idSubject", idSubject);
+        q.setParameter("ac_yr", yr);
+        try {
+            List<FacultySubject> l = q.getResultList();
+            return l.get(0);
+
+        } catch (Exception e) {
+
+            //e.printStackTrace();
+            System.out.println("Exception: facade - getFSBySemDivBatchSubYr");
+            return null;
+        }
+    }
+public FacultySubject getFSBySemDivBatchSubYear(String division, short semester, short batch, Subject idSubject) {
         Query q;
         if (semester % 2 == 0) {
             q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEvenYr");
@@ -178,14 +201,14 @@ public class FacultySubjectFacade extends AbstractFacade<FacultySubject> {
         }
     }
 
-    public FacultySubject getFSBySemDivBatchSubYrFINAL(String division, short semester, Subject idSubject) {
+    public FacultySubject getFSBySemDivBatchSubYrFINAL(String division, short semester, Subject idSubject, Integer yr) {
         Query q;
         if (semester % 2 == 0) {
             q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubEvenYrFINAL");
         } else {
             q = em.createNamedQuery("FacultySubject.findBySemDivBatchSubYrFINAL");
         }
-        Integer yr = 2014;
+        //Integer yr = 2014;
         short b1 = 1, b0 = 0;
         q.setParameter("division", division);
         q.setParameter("b0", b0);

@@ -74,6 +74,7 @@ public class CurrentStudentController implements Serializable {
     private Program program;
     private short semester;
     private String division;
+    private Integer ac_yr;
     List<Subject> subject = new ArrayList();
     Coordinator c;
 
@@ -118,7 +119,7 @@ public class CurrentStudentController implements Serializable {
             Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
             for (Subject item : subjectList) {
 
-                final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+                final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item, ac_yr);
                 if (facultySubject == null) {
                     continue;
                 }/*
@@ -163,7 +164,7 @@ public class CurrentStudentController implements Serializable {
         Subject[] subjectList = subject.toArray(new Subject[subject.size()]);
         for (Subject item : subjectList) {
 
-            final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
+            final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item,ac_yr);
             if (facultySubject == null) {
                 continue;
             }/*
@@ -379,7 +380,7 @@ public class CurrentStudentController implements Serializable {
         for (Subject item : subjectList) {
 
             // final FacultySubject facultySubject = fsc.getIdFacSubYr(division, semester, (short) 0, item);
-            final FacultySubject facultySubject = fsc.getIdFacSubYrFINAL(division, semester, item);
+            final FacultySubject facultySubject = fsc.getIdFacSubYrFINAL(division, semester, item,ac_yr);
             if (facultySubject == null) {
                 continue;
             }
@@ -843,6 +844,14 @@ public class CurrentStudentController implements Serializable {
 
     public void setCurrentYear(Date currentYear) {
         this.currentYear = currentYear;
+    }
+
+    public Integer getAc_yr() {
+        return ac_yr;
+    }
+
+    public void setAc_yr(Integer ac_yr) {
+        this.ac_yr = ac_yr;
     }
 
     /**

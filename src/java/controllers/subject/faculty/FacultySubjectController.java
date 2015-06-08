@@ -417,13 +417,17 @@ public class FacultySubjectController implements Serializable {
         return getFacade().getFSBySemDivBatchSub(division, semester, batch, idSubject);
     }
     
-    public FacultySubject getIdFacSubYr(String division, short semester, short batch, Subject idSubject) {
+    public FacultySubject getIdFacSubYr(String division, short semester, short batch, Subject idSubject, Integer ac_yr) {
 
-        return getFacade().getFSBySemDivBatchSubYr(division, semester, batch, idSubject);
+        return getFacade().getFSBySemDivBatchSubYr(division, semester, batch, idSubject,ac_yr);
     }
-    public FacultySubject getIdFacSubYrFINAL(String division, short semester, Subject idSubject) {
+    public FacultySubject getIdFacSubYear(String division, short semester, short batch, Subject idSubject) {
 
-        return getFacade().getFSBySemDivBatchSubYrFINAL(division, semester, idSubject);
+        return getFacade().getFSBySemDivBatchSubYear(division, semester, batch, idSubject);
+    }
+    public FacultySubject getIdFacSubYrFINAL(String division, short semester, Subject idSubject, Integer ac_yr) {
+
+        return getFacade().getFSBySemDivBatchSubYrFINAL(division, semester, idSubject,ac_yr);
     }
 
    /* public FacultySubject getIdFacSubYrDate(String division, short semester, short batch, Subject idSubject, Date acDate) {

@@ -46,6 +46,11 @@
                     <f:selectItem itemLabel="I" itemValue="I" />
                     <f:selectItem itemLabel="J" itemValue="J" />
                 </p:selectOneMenu>
+                <p:selectOneMenu value="#{currentStudentController.ac_yr}" >
+                    <f:selectItem itemLabel="Academic Year"  />
+                    <f:selectItem itemLabel="2014-15" itemValue="2014" />
+                    <f:selectItem itemLabel="2013-14" itemValue="2013" />  
+                </p:selectOneMenu>
                 <br />
 
                 <p:commandButton value="Submit" action="#{currentStudentController.navListNew()}" update=":attendanceList"/>
@@ -86,16 +91,16 @@
                             </p:panelGrid>
                             <p:tooltip for="head" >
                                 <p:panelGrid columns="2">
-                                    <h:outputText value="#{facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x).idFaculty.toString()}" />
-                                    <h:outputText value="#{'TH-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size()}" />
-                                    <h:outputText value="#{facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  1, x).idFaculty.toString()}" />
-                                    <h:outputText value="#{'B1-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  1, x)).size()}" />
-                                    <h:outputText value="#{facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  2, x).idFaculty.toString()}" />
-                                    <h:outputText value="#{'B2-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  2, x)).size()}" />
-                                    <h:outputText value="#{facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  3, x).idFaculty.toString()}" />
-                                    <h:outputText value="#{'B3-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  3, x)).size()}" />
-                                    <h:outputText value="#{facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  4, x).idFaculty.toString()}" />
-                                    <h:outputText value="#{'B4-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  4, x)).size()}" />
+                                    <h:outputText value="#{facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  0, x).idFaculty.toString()}" />
+                                    <h:outputText value="#{'TH-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  0, x)).size()}" />
+                                    <h:outputText value="#{facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  1, x).idFaculty.toString()}" />
+                                    <h:outputText value="#{'B1-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  1, x)).size()}" />
+                                    <h:outputText value="#{facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  2, x).idFaculty.toString()}" />
+                                    <h:outputText value="#{'B2-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  2, x)).size()}" />
+                                    <h:outputText value="#{facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  3, x).idFaculty.toString()}" />
+                                    <h:outputText value="#{'B3-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  3, x)).size()}" />
+                                    <h:outputText value="#{facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  4, x).idFaculty.toString()}" />
+                                    <h:outputText value="#{'B4-'}#{lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  4, x)).size()}" />
 
                                 </p:panelGrid>
                             </p:tooltip>
@@ -113,12 +118,12 @@
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
-                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
+                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
 
                             <h:outputText 
-                                value="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester, c.batch , x)).size()*100}" >
+                                value="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester, c.batch , x)).size()*100}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
