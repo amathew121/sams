@@ -125,7 +125,7 @@ public class Feedback2013Controller implements Serializable {
         }
         performanceIndex = 0;
         for (FeedbackType item : ftController.getItemsDesc()) {
-            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr() + " " + item.getYr());
+            DefaultSubMenu tempSubmenu = new DefaultSubMenu(item.getDescr());
             for (FacultySubject fs : fsController.getItemsByYear(selectedFaculty, item.getYr(), item.getEven())) {
                 DefaultMenuItem menuItem = new DefaultMenuItem(fs.getIdSubject().getSubjectCode() + "/" + fs.getDivision() + "/" + fs.getBatchDetail());
                 menuItem.setCommand("#{feedback2013Controller.getByUserName(facultySubjectController.getIdFacSub(" + fs.getIdFacultySubject() + "),feedbackTypeController.getFeedbackType(" + item.getIdFeedbackType() + "))}");
