@@ -9,7 +9,7 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="#{dashboardBean.facSub.idFaculty.toString()}#{' - '}#{dashboardBean.facSub.toString()}"></h:outputText>
+            <h:outputText value="#{dashboardBean.facSub.idFaculty.toString()}#{' - '}#{dashboardBean.facSub.facSubDetail()}"></h:outputText>
         </ui:define>
         <ui:define name="body"> 
             <h:form id="form">  

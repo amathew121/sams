@@ -301,6 +301,10 @@ public class FacultySubject implements Serializable {
     public String toString() {
         return idFaculty.getIdFaculty() + " " + idSubject.toString() + "/" + division + "/" + batch;
     }
+    
+    public String facSubDetail() {
+        return idSubject.toString() + "/" + division + "/" + batch;
+    }
 
     /**
      * Get academic_year from FacultySubject Entity
