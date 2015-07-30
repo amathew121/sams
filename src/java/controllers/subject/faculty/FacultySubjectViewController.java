@@ -7,6 +7,11 @@ import beans.subject.faculty.FacultySubjectViewFacade;
 import entities.subject.Program;
 import entities.users.Department;
 import entities.users.Faculty;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -17,6 +22,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -24,6 +30,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 
 @Named("facultySubjectViewController")
 @SessionScoped
@@ -138,9 +145,9 @@ public class FacultySubjectViewController implements Serializable {
     public List<FacultySubjectView> getListByDept(Faculty fac) {
         Department dept = deptSelected;
         Program prog = program;
-        
-        if (dept != null && prog != null ) {
-            return getFacade().getFSViewByDept(dept.getIdDepartment(),prog.getIdProgram(),academic_year,semester);
+
+        if (dept != null && prog != null) {
+            return getFacade().getFSViewByDept(dept.getIdDepartment(), prog.getIdProgram(), academic_year, semester);
         } else {
             return null;
         }
@@ -527,6 +534,81 @@ public class FacultySubjectViewController implements Serializable {
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + FacultySubjectView.class.getName());
             }
+        }
+    }
+    // Constants ----------------------------------------------------------------------------------
+    private static final int DEFAULT_BUFFER_SIZE = 1024000; // 1000KB.
+
+    // Actions ------------------------------------------------------------------------------------
+    public void downloadP2PFeedback() throws IOException {
+
+        // Prepare.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        String filename = facesContext.getExternalContext().getRemoteUser() + ".pdf";
+        //System.out.println(facesContext.getExternalContext().getRemoteUser() + " , " + filename);
+        File file = new File("/usr/piit/p2pfeedback/", filename);
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+
+        if (!file.exists()) {
+            p2pFileNotExist();
+        } else {
+            try {
+                // Open file.
+                input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+
+
+                // Init servlet response.
+                response.reset();
+                response.setHeader("Content-Type", "application/pdf");
+                response.setHeader("Content-Length", String.valueOf(file.length()));
+                response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
+                output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+
+                // Write file contents to response.
+                byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+                int length;
+                while ((length = input.read(buffer)) > 0) {
+                    output.write(buffer, 0, length);
+                }
+
+                // Finalize task.
+                output.flush();
+            } finally {
+                // Gently close streams.
+                close(output);
+                close(input);
+            }
+        }
+        // Inform JSF that it doesn't need to handle response.
+        // This is very important, otherwise you will get the following exception in the logs:
+        // java.lang.IllegalStateException: Cannot forward after response has been committed.
+        facesContext.responseComplete();
+
+    }
+
+    // Helpers (can be refactored to public utility class) ----------------------------------------
+    private static void close(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                // Do your thing with the exception. Print it, log it or mail it. It may be useful to 
+                // know that this will generally only be thrown when the client aborted the download.
+                e.printStackTrace();
+
+            }
+        }
+    }
+
+    public void p2pFileNotExist() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/piit/faces/user/p2pFileNotFound.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FacultySubjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
