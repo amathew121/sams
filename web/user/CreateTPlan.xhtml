@@ -19,7 +19,11 @@
 
             <h:form>        
                 <p:commandButton action="#{dashboardBean.prepareDashboard(teachingPlanController.facSub)}" value="Back to Dashboard" immediate="true" />
-                <br />
+                <h:outputLink value="http://192.168.4.108/piitupload/tpupload.aspx" 
+                              target="_blank" 
+                              style="float: right;margin-right: 800px"><h3>Upload Teaching Plan</h3></h:outputLink>
+               
+                <br /><br />
                 <p:growl id="growl" autoUpdate="true" showDetail="true" />
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -61,7 +65,7 @@
                 </p:panelGrid>
                 <p:commandButton  value="#{bundle.CreateTeachingPlanSaveLink}" update="topicsPlanned,lectureNo, messagePanel,:teachPlanForm:teachPlan" action="#{teachingPlanController.createTP()}" />
 
-            </h:form>
+            </h:form><br />
             <h:form rendered="false">
                 <p:commandLink  value="Import from another Subject Teaching Plan" action="#{teachingPlanController.prepareImport()}" />
 

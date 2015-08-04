@@ -17,7 +17,11 @@
                 <p:commandLink value ="View all subjects" action="#{facultySubjectViewController.oddSem()}" />
                 <br />
                 <br />
-                <h:link outcome="TermCalendar" value="View Term Calendar" /><br /><br />
+                <h:link outcome="TermCalendar" value="View Term Calendar" />
+                <h:outputLink value="http://192.168.4.108/piitupload/tpupload.aspx" 
+                              target="_blank" 
+                              style="float: right;margin-right: 100px"><b>Upload Teaching Plan</b></h:outputLink>
+                <br /><br />
                 <h:commandLink value ="FE Academic Calendar" 
                                action="#{facultySubjectViewController.downloadFECal()}" 
                                style="float: left;"
