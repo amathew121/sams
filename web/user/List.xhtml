@@ -17,8 +17,11 @@
                 <p:commandLink value ="View all subjects" action="#{facultySubjectViewController.oddSem()}" />
                 <br />
                 <br />
-                <h:link outcome="TermCalendar" value="View Term Calendar" />
-                
+                <h:link outcome="TermCalendar" value="View Term Calendar" /><br /><br />
+                <h:commandLink value ="FE Academic Calendar" 
+                               action="#{facultySubjectViewController.downloadFECal()}" 
+                               style="float: left;"
+                               target="_blank"/>
                 <h:commandLink value ="Peer-to-Peer Feedback" 
                                action="#{facultySubjectViewController.downloadP2PFeedback()}" 
                                style="float: right; margin-right: 100px"
@@ -109,7 +112,6 @@
 
 
             </h:form>
-
 
         </ui:define>
     </ui:composition>
