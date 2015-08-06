@@ -119,12 +119,12 @@
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
-                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester,  0, x)).size()*100}" >
+                                value="#{c.theoryCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester,  0, x,currentStudentController.ac_yr)).size()*100}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
 
                             <h:outputText 
-                                value="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYear(currentStudentController.division,currentStudentController.semester, c.batch , x)).size()*100}" >
+                                value="#{c.pracsCount[i+1]/lectureController.getLectureByFSList(facultySubjectController.getIdFacSubYr(currentStudentController.division,currentStudentController.semester, c.batch , x,currentStudentController.ac_yr)).size()*100}" >
                                 <f:convertNumber pattern="#0" />
                             </h:outputText>
                             <h:outputText 
