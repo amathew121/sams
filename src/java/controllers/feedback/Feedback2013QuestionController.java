@@ -6,6 +6,7 @@ import controllers.util.PaginationHelper;
 import beans.feedback.Feedback2013QuestionFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -32,11 +33,13 @@ public class Feedback2013QuestionController implements Serializable {
     private beans.feedback.Feedback2013QuestionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<Feedback2013Question> fbQuesList;
 
     /**
      * creating the backing bean
      */
     public Feedback2013QuestionController() {
+        
     }
 
     /**
@@ -247,6 +250,11 @@ public class Feedback2013QuestionController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    public List<Feedback2013Question> getQuesNew(){
+        Integer version = 2;
+        fbQuesList = getFacade().getFBQuesNew(version);
+        return fbQuesList;
+    }
     /**
      *Gets list of all feedback2013question entities to be able to select one from it
      * @return
@@ -262,6 +270,14 @@ public class Feedback2013QuestionController implements Serializable {
      */
     public Feedback2013Question getFeedback2013Question(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public List<Feedback2013Question> getFbQuesList() {
+        return fbQuesList;
+    }
+
+    public void setFbQuesList(List<Feedback2013Question> fbQuesList) {
+        this.fbQuesList = fbQuesList;
     }
 
     /**

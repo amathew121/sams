@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Creates POJO Entity for table 'feedback2013_question'
+ *
  * @author piit
  */
 @Entity
@@ -35,8 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Feedback2013Question.findByQid", query = "SELECT f FROM Feedback2013Question f WHERE f.qid = :qid"),
     @NamedQuery(name = "Feedback2013Question.findByQtype", query = "SELECT f FROM Feedback2013Question f WHERE f.qtype = :qtype"),
     @NamedQuery(name = "Feedback2013Question.findByQno", query = "SELECT f FROM Feedback2013Question f WHERE f.qno = :qno"),
+    @NamedQuery(name = "Feedback2013Question.findByQVersion", query = "SELECT f FROM Feedback2013Question f WHERE f.qversion = :qver ORDER BY f.idProgram,f.qtype,f.qno"),
     @NamedQuery(name = "Feedback2013Question.findByQtext", query = "SELECT f FROM Feedback2013Question f WHERE f.qtext = :qtext")})
 public class Feedback2013Question implements Serializable {
+
     @Size(max = 300)
     @Column(name = "qtext_mid")
     private String qtextMid;
@@ -58,9 +61,9 @@ public class Feedback2013Question implements Serializable {
     private String qtext;
     @OneToMany(mappedBy = "qid")
     private List<Feedback2013> feedback2013List;
-
     @Column(name = "qversion")
     private Short qversion;
+
     /**
      * Creates Feedback2013Question Entity
      */
@@ -69,6 +72,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Creates Feedback2013Question Entity with the specified 'qid'
+     *
      * @param qid
      */
     public Feedback2013Question(Integer qid) {
@@ -77,6 +81,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * get qid from Feedback2013Question Entity
+     *
      * @return
      */
     public Integer getQid() {
@@ -85,6 +90,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Set qid for Feedback2013Question Entity
+     *
      * @param qid
      */
     public void setQid(Integer qid) {
@@ -93,6 +99,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Get qtype from Feedback2013Question Entity
+     *
      * @return
      */
     public Short getQtype() {
@@ -101,6 +108,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Set qtype for Feedback2013Question Entity
+     *
      * @param qtype
      */
     public void setQtype(Short qtype) {
@@ -109,6 +117,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Get qno from Feedback2013Question Entity
+     *
      * @return
      */
     public Integer getQno() {
@@ -117,6 +126,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Set qno for Feedback2013Question Entity
+     *
      * @param qno
      */
     public void setQno(Integer qno) {
@@ -125,6 +135,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Get qtext from Feedback2013Question Entity
+     *
      * @return
      */
     public String getQtext() {
@@ -133,6 +144,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Set qtext for Feedback2013Question Entity
+     *
      * @param qtext
      */
     public void setQtext(String qtext) {
@@ -140,7 +152,9 @@ public class Feedback2013Question implements Serializable {
     }
 
     /**
-     * Gets a list of Feedback2013 entities for the Feedback2013Question entity as a foreign key
+     * Gets a list of Feedback2013 entities for the Feedback2013Question entity
+     * as a foreign key
+     *
      * @return
      */
     @XmlTransient
@@ -149,7 +163,9 @@ public class Feedback2013Question implements Serializable {
     }
 
     /**
-     * Sets a list of Feedback2013 entities for the Feedback2013Question entity as a foreign key
+     * Sets a list of Feedback2013 entities for the Feedback2013Question entity
+     * as a foreign key
+     *
      * @param feedback2013List
      */
     public void setFeedback2013List(List<Feedback2013> feedback2013List) {
@@ -178,11 +194,12 @@ public class Feedback2013Question implements Serializable {
 
     @Override
     public String toString() {
-        return "[" +idProgram+"]"+(qtype==0?"Theory":"Pracs")+" "+qno+"."+qtext;
+        return "[" + idProgram + "]" + (qtype == 0 ? "Theory" : "Pracs") + " " + qno + "." + qtext;
     }
 
     /**
      * Get id_program from Feedback2013Question Entity
+     *
      * @return
      */
     public Program getIdProgram() {
@@ -191,6 +208,7 @@ public class Feedback2013Question implements Serializable {
 
     /**
      * Set id_program from Feedback2013Question Entity
+     *
      * @param idProgram
      */
     public void setIdProgram(Program idProgram) {
@@ -212,5 +230,4 @@ public class Feedback2013Question implements Serializable {
     public void setQtextMid(String qtextMid) {
         this.qtextMid = qtextMid;
     }
-    
 }

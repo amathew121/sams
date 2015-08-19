@@ -6,9 +6,11 @@ package beans.feedback;
 
 import beans.AbstractFacade;
 import entities.feedback.Feedback2013Question;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Enterprise JavaBean for Feedback2013question entity
@@ -33,6 +35,12 @@ public class Feedback2013QuestionFacade extends AbstractFacade<Feedback2013Quest
      */
     public Feedback2013QuestionFacade() {
         super(Feedback2013Question.class);
+    }
+    
+    public List<Feedback2013Question> getFBQuesNew(Integer ver){
+        Query q = em.createNamedQuery("Feedback2013Question.findByQVersion");
+        q.setParameter("qver", ver);
+        return q.getResultList();
     }
     
 }

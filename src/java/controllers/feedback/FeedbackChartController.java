@@ -89,13 +89,13 @@ public class FeedbackChartController implements Serializable {
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x - (10 * (Long) item[3])/2;
+                    x = x - (10 * (Long) item[3]) / 2;
                     sd.set((FacultySubject) item[0], x);
                     x = (Long) net.getData().get((FacultySubject) item[0]);
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x - (10 * (Long) item[3])/2;
+                    x = x - (10 * (Long) item[3]) / 2;
                     net.set((FacultySubject) item[0], x);
                     break;
                 case 2:
@@ -103,13 +103,13 @@ public class FeedbackChartController implements Serializable {
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x - (5 * (Long) item[3])/2;
+                    x = x - (5 * (Long) item[3]) / 2;
                     sd.set((FacultySubject) item[0], x);
                     x = (Long) net.getData().get((FacultySubject) item[0]);
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x - (5*(Long) item[3])/2;
+                    x = x - (5 * (Long) item[3]) / 2;
                     net.set((FacultySubject) item[0], x);
                     break;
                 case 3:
@@ -119,13 +119,13 @@ public class FeedbackChartController implements Serializable {
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x + (5*(Long) item[3])/2;
+                    x = x + (5 * (Long) item[3]) / 2;
                     sa.set((FacultySubject) item[0], x);
                     x = (Long) net.getData().get((FacultySubject) item[0]);
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x + (5*(Long) item[3])/2;
+                    x = x + (5 * (Long) item[3]) / 2;
                     net.set((FacultySubject) item[0], x);
                     break;
                 case 5:
@@ -133,13 +133,13 @@ public class FeedbackChartController implements Serializable {
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x + (10 * (Long) item[3])/2;
+                    x = x + (10 * (Long) item[3]) / 2;
                     sa.set((FacultySubject) item[0], x);
                     x = (Long) net.getData().get((FacultySubject) item[0]);
                     if (x == null) {
                         x = 0l;
                     }
-                    x = x + (10 * (Long) item[3])/2;
+                    x = x + (10 * (Long) item[3]) / 2;
                     net.set((FacultySubject) item[0], x);
                     break;
             }
@@ -154,7 +154,12 @@ public class FeedbackChartController implements Serializable {
 
     public void rereateBarModel() {
         barModel = initBarModel(feedbackQuestion.getQid(), feedbackType.getIdFeedbackType());
-        barModel.setTitle(feedbackQuestion.getQtext());
+        if (feedbackType.getIdFeedbackType() % 2 == 0) {
+            barModel.setTitle(feedbackQuestion.getQtextMid());
+        } else {
+            barModel.setTitle(feedbackQuestion.getQtext());
+        }
+
     }
 
     private List<Object[]> getFeedbackByQuestion(int qid, int type) {
