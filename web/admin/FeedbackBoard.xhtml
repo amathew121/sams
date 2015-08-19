@@ -34,7 +34,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Question"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.qid.qtext}"/>
+                                    <h:outputText value="#{item.idFeedbackType.idFeedbackType mod 2==0? item.qid.qtextMid : item.qid.qtext}"/>
                                 </p:column>
                                 <p:column width="10" rendered="false">
                                     <f:facet name="header">

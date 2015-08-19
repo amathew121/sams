@@ -37,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Feedback2013Question.findByQno", query = "SELECT f FROM Feedback2013Question f WHERE f.qno = :qno"),
     @NamedQuery(name = "Feedback2013Question.findByQtext", query = "SELECT f FROM Feedback2013Question f WHERE f.qtext = :qtext")})
 public class Feedback2013Question implements Serializable {
+    @Size(max = 300)
+    @Column(name = "qtext_mid")
+    private String qtextMid;
     @JoinColumn(name = "id_program", referencedColumnName = "id_program")
     @ManyToOne
     private Program idProgram;
@@ -200,6 +203,14 @@ public class Feedback2013Question implements Serializable {
 
     public void setQversion(Short qversion) {
         this.qversion = qversion;
+    }
+
+    public String getQtextMid() {
+        return qtextMid;
+    }
+
+    public void setQtextMid(String qtextMid) {
+        this.qtextMid = qtextMid;
     }
     
 }
