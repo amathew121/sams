@@ -85,6 +85,10 @@ public class Feedback2013Controller implements Serializable {
     public String questionGraph() {
         return "FeedbackCharts?faces-redirect=true";
     }
+    
+    public String piLTAvg() {
+        return "View_Pi_LT_Avg?faces-redirect=true";
+    }
 
     @PostConstruct
     public void init() {

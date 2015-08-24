@@ -18,7 +18,8 @@
                     <f:selectItems value="#{facultyController.itemsAvailableSelectOne}" />
                 </p:selectOneMenu>
                 <p:commandButton action="#{feedback2013Controller.recreateMenuModel()}" value="Submit" update=":layoutPanel" />
-                <p:commandLink value ="Feedback Question graph" action="#{feedback2013Controller.questionGraph()}" style="position:absolute; right: 100px"  />
+                <p:commandLink value ="Feedback Question graph" action="#{feedback2013Controller.questionGraph()}" style="position:absolute; right: 100px; font-weight: bold; font-family: cursive"  />
+                <p:commandLink value ="P.I. less than Average" action="#{feedback2013Controller.piLTAvg()}" style="position:absolute; right: 300px; font-weight: bold; font-family: cursive"  />
 
             </h:form>
 
