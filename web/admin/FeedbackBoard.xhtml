@@ -37,7 +37,7 @@
                                     </f:facet>
                                     <h:outputText value="#{item.idFeedbackType.idFeedbackType mod 2==0? item.qid.qtextMid : item.qid.qtext}"/>
                                 </p:column>
-                                <p:column width="10" rendered="false">
+                                <p:column width="10" >
                                     <f:facet name="header">
                                         <h:outputText value="NA"/>
                                     </f:facet>
@@ -105,6 +105,14 @@
                             <h:outputText style=" position: relative; float: right; text-align: right; font-size: medium;" value="#{'PI = (5*SA + 2.5*AA - 2.5*DD - 5*SD ) / (SA + AA + NN + DD + SD) '}" > 
                             </h:outputText>
                             <br />
+   <pre> 
+    NA - Not Answered
+    SD - Strongly Disagree
+    DD - Disagree
+    NN - Neither agree Nor disagree
+    AA - Agree
+    SA - Strongly Agree              
+   </pre>
                         </p:panel>
 
                         <p:panel header="Export" style="width: 80px; height: 90px">
