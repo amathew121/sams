@@ -51,7 +51,7 @@
             </h:form>
             <h:form style="position: relative; float: right; padding-left: 2%;">
 
-                <p:menuButton rendered="#{facesContext.externalContext.isUserInRole('hod') || facesContext.externalContext.isUserInRole('superuser') || facesContext.externalContext.isUserInRole('principal') }" value="Lectures" >
+                <p:menuButton rendered="false" value="Lectures" >
                     <p:menuitem  action="#{lectureController.prepareBlockedLectures()}" value="Blocked Lectures" ajax="false" />
                     <p:menuitem  action="#{viewLectureNotTakenController.prepareViewLNT()}" value="Lectures Not Taken" ajax="false" />
 
