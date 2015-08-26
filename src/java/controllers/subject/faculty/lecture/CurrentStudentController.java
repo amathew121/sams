@@ -82,7 +82,8 @@ public class CurrentStudentController implements Serializable {
     public void Init() {
         attendanceByDiv = new ArrayList<CurrentStudent>();
         // currentYear = new Date(114, 06, 14);
-        currentYear = new Date(115, 00, 05);
+        currentYear = new Date(115, 6, 8);
+        ac_yr = 2015;
     }
 
     /**
