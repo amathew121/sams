@@ -19,6 +19,8 @@
                     <h:inputText id="idSuggesstions" value="#{suggesstionsController.selected.idSuggesstions}" title="#{bundle.EditSuggesstionsTitle_idSuggesstions}" required="true" requiredMessage="#{bundle.EditSuggesstionsRequiredMessage_idSuggesstions}"/>
                     <h:outputLabel value="#{bundle.EditSuggesstionsLabel_ss}" for="ss" />
                     <h:inputTextarea rows="4" cols="30" id="ss" value="#{suggesstionsController.selected.ss}" title="#{bundle.EditSuggesstionsTitle_ss}" />
+                    <h:outputLabel value="Reply" for="reply" />
+                    <h:inputTextarea rows="4" cols="30" id="reply" value="#{suggesstionsController.selected.reply}" title="Reply" />
                     <h:outputLabel value="#{bundle.EditSuggesstionsLabel_idFaculty}" for="idFaculty" />
                     <h:selectOneMenu id="idFaculty" value="#{suggesstionsController.selected.idFaculty}" title="#{bundle.EditSuggesstionsTitle_idFaculty}" required="true" requiredMessage="#{bundle.EditSuggesstionsRequiredMessage_idFaculty}">
                         <f:selectItems value="#{facultyController.itemsAvailableSelectOne}"/>
