@@ -82,8 +82,12 @@ public class ViewPiLTAvgFacade extends AbstractFacade<ViewpiltAvg> {
      * @param s
      * @return
      */
-    public List<ViewpiltAvg> getViewByDept(String s, String program, int semester) {
-        Query q = em.createNamedQuery("ViewpiltAvg.findByIdProgramCourse");
+    public List<ViewpiltAvg> getViewByDept(String s, String program, int semester, short batch) {
+        Query q;
+        if(batch == 0)
+            q = em.createNamedQuery("ViewpiltAvg.findByIdProgramCourseTheory");
+        else
+            q = em.createNamedQuery("ViewpiltAvg.findByIdProgramCoursePractical");
         q.setParameter("course", s);
         q.setParameter("program", program);
         //q.setParameter("sem", semester);

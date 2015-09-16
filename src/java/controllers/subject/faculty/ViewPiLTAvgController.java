@@ -42,6 +42,7 @@ public class ViewPiLTAvgController implements Serializable {
     private Department deptSelected;
     private Program program;
     private int semester;
+    private short batch;
 
     /**
      * creates the backing bean
@@ -111,7 +112,7 @@ public class ViewPiLTAvgController implements Serializable {
         Program prog = program;
 
         if (dept != null && prog != null) {
-            return getFacade().getViewByDept(dept.getIdDepartment(), prog.getIdProgram(), semester);
+            return getFacade().getViewByDept(dept.getIdDepartment(), prog.getIdProgram(), semester, batch);
         } else {
             return null;
         }
@@ -466,6 +467,14 @@ public PaginationHelper getPagination() {
     
 
 }
+
+    public short getBatch() {
+        return batch;
+    }
+
+    public void setBatch(short batch) {
+        this.batch = batch;
+    }
 
    
 

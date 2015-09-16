@@ -24,7 +24,7 @@
                 <p:commandButton action="#{dashboardBean.prepareDashboard(lectureController.facSub)}" value="Back to Dashboard" immediate="true" />
                 <br />
                 <p:commandButton action="#{lectureController.prepareCreateWithId()}" value="#{bundle.CreateLectureTitle}" immediate="true"/>
-                <p:commandButton rendered="false" onclick="this.style.display='none';" 
+                <p:commandButton onclick="this.style.display='none';" 
                                  action="#{lectureController.prepareMultipleRange()}" 
                                  value="Edit Multiple Lectures" immediate="true"/>
 
