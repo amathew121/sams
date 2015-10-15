@@ -96,14 +96,14 @@
                             <h:outputText style=" position: relative; float: right; text-align: right; font-size: medium;" value="#{'PI = (5*SA + 2.5*AA - 2.5*DD - 5*SD ) / (SA + AA + NN + DD + SD) '}" > 
                             </h:outputText>
                             <br />
- <pre> 
+                            <pre> 
     NA - Not Answered
     SD - Strongly Disagree
     DD - Disagree
     NN - Neither agree Nor disagree
     AA - Agree
     SA - Strongly Agree              
-   </pre>                            
+                            </pre>                            
                         </p:panel>
                         <p:panel header="Export" style="width: 80px; height: 90px">
                             <h:commandLink style="position: relative; float: left" action="#{feedback2013Controller.feedbackXLSExport()}">  
@@ -113,9 +113,13 @@
                         </p:panel>
                     </p:layoutUnit>
                     <p:layoutUnit header="Comments" position="east" minSize="285" maxSize="285">
-                        <p:dataList id="fbComments" value="#{feedback2013CommentsController.feedback2013CommentsList}" var="item" >                      
-                            <h:outputText value="#{item.comments}"/>
-                        </p:dataList>
+                        <p:panel widgetVar="feedbackComments" visible="false">
+
+                            <p:dataList id="fbComments" value="#{feedback2013CommentsController.feedback2013CommentsList}" var="item" >                      
+                                <h:outputText value="#{item.comments}"/>
+                            </p:dataList>
+                        </p:panel> 
+                        <h:commandLink action="#{feedback2013Controller.fbComments()}" >Click here to view Comments</h:commandLink>
                     </p:layoutUnit>
                     <p:layoutUnit header="Performance Index Graph" position="south" minSize="620">
                         <h:graphicImage id="fbGraph" alt="Feedback Scale" url="#{feedback2013Controller.fbGraphUrl}" width="100%" />
