@@ -23,7 +23,7 @@
                 <p:menuButton value="#{facesContext.externalContext.remoteUser}" >
                     <p:menuitem value="Pending Lectures" rendered="false" action="#{viewLectureNotTakenController.prepareViewLNTUser()}" ajax="false"/>
                     
-                    <p:menuitem value="Feedback" action="#{feedbackController.prepareList()}" ajax="false"/>
+                    <p:menuitem value="Feedback" rendered="false" action="#{feedbackController.prepareList()}" ajax="false"/>
                     <p:separator ></p:separator>
                     <p:menuitem value="Profile" action="#{facultyController.prepareUserDetails()}" ajax="false" />
                    

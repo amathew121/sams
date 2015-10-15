@@ -9,26 +9,125 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
 
-            <h:outputText value="Feedback Comments"></h:outputText>
+            <h:outputText value="Feedback"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <p:dataTable value="#{oldFacultyCommentsController.detailsByFS}" var="item" >                      
-                    <p:column style="white-space: normal; width: 100%">
-                        <f:facet name="header">
-                            <h:outputText value="Comments"/>
-                        </f:facet>
-                        <h:outputText rendered="#{item.showStatus == null}" value="#{item.comments}"/>
-                        <h:outputText rendered="#{item.showStatus != null}" value="#{'**'}#{item.showStatus}"/>
-                    </p:column>
-                </p:dataTable>
+            <h:form id="layoutPanel">
+                <p:layout style="height: 1300px">
+                    <p:layoutUnit position="west" minSize="215" maxSize="220">
+                        <p:menu model="#{feedback2013Controller.model}" />
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center" header="Details" minSize="300" >
+                        <p:panel id="fbDetails">
+                            <p:dataTable value="#{feedback2013Controller.feedback2013List}" var="item" >                                          
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Question"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.qid.qtext}"/>
+                                </p:column>
+                                <p:column width="10" >
+                                    <f:facet name="header">
+                                        <h:outputText value="NA"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra0}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[0]}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="10">
+                                    <f:facet name="header">
+                                        <h:outputText value="SD"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra1}"/>                  
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[1]}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="10">
+                                    <f:facet name="header">
+                                        <h:outputText value="DD"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra2}"/>                 
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[2]}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="10">
+                                    <f:facet name="header">
+                                        <h:outputText value="NN"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra3}"/>                  
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[3]}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="10">
+                                    <f:facet name="header">
+                                        <h:outputText value="AA"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra4}"/>                       
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[4]}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="10">
+                                    <f:facet name="header">
+                                        <h:outputText value="SA"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ra5}"/>                        
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{feedback2013Controller.ra[5]}"/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <br />
+                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{feedback2013Controller.performanceIndex}" >
+                                <f:convertNumber pattern="#0.00" />
 
+                            </h:outputText>
 
+                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: larger;" value="#{'Performance Index (PI) =  '}" > 
+                            </h:outputText>
 
-                <br />
+                            <br />
+                            <br />
+                            <h:outputText style=" position: relative; float: right; text-align: right; font-size: medium;" value="#{'PI = (5*SA + 2.5*AA - 2.5*DD - 5*SD ) / (SA + AA + NN + DD + SD) '}" > 
+                            </h:outputText>
+                            <br />
+                            <pre> 
+    NA - Not Answered
+    SD - Strongly Disagree
+    DD - Disagree
+    NN - Neither agree Nor disagree
+    AA - Agree
+    SA - Strongly Agree              
+                            </pre>                            
+                        </p:panel>
+                        <p:panel header="Export" style="width: 80px; height: 90px">
+                            <h:commandLink style="position: relative; float: left" action="#{feedback2013Controller.feedbackXLSExport()}">  
+                                <p:graphicImage style="width: 50px; height: 100%" value="/resources/images/excel.jpg" />  
+
+                            </h:commandLink> 
+                        </p:panel>
+                    </p:layoutUnit>
+                    <p:layoutUnit header="Comments" position="east" minSize="285" maxSize="285">
+                        <p:panel widgetVar="feedbackComments" visible="false">
+                            <p:dataList  id="fbComments"  value="#{feedback2013CommentsController.feedback2013CommentsList}" var="item" >                      
+                                <h:outputText value="#{item.comments}"/>
+                            </p:dataList>
+                        </p:panel>
+
+                        <p:commandButton value="Search" ajax="false"
+                                         actionListener="" onclick="">
+                        </p:commandButton>
+                    </p:layoutUnit>
+                    <p:layoutUnit header="Performance Index Graph" position="south" minSize="620">
+                        <h:graphicImage id="fbGraph" alt="Feedback Scale" url="#{feedback2013Controller.fbGraphUrl}" width="100%" />
+
+                    </p:layoutUnit>
+                </p:layout>
             </h:form>
         </ui:define>
     </ui:composition>
