@@ -89,6 +89,9 @@ public class Feedback2013Controller implements Serializable {
     public String piLTAvg() {
         return "View_Pi_LT_Avg?faces-redirect=true";
     }
+    public String piNegative() {
+        return "View_Pi_Negative?faces-redirect=true";
+    }
     public String fbComments() {
         return "FeedbackComments?faces-redirect=true";
     }

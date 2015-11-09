@@ -19,7 +19,7 @@
                 </p:selectOneMenu>
                 <p:selectOneMenu value="#{feedbackChartController.question}" >
                     <f:selectItems value="#{feedback2013QuestionController.getQuesNew()}" var="ques"
-                                   itemLabel="#{ques.idProgram}.#{ques.qtype}.#{ques.qno}.#{ques.qtextMid}" itemValue="#{ques}" />
+                                   itemLabel="#{ques.idProgram}.#{ques.qtype}.#{ques.qno}.#{ques.qtext}" itemValue="#{ques}" />
                 </p:selectOneMenu>
                 <p:commandButton action="#{feedbackChartController.rereateBarModel()}" update=":qChart" value="Submit" />
             </h:form>

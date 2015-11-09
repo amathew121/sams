@@ -25,22 +25,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author piit
  */
 @Entity
-@Table(name = "view_pi_9_ltAvg")
+@Table(name = "view_pi_9_negative")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ViewpiltAvg.findAll", query = "SELECT v FROM ViewpiltAvg v"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdFeedbackType", query = "SELECT v FROM ViewpiltAvg v WHERE v.idFeedbackType = :idFeedbackType"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdProgram", query = "SELECT v FROM ViewpiltAvg v WHERE v.idProgram = :idProgram"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdProgramCourse", query = "SELECT v FROM ViewpiltAvg v, FacultySubjectView f WHERE v.idProgram = :program and v.idFacultySubject=f.idFacultySubject and f.idCourse=:course  ORDER BY v.pi,v.fsv.idFaculty"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdProgramCourseTheory", query = "SELECT v FROM ViewpiltAvg v, FacultySubjectView f WHERE v.idProgram = :program and v.idFacultySubject=f.idFacultySubject and f.idCourse=:course and v.fsv.batch=0 ORDER BY v.pi,v.fsv.idFaculty"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdProgramCoursePractical", query = "SELECT v FROM ViewpiltAvg v, FacultySubjectView f WHERE v.idProgram = :program and v.idFacultySubject=f.idFacultySubject and f.idCourse=:course and v.fsv.batch<>0 ORDER BY v.pi,v.fsv.idFaculty"),
-    @NamedQuery(name = "ViewpiltAvg.findByBatch", query = "SELECT v FROM ViewpiltAvg v WHERE v.batch = :batch"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdFacultySubject", query = "SELECT v FROM ViewpiltAvg v WHERE v.idFacultySubject = :idFacultySubject"),
-    @NamedQuery(name = "ViewpiltAvg.findByIdFaculty", query = "SELECT v FROM ViewpiltAvg v, FacultySubjectView f WHERE v.idFacultySubject = f.idFacultySubject and f.idFaculty = :idFaculty"),
-    @NamedQuery(name = "ViewpiltAvg.findByAnsTotal", query = "SELECT v FROM ViewpiltAvg v WHERE v.ansTotal = :ansTotal"),
-    @NamedQuery(name = "ViewpiltAvg.findByAnsValueTotal", query = "SELECT v FROM ViewpiltAvg v WHERE v.ansValueTotal = :ansValueTotal"),
-    @NamedQuery(name = "ViewpiltAvg.findByPi", query = "SELECT v FROM ViewpiltAvg v WHERE v.pi = :pi")})
-public class ViewpiltAvg implements Serializable {
+    @NamedQuery(name = "ViewpiNegative.findAll", query = "SELECT v FROM ViewpiNegative v"),
+    @NamedQuery(name = "ViewpiNegative.findByIdFeedbackType", query = "SELECT v FROM ViewpiNegative v WHERE v.idFeedbackType = :idFeedbackType"),
+    @NamedQuery(name = "ViewpiNegative.findByIdProgram", query = "SELECT v FROM ViewpiNegative v WHERE v.idProgram = :idProgram"),
+    @NamedQuery(name = "ViewpiNegative.findByIdProgramCourse", query = "SELECT v FROM ViewpiNegative v, FacultySubjectView f WHERE v.idFacultySubject=f.idFacultySubject  ORDER BY v.pi,v.fsv.idFaculty"),
+    @NamedQuery(name = "ViewpiNegative.findByIdProgramCourseTheory", query = "SELECT v FROM ViewpiNegative v, FacultySubjectView f WHERE v.idProgram = :program and v.idFacultySubject=f.idFacultySubject and f.idCourse=:course and v.fsv.batch=0 ORDER BY v.pi,v.fsv.idFaculty"),
+    @NamedQuery(name = "ViewpiNegative.findByIdProgramCoursePractical", query = "SELECT v FROM ViewpiNegative v, FacultySubjectView f WHERE v.idProgram = :program and v.idFacultySubject=f.idFacultySubject and f.idCourse=:course and v.fsv.batch<>0 ORDER BY v.pi,v.fsv.idFaculty"),
+    @NamedQuery(name = "ViewpiNegative.findByBatch", query = "SELECT v FROM ViewpiNegative v WHERE v.batch = :batch"),
+    @NamedQuery(name = "ViewpiNegative.findByIdFacultySubject", query = "SELECT v FROM ViewpiNegative v WHERE v.idFacultySubject = :idFacultySubject"),
+    @NamedQuery(name = "ViewpiNegative.findByIdFaculty", query = "SELECT v FROM ViewpiNegative v, FacultySubjectView f WHERE v.idFacultySubject = f.idFacultySubject and f.idFaculty = :idFaculty"),
+    @NamedQuery(name = "ViewpiNegative.findByAnsTotal", query = "SELECT v FROM ViewpiNegative v WHERE v.ansTotal = :ansTotal"),
+    @NamedQuery(name = "ViewpiNegative.findByAnsValueTotal", query = "SELECT v FROM ViewpiNegative v WHERE v.ansValueTotal = :ansValueTotal"),
+    @NamedQuery(name = "ViewpiNegative.findByPi", query = "SELECT v FROM ViewpiNegative v WHERE v.pi = :pi")})
+public class ViewpiNegative implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Column(name = "id_feedback_type")
@@ -69,7 +69,7 @@ public class ViewpiltAvg implements Serializable {
     @OneToOne(optional = false)
     private FacultySubjectView fsv;
 
-    public ViewpiltAvg() {
+    public ViewpiNegative() {
     }
 
     public Integer getIdFeedbackType() {

@@ -5,6 +5,7 @@
 package beans.subject.faculty;
 
 import beans.AbstractFacade;
+import entities.subject.faculty.ViewpiNegative;
 import entities.subject.faculty.ViewpiltAvg;
 import entities.users.Department;
 import java.util.ArrayList;
@@ -96,7 +97,20 @@ public class ViewPiLTAvgFacade extends AbstractFacade<ViewpiltAvg> {
         return l;
     }
 
-    
+    public List<ViewpiNegative> getViewByDeptNegative() {
+        Query q;
+        q = em.createNamedQuery("ViewpiNegative.findByIdProgramCourse");
+       /* if(batch == 0)
+            q = em.createNamedQuery("ViewpiNegative.findByIdProgramCourseTheory");
+        else
+            q = em.createNamedQuery("ViewpiNegative.findByIdProgramCoursePractical");
+        q.setParameter("course", s);
+        q.setParameter("program", program);
+        //q.setParameter("sem", semester);
+        */
+        List<ViewpiNegative> l = q.getResultList();
+        return l;
+    }
 
     /**
      * gets list of department TODO: refractor to department facade

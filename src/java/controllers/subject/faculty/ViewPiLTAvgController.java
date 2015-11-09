@@ -7,7 +7,7 @@ import controllers.util.PaginationHelper;
 import beans.subject.faculty.ViewPiLTAvgFacade;
 import controllers.users.FacultyController;
 import entities.subject.Program;
-import entities.subject.faculty.FacultySubjectView;
+import entities.subject.faculty.ViewpiNegative;
 import entities.users.Department;
 import entities.users.Faculty;
 import java.io.IOException;
@@ -118,6 +118,13 @@ public class ViewPiLTAvgController implements Serializable {
         }
     }
 
+    public List<ViewpiNegative> getListByDeptNegative() {
+       
+        
+        return getFacade().getViewByDeptNegative();
+        
+    }
+    
     public List<ViewpiltAvg> getListByFaculty(Faculty fac) {
         FacesContext context = FacesContext.getCurrentInstance();
         FacultyController facultyController = (FacultyController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "facultyController");
@@ -225,6 +232,9 @@ public PaginationHelper getPagination() {
      */
     public String navList() {
         return "View_Pi_LT_Avg?faces-redirect=true";
+    }
+    public String navListNegative() {
+        return "View_Pi_Negative?faces-redirect=true";
     }
 
     /**
