@@ -13,7 +13,7 @@
         </ui:define>
         <ui:define name="body"> 
             <h2 style="color: red;font-size: large"> Average = 2.945 </h2>
-            
+
             <br />
             <h:form id="LectNT" styleClass="jsfcrud_list_form">
 
@@ -31,7 +31,12 @@
                             </f:facet>
                             <h:outputText value="#{item.idProgram}"/>
                         </p:column>
-
+                        <p:column width="8%">
+                            <f:facet name="header">
+                                <h:outputText value="Dept"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fsv.idCourse}"/>
+                        </p:column>
                         <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="Sem"/>
@@ -59,7 +64,7 @@
                             </f:facet>
                             <h:outputText value="#{item.fsv.subjectName}"/>
                         </p:column>  
-                        
+
                         <p:column width="25%">
                             <f:facet name="header">
                                 <h:outputText value="Faculty Name"/>
@@ -67,13 +72,13 @@
                             <h:outputText value="#{item.fsv.facultyFname} #{item.fsv.facultyLname}"/>
                         </p:column>
 
-                        
 
-                      <p:column width="15%">
+
+                        <p:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Performance Index"/>
                             </f:facet>
-                          <h:outputText value="#{item.pi}"/>
+                            <h:outputText value="#{item.pi}"/>
                         </p:column>
 
                     </p:dataTable>
